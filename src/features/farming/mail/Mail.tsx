@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 
 import { Inbox } from "./components/Inbox";
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX,GRID_HIGHT_PX } from "features/game/lib/constants";
 
 import { Message } from "./types/message";
 import {
@@ -71,7 +71,7 @@ export const Mail: React.FC = () => {
       className="z-5 absolute align-items-center w-10"
       style={{
         left: `${GRID_WIDTH_PX * 10.5}px`,
-        top: `${GRID_WIDTH_PX * 3.5}px`,
+        top: `${GRID_HIGHT_PX * 3.5}px`,
       }}
     >
       {hasUnread && (

@@ -74,7 +74,7 @@ const SFLTokenInstructions = () => (
       <span className="mr-1">6.</span>
       <span>
         {
-          'Once the transaction has completed successfully, open the menu inside Sunflower Land and click "Sync on Chain"'
+          'Once the transaction has completed successfully, open the menu inside WolfTown Game and click "Sync on Chain"'
         }
       </span>
     </li>
@@ -92,7 +92,7 @@ const SFLItemsInstructions = () => (
           target="_blank"
           rel="noreferrer"
         >
-          Sunflower Land Collectibles
+          WolfTown Game Collectibles
         </a>
       </span>
     </div>
@@ -115,7 +115,7 @@ const SFLItemsInstructions = () => (
       <span className="mr-1">4.</span>
       <span>
         {
-          'Once the transaction has completed successfully, open the menu inside Sunflower Land and click "Sync on Chain"'
+          'Once the transaction has completed successfully, open the menu inside WolfTown Game and click "Sync on Chain"'
         }
       </span>
     </li>

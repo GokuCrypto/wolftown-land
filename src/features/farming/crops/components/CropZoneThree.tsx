@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import { useActor } from "@xstate/react";
 
 import { Context } from "features/game/GameProvider";
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 
 import { Panel } from "components/ui/Panel";
 
@@ -36,7 +36,7 @@ export const CropZoneThree: React.FC = () => {
             style={{
               width: `${GRID_WIDTH_PX * 5}px`,
               left: `${GRID_WIDTH_PX * 0.2}px`,
-              top: `${-GRID_WIDTH_PX * 1.5}px`,
+              top: `${-GRID_HIGHT_PX * 1.5}px`,
             }}
           />
         </>
@@ -48,7 +48,7 @@ export const CropZoneThree: React.FC = () => {
             style={{
               width: `${GRID_WIDTH_PX * 1}px`,
               left: `${GRID_WIDTH_PX * 4}px`,
-              top: `${GRID_WIDTH_PX * -1.95}px`,
+              top: `${GRID_HIGHT_PX * -1.95}px`,
             }}
           />
           <img
@@ -57,7 +57,7 @@ export const CropZoneThree: React.FC = () => {
             style={{
               width: `${GRID_WIDTH_PX * 0.3}px`,
               left: `${GRID_WIDTH_PX * 5}px`,
-              top: `${GRID_WIDTH_PX * -1.5}px`,
+              top: `${GRID_HIGHT_PX * -1.5}px`,
             }}
           />
         </>
@@ -70,7 +70,7 @@ export const CropZoneThree: React.FC = () => {
           width: `${GRID_WIDTH_PX * 4}px`,
           height: `${GRID_WIDTH_PX * 2.3}px`,
           left: `${GRID_WIDTH_PX * 3}px`,
-          top: `${GRID_WIDTH_PX * 0.22}px`,
+          top: `${GRID_HIGHT_PX * 0.22}px`,
         }}
       >
         {/* Top row */}

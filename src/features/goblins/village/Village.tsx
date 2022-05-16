@@ -1,6 +1,6 @@
 import React from "react";
 
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 
 import { Section } from "lib/utils/hooks/useScrollIntoView";
 import { Blacksmith } from "../blacksmith/Blacksmith";
@@ -18,7 +18,7 @@ export const Village: React.FC = () => {
         width: `${GRID_WIDTH_PX * 25}px`,
         height: `${GRID_WIDTH_PX * 16.6}px`,
         left: `calc(50% - ${GRID_WIDTH_PX * 8}px)`,
-        top: `calc(50% - ${GRID_WIDTH_PX * 11.6}px)`,
+        top: `calc(50% - ${GRID_HIGHT_PX * 11.6}px)`,
       }}
       className="absolute"
     >

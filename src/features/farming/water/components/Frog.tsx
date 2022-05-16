@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 
 import { Panel } from "components/ui/Panel";
 
@@ -26,7 +26,7 @@ export const Frog: React.FC = () => {
         style={{
           width: `${GRID_WIDTH_PX * 0.7}px`,
           right: `${GRID_WIDTH_PX * 5.1}px`,
-          top: `${GRID_WIDTH_PX * 3.5}px`,
+          top: `${GRID_HIGHT_PX * 3.5}px`,
         }}
       />
       <Modal centered show={showModal} onHide={() => setShowModal(false)}>

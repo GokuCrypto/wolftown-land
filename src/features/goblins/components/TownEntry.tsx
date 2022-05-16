@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 
 import humanIdle from "assets/npcs/idle.gif";
 import humanSign from "assets/buildings/human_sign.png";
@@ -18,7 +18,7 @@ export const TownEntry: React.FC = () => {
         left: `${GRID_WIDTH_PX * 0}px`,
         width: `${GRID_WIDTH_PX * 4}px`,
         height: `${GRID_WIDTH_PX * 5}px`,
-        top: `${GRID_WIDTH_PX * 8}px`,
+        top: `${GRID_HIGHT_PX * 8}px`,
       }}
     >
       <img
@@ -27,7 +27,7 @@ export const TownEntry: React.FC = () => {
         style={{
           width: `${GRID_WIDTH_PX * 0.7}px`,
           right: `${GRID_WIDTH_PX * 2.7}px`,
-          top: `${GRID_WIDTH_PX * 0.21}px`,
+          top: `${GRID_HIGHT_PX * 0.21}px`,
         }}
       />
       <img
@@ -46,7 +46,7 @@ export const TownEntry: React.FC = () => {
         style={{
           width: `${GRID_WIDTH_PX * 0.8}px`,
           left: `${GRID_WIDTH_PX * 3}px`,
-          top: `${GRID_WIDTH_PX * 1.2}px`,
+          top: `${GRID_HIGHT_PX * 1.2}px`,
         }}
         onClick={() => setShowModal(true)}
       />

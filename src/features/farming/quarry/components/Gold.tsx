@@ -11,7 +11,7 @@ import dropSheet from "assets/resources/gold/gold_drop.png";
 import empty from "assets/resources/gold/gold_empty.png";
 import gold from "assets/resources/gold_ore.png";
 
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 import { Context } from "features/game/GameProvider";
 import classNames from "classnames";
 import { useActor } from "@xstate/react";

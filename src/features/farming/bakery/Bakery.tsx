@@ -11,7 +11,7 @@ import soup from "assets/icons/goblin_head.png";
 
 import { Crafting } from "./components/Crafting";
 import { Action } from "components/ui/Action";
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 import { bakeryAudio } from "lib/utils/sfx";
 
 export const Bakery: React.FC = () => {
@@ -37,7 +37,7 @@ export const Bakery: React.FC = () => {
       style={{
         width: `${GRID_WIDTH_PX * 3}px`,
         right: `${GRID_WIDTH_PX * 16}px`,
-        top: `${GRID_WIDTH_PX * 1}px`,
+        top: `${GRID_HIGHT_PX * 1}px`,
       }}
     >
       <img
@@ -46,7 +46,7 @@ export const Bakery: React.FC = () => {
         className="z-10"
         style={{
           position: "absolute",
-          top: `-${GRID_WIDTH_PX * 2.2}px`,
+          top: `-${GRID_HIGHT_PX * 2.2}px`,
           left: `${GRID_WIDTH_PX * 0.5}px`,
           width: `${GRID_WIDTH_PX * 1}px`,
         }}

@@ -10,7 +10,7 @@ import hammer from "assets/icons/hammer.png";
 
 import { Crafting } from "./components/Crafting";
 import { Action } from "components/ui/Action";
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 import { blacksmithAudio } from "lib/utils/sfx";
 
 export const Blacksmith: React.FC = () => {
@@ -36,7 +36,7 @@ export const Blacksmith: React.FC = () => {
       style={{
         width: `${GRID_WIDTH_PX * 6}px`,
         left: `${GRID_WIDTH_PX * 9}px`,
-        top: `${GRID_WIDTH_PX * 6}px`,
+        top: `${GRID_HIGHT_PX * 6}px`,
       }}
     >
       <div

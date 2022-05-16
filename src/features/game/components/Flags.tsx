@@ -4,7 +4,7 @@
 import React, { useContext } from "react";
 import { useActor } from "@xstate/react";
 
-import { GRID_WIDTH_PX } from "../lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "../lib/constants";
 import { Context } from "../GameProvider";
 import { Section } from "lib/utils/hooks/useScrollIntoView";
 import { FLAGS } from "../types/flags";
@@ -28,7 +28,7 @@ export const Flags: React.FC = () => {
         style={{
           width: `${GRID_WIDTH_PX * 3}px`,
           right: `${GRID_WIDTH_PX * 43.8}px`,
-          top: `${GRID_WIDTH_PX * 35.5}px`,
+          top: `${GRID_HIGHT_PX * 35.5}px`,
         }}
         className="flex absolute justify-center"
       >

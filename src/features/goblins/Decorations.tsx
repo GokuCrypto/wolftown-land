@@ -6,7 +6,7 @@ import React from "react";
 import woodGoblin from "assets/npcs/big_goblin_axe.gif";
 
 import { Section } from "lib/utils/hooks/useScrollIntoView";
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 
 export const Decorations: React.FC = () => {
   return (
@@ -15,7 +15,7 @@ export const Decorations: React.FC = () => {
         style={{
           width: `${GRID_WIDTH_PX * 1.4}px`,
           left: `${GRID_WIDTH_PX * -4.5}px`,
-          top: `${GRID_WIDTH_PX * 22.6}px`,
+          top: `${GRID_HIGHT_PX * 22.6}px`,
         }}
         id={Section["Sunflower Statue"]}
         className="absolute"

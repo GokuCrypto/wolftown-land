@@ -8,7 +8,7 @@ import { Context } from "features/game/GameProvider";
 import shop from "assets/buildings/shop_building.png";
 import plant from "assets/icons/plant.png";
 
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 import { Action } from "components/ui/Action";
 
 import { ShopItems } from "./ShopItems";
@@ -37,7 +37,7 @@ export const Shop: React.FC = () => {
       style={{
         width: `${GRID_WIDTH_PX * 3}px`,
         left: `${GRID_WIDTH_PX * 3}px`,
-        top: `${GRID_WIDTH_PX * 5}px`,
+        top: `${GRID_HIGHT_PX * 5}px`,
       }}
     >
       <img

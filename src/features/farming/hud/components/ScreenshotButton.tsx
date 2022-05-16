@@ -21,7 +21,7 @@ export const ScreenshotButton: React.FC = () => {
 
   const downloadImage = (
     content: string,
-    name = "My Sunflower Land Farm",
+    name = "My WolfTown Game Farm",
     type = "jpeg"
   ) => {
     const link: HTMLAnchorElement = document.createElement("a");

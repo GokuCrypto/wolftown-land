@@ -8,7 +8,7 @@ import close from "assets/icons/close.png";
 
 import { Section, useScrollIntoView } from "lib/utils/hooks/useScrollIntoView";
 
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 
 import { Panel } from "components/ui/Panel";
 import { Button } from "components/ui/Button";
@@ -31,7 +31,7 @@ export const Lumberjack: React.FC = () => {
           width: `${GRID_WIDTH_PX * 0.3}px`,
           right: `${GRID_WIDTH_PX * 5}px`,
 
-          top: `${GRID_WIDTH_PX * 2.8}px`,
+          top: `${GRID_HIGHT_PX * 2.8}px`,
         }}
       />
       <img
@@ -41,7 +41,7 @@ export const Lumberjack: React.FC = () => {
         style={{
           width: `${GRID_WIDTH_PX * 0.75}px`,
           right: `${GRID_WIDTH_PX * 4.8}px`,
-          top: `${GRID_WIDTH_PX * 3.45}px`,
+          top: `${GRID_HIGHT_PX * 3.45}px`,
         }}
       />
 

@@ -5,8 +5,8 @@ We appreciate your efforts and responsible disclosure and will make every effort
 
 ## Scope
 
-Bugs in the Sunflower Land repository are in scope.
-Bugs in third-party dependencies e.g., React, Typescript, XState etc. are not in scope unless they result in a Sunflower Land specific bug.
+Bugs in the WolfTown Game repository are in scope.
+Bugs in third-party dependencies e.g., React, Typescript, XState etc. are not in scope unless they result in a WolfTown Game specific bug.
 
 Only bugs that have a demonstrable security impact on the smart contracts, tokens or inventory items that can be affected are in scope.
 

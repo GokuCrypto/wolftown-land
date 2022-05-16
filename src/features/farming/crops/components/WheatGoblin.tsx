@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import { useActor } from "@xstate/react";
 
 import { Context } from "features/game/GameProvider";
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 
 import { Panel } from "components/ui/Panel";
 
@@ -29,7 +29,7 @@ export const WheatGoblin: React.FC = () => {
         className="absolute z-10"
         style={{
           right: `${GRID_WIDTH_PX * 30}px`,
-          top: `${GRID_WIDTH_PX * 30}px`,
+          top: `${GRID_HIGHT_PX * 30}px`,
           width: `${GRID_WIDTH_PX}px`,
         }}
       >
@@ -70,7 +70,7 @@ export const WheatGoblin: React.FC = () => {
               style={{
                 width: `${GRID_WIDTH_PX * 0.7}px`,
                 left: `-${GRID_WIDTH_PX * 0.86}px`,
-                bottom: `${GRID_WIDTH_PX * 0.42}px`,
+                bottom: `${GRID_HIGHT_PX * 0.42}px`,
               }}
             />
           </>

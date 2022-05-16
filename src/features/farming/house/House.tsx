@@ -3,7 +3,7 @@ import { useActor } from "@xstate/react";
 import { Modal } from "react-bootstrap";
 
 import { Context } from "features/game/GameProvider";
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX,GRID_HIGHT_PX } from "features/game/lib/constants";
 import {
   getLevel,
   getRequiredXpToLevelUp,
@@ -209,7 +209,7 @@ export const House: React.FC = () => {
           width: `${GRID_WIDTH_PX * 3.2}px`,
           position: "absolute",
           right: `${GRID_WIDTH_PX * 39}px`,
-          top: `${GRID_WIDTH_PX * 28.8}px`,
+          top: `${GRID_HIGHT_PX * 28.8}px`,
         }}
         className="relative cursor-pointer hover:img-highlight"
         onClick={open}
@@ -222,7 +222,7 @@ export const House: React.FC = () => {
               width: `${GRID_WIDTH_PX * 0.55}px`,
               position: "absolute",
               left: `${GRID_WIDTH_PX * 1.641}px`,
-              bottom: `${GRID_WIDTH_PX * 4.571}px`,
+              bottom: `${GRID_HIGHT_PX * 4.571}px`,
             }}
           />
         )}
@@ -233,7 +233,7 @@ export const House: React.FC = () => {
             width: `${GRID_WIDTH_PX * 0.7}px`,
             position: "absolute",
             left: `${GRID_WIDTH_PX * 0.12}px`,
-            top: `${GRID_WIDTH_PX * 0.77}px`,
+            top: `${GRID_HIGHT_PX * 0.77}px`,
           }}
         />
         <Action

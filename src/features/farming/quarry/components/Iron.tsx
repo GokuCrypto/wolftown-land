@@ -11,7 +11,7 @@ import dropSheet from "assets/resources/iron/iron_dropped.png";
 import empty from "assets/resources/iron/iron_empty.png";
 import ironOre from "assets/resources/iron_ore.png";
 
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 import { Context } from "features/game/GameProvider";
 import classNames from "classnames";
 import { useActor } from "@xstate/react";

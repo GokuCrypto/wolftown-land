@@ -34,7 +34,7 @@ export const Blocked: React.FC = () => {
           target="_blank"
           rel="noreferrer"
         >
-          Sunflower Land Discord server,
+          WolfTown Game Discord server,
         </a>
         {` go to the #verify channel and have the "farmer" role.`}
       </p>

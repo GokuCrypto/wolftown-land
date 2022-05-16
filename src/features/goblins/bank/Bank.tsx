@@ -5,7 +5,7 @@ import bank from "assets/buildings/goblin_bank.gif";
 import token from "assets/icons/token.gif";
 
 import { Action } from "components/ui/Action";
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 import { BankModal } from "./components/BankModal";
 import { bankAudio } from "lib/utils/sfx";
 
@@ -23,7 +23,7 @@ export const Bank: React.FC = () => {
       style={{
         width: `${GRID_WIDTH_PX * 3.4}px`,
         right: `${GRID_WIDTH_PX * 19}px`,
-        top: `${GRID_WIDTH_PX * 6.4}px`,
+        top: `${GRID_HIGHT_PX * 6.4}px`,
       }}
     >
       <div className="cursor-pointer hover:img-highlight">

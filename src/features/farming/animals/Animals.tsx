@@ -3,7 +3,7 @@ import React from "react";
 import { Section } from "lib/utils/hooks/useScrollIntoView";
 
 import { Chickens } from "./components/Chickens";
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 import { Barn } from "./components/Barn";
 
 export const Animals: React.FC = () => {

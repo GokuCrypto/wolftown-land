@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import { useActor } from "@xstate/react";
 
 import { Context } from "features/game/GameProvider";
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 
 import { Panel } from "components/ui/Panel";
 
@@ -36,7 +36,7 @@ export const CropZoneFour: React.FC = () => {
             style={{
               width: `${GRID_WIDTH_PX * 5}px`,
               left: `${GRID_WIDTH_PX * 4.8}px`,
-              top: `${GRID_WIDTH_PX * 3}px`,
+              top: `${GRID_HIGHT_PX * 3}px`,
             }}
           />
         </>
@@ -48,7 +48,7 @@ export const CropZoneFour: React.FC = () => {
             style={{
               width: `${GRID_WIDTH_PX * 5}px`,
               left: `${GRID_WIDTH_PX * 4}px`,
-              top: `${GRID_WIDTH_PX * -3.25}px`,
+              top: `${GRID_HIGHT_PX * -3.25}px`,
             }}
           />
           <img
@@ -57,7 +57,7 @@ export const CropZoneFour: React.FC = () => {
             style={{
               width: `${GRID_WIDTH_PX * 0.8}px`,
               left: `${GRID_WIDTH_PX * 5.3}px`,
-              top: `${GRID_WIDTH_PX * -1.5}px`,
+              top: `${GRID_HIGHT_PX * -1.5}px`,
             }}
           />
         </>
@@ -70,7 +70,7 @@ export const CropZoneFour: React.FC = () => {
           width: `${GRID_WIDTH_PX * 4}px`,
           height: `${GRID_WIDTH_PX * 2.3}px`,
           left: `${GRID_WIDTH_PX * 3}px`,
-          top: `${GRID_WIDTH_PX * 3}px`,
+          top: `${GRID_HIGHT_PX * 3}px`,
         }}
       >
         <div className="flex justify-between items-center">

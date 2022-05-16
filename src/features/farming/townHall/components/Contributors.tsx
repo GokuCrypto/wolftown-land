@@ -47,7 +47,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
       <div className="flex flex-wrap justify-center items-center">
         <img src={logo} className="w-2/3" />
         <p className="text-xs text-center pt-2">
-          Sunflower Land is a community project and we are so grateful to the
+          WolfTown Game is a community project and we are so grateful to the
           contributors who have helped out get closer to our vision.
         </p>
         <p className="text-xs text-center pt-3 mb-2">

@@ -4,7 +4,7 @@ import goblinFarmer from "assets/npcs/goblin_farmer.gif";
 import cowbell from "assets/skills/barn_manager.png";
 import { barnAudio } from "lib/utils/sfx";
 
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 import { Action } from "components/ui/Action";
 import { ItemsModal } from "./ItemsModal";
 
@@ -22,7 +22,7 @@ export const Farmer: React.FC = () => {
       style={{
         width: `${GRID_WIDTH_PX * 1.5}px`,
         right: `${GRID_WIDTH_PX * 13.14}px`,
-        top: `${GRID_WIDTH_PX * 1.9}px`,
+        top: `${GRID_HIGHT_PX * 1.9}px`,
       }}
     >
       <div className="cursor-pointer hover:img-highlight">

@@ -75,7 +75,7 @@ export async function getInbox() {
         &nbsp;   
         **Note: this value is read from the Blockchain. Other farmers may not have synced yet.**
       `
-        : "You're running Sunflower Land locally!",
+        : "You're running WolfTown Game locally!",
     },
     {
       id: "2022-05-04",

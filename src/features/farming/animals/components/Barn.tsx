@@ -8,7 +8,7 @@ import barn from "assets/buildings/barn.png";
 import chicken from "assets/resources/chicken.png";
 import { barnAudio } from "lib/utils/sfx";
 
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX,GRID_HIGHT_PX } from "features/game/lib/constants";
 import { Action } from "components/ui/Action";
 import { BarnSale } from "./BarnSale";
 import classNames from "classnames";
@@ -31,7 +31,7 @@ export const Barn: React.FC = () => {
       style={{
         width: `${GRID_WIDTH_PX * 5.5}px`,
         left: `${-GRID_WIDTH_PX * 2.25}px`,
-        top: `${-GRID_WIDTH_PX * 5}px`,
+        top: `${-GRID_HIGHT_PX * 5}px`,
       }}
     >
       <div

@@ -1,4 +1,4 @@
-# Welcome to Sunflower Land docs contributing guide
+# Welcome to WolfTown Game docs contributing guide
 
 Thank you for joining our journey and helping us build the #1 Community Metaverse game
 
@@ -6,13 +6,13 @@ In this guide you will get an overview of the contribution workflow for getting 
 
 ### Disclaimer
 
-By contributing to this repository you provide Sunflower Land the ownership of any IP contributed to the project to use indefinitely. This includes code, discussions (ideas) and all types of artwork. While often designers and developers are rewarded with the NFTs and airdrops, there is no guarantee of reward. Being a decentralized game, players may list and trade NFTs that are based on your submissions. By submitting content, you agree to the terms of service of the game and these conditons.
+By contributing to this repository you provide WolfTown Game the ownership of any IP contributed to the project to use indefinitely. This includes code, discussions (ideas) and all types of artwork. While often designers and developers are rewarded with the NFTs and airdrops, there is no guarantee of reward. Being a decentralized game, players may list and trade NFTs that are based on your submissions. By submitting content, you agree to the terms of service of the game and these conditons.
 
 You confirm that the artwork is original and completely your design. Copying others artwork can land yourself and the project in trouble.
 
 ### Base Asset Pack
 
-Sunflower Land is based on an easily accessible asset pack that has been extended by our community. All NFTs and collectible items are designed by the community.
+WolfTown Game is based on an easily accessible asset pack that has been extended by our community. All NFTs and collectible items are designed by the community.
 
 If you wish to use or build on top of the base asset pack, purchase & support the amazing designer Daniel Diggle.
 
@@ -32,7 +32,7 @@ Something doesn't look quite right? Design a better version, submit it and help 
 
 ## Artwork specs
 
-Sunflower Land is based on an asset pack - https://danieldiggle.itch.io/sunnyside
+WolfTown Game is based on an asset pack - https://danieldiggle.itch.io/sunnyside
 
 To submit art, you will want to use the same color palette, proportions and pixellated effect of the current artwork.
 

@@ -178,7 +178,7 @@ export const CreateFarm: React.FC = () => {
         <h2 className="text-base mb-2">Donate to play.</h2>
         <p className="text-xs mb-3 text-center">
           To start a farm, we require a minimum donation of 1 Matic to support
-          the operating costs of Sunflower Land.
+          the operating costs of WolfTown Game.
         </p>
         <p className="text-xs mb-3 text-center">
           10% of this donation will go to a charity of your choice.

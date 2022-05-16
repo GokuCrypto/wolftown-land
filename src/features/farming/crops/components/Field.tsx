@@ -10,7 +10,7 @@ import { InventoryItemName, Reward } from "features/game/types/game";
 
 import { CropName, CROPS } from "features/game/types/crops";
 import { ITEM_DETAILS } from "features/game/types/images";
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 import { Soil } from "./Soil";
 import { harvestAudio, plantAudio } from "lib/utils/sfx";
 import { HealthBar } from "components/ui/HealthBar";

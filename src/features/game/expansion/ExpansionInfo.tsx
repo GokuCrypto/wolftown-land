@@ -5,7 +5,7 @@ import cloudGazer from "assets/npcs/cloud-gazer.gif";
 import questionMark from "assets/icons/expression_confused.png";
 import close from "assets/icons/close.png";
 
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX,GRID_HIGHT_PX } from "features/game/lib/constants";
 
 import { Panel } from "components/ui/Panel";
 
@@ -16,9 +16,9 @@ export const ExpansionInfo: React.FC = () => {
     <div
       style={{
         width: `${GRID_WIDTH_PX * 2}px`,
-        height: `${GRID_WIDTH_PX * 2.2}px`,
+        height: `${GRID_HIGHT_PX * 2.2}px`,
         right: `calc(50% - ${GRID_WIDTH_PX * 36.7}px)`,
-        bottom: `calc(50% - ${GRID_WIDTH_PX * 40.4}px)`,
+        bottom: `calc(50% - ${GRID_HIGHT_PX * 40.4}px)`,
       }}
       className="absolute"
     >

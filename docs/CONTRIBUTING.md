@@ -1,4 +1,4 @@
-# Welcome to Sunflower Land docs contributing guide
+# Welcome to WolfTown Game docs contributing guide
 
 Thank you for joining our journey and helping us build the #1 Community Metaverse game
 
@@ -10,7 +10,7 @@ To get an overview of the project, read the [README](../README.md). Here are som
 
 ### Disclaimer
 
-By contributing to this repository you provide Sunflower Land the ownership of any IP contributed to the project to use indefinitely. This includes code, discussions (ideas) and all types of artwork. While often designers and developers are rewarded with the NFTs and airdrops, there is no guarantee of reward.
+By contributing to this repository you provide WolfTown Game the ownership of any IP contributed to the project to use indefinitely. This includes code, discussions (ideas) and all types of artwork. While often designers and developers are rewarded with the NFTs and airdrops, there is no guarantee of reward.
 
 You confirm you have the rights to the content you are contributing to the project.
 
@@ -86,7 +86,7 @@ You will want to prefix the name of your PR with the category it falls under:
 
 For example - "[FEAT] Craft a sausage"
 
-- Once you submit your PR, a Sunflower Land team member will review your proposal. We may ask questions or request for additional information.
+- Once you submit your PR, a WolfTown Game team member will review your proposal. We may ask questions or request for additional information.
 - We may ask for changes to be made before a PR can be merged
 - As you update your PR and apply changes, mark each conversation as [resolved](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/commenting-on-a-pull-request#resolving-conversations).
 - If you run into any merge issues, checkout this [git tutorial](https://lab.github.com/githubtraining/managing-merge-conflicts) to help you resolve merge conflicts and other issues.
@@ -98,4 +98,4 @@ When a PR is opened we run Github Actions to ensure the quality of the code is u
 
 ### Your PR is merged!
 
-Congratulations :tada::tada: The Sunflower Land team thanks you :sparkles:.
+Congratulations :tada::tada: The WolfTown Game team thanks you :sparkles:.

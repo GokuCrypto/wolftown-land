@@ -3,7 +3,7 @@ import { useActor } from "@xstate/react";
 
 import { Context } from "features/game/GameProvider";
 
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 import { Bakery } from "features/farming/bakery/Bakery";
 import { Blacksmith } from "features/farming/blacksmith/Blacksmith";
 import { Shop } from "features/farming/shop/Shop";
@@ -26,7 +26,7 @@ export const Town: React.FC = () => {
         width: `${GRID_WIDTH_PX * 34.3}px`,
         height: `${GRID_WIDTH_PX * 9}px`,
         right: 0,
-        top: `calc(50% - ${GRID_WIDTH_PX * 18}px)`,
+        top: `calc(50% - ${GRID_HIGHT_PX * 18}px)`,
       }}
     >
       <Shop />

@@ -3,7 +3,7 @@ import { Modal } from "react-bootstrap";
 import { assign, createMachine } from "xstate";
 import { useActor, useMachine } from "@xstate/react";
 
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 import { Panel } from "components/ui/Panel";
 import { roundToOneDecimal } from "features/auth/components";
 import { metamask } from "lib/blockchain/metamask";
@@ -146,12 +146,12 @@ export const TeamDonation: React.FC = () => {
           ? {
               left: `calc(50% - ${GRID_WIDTH_PX * -13.6}px)`,
               // trial and error
-              top: `calc(50% - ${GRID_WIDTH_PX * 17.8}px)`,
+              top: `calc(50% - ${GRID_HIGHT_PX * 17.8}px)`,
             }
           : {
               left: `calc(50% - ${GRID_WIDTH_PX * -9.8}px)`,
               // trial and error
-              top: `calc(50% - ${GRID_WIDTH_PX * 17.2}px)`,
+              top: `calc(50% - ${GRID_HIGHT_PX * 17.2}px)`,
             }
       }
     >
@@ -206,7 +206,7 @@ export const TeamDonation: React.FC = () => {
                       Buy the team a coffee!
                     </h2>
                     <p className="sm:text-sm mb-3 text-center">
-                      Sunflower Land is run by a small group of passionate
+                      WolfTown Game is run by a small group of passionate
                       developers who are 100% sleep deprived.
                     </p>
                     <p className="sm:text-sm mb-3 text-center">

@@ -3,7 +3,7 @@ import blacksmith from "assets/buildings/goblin_blacksmith.gif";
 import hammer from "assets/icons/hammer.png";
 
 import { Action } from "components/ui/Action";
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 import { blacksmithAudio } from "lib/utils/sfx";
 import { ItemsModal } from "./ItemsModal";
 
@@ -22,7 +22,7 @@ export const Blacksmith: React.FC = () => {
       style={{
         width: `${GRID_WIDTH_PX * 7.1}px`,
         right: `${GRID_WIDTH_PX * 1.1}px`,
-        top: `${GRID_WIDTH_PX * 10.7}px`,
+        top: `${GRID_HIGHT_PX * 10.7}px`,
       }}
     >
       <div className="cursor-pointer hover:img-highlight">

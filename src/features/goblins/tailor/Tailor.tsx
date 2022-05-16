@@ -3,7 +3,7 @@ import React from "react";
 import goblinTailor from "assets/buildings/goblin_tailor.png";
 import flag from "assets/nfts/flags/sunflower_flag.gif";
 
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 import { Action } from "components/ui/Action";
 import { tailorAudio } from "lib/utils/sfx";
 import { ItemsModal } from "./ItemsModal";
@@ -22,7 +22,7 @@ export const Tailor: React.FC = () => {
       style={{
         width: `${GRID_WIDTH_PX * 3.8}px`,
         right: `${GRID_WIDTH_PX * 2.5}px`,
-        top: `${GRID_WIDTH_PX * 8.5}px`,
+        top: `${GRID_HIGHT_PX * 8.5}px`,
       }}
     >
       <div className="cursor-pointer hover:img-highlight">

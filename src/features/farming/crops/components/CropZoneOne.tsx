@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 import { Context } from "features/game/GameProvider";
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 
 import { Field } from "./Field";
 
@@ -15,7 +15,7 @@ export const CropZoneOne: React.FC = () => {
         width: `${GRID_WIDTH_PX * 3}px`,
         height: `${GRID_WIDTH_PX * 3}px`,
         left: `${GRID_WIDTH_PX * 13}px`,
-        top: `${GRID_WIDTH_PX * 0.85}px`,
+        top: `${GRID_HIGHT_PX * 0.85}px`,
       }}
     >
       {/* Top row */}

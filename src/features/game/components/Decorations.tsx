@@ -32,7 +32,7 @@ import foreman from "assets/nfts/construction_beaver.gif";
 
 import easterBunny from "assets/nfts/easter/easter_bunny_eggs.gif";
 
-import { GRID_WIDTH_PX } from "../lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "../lib/constants";
 import { Context } from "../GameProvider";
 import { Section } from "lib/utils/hooks/useScrollIntoView";
 import { Flags } from "./Flags";
@@ -192,7 +192,7 @@ export const Decorations: React.FC = () => {
           style={{
             width: `${GRID_WIDTH_PX * 4}px`,
             right: `${GRID_WIDTH_PX * 11.5}px`,
-            top: `${GRID_WIDTH_PX * 22}px`,
+            top: `${GRID_HIGHT_PX * 22}px`,
           }}
           id={Section["Sunflower Rock"]}
           className="absolute"
@@ -206,7 +206,7 @@ export const Decorations: React.FC = () => {
           style={{
             width: `${GRID_WIDTH_PX * 2}px`,
             right: `${GRID_WIDTH_PX * 16}px`,
-            top: `${GRID_WIDTH_PX * 1}px`,
+            top: `${GRID_HIGHT_PX * 1}px`,
           }}
           id={Section["Christmas Tree"]}
           className="absolute"
@@ -220,7 +220,7 @@ export const Decorations: React.FC = () => {
           style={{
             width: `${GRID_WIDTH_PX * 2}px`,
             left: `${GRID_WIDTH_PX * 45.5}px`,
-            top: `${GRID_WIDTH_PX * 32}px`,
+            top: `${GRID_HIGHT_PX * 32}px`,
           }}
           id={Section["Sunflower Statue"]}
           className="absolute"
@@ -234,7 +234,7 @@ export const Decorations: React.FC = () => {
           style={{
             width: `${GRID_WIDTH_PX * 1.5}px`,
             left: `${GRID_WIDTH_PX * 52}px`,
-            top: `${GRID_WIDTH_PX * 39}px`,
+            top: `${GRID_HIGHT_PX * 39}px`,
           }}
           id={Section["Potato Statue"]}
           className="absolute"
@@ -248,7 +248,7 @@ export const Decorations: React.FC = () => {
           style={{
             width: `${GRID_WIDTH_PX * 1}px`,
             left: `${GRID_WIDTH_PX * 30}px`,
-            top: `${GRID_WIDTH_PX * 36.8}px`,
+            top: `${GRID_HIGHT_PX * 36.8}px`,
           }}
           id={Section["Sunflower Tombstone"]}
           className="absolute"
@@ -262,7 +262,7 @@ export const Decorations: React.FC = () => {
           style={{
             width: `${GRID_WIDTH_PX * 1.5}px`,
             right: `${GRID_WIDTH_PX * 39.55}px`,
-            top: `${GRID_WIDTH_PX * 28.2}px`,
+            top: `${GRID_HIGHT_PX * 28.2}px`,
           }}
           id={Section["Farm Cat"]}
           className="absolute z-10"
@@ -276,7 +276,7 @@ export const Decorations: React.FC = () => {
           style={{
             width: `${GRID_WIDTH_PX * 1}px`,
             right: `${GRID_WIDTH_PX * 37.8}px`,
-            top: `${GRID_WIDTH_PX * 32}px`,
+            top: `${GRID_HIGHT_PX * 32}px`,
           }}
           id={Section["Farm Dog"]}
           className="absolute"
@@ -304,7 +304,7 @@ export const Decorations: React.FC = () => {
         style={{
           width: `${GRID_WIDTH_PX * 3}px`,
           left: `${GRID_WIDTH_PX * 38}px`,
-          top: `${GRID_WIDTH_PX * 34}px`,
+          top: `${GRID_HIGHT_PX * 34}px`,
         }}
         id={Section.Scarecrow}
       >
@@ -317,7 +317,7 @@ export const Decorations: React.FC = () => {
           style={{
             width: `${GRID_WIDTH_PX * 3}px`,
             left: `${GRID_WIDTH_PX * 42.5}px`,
-            top: `${GRID_WIDTH_PX * 41}px`,
+            top: `${GRID_HIGHT_PX * 41}px`,
           }}
           id={Section["Nyon Statue"]}
         >
@@ -330,7 +330,7 @@ export const Decorations: React.FC = () => {
           style={{
             width: `${GRID_WIDTH_PX * 2.5}px`,
             left: `${GRID_WIDTH_PX * 35}px`,
-            top: `${GRID_WIDTH_PX * 28}px`,
+            top: `${GRID_HIGHT_PX * 28}px`,
           }}
           id={Section.Fountain}
           onClick={() => fountainAudio.play()}
@@ -345,7 +345,7 @@ export const Decorations: React.FC = () => {
           style={{
             width: `${GRID_WIDTH_PX * 3}px`,
             right: `${GRID_WIDTH_PX * 27.5}px`,
-            bottom: `${GRID_WIDTH_PX * 5.5}px`,
+            bottom: `${GRID_HIGHT_PX * 5.5}px`,
           }}
           id={Section["Goblin Crown"]}
           className="absolute"
@@ -360,7 +360,7 @@ export const Decorations: React.FC = () => {
         style={{
           width: `${GRID_WIDTH_PX * 2}px`,
           right: `${GRID_WIDTH_PX * 24}px`,
-          top: `${GRID_WIDTH_PX * 49}px`,
+          top: `${GRID_HIGHT_PX * 49}px`,
         }}
         id={Section.Beaver}
       >
@@ -372,7 +372,7 @@ export const Decorations: React.FC = () => {
           style={{
             width: `${GRID_WIDTH_PX * 2}px`,
             right: `${GRID_WIDTH_PX * 34.5}px`,
-            top: `${GRID_WIDTH_PX * 31}px`,
+            top: `${GRID_HIGHT_PX * 31}px`,
           }}
           id={Section.Tent}
           className="absolute"
@@ -389,7 +389,7 @@ export const Decorations: React.FC = () => {
           style={{
             width: `${GRID_WIDTH_PX * 2}px`,
             left: `${GRID_WIDTH_PX * 48.8}px`,
-            top: `${GRID_WIDTH_PX * 39}px`,
+            top: `${GRID_HIGHT_PX * 39}px`,
           }}
           id={Section.Bath}
         >
@@ -399,7 +399,7 @@ export const Decorations: React.FC = () => {
             style={{
               position: "absolute",
               width: `${GRID_WIDTH_PX * 0.85}px`,
-              top: `${GRID_WIDTH_PX * 0.5}px`,
+              top: `${GRID_HIGHT_PX * 0.5}px`,
               left: `${GRID_WIDTH_PX * 0.5}px`,
             }}
           />
@@ -411,7 +411,7 @@ export const Decorations: React.FC = () => {
           style={{
             width: `${GRID_WIDTH_PX * 2.5}px`,
             right: `${GRID_WIDTH_PX * 49}px`,
-            top: `${GRID_WIDTH_PX * 24}px`,
+            top: `${GRID_HIGHT_PX * 24}px`,
           }}
           id={Section["Easter Bunny"]}
           className="absolute"

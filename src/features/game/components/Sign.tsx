@@ -3,7 +3,7 @@ import React from "react";
 import sign from "assets/decorations/woodsign.png";
 
 import { Inventory, InventoryItemName } from "../types/game";
-import { GRID_WIDTH_PX } from "../lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "../lib/constants";
 import { SKILL_TREE } from "../types/skills";
 import { ITEM_DETAILS } from "../types/images";
 
@@ -24,7 +24,7 @@ export const Sign: React.FC<Props> = ({ inventory, id }) => {
       style={{
         width: `${GRID_WIDTH_PX * 3.5}px`,
         left: `${GRID_WIDTH_PX * 48.9}px`,
-        top: `${GRID_WIDTH_PX * 32.8}px`,
+        top: `${GRID_HIGHT_PX * 32.8}px`,
       }}
     >
       {badgeImages.length >= 1 && (
@@ -78,7 +78,7 @@ export const Sign: React.FC<Props> = ({ inventory, id }) => {
         className="flex flex-col absolute"
         style={{
           width: `130px`,
-          top: `${GRID_WIDTH_PX * 0.27}px`,
+          top: `${GRID_HIGHT_PX * 0.27}px`,
           left: `${GRID_WIDTH_PX * 0.2}px`,
           color: "#ead4aa",
           textAlign: "center",

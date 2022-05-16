@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import { useActor } from "@xstate/react";
 
 import { Context } from "features/game/GameProvider";
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 
 import { Panel } from "components/ui/Panel";
 
@@ -47,7 +47,7 @@ export const CropZoneTwo: React.FC = () => {
             style={{
               width: `${GRID_WIDTH_PX * 0.3}px`,
               left: `${GRID_WIDTH_PX * 3.35}px`,
-              bottom: `${GRID_WIDTH_PX * 2.7}px`,
+              bottom: `${GRID_HIGHT_PX * 2.7}px`,
             }}
           />
           <img
@@ -57,7 +57,7 @@ export const CropZoneTwo: React.FC = () => {
             style={{
               width: `${GRID_WIDTH_PX * 1}px`,
               left: `${GRID_WIDTH_PX * 3}px`,
-              bottom: `${GRID_WIDTH_PX * 1.55}px`,
+              bottom: `${GRID_HIGHT_PX * 1.55}px`,
             }}
           />
         </>
@@ -69,7 +69,7 @@ export const CropZoneTwo: React.FC = () => {
             style={{
               width: `${GRID_WIDTH_PX * 0.3}px`,
               left: `${GRID_WIDTH_PX * -0.6}px`,
-              bottom: `${GRID_WIDTH_PX * 5.7}px`,
+              bottom: `${GRID_HIGHT_PX * 5.7}px`,
             }}
           />
           <img
@@ -78,7 +78,7 @@ export const CropZoneTwo: React.FC = () => {
             style={{
               width: `${GRID_WIDTH_PX * 1}px`,
               left: `${GRID_WIDTH_PX * -1}px`,
-              bottom: `${GRID_WIDTH_PX * 4.5}px`,
+              bottom: `${GRID_HIGHT_PX * 4.5}px`,
             }}
           />
           <img
@@ -87,7 +87,7 @@ export const CropZoneTwo: React.FC = () => {
             style={{
               width: `${GRID_WIDTH_PX * 0.75}px`,
               left: `${GRID_WIDTH_PX * 0.2}px`,
-              bottom: `${GRID_WIDTH_PX * 4.5}px`,
+              bottom: `${GRID_HIGHT_PX * 4.5}px`,
             }}
           />
         </>
@@ -100,7 +100,7 @@ export const CropZoneTwo: React.FC = () => {
           width: `${GRID_WIDTH_PX * 3}px`,
           height: `${GRID_WIDTH_PX * 3}px`,
           left: `${GRID_WIDTH_PX * 1}px`,
-          bottom: `${GRID_WIDTH_PX * 0.6}px`,
+          bottom: `${GRID_HIGHT_PX * 0.6}px`,
         }}
       >
         {/* Top row */}

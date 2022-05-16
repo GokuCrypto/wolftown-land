@@ -12,7 +12,7 @@ import stump from "assets/resources/tree/stump.png";
 import wood from "assets/resources/wood.png";
 import axe from "assets/tools/axe.png";
 
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 import { Context } from "features/game/GameProvider";
 import classNames from "classnames";
 import { useActor } from "@xstate/react";

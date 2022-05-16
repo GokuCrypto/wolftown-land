@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import ScrollContainer from "react-indiana-drag-scroll";
 
-import background from "assets/land/background.png";
+import background from "assets/land/background-wolf.png";
 
 import { Game } from "./Game";
 import { GameProvider } from "./GameProvider";
@@ -43,7 +43,7 @@ export const Humans: React.FC = () => {
             className="relative h-gameboard w-gameboard"
             // TODO dynamic game board size based on tile dimensions
           >
-            <img src={background} className="absolute inset-0 w-full h-full" />
+            <img src={background} className="absolute inset-0 w-full  " />
             <ExpansionInfo />
             <Game />
           </div>

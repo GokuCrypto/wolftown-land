@@ -11,7 +11,7 @@ export const Minimized: React.FC = () => {
       </div>
       <p className="text-center mb-4 text-xs">
         Only goblins play the game with the screen minimized. Make sure your
-        browser is full screen to enjoy Sunflower Land to the fullest!
+        browser is full screen to enjoy WolfTown Game to the fullest!
       </p>
     </div>
   );

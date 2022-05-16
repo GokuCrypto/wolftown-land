@@ -8,7 +8,7 @@ import kitchen from "assets/buildings/bakery_building.png";
 import pumpkinSoup from "assets/nfts/pumpkin_soup.png";
 import carrot from "assets/crops/carrot/plant.png";
 import { HowToModalHeader } from "./HowToModalHeader";
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 
 interface Props {
   onClose: () => void;

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 
 import { Section } from "lib/utils/hooks/useScrollIntoView";
 
@@ -47,7 +47,7 @@ export const Water: React.FC = () => {
           style={{
             width: `${GRID_WIDTH_PX * 5}px`,
             left: `${GRID_WIDTH_PX * 5.5}px`,
-            top: `${GRID_WIDTH_PX * 2}px`,
+            top: `${GRID_HIGHT_PX * 2}px`,
           }}
         />
 
@@ -57,7 +57,7 @@ export const Water: React.FC = () => {
           style={{
             width: `${GRID_WIDTH_PX * 3.5}px`,
             left: `${GRID_WIDTH_PX * 3}px`,
-            top: `${GRID_WIDTH_PX * 12}px`,
+            top: `${GRID_HIGHT_PX * 12}px`,
           }}
         />
 
@@ -67,7 +67,7 @@ export const Water: React.FC = () => {
           style={{
             width: `${GRID_WIDTH_PX * 0.85}px`,
             left: `${GRID_WIDTH_PX * 61}px`,
-            top: `${GRID_WIDTH_PX * 2.5}px`,
+            top: `${GRID_HIGHT_PX * 2.5}px`,
             transform: "scaleX(-1)",
           }}
         />
@@ -78,7 +78,7 @@ export const Water: React.FC = () => {
           style={{
             width: `${GRID_WIDTH_PX * 4.3}px`,
             right: `${GRID_WIDTH_PX * 6.4}px`,
-            top: `${GRID_WIDTH_PX * 4.3}px`,
+            top: `${GRID_HIGHT_PX * 4.3}px`,
           }}
         />
       </div>

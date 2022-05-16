@@ -139,7 +139,7 @@ async function jsonFiles() {
       const newJson = {
         name: name,
         description:
-          "A beautiful flag crafted at Sunflower Land using wood and SFL",
+          "A beautiful flag crafted at WolfTown Game using wood and SFL",
         image: `https://sunflower-land.com/play/erc1155/${id}.gif`,
         decimals: 0,
         external_url: "https://docs.sunflower-land.com/crafting-guide",

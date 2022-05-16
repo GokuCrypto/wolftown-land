@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 
-import { GRID_WIDTH_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 
 import { Panel } from "components/ui/Panel";
 
@@ -42,7 +42,7 @@ export const Lore: React.FC = () => {
         style={{
           width: `${GRID_WIDTH_PX * 0.5}px`,
           right: `${GRID_WIDTH_PX * 4.25}px`,
-          top: `${GRID_WIDTH_PX * 27.1}px`,
+          top: `${GRID_HIGHT_PX * 27.1}px`,
         }}
       />
       {showGreenBook && (
@@ -77,7 +77,7 @@ export const Lore: React.FC = () => {
         style={{
           width: `${GRID_WIDTH_PX * 0.3}px`,
           right: `${GRID_WIDTH_PX * 55.3}px`,
-          top: `${GRID_WIDTH_PX * 2}px`,
+          top: `${GRID_HIGHT_PX * 2}px`,
         }}
       />
       {showYellowBook && (
@@ -107,7 +107,7 @@ export const Lore: React.FC = () => {
         style={{
           width: `${GRID_WIDTH_PX * 0.88}px`,
           left: `${GRID_WIDTH_PX * 31.07}px`,
-          top: `${GRID_WIDTH_PX * 36.94}px`,
+          top: `${GRID_HIGHT_PX * 36.94}px`,
         }}
       />
       {showTombstone && (

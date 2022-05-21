@@ -18,7 +18,7 @@ export const Crops: React.FC = () => {
         style={{
           width: `${GRID_WIDTH_PX * 25}px`,
           height: `${GRID_WIDTH_PX * 12}px`,
-          left: `calc(50% - ${GRID_WIDTH_PX * 13}px)`,
+          left: `calc(50% - ${GRID_WIDTH_PX * 26}px)`,
           top: `calc(50% - ${GRID_HIGHT_PX * 23}px)`,
         }}
         className="absolute"

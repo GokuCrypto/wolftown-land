@@ -8,13 +8,14 @@ import { Panel } from "components/ui/Panel";
 
 import alert from "assets/icons/expression_alerted.png";
 import { Context } from "features/game/GameProvider";
-
+import { useTranslation } from 'react-i18next'; 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
 }
 
 export const Settings: React.FC<Props> = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
   const { authService } = useContext(Auth.Context);
 
   const { gameService } = useContext(Context);
@@ -44,8 +45,7 @@ export const Settings: React.FC<Props> = ({ isOpen, onClose }) => {
           <div className="flex items-center border-2 rounded-md border-black p-2 mt-2 mb-2 bg-error">
             <img src={alert} alt="alert" className="mr-2 w-5 h-5/6" />
             <span className="text-xs">
-              YOUR FARM WILL BE RESET TO THE LAST TIME YOU SYNCED ON CHAIN. YOU
-              WILL LOSE ANY NON SYNCED PROGRESS.
+              {t("Reset Session Warning")}
             </span>
           </div>
           <div className="row justify-between ">
@@ -53,10 +53,10 @@ export const Settings: React.FC<Props> = ({ isOpen, onClose }) => {
               className="col m-1"
               onClick={() => setResetSessionConfirmation(false)}
             >
-              No
+               {t("No")}
             </Button>
             <Button className="col m-1" onClick={onConfirmResetSession}>
-              Yes
+               {t("Yes")}
             </Button>
           </div>
         </div>
@@ -65,10 +65,10 @@ export const Settings: React.FC<Props> = ({ isOpen, onClose }) => {
     return (
       <div className="flex flex-col">
         <Button className="col p-1" onClick={onLogout}>
-          Logout
+          {t("Logout")}
         </Button>
         <Button className="col  p-1 mt-2" onClick={onResetSession}>
-          Reset Session
+        {t("Reset Session")}
         </Button>
       </div>
     );

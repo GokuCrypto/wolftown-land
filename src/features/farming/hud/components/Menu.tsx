@@ -28,7 +28,7 @@ import goblin from "assets/npcs/goblin_head.png";
 
 import { useIsNewFarm } from "../lib/onboarding";
 import { GoblinVillageModal } from "features/farming/town/components/GoblinVillageModal";
-
+import { useTranslation } from 'react-i18next'; 
 /**
  * TODO:
  * create menu level parent mapping if more than 2 levels.
@@ -42,6 +42,7 @@ enum MENU_LEVELS {
 }
 
 export const Menu = () => {
+  const { t } = useTranslation();
   const { authService } = useContext(Auth.Context);
   const { gameService } = useContext(Context);
   const [authState] = useActor(authService);
@@ -150,7 +151,7 @@ export const Menu = () => {
               src={mobileMenu}
               alt="hamburger-menu"
             />
-            <span className="hidden md:flex">Menu</span>
+            <span className="hidden md:flex">{t('Menu')}</span>
           </Button>
           {!gameState.matches("readonly") && (
             <Button
@@ -166,7 +167,7 @@ export const Menu = () => {
           )}
           {gameState.matches("readonly") && (
             <Button onClick={goBack}>
-              <span>Back</span>
+              <span>{t('Back')}</span>
             </Button>
           )}
         </div>
@@ -192,7 +193,7 @@ export const Menu = () => {
                 )}
                 <li className="p-1 flex">
                   <Button onClick={handleHowToPlay}>
-                    <span className="sm:text-sm flex-1">How to play</span>
+                    <span className="sm:text-sm flex-1">{t("How to play")}</span>
                     <img
                       src={questionMark}
                       className="w-3 ml-2"
@@ -205,7 +206,7 @@ export const Menu = () => {
                     className="flex justify-between"
                     onClick={() => setMenuLevel(MENU_LEVELS.MAP)}
                   >
-                    <span className="sm:text-sm flex-1">Map</span>
+                    <span className="sm:text-sm flex-1">{t("Map")}</span>
                   </Button>
                 </li>
                 <li className="p-1">
@@ -213,7 +214,7 @@ export const Menu = () => {
                     className="flex justify-between"
                     onClick={() => setMenuLevel(MENU_LEVELS.VIEW)}
                   >
-                    <span className="sm:text-sm flex-1">Community</span>
+                    <span className="sm:text-sm flex-1">{t("Community")}</span>
                   </Button>
                 </li>
                 <li className="p-1">
@@ -221,7 +222,7 @@ export const Menu = () => {
                     className="flex justify-between"
                     onClick={handleSettingsClick}
                   >
-                    <span className="sm:text-sm flex-1">Settings</span>
+                    <span className="sm:text-sm flex-1">{t("Settings")}</span>
                   </Button>
                 </li>
               </>
@@ -255,7 +256,7 @@ export const Menu = () => {
                     className="flex justify-between"
                     onClick={() => handleNavigationClick(Section.Town)}
                   >
-                    <span className="sm:text-sm flex-1">Town</span>
+                    <span className="sm:text-sm flex-1">{t("Town")}</span>
                     <img src={town} className="w-6 ml-2" alt="town" />
                   </Button>
                 </li>
@@ -264,7 +265,7 @@ export const Menu = () => {
                     className="flex justify-between"
                     onClick={() => handleNavigationClick(Section.Crops)}
                   >
-                    <span className="sm:text-sm flex-1">Crops</span>
+                    <span className="sm:text-sm flex-1">{t("Crops")}</span>
                     <img src={radish} className="w-4 ml-2" alt="crop" />
                   </Button>
                 </li>
@@ -273,7 +274,7 @@ export const Menu = () => {
                     className="flex justify-between"
                     onClick={() => handleNavigationClick(Section.Water)}
                   >
-                    <span className="sm:text-sm flex-1">Water</span>
+                    <span className="sm:text-sm flex-1">{t("Water")}</span>
                     <img src={water} className="w-4 ml-2" alt="water" />
                   </Button>
                 </li>
@@ -282,7 +283,7 @@ export const Menu = () => {
                     className="flex justify-between"
                     onClick={() => handleNavigationClick(Section.Forest)}
                   >
-                    <span className="sm:text-sm flex-1">Forest</span>
+                    <span className="sm:text-sm flex-1">{t("Forest")}</span>
                     <img src={wood} className="w-4 ml-2" alt="wood" />
                   </Button>
                 </li>
@@ -294,7 +295,7 @@ export const Menu = () => {
               <>
                 <li className="p-1">
                   <Button onClick={handleShareClick}>
-                    <span className="sm:text-sm">Share</span>
+                    <span className="sm:text-sm">{t("Share")}</span>
                   </Button>
                 </li>
                 {!gameState.matches("readonly") && (

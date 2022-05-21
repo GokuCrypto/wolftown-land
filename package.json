@@ -1,7 +1,12 @@
 {
-  "name": "sunflower-land",
-  "version": "0.0.0",
-  "author": "developer@sunflower-land.com",
+  "name": "wolftown-land",
+  "version": "1.0.0",
+  "description": "wolf",
+  "main": "index.js",
+  "repository": "https://github.com/GokuCrypto/wolftown-land.git",
+  "author": "GokuCrypto <8019835@qq.com>",
+  "license": "MIT",
+  "private": false,
   "scripts": {
     "dev": "set NODE_ENV=development && vite --port 3000 --host",
     "build": "tsc && vite build",
@@ -45,7 +50,10 @@
     "web3": "^1.6.1",
     "web3-health-check": "1.0.16",
     "web3-utils": "^1.6.1",
-    "xstate": "^4.27.0"
+    "xstate": "^4.27.0",
+    "i18next": "^21.6.0",
+    "i18next-browser-languagedetector": "^6.1.2",
+    "react-i18next": "^11.14.3"
   },
   "devDependencies": {
     "@rollup/plugin-inject": "^4.0.4",

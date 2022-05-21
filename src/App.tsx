@@ -1,7 +1,7 @@
 import React from "react";
 import * as Auth from "features/auth/lib/Provider";
 import { Navigation } from "./Navigation";
-
+import './i18n';
 import "./styles.css";
 
 import Decimal from "decimal.js-light";

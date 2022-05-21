@@ -8,7 +8,7 @@ import { HowToUpgrade } from "./HowToUpgrade";
 import { HowToSync } from "./HowToSync";
 import { LetsGo } from "./LetsGo";
 import { useIsNewFarm } from "features/farming/hud/lib/onboarding";
-
+import { useTranslation } from 'react-i18next';
 enum Steps {
   HowToFarm = 1,
   HowToUpgrade = 2,
@@ -22,7 +22,7 @@ interface Props {
 
 export const HowToPlay: React.FC<Props> = ({ isOpen, onClose }) => {
   const [step, setStep] = React.useState(Steps.HowToFarm);
-
+  const { t } = useTranslation();
   useEffect(() => {
     if (isOpen) {
       setStep(Steps.HowToFarm);
@@ -60,11 +60,11 @@ export const HowToPlay: React.FC<Props> = ({ isOpen, onClose }) => {
         <Modal.Footer className="justify-content-center">
           {step === Steps.LetsGo ? (
             <Button className="text-s px-1" onClick={finish}>
-              {`Let's go!`}
+              {t("Let's go")}
             </Button>
           ) : (
             <Button className="text-s px-1" onClick={next}>
-              Next
+              {t("Next")}
             </Button>
           )}
         </Modal.Footer>

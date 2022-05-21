@@ -31,7 +31,7 @@ import resource from "assets/resources/wood.png";
 import Decimal from "decimal.js-light";
 import { InventoryTabContent } from "./InventoryTabContent";
 import { ITEM_DETAILS } from "features/game/types/images";
-
+import { useTranslation } from 'react-i18next';
 type Tab = "basket" | "collectibles";
 
 interface Props {
@@ -92,6 +92,7 @@ const makeInventoryItems = (inventory: Inventory) => {
 };
 
 export const InventoryItems: React.FC<Props> = ({ onClose }) => {
+  const { t } = useTranslation();
   const { goblinService } = useContext(Context);
   const [goblinGame] = useActor(goblinService);
   const inventory = goblinGame.context.state.inventory;
@@ -121,7 +122,7 @@ export const InventoryItems: React.FC<Props> = ({ onClose }) => {
           >
             <img src={seeds} className="h-4 sm:h-5 mr-2" />
             <span className="text-xs sm:text-sm overflow-hidden text-ellipsis">
-              Basket
+              {t("Basket")}
             </span>
           </Tab>
           <Tab
@@ -131,7 +132,7 @@ export const InventoryItems: React.FC<Props> = ({ onClose }) => {
           >
             <img src={sunflowerPlant} className="h-4 sm:h-5 mr-2" />
             <span className="text-xs sm:text-sm overflow-hidden text-ellipsis">
-              Collectibles
+            {t("Collectibles")}
             </span>
           </Tab>
         </div>

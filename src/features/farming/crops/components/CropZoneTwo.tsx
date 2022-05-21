@@ -7,7 +7,7 @@ import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 
 import { Panel } from "components/ui/Panel";
 
-import goblin from "assets/npcs/goblin.gif";
+import goblin from "assets/npcs/wool_matting.gif";
 import goblinHead from "assets/npcs/goblin_head.png";
 import pumpkinSoup from "assets/nfts/pumpkin_soup.png";
 import questionMark from "assets/icons/expression_confused.png";
@@ -56,7 +56,7 @@ export const CropZoneTwo: React.FC = () => {
             onClick={() => setShowModal(true)}
             style={{
               width: `${GRID_WIDTH_PX * 1}px`,
-              left: `${GRID_WIDTH_PX * 3}px`,
+              left: `${GRID_WIDTH_PX * 2}px`,
               bottom: `${GRID_HIGHT_PX * 1.55}px`,
             }}
           />

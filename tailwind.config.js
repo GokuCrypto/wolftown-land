@@ -34,11 +34,11 @@ module.exports = {
       // This is the height and width of the gameboard
       // background image. Only change here when larger size is added.
       height: {
-        gameboard: "1150px",
+        gameboard: "4200px",
         goblinGameboard: "1600px",
       },
       width: {
-        gameboard: "2400px",
+        gameboard: "4200px",
         goblinGameboard: "3200px",
       },
       animation: {

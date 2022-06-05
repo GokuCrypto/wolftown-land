@@ -5,6 +5,7 @@ import { useActor } from "@xstate/react";
 import { Hud } from "features/farming/hud/Hud";
 import { Crops } from "features/farming/crops/Crops";
 import { Water } from "features/farming/water/Water";
+import { Wolf } from "features/farming/wolf/Wolf";
 import { Loading } from "features/auth/components";
 import { Animals } from "features/farming/animals/Animals";
 
@@ -107,7 +108,8 @@ export const Game: React.FC = () => {
       <Hud />
       <TeamDonation />
       <Crops />
-      <Water />
+      {/* <Water /> */}
+      <Wolf />
       <Animals />
       <Decorations />
       <Forest />

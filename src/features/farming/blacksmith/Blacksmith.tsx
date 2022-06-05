@@ -34,9 +34,9 @@ export const Blacksmith: React.FC = () => {
       className="z-10 absolute"
       // TODO some sort of coordinate system
       style={{
-        width: `${GRID_WIDTH_PX * 6}px`,
-        left: `${GRID_WIDTH_PX * 9}px`,
-        top: `${GRID_HIGHT_PX * 6}px`,
+        width: `${GRID_WIDTH_PX * 5}px`,
+        left: `${GRID_WIDTH_PX * 4}px`,
+        top: `${GRID_HIGHT_PX * -8}px`,
       }}
     >
       <div

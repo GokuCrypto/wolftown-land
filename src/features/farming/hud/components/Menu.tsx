@@ -278,6 +278,16 @@ export const Menu = () => {
                     <img src={water} className="w-4 ml-2" alt="water" />
                   </Button>
                 </li>
+
+                <li className="p-1">
+                  <Button
+                    className="flex justify-between"
+                    onClick={() => handleNavigationClick(Section.Wolf)}
+                  >
+                    <span className="sm:text-sm flex-1">{t("Wolf")}</span>
+                    <img src={water} className="w-4 ml-2" alt="Wolf" />
+                  </Button>
+                </li>
                 <li className="p-1">
                   <Button
                     className="flex justify-between"

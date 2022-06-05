@@ -8,7 +8,7 @@ import { Iron } from "./components/Iron";
 
 
 export const Quarry: React.FC = () => {
-  console.log("GRID_HIGHT_PX",GRID_HIGHT_PX);
+  
   return (
     <>
       <div

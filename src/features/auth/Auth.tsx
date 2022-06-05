@@ -61,13 +61,13 @@ export const Auth: React.FC = () => {
       }
       backdrop={false}
     >
-      <div className="relative">
-        <img
+      <div className="relative  -bottom-10">
+      {/*   <img
           id="curly"
           src={curly}
           className="absolute w-54 -top-11 right-20 -z-10 scale-[4]"
         />
-        <img src={jumpingGoblin} className="absolute w-52 -top-[83px] -z-10" />
+        <img src={jumpingGoblin} className="absolute w-52 -top-[83px] -z-10" /> */}
         <Panel>
           {(authState.matches({ connected: "loadingFarm" }) ||
             authState.matches("checkFarm") ||

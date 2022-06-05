@@ -206,10 +206,10 @@ export const House: React.FC = () => {
     <>
       <div
         style={{
-          width: `${GRID_WIDTH_PX * 3.2}px`,
+          width: `${GRID_WIDTH_PX * 8.2}px`,
           position: "absolute",
-          right: `${GRID_WIDTH_PX * 39}px`,
-          top: `${GRID_HIGHT_PX * 28.8}px`,
+          right: `${GRID_WIDTH_PX * 42}px`,
+          top: `${GRID_HIGHT_PX * 16.9}px`,
         }}
         className="relative cursor-pointer hover:img-highlight"
         onClick={open}

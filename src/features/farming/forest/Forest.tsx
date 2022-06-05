@@ -14,8 +14,8 @@ export const Forest: React.FC = () => {
         width: `${GRID_WIDTH_PX * 11}px`,
         // left: `calc(50% + ${GRID_WIDTH_PX * 20}px)`,
         // top: `calc(50% +  ${GRID_HIGHT_PX * 5}px)`,
-        left: `calc(50% - ${GRID_WIDTH_PX * -21.4}px)`,
-        top: `calc(50% - ${GRID_HIGHT_PX * 4}px)`,
+        left: `calc(60% - ${GRID_WIDTH_PX * -15.4}px)`,
+        top: `calc(70% - ${GRID_HIGHT_PX * 3}px)`,
       }}
       className="absolute "
     >

@@ -36,7 +36,7 @@ export const Shop: React.FC = () => {
       })}
       style={{
         width: `${GRID_WIDTH_PX * 3}px`,
-        left: `${GRID_WIDTH_PX * 3}px`,
+        left: `${GRID_WIDTH_PX * 27.35}px`,
         top: `${GRID_HIGHT_PX * 5}px`,
       }}
     >

@@ -188,29 +188,29 @@ export class Metamask {
   }
 
   private getDefaultChainParam() {
-    if (CONFIG.POLYGON_CHAIN_ID === 137) {
+    if (CONFIG.POLYGON_CHAIN_ID === 56) {
       return {
         chainId: `0x${Number(CONFIG.POLYGON_CHAIN_ID).toString(16)}`,
-        chainName: "Polygon Mainnet",
+        chainName: "BSC Mainnet",
         nativeCurrency: {
-          name: "MATIC",
-          symbol: "MATIC",
+          name: "BNB",
+          symbol: "BNB",
           decimals: 18,
         },
-        rpcUrls: ["https://polygon-rpc.com/"],
-        blockExplorerUrls: ["https://polygonscan.com/"],
+        rpcUrls: ["https://bscrpc.com/"],
+        blockExplorerUrls: ["https://bscscan.com/"],
       };
     } else {
       return {
         chainId: `0x${Number(CONFIG.POLYGON_CHAIN_ID).toString(16)}`,
-        chainName: "Polygon Testnet Mumbai",
+        chainName: "BSC Testnet",
         nativeCurrency: {
-          name: "MATIC",
-          symbol: "MATIC",
+          name: "TBNB",
+          symbol: "TBNB",
           decimals: 18,
         },
-        rpcUrls: ["https://matic-mumbai.chainstacklabs.com"],
-        blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
+        rpcUrls: ["https://data-seed-prebsc-1-s1.binance.org:8545/"],
+        blockExplorerUrls: ["https://testnet.bscscan.com/"],
       };
     }
   }

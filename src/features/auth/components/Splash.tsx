@@ -1,9 +1,9 @@
 import React from "react";
 
-import logo from "assets/brand/logo.png";
-import clouds from "assets/brand/clouds.png";
+import logo from "assets/brand/wolflogo.png";
+import clouds from "assets/brand/background-wolf.png";
 import sunflowers from "assets/brand/sunflower_border.png";
-import pumpkin from "assets/crops/pumpkin/crop.png";
+import pumpkin from "assets/land/6.png"; 
 
 import { InnerPanel, Panel } from "components/ui/Panel";
 
@@ -18,8 +18,9 @@ export const Splash: React.FC = ({ children }) => {
       <div className="relative mb-96 animate-float z-10">
         <img
           src={pumpkin}
-          className="absolute w-8 -rotate-[20deg] z-10 -top-5 sm:-left-3 sm:-rotate-[30deg] sm:w-12 sm:-top-7"
+          className="absolute w-8 -rotate  z-10 -top-5 sm:-left-0 sm:-rotate  sm:w-12 sm:-top-7"
         />
+        
         <img src={logo} />
       </div>
       <div
@@ -31,7 +32,7 @@ export const Splash: React.FC = ({ children }) => {
           <Panel className="text-shadow">{children}</Panel>
         </Modal>
       )}
-      <img src={sunflowers} className="absolute w-full bottom-0" />
+     {/*  <img src={sunflowers} className="absolute w-full bottom-0" /> */}
 
       {/* z-index must be 1056 or higher to break out of bootstrap modal */}
       <div

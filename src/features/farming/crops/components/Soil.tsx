@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 
 import classNames from "classnames";
 import soil from "assets/land/soil2.png";
-
+import sheep from "assets/land/1.png";
 import { getTimeLeft, secondsToMidString } from "lib/utils/time";
 
 import { ProgressBar } from "components/ui/ProgressBar";
@@ -62,7 +62,7 @@ export const Soil: React.FC<Props> = ({
   }, [field, setHarvestTime]);
 
   if (!field) {
-    return <img src={soil} className={classnames("w-full", className)} />;
+    return <img src={sheep} className={classnames("w-full", className)} />;
   }
 
   const crop = CROPS()[field.name];

@@ -2,8 +2,8 @@ import Decimal from "decimal.js-light";
 import { fromWei } from "web3-utils";
 import { GameState, Inventory } from "../types/game";
 
-export const GRID_WIDTH_PX = 24;
-export const GRID_HIGHT_PX = 11.5;
+export const GRID_WIDTH_PX = 42;
+export const GRID_HIGHT_PX = 42;
 export const INITIAL_STOCK: Inventory = {
   "Sunflower Seed": new Decimal(400),
   "Potato Seed": new Decimal(200),

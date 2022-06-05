@@ -1,6 +1,7 @@
 export enum Section {
   Crops = "crops",
   Water = "water",
+  Wolf = "wolf",
   Animals = "animals",
   Shop = "shop",
   Town = "town",

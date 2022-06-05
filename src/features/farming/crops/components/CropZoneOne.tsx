@@ -8,6 +8,8 @@ import { Field } from "./Field";
 export const CropZoneOne: React.FC = () => {
   const { selectedItem } = useContext(Context);
 
+  console.log("selectedItem",selectedItem);
+       
   return (
     <div
       className="absolute flex justify-center flex-col "

@@ -1,7 +1,7 @@
 const NETWORK = import.meta.env.VITE_NETWORK as "mainnet" | "mumbai";
 const DONATION_ADDRESS = import.meta.env.VITE_DONATION_ADDRESS;
 
-const POLYGON_CHAIN_ID = NETWORK === "mainnet" ? 56 : 97;
+const POLYGON_CHAIN_ID = NETWORK === "mainnet" ? 56 : 56;
 
 const API_URL = import.meta.env.VITE_API_URL;
 const WISHING_WELL_CONTRACT = import.meta.env.VITE_WISHING_WELL_CONTRACT;

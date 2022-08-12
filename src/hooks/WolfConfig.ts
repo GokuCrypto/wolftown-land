@@ -220,6 +220,8 @@ export const API_CONFIG = {
   getOneUsdtNumer: `${HASH_GAME_API}/game/getOneUsdtNumer`,
   /*获取历史订单数据 */
   getUserBetOrderHistory: `${HASH_GAME_API}/game/getUserBetOrderHistory`,
+  /*用户提现 */
+  userWithdrawal: `${HASH_GAME_API}/game/userWithdrawal`,
 
 }
 

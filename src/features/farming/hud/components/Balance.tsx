@@ -1,13 +1,12 @@
 import React, { useContext, useState } from "react";
 import { useActor } from "@xstate/react";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import Modal from "react-bootstrap/Modal";
 import { InnerPanel } from "components/ui/Panel";
 import { Panel } from "components/ui/Panel";
 import { Tab } from "components/ui/Tab";
 import token from "assets/land/1.png";
 import close from "assets/icons/close.png";
-
 
 import { Context } from "features/game/GameProvider";
 import Decimal from "decimal.js-light";
@@ -24,7 +23,7 @@ export const Balance: React.FC = () => {
   // const [inventoryItems] = useState<InventoryItemName[]>(
   //   makeInventoryItems(inventory)
   // );
-  const [selectedItem, setSelectedItem] = useState<InventoryItemName>();
+  /*   const [selectedItem, setSelectedItem] = useState<InventoryItemName>(); */
 
   const handleTabClick = (tab: Tab) => {
     setCurrentTab(tab);
@@ -33,7 +32,11 @@ export const Balance: React.FC = () => {
   return (
     <div>
       <InnerPanel className="fixed top-2 right-2 z-50 flex items-center shadow-lg cursor-pointer">
-        <img src={token} className="w-8 img-highlight" onClick={() => setIsOpen(true)} />
+        <img
+          src={token}
+          className="w-8 img-highlight"
+          onClick={() => setIsOpen(true)}
+        />
         <span
           className="text-white text-sm text-shadow ml-2"
           onMouseEnter={() => setIsShown(true)}
@@ -80,12 +83,8 @@ export const Balance: React.FC = () => {
             />
           </div>
 
-          {currentTab === "deposit" && (
-            "deposit"
-          )}
-          {currentTab === "withdraw" && (
-            "withdraw"
-          )}
+          {currentTab === "deposit" && "deposit"}
+          {currentTab === "withdraw" && "withdraw"}
         </Panel>
       </Modal>
     </div>

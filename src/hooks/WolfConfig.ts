@@ -192,16 +192,18 @@ export const loginInEth = async function () {
   localStorage.setItem('LoginUser', JSON.stringify(LoginUser));
 };
 
-export const isLoggedIn = function() {
+export const isLoggedIn = function () {
   const login = localStorage.getItem('LoginUser');
-  if(login) {
+  if (login) {
     return JSON.parse(login).uid !== ''
   } else {
     return false
   }
 }
 
-export const HASH_GAME_API = "http://154.209.5.151:8080/jeecg-boot/";
+export const HASH_GAME_API = "https://api.wolftown.games/jeecg-boot";
+
+/* export const HASH_GAME_API = "http://154.209.5.151:8080/jeecg-boot/"; */
 
 /* 配置数据 */
 export const API_CONFIG = {

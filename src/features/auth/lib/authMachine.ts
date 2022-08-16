@@ -8,6 +8,7 @@ import { createFarm as createFarmAction } from "../actions/createFarm";
 import { login, Token, decodeToken, removeSession } from "../actions/login";
 import { oauthorise, redirectOAuth } from "../actions/oauth";
 import { CharityAddress } from "../components/CreateFarm";
+import { isLoggedIn } from "../../../hooks/WolfConfig"
 
 const getFarmIdFromUrl = () => {
   const paths = window.location.href.split("/visit/");
@@ -102,6 +103,7 @@ export type BlockchainState = {
     | "signing"
     | "oauthorising"
     | "blacklisted"
+    | "logged"
     | { connected: "loadingFarm" }
     | { connected: "farmLoaded" }
     | { connected: "checkingAccess" }
@@ -136,7 +138,8 @@ export const authMachine = createMachine<
 >(
   {
     id: "authMachine",
-    initial: API_URL ? "connecting" : "visiting",
+    // initial: API_URL ? "connecting" : "visiting",
+    initial: isLoggedIn() ? "logged" : "connecting",
     context: {},
     states: {
       connecting: {
@@ -144,15 +147,15 @@ export const authMachine = createMachine<
         invoke: {
           src: "initMetamask",
           onDone: [
-            {
-              target: "checkFarm",
-              cond: "isVisitingUrl",
-            },
-            {
-              target: "oauthorising",
-              cond: "hasDiscordCode",
-            },
-            { target: "signing" },
+            // {
+            //   target: "checkFarm",
+            //   cond: "isVisitingUrl",
+            // },
+            // {
+            //   target: "oauthorising",
+            //   cond: "hasDiscordCode",
+            // },
+            // { target: "signing" },
           ],
           onError: {
             target: "unauthorised",
@@ -160,10 +163,19 @@ export const authMachine = createMachine<
           },
         },
         on: {
+          START_GAME: {
+            target: "connected.authorised"
+          },
           ACCOUNT_CHANGED: {
             target: "connecting",
             actions: "resetFarm",
           },
+        },
+      },
+      logged: {
+        id: "logged",
+        always: {
+          target: "connected.authorised",
         },
       },
       signing: {
@@ -347,7 +359,7 @@ export const authMachine = createMachine<
           },
           authorised: {
             entry: (context) => {
-              window.location.href = `${window.location.pathname}#/farm/${context.farmId}`;
+              window.location.href = `${window.location.pathname}#/game`;
             },
             on: {
               REFRESH: {

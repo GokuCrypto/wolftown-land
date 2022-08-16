@@ -8,6 +8,7 @@ import { Splash } from "features/auth/components/Splash";
 import { Auth } from "features/auth/Auth";
 import { Humans } from "features/game/Humans";
 import { Goblins } from "features/game/Goblins";
+import { WolfTown } from "features/game/WolfTown";
 import { Forbidden } from "features/auth/components/Forbidden";
 
 /**
@@ -68,6 +69,7 @@ export const Navigation: React.FC = () => {
             )}
             <Route path="/farm/:id" element={<Humans key="farm" />} />
             <Route path="/visit/:id" element={<Humans key="visit" />} />
+            <Route path="/game" element={<WolfTown />} />
             {/* Fallback */}
             <Route element={<Humans />} />
           </Routes>

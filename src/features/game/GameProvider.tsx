@@ -31,7 +31,7 @@ export const GameProvider: React.FC = ({ children }) => {
   const [gameMachine] = useState(
     startGame({
       ...authState.context,
-      farmId: id ? Number(id) : authState.context.farmId,
+      // farmId: id ? Number(id) : authState.context.farmId,
       // If the last event was a create farm, walk them through the tutorial
       // For now hide the tutorial until we can figure out an approach that is maintainable
       isNoob: false, //authState.history?.event.type === "CREATE_FARM",

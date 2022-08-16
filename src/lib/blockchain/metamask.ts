@@ -128,7 +128,7 @@ export class Metamask {
         throw new Error(ERRORS.WRONG_CHAIN);
       }
 
-      await this.initialiseContracts();
+      // await this.initialiseContracts();
     } catch (e: any) {
       // If it is a user error, we don't want to retry
       if (e.message === ERRORS.WRONG_CHAIN || e.message === ERRORS.NO_WEB3) {

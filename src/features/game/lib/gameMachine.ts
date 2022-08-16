@@ -140,9 +140,9 @@ const isVisiting = () => window.location.href.includes("visit");
 
 export function startGame(authContext: Options) {
   const handleInitialState = () => {
-    if (isVisiting()) {
-      return "readonly";
-    }
+    // if (isVisiting()) {
+    //   return "readonly";
+    // }
     return "playing";
   };
 
@@ -161,58 +161,59 @@ export function startGame(authContext: Options) {
         loading: {
           invoke: {
             src: async () => {
-              const farmId = authContext.farmId as number;
+              console.log("game loading")
+              // const farmId = authContext.farmId as number;
 
-              const { game: onChain, owner } = await getOnChainState({
-                farmAddress: authContext.address as string,
-                id: farmId,
-              });
+              // const { game: onChain, owner } = await getOnChainState({
+              //   farmAddress: authContext.address as string,
+              //   id: farmId,
+              // });
 
-              // Visit farm
-              if (isVisiting()) {
-                onChain.id = farmId;
+              // // Visit farm
+              // if (isVisiting()) {
+              //   onChain.id = farmId;
 
-                return { state: onChain, onChain, owner };
-              }
+              //   return { state: onChain, onChain, owner };
+              // }
 
-              // Get sessionId
-              const sessionId =
-                farmId &&
-                (await metamask.getSessionManager().getSessionId(farmId));
+              // // Get sessionId
+              // const sessionId =
+              //   farmId &&
+              //   (await metamask.getSessionManager().getSessionId(farmId));
 
-              // Load the farm session
-              if (sessionId) {
-                const fingerprint = await getFingerPrint();
+              // // Load the farm session
+              // if (sessionId) {
+              //   const fingerprint = await getFingerPrint();
 
-                const response = await loadSession({
-                  farmId,
-                  sessionId,
-                  token: authContext.rawToken as string,
-                });
+              //   const response = await loadSession({
+              //     farmId,
+              //     sessionId,
+              //     token: authContext.rawToken as string,
+              //   });
 
-                if (!response) {
-                  throw new Error("NO_FARM");
-                }
+              //   if (!response) {
+              //     throw new Error("NO_FARM");
+              //   }
 
-                const { game, offset, whitelistedAt, itemsMintedAt } = response;
+              //   const { game, offset, whitelistedAt, itemsMintedAt } = response;
 
-                // add farm address
-                game.farmAddress = authContext.address;
+              //   // add farm address
+              //   game.farmAddress = authContext.address;
 
-                return {
-                  state: {
-                    ...game,
-                    id: Number(authContext.farmId),
-                  },
-                  sessionId,
-                  offset,
-                  whitelistedAt,
-                  fingerprint,
-                  itemsMintedAt,
-                  onChain,
-                  owner,
-                };
-              }
+              //   return {
+              //     state: {
+              //       ...game,
+              //       id: Number(authContext.farmId),
+              //     },
+              //     sessionId,
+              //     offset,
+              //     whitelistedAt,
+              //     fingerprint,
+              //     itemsMintedAt,
+              //     onChain,
+              //     owner,
+              //   };
+              // }
 
               return { state: INITIAL_FARM };
             },
@@ -243,19 +244,21 @@ export function startGame(authContext: Options) {
              * It is a rare event but it saves a user from making too much progress that would not be synced
              */
             src: (context) => (cb) => {
-              const interval = setInterval(async () => {
-                const sessionID = await metamask
-                  .getSessionManager()
-                  ?.getSessionId(authContext?.farmId as number);
 
-                if (sessionID !== context.sessionId) {
-                  cb("EXPIRED");
-                }
-              }, 1000 * 20);
+              console.log("game playing")
+              // const interval = setInterval(async () => {
+              //   const sessionID = await metamask
+              //     .getSessionManager()
+              //     ?.getSessionId(authContext?.farmId as number);
 
-              return () => {
-                clearInterval(interval);
-              };
+              //   if (sessionID !== context.sessionId) {
+              //     cb("EXPIRED");
+              //   }
+              // }, 1000 * 20);
+
+              // return () => {
+              //   clearInterval(interval);
+              // };
             },
             onError: {
               target: "error",

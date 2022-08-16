@@ -190,9 +190,16 @@ export const loginInEth = async function () {
   }
 
   localStorage.setItem('LoginUser', JSON.stringify(LoginUser));
-
-
 };
+
+export const isLoggedIn = function() {
+  const login = localStorage.getItem('LoginUser');
+  if(login) {
+    return JSON.parse(login).uid !== ''
+  } else {
+    return false
+  }
+}
 
 export const HASH_GAME_API = "http://154.209.5.151:8080/jeecg-boot/";
 
@@ -242,11 +249,11 @@ export const Login = async () => {
 
     console.log("loginstart");
 
-    XAccessToken = "1";
+    // XAccessToken = "1";
 
     const response = await fetch(API_CONFIG.Login, {
       method: 'post', headers: {
-        'X-Access-Token': XAccessToken,
+        'X-Access-Token': XAccessToken || '',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({

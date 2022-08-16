@@ -35,16 +35,20 @@ export const Auth: React.FC = () => {
   const { authService } = useContext(AuthProvider.Context);
   const [authState, send] = useActor(authService);
 
-  const [connected, setConnected] = useState(false);
+  // const [connected, setConnected] = useState(false);
 
-  const connectedInfo = async () => {
-    const account = await _getAddress();
-    if (account && account.length > 10) {
-      setConnected(true);
-    }
-  };
+  // const connectedInfo = async () => {
+  //   const account = await _getAddress();
+  //   if (account && account.length > 10) {
+  //     setConnected(true);
+  //   }
+  // };
+  // connectedInfo();
 
-  connectedInfo();
+  const login = async() => {
+    await loginInEth()
+    authService.send("START_GAME");
+  }
 
   // TODO - refine full screens system
   // useEffect(() => {
@@ -93,7 +97,7 @@ export const Auth: React.FC = () => {
             authState.matches({ connected: "checkingSupply" }) ||
             authState.matches({ connected: "checkingAccess" })) && <Loading />} */}
 
-          <Button onClick={loginInEth}>
+          <Button onClick={login}>
             {/*         <img src={"/assets/land/4.png"} /> */}
             Connect Wallet
           </Button>

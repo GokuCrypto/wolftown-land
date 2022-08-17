@@ -15,7 +15,7 @@ import {
   CreateFarm,
 } from "./components";
 import { Button } from "components/ui/Button";
-import { loginInEth } from "../../hooks/WolfConfig";
+import { loginInEth, isLoggedIn } from "../../hooks/WolfConfig";
 
 import jumpingGoblin from "assets/npcs/goblin_jump.gif";
 import curly from "assets/npcs/curly_hair.png";
@@ -47,7 +47,9 @@ export const Auth: React.FC = () => {
 
   const login = async() => {
     await loginInEth()
-    authService.send("START_GAME");
+    if(await isLoggedIn()) {
+      authService.send("START_GAME");  
+    }
   }
 
   // TODO - refine full screens system

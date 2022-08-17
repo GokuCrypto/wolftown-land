@@ -20,7 +20,8 @@
       "features/*": ["src/features/*"],
       "assets/*": ["src/assets/*"],
       "lib/*": ["src/lib/*"],
-      "components/*": ["src/components/*"]
+      "components/*": ["src/components/*"],
+      "hooks/*": ["src/hooks/*"],
     }
   },
   "include": ["./src"]

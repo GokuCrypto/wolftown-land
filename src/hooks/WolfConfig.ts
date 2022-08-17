@@ -150,8 +150,11 @@ export const initApp = async function () {
 /* 聚合登录登录信息 */
 
 export const loginOut = async function () {
-
-  firebase.auth().signOut();
+  try{
+    firebase.auth().signOut();  
+  } catch(e) {
+    console.log('err', e)
+  }
   // User is signed out.
   LoginUser = {
     displayName: "",
@@ -170,8 +173,6 @@ export const loginOut = async function () {
   localStorage.setItem('XAccessToken', "");
   localStorage.setItem('userInfo_userid', "");
 
-
-
 };
 export const loginInEth = async function () {
 
@@ -185,11 +186,13 @@ export const loginInEth = async function () {
 
     LoginUser.uid = signature;
     LoginUser.email = count;
+
+    localStorage.setItem('LoginUser', JSON.stringify(LoginUser));
+
     /* 登陆服务器 */
     await Login();
   }
 
-  localStorage.setItem('LoginUser', JSON.stringify(LoginUser));
 };
 
 export const isLoggedIn = function () {
@@ -240,12 +243,16 @@ export const Login = async () => {
   let XAccessToken = localStorage.getItem('XAccessToken');
   const login = localStorage.getItem('LoginUser');
 
+  console.log("x=", login)
+
   if (!login) return
   // eslint-disable-next-line no-eval
   const loginUser = eval(JSON.parse(login));
   if (loginUser == null || loginUser === "") {
     return;
   }
+
+  console.log('XAccessToken====', XAccessToken)
   /*   console.log("XAccessToken", XAccessToken, "LoginUser.uid", loginUser.uid, typeof XAccessToken); */
   if ((XAccessToken == null || XAccessToken === "" || XAccessToken === 'undefined') && loginUser.uid !== "") {
 

@@ -7,7 +7,7 @@ import { Withdraw } from './modules/Withdraw';
 
 
 /* 获取地址信息 */
-export const getUserAddress = async () => {
+export const getUserAddress = async (): Promise<string> => {
 
   let addressInfo = '';
 
@@ -27,7 +27,6 @@ export const getUserAddress = async () => {
       }),
     })
 
-
     if (response.status === 200) {
       const result = await response.json();
       if (result.success) {
@@ -42,12 +41,10 @@ export const getUserAddress = async () => {
           }
         }
       }
-
     }
   }
-
+ 
   return addressInfo;
-
 }
 
 

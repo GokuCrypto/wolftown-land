@@ -24,7 +24,7 @@ export const Settings: React.FC<Props> = ({ isOpen, onClose }) => {
     useState(false);
   // {Todo: Modify gameState and authMachine for Logout event}
 
-  const onLogout = () => {
+  const onLogout = async () => {
     onClose();
     authService.send("LOGOUT"); // hack used to avoid redundancy
   };
@@ -67,9 +67,9 @@ export const Settings: React.FC<Props> = ({ isOpen, onClose }) => {
         <Button className="col p-1" onClick={onLogout}>
           {t("Logout")}
         </Button>
-        <Button className="col  p-1 mt-2" onClick={onResetSession}>
+        {/*<Button className="col  p-1 mt-2" onClick={onResetSession}>
         {t("Reset Session")}
-        </Button>
+        </Button>*/}
       </div>
     );
   };

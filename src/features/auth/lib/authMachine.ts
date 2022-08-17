@@ -8,7 +8,7 @@ import { createFarm as createFarmAction } from "../actions/createFarm";
 import { login, Token, decodeToken, removeSession } from "../actions/login";
 import { oauthorise, redirectOAuth } from "../actions/oauth";
 import { CharityAddress } from "../components/CreateFarm";
-import { isLoggedIn } from "../../../hooks/WolfConfig"
+import { isLoggedIn, loginOut } from "../../../hooks/WolfConfig"
 
 const getFarmIdFromUrl = () => {
   const paths = window.location.href.split("/visit/");
@@ -370,7 +370,7 @@ export const authMachine = createMachine<
               },
               LOGOUT: {
                 target: "#connecting",
-                actions: ["clearSession", "resetFarm"],
+                actions: ["clearSession"],
               },
             },
           },
@@ -567,7 +567,10 @@ export const authMachine = createMachine<
         token: () => undefined,
         rawToken: () => undefined,
       }),
-      clearSession: () => removeSession(metamask.myAccount as string),
+      clearSession: async () => {
+        await loginOut()
+        removeSession(metamask.myAccount as string) 
+      },
       deleteFarmIdUrl: deleteFarmUrl,
     },
     guards: {

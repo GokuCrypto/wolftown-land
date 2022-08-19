@@ -69,3 +69,10 @@ export class Withdraw {
 
   public mtime!: Date;
 }
+
+export interface WithdrawForm {
+  coin: string;
+  tokenBase: string;
+  amount: number;
+  addressTo: string;
+}

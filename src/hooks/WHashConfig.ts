@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import { API_CONFIG, loginOut } from './WolfConfig';
 import { BetOrder } from './modules/BetOrder';
-import { Withdraw } from './modules/Withdraw';
+import { Withdraw, WithdrawForm } from './modules/Withdraw';
 
 
 
@@ -234,7 +234,7 @@ export const getUserBetOrderHistory = async (playTpye: string) => {
 
 
 /* 提交提现订单 */
-export const submitWithdraw = async (withdraw: Withdraw) => {
+export const submitWithdraw = async (withdraw: WithdrawForm) => {
   console.log("withdraw", JSON.stringify({
     withdraw
   }));

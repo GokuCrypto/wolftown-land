@@ -1,8 +1,8 @@
 import { useActor } from "@xstate/react";
 import React, { useContext, useEffect, useState } from "react";
 import Decimal from "decimal.js-light";
-import { toWei } from "web3-utils";
-
+import { toWei, isAddress } from "web3-utils";
+import { useTranslation } from "react-i18next";
 import * as AuthProvider from "features/auth/lib/Provider";
 
 import { Context } from "features/game/GoblinProvider";
@@ -25,6 +25,8 @@ import { getTax } from "lib/utils/tax";
 import { getOnChainState } from "features/game/actions/onchain";
 
 import { getAccountInfo } from "hooks/WolfConfig";
+import { submitWithdraw } from "hooks/WHashConfig";
+import { WithdrawForm } from "hooks/modules/Withdraw";
 import { Balances, EMPTY_BALANCES } from '../lib/types'
 
 interface Props {
@@ -32,16 +34,16 @@ interface Props {
   onWithdraw: (sfl: string) => void;
 }
 export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
+  const { t } = useTranslation()
   const { authService } = useContext(AuthProvider.Context);
   const [authState] = useActor(authService);
 
-  // const { goblinService } = useContext(Context);
-  // const [goblinState] = useActor(goblinService);
 
   const [tokenType, setTokenType] = useState<keyof Balances>("BUSD")
-
   const [amount, setAmount] = useState<Decimal>(new Decimal(0));
+  const [addressTo, setAddressTo] = useState<string>('');
 
+  const [ error, setError ] = useState('')
   // const [balance, setBalance] = useState<Decimal>(new Decimal(0));
 
   const [ freshBalances, setFreshBalances ] = useState<Balances>(balances)
@@ -72,9 +74,22 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
     return typeof value !== "string" ? value : new Decimal(0);
   };
 
-  const withdraw = () => {
+  const withdraw = async () => {
     if (amount > new Decimal(0)) {
-      onWithdraw(toWei(amount.toString()));
+
+      const withdraw: WithdrawForm = {
+        coin: "BSC",
+        tokenBase: tokenType,
+        amount: amount.toNumber(),
+        addressTo: addressTo
+      }
+      const result = await submitWithdraw(withdraw)
+      if(result !== 200) {
+        setError(result.message)
+      } else {
+        onWithdraw(amount.toString());
+      }
+
     } else {
       setAmount(new Decimal(0));
     }
@@ -88,24 +103,20 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
     }
   };
 
+  const onAddressToChange =  (e: React.ChangeEvent<HTMLInputElement>) => {
+    // console.log("xxx", e.target.value)
+    // if (e.target.value === "" || !isAddress(e.target.value) ) {
+    //   setAddressTo('');
+    // } else {
+    //   setAddressTo(e.target.value);
+    // }
+    setAddressTo(e.target.value);
+  };
+
   const setMax = () => {
     if (balance.gte(0.01)) setAmount(balance.minus(new Decimal(0.01)));
   };
 
-  const incrementWithdraw = () => {
-    if (
-      safeAmount(amount).plus(0.1).toNumber() <
-      balance.toDecimalPlaces(2, 1).toNumber()
-    )
-      setAmount((prevState) => safeAmount(prevState).plus(0.1));
-  };
-
-  const decrementWithdraw = () => {
-    if (safeAmount(amount).toNumber() > 0.01) {
-      if (safeAmount(amount).minus(0.1).toNumber() >= 0)
-        setAmount((prevState) => safeAmount(prevState).minus(0.1));
-    }
-  };
 
   if (isLoading) {
     return <span className="text-shadow loading mt-2">Loading</span>;
@@ -116,7 +127,7 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
 
   // const enabled = authState.context.token?.userAccess.withdraw;
   const disableWithdraw =
-    safeAmount(amount).gte(balance) || safeAmount(amount).lt(0);
+    safeAmount(amount).gte(balance) || safeAmount(amount).lt(0) || addressTo === '';
 
   // if (!enabled) {
   //   return <span>Available May 9th</span>;
@@ -178,6 +189,7 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
             placeholder="Withdraw Address"
             className="text-shadow shadow-inner shadow-black bg-brown-200 p-2"
             style={{ width: "600px", maxWidth: "100%" }}
+            onChange={onAddressToChange}
           />
         </div>
       </div>
@@ -217,14 +229,6 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
           <>
             <span className="text-xs">
               <span className="text-xs">{tax}% fee</span>
-              {/*<a
-                className="underline ml-2"
-                href="https://docs.sunflower-land.com/fundamentals/withdrawing"
-                target="_blank"
-                rel="noreferrer"
-              >
-                (Read more)
-              </a>*/}
             </span>
           </>
         )}
@@ -240,9 +244,14 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
       </div>
 
       
-      <Button onClick={withdraw} disabled={disableWithdraw}>
-        Withdraw
+      <Button onClick={withdraw} >
+        { t("Withdraw") }
       </Button>
+
+      <span className="text-xs">
+        <span className="text-xs text-danger"> { error } </span>
+      </span>
+
     </>
   );
 };

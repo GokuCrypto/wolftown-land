@@ -341,9 +341,9 @@ export const getUsertInfo = async () => {
 export const getAccountInfo = async () => {
 
   const acountInfo = {
-    BUSD: 0,
-    WTWOOL: 0,
-    WTMILK: 0
+    BUSD: '0',
+    WTWOOL: '0',
+    WTMILK: '0'
   }
 
   const XAccessToken = localStorage.getItem('XAccessToken');
@@ -371,13 +371,13 @@ export const getAccountInfo = async () => {
           for (let i = 0; i < accountList.length; i++) {
             const account = accountList[i];
             if (account.coin != null && account.coin === "BUSD") {
-              acountInfo.BUSD = account.normalBalance;
+              acountInfo.BUSD = account.normalBalance.toString();
             }
             if (account.coin != null && account.coin === "WTWOOL") {
-              acountInfo.WTWOOL = account.normalBalance;
+              acountInfo.WTWOOL = account.normalBalance.toString();
             }
             if (account.coin != null && account.coin === "WTMILK") {
-              acountInfo.WTMILK = account.normalBalance;
+              acountInfo.WTMILK = account.normalBalance.toString();
             }
           }
         }

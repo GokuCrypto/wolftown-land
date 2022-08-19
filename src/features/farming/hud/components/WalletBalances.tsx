@@ -21,7 +21,8 @@ import { hasBoost } from "features/game/lib/boosts";
 import { getCropTime } from "features/game/events/plant";
 import { getKeys } from "features/game/types/craftables";
 import { WithdrawTokens } from "./WithdrawTokens"
-import { Balances } from '../lib/types'
+import { getAccountInfo } from "hooks/WolfConfig";
+import { Balances, EMPTY_BALANCES } from '../lib/types'
 
 interface Props {
   balances: Balances
@@ -33,12 +34,32 @@ const TAB_CONTENT_HEIGHT = 380;
 
 export const WalletBalances: React.FC<Props> = ({ balances }) => {
   const { t } = useTranslation()
+  const [ freshBalances, setFreshBalances ] = useState<Balances>(balances)
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    setIsLoading(true);
+    const load = async () => {
+      const info = await getAccountInfo()
+      setFreshBalances(info);
+      setIsLoading(false);
+    };
+    load();
+  }, [balances]);
   return (
     <div className="flex flex-col" style={{ minHeight: TAB_CONTENT_HEIGHT }}>
       <div className="mt-2 ml-2">
-        <div>BUSD: { balances.BUSD }</div>
-        <div>WOOL: { balances.WTWOOL }</div>
-        <div>MILK: { balances.WTMILK }</div>
+        {
+          isLoading ? (
+            <span className="text-shadow loading mt-2">Loading</span>
+          ) : (
+            <div>
+              <div>BUSD: { freshBalances.BUSD }</div>
+              <div>WOOL: { freshBalances.WTWOOL }</div>
+              <div>MILK: { freshBalances.WTMILK }</div>
+            </div>
+          )
+        }
+        
       </div>
     </div>
   );

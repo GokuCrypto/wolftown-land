@@ -31,10 +31,6 @@ export const Balance: React.FC = () => {
   const [ balances, setBalances ] = useState<Balances>(EMPTY_BALANCES)
 
   const [currentTab, setCurrentTab] = useState<Tab>("balance");
-  // const [inventoryItems] = useState<InventoryItemName[]>(
-  //   makeInventoryItems(inventory)
-  // );
-  /*   const [selectedItem, setSelectedItem] = useState<InventoryItemName>(); */
 
   const handleTabClick = (tab: Tab) => {
     setCurrentTab(tab);

@@ -60,10 +60,11 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
     setIsLoading(true);
     const load = async () => {
       const info = await getAccountInfo()
+      console.log("info11111=", info)
       setFreshBalances(info);
       setIsLoading(false);
     };
-    if(JSON.stringify(balances) === JSON.stringify(EMPTY_BALANCES)) load();
+    load();
   }, [balances]);
 
   const balance = new Decimal(balances[tokenType])
@@ -180,7 +181,7 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
         <span className="mb-3 text-base">Choose amount to withdraw</span>
       </div>
       <span className="text-sm">
-        {balances[tokenType]} { displayTokenName() } is available
+        {balance.toDecimalPlaces(2, Decimal.ROUND_DOWN).toString() } { displayTokenName() } is available
       </span>
       <div className="flex items-center mt-2">
         <div className="relative">
@@ -251,7 +252,6 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
       <span className="text-xs">
         <span className="text-xs text-danger"> { error } </span>
       </span>
-
     </>
   );
 };

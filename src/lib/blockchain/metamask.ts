@@ -8,7 +8,7 @@ import { Inventory } from "./Inventory";
 import { Pair } from "./Pair";
 import { WishingWell } from "./WishingWell";
 import { Token } from "./Token";
-import { toHex, toWei } from "web3-utils";
+import { toHex, toWei, fromWei } from "web3-utils";
 import { CONFIG } from "lib/config";
 import { estimateGasPrice, parseMetamaskError } from "./utils";
 import { SunflowerFarmers } from "./SunflowerFarmers";
@@ -30,6 +30,10 @@ export class Metamask {
 
   private account: string | null = null;
 
+  private tokenBUSD: Token | null = null;
+  private tokenWTWOOL: Token | null = null;
+  private tokenWTMILK: Token | null = null;
+
   private async initialiseContracts() {
     try {
       // this.legacyFarm = new LegacyFarm(
@@ -37,30 +41,36 @@ export class Metamask {
       //   this.account as string
       // );
 
-      this.farm = new Farm(this.web3 as Web3, this.account as string);
-      this.sunflowerFarmers = new SunflowerFarmers(
-        this.web3 as Web3,
-        this.account as string
-      );
-      this.session = new SessionManager(
-        this.web3 as Web3,
-        this.account as string
-      );
-      this.beta = new Beta(this.web3 as Web3, this.account as string);
-      this.inventory = new Inventory(this.web3 as Web3, this.account as string);
-      this.pair = new Pair(this.web3 as Web3, this.account as string);
-      this.token = new Token(this.web3 as Web3, this.account as string);
-      this.wishingWell = new WishingWell(
-        this.web3 as Web3,
-        this.account as string
-      );
+      // this.farm = new Farm(this.web3 as Web3, this.account as string);
+      // this.sunflowerFarmers = new SunflowerFarmers(
+      //   this.web3 as Web3,
+      //   this.account as string
+      // );
+      // this.session = new SessionManager(
+      //   this.web3 as Web3,
+      //   this.account as string
+      // );
+      // this.beta = new Beta(this.web3 as Web3, this.account as string);
+      // this.inventory = new Inventory(this.web3 as Web3, this.account as string);
+      // this.pair = new Pair(this.web3 as Web3, this.account as string);
+      // this.token = new Token(this.web3 as Web3, this.account as string);
+      // this.wishingWell = new WishingWell(
+      //   this.web3 as Web3,
+      //   this.account as string
+      // );
 
-      const isHealthy = await this.healthCheck();
+      // const isHealthy = await this.healthCheck();
 
-      // Maintainers of package typed incorrectly
-      if (!isHealthy) {
-        throw new Error("Unable to reach Polygon");
-      }
+      // // Maintainers of package typed incorrectly
+      // if (!isHealthy) {
+      //   throw new Error("Unable to reach Polygon");
+      // }
+
+      this.tokenBUSD = new Token(this.web3 as Web3, this.account as string, CONFIG.BUSD_CONTRACT)
+      this.tokenWTWOOL = new Token(this.web3 as Web3, this.account as string, CONFIG.WTWOOL_CONTRACT)
+      this.tokenWTMILK = new Token(this.web3 as Web3, this.account as string, CONFIG.WTMILK_CONTRACT)
+
+
     } catch (e: any) {
       // Timeout, retry
       if (e.code === "-32005") {
@@ -128,7 +138,7 @@ export class Metamask {
         throw new Error(ERRORS.WRONG_CHAIN);
       }
 
-      // await this.initialiseContracts();
+      await this.initialiseContracts();
     } catch (e: any) {
       // If it is a user error, we don't want to retry
       if (e.message === ERRORS.WRONG_CHAIN || e.message === ERRORS.NO_WEB3) {
@@ -253,6 +263,30 @@ export class Metamask {
         await this.addNetwork();
       }
       throw e;
+    }
+  }
+
+  public async getBalances() {
+    const balanceOfBUSD = await this.tokenBUSD?.balanceOf(this.account as string)
+    const balanceOfWOOL = await this.tokenWTWOOL?.balanceOf(this.account as string)
+    const balanceOfMILK = await this.tokenWTMILK?.balanceOf(this.account as string)
+
+    return {
+      BUSD: fromWei(balanceOfBUSD),
+      WTWOOL: fromWei(balanceOfWOOL),
+      WTMILK: fromWei(balanceOfMILK)
+    }
+  }
+
+  public async deposit(token: string, to: string, amount: string) {
+    if(token === "BUSD") {
+      return await this.tokenBUSD?.transfer(to, toWei(amount))
+    }
+    if(token === "WTWOOL") {
+      return await this.tokenWTWOOL?.transfer(to, toWei(amount))
+    }
+    if(token === "WTMILK") {
+      return await this.tokenWTMILK?.transfer(to, toWei(amount))
     }
   }
 

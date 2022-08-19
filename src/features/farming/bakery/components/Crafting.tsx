@@ -31,14 +31,14 @@ export const Crafting: React.FC<Props> = ({ onClose }) => {
           onClick={onClose}
         />
       </div>
-
-      <div
+      {/*    <div
         style={{
           minHeight: "200px",
         }}
       >
         {tab === "foods" && <CraftingItems items={FOODS()} />}
-      </div>
+      </div> */}
+      Coming soon
     </Panel>
   );
 };

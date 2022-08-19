@@ -20,7 +20,7 @@ export const WolfTown: React.FC = () => {
   useEffect(() => {
     // Start with crops centered
     // if (showGame) {
-    scrollIntoView(Section.Crops, "auto");
+    scrollIntoView(Section.Lottery, "auto");
     // }
   }, [scrollIntoView]);
 

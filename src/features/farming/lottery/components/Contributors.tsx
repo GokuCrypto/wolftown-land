@@ -11,7 +11,7 @@ import {
   Contributor,
   ContributorRole,
   CONTRIBUTORS,
-} from "../constants/contributors";
+} from "./constants/contributors";
 import { ITEM_DETAILS } from "features/game/types/images";
 
 import { useShowScrollbar } from "lib/utils/hooks/useShowScrollbar";

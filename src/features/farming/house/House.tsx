@@ -3,7 +3,7 @@ import { useActor } from "@xstate/react";
 import { Modal } from "react-bootstrap";
 
 import { Context } from "features/game/GameProvider";
-import { GRID_WIDTH_PX,GRID_HIGHT_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX, GRID_HIGHT_PX } from "features/game/lib/constants";
 import {
   getLevel,
   getRequiredXpToLevelUp,
@@ -128,7 +128,7 @@ export const House: React.FC = () => {
             <span className="text-sm text-shadow">Name: ?</span>
             <span className="text-sm text-shadow">{`Level: ${totalLevel}`}</span>
           </InnerPanel>
-          <div className="px-2 overflow-hidden">
+          {/* <div className="px-2 overflow-hidden">
             <div className="flex items-center -mb-.5 md:-mb-2">
               <span className="text-sm">Farming</span>
               <img src={plant} className="w-4 h-4 ml-2" />
@@ -190,7 +190,8 @@ export const House: React.FC = () => {
             <Button className="text-xs mt-3" onClick={openSkillTree}>
               View all skills
             </Button>
-          </div>
+          </div> */}
+          Coming soon
         </div>
 
         <InnerPanel className="flex w-1/2 sm:w-1/3 mt-2">

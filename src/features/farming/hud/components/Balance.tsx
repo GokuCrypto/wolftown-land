@@ -11,11 +11,10 @@ import close from "assets/icons/close.png";
 import { Context } from "features/game/GameProvider";
 import Decimal from "decimal.js-light";
 
-import { getUserAddress } from '../../../../hooks/WHashConfig'
-import { DepositTabContent } from './DepositTabContent'
-import { WithdrawTabContent } from './WithdrawTabContent'
-import { WalletBalances } from './WalletBalances'
-
+import { getUserAddress } from "../../../../hooks/WHashConfig";
+import { DepositTabContent } from "./DepositTabContent";
+import { WithdrawTabContent } from "./WithdrawTabContent";
+import { WalletBalances } from "./WalletBalances";
 
 type Tab = "deposit" | "withdraw" | "balance";
 
@@ -25,7 +24,7 @@ export const Balance: React.FC = () => {
   const [game] = useActor(gameService);
   const [isShown, setIsShown] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [depositAddress, setDepositAddress] = useState('')
+  const [depositAddress, setDepositAddress] = useState("");
 
   const [currentTab, setCurrentTab] = useState<Tab>("balance");
   // const [inventoryItems] = useState<InventoryItemName[]>(
@@ -38,29 +37,24 @@ export const Balance: React.FC = () => {
   };
 
   const openBalance = async () => {
-    setIsOpen(true)
-    if(!depositAddress) {
+    setIsOpen(true);
+    if (!depositAddress) {
       try {
-        const address = await getUserAddress()
-        if(address) {
-          setDepositAddress(address)
+        const address = await getUserAddress();
+        if (address) {
+          setDepositAddress(address);
         }
-      } catch(e) {
-        console.log(e)
+      } catch (e) {
+        console.log(e);
       }
     }
-  }
+  };
 
   return (
     <div>
-      <InnerPanel 
-        className="fixed top-2 right-2 z-50 flex items-center shadow-lg cursor-pointer"
-      >
-        <div className="flex items-center" onClick={openBalance}> 
-          <img
-            src={token}
-            className="w-8 img-highlight"
-          />
+      <InnerPanel className="fixed top-2 right-2 z-50 flex items-center shadow-lg cursor-pointer">
+        <div className="flex items-center" onClick={openBalance}>
+          <img src={token} className="w-8 img-highlight" />
           <span
             className="text-white text-sm text-shadow ml-2"
             onMouseEnter={() => setIsShown(true)}
@@ -76,7 +70,13 @@ export const Balance: React.FC = () => {
           </span>
         </div>
       </InnerPanel>
-      <Modal size="lg" centered scrollable show={isOpen} onHide={() => setIsOpen(false)}>
+      <Modal
+        size="lg"
+        centered
+        scrollable
+        show={isOpen}
+        onHide={() => setIsOpen(false)}
+      >
         <Panel className="pt-5 relative">
           <div className="flex justify-between absolute top-1.5 left-0.5 right-0 items-center">
             <div className="flex">
@@ -118,8 +118,10 @@ export const Balance: React.FC = () => {
             />
           </div>
 
-          {currentTab === "balance" && <WalletBalances />}
-          {currentTab === "deposit" && <DepositTabContent address={depositAddress} />}
+          {currentTab === "balance" && <WalletBalances balance={"0"} />}
+          {currentTab === "deposit" && (
+            <DepositTabContent address={depositAddress} />
+          )}
           {currentTab === "withdraw" && <WithdrawTabContent balance="11" />}
         </Panel>
       </Modal>

@@ -6,6 +6,8 @@ import { Hud } from "features/farming/hud/Hud";
 import { Crops } from "features/farming/crops/Crops";
 import { Water } from "features/farming/water/Water";
 import { Wolf } from "features/farming/wolf/Wolf";
+import { Lottery } from "features/farming/lottery/Lottery";
+
 import { Loading } from "features/auth/components";
 import { Animals } from "features/farming/animals/Animals";
 
@@ -107,6 +109,7 @@ export const Game: React.FC = () => {
       <ClockIssue show={gameState.context.offset > 0} />
       <Hud />
       <TeamDonation />
+      <Lottery />
       <Crops />
       {/* <Water /> */}
       <Wolf />

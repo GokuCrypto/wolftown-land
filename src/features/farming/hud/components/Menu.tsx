@@ -20,6 +20,7 @@ import questionMark from "assets/icons/expression_confused.png";
 import radish from "assets/icons/radish.png";
 import town from "assets/icons/town.png";
 import water from "assets/icons/expression_working.png";
+
 import timer from "assets/icons/timer.png";
 import wood from "assets/resources/wood.png";
 import leftArrow from "assets/icons/arrow_left.png";
@@ -28,7 +29,7 @@ import goblin from "assets/npcs/goblin_head.png";
 
 import { useIsNewFarm } from "../lib/onboarding";
 import { GoblinVillageModal } from "features/farming/town/components/GoblinVillageModal";
-import { useTranslation } from 'react-i18next'; 
+import { useTranslation } from "react-i18next";
 /**
  * TODO:
  * create menu level parent mapping if more than 2 levels.
@@ -151,7 +152,7 @@ export const Menu = () => {
               src={mobileMenu}
               alt="hamburger-menu"
             />
-            <span className="hidden md:flex">{t('Menu')}</span>
+            <span className="hidden md:flex">{t("Menu")}</span>
           </Button>
           {!gameState.matches("readonly") && (
             <Button
@@ -167,7 +168,7 @@ export const Menu = () => {
           )}
           {gameState.matches("readonly") && (
             <Button onClick={goBack}>
-              <span>{t('Back')}</span>
+              <span>{t("Back")}</span>
             </Button>
           )}
         </div>
@@ -191,16 +192,18 @@ export const Menu = () => {
                     </Button>
                   </li>
                 )}
-                <li className="p-1 flex">
+                {/*   <li className="p-1 flex">
                   <Button onClick={handleHowToPlay}>
-                    <span className="sm:text-sm flex-1">{t("How to play")}</span>
+                    <span className="sm:text-sm flex-1">
+                      {t("How to play")}
+                    </span>
                     <img
                       src={questionMark}
                       className="w-3 ml-2"
                       alt="question-mark"
                     />
                   </Button>
-                </li>
+                </li> */}
                 <li className="p-1">
                   <Button
                     className="flex justify-between"
@@ -240,7 +243,7 @@ export const Menu = () => {
             {/* Map menu */}
             {menuLevel === MENU_LEVELS.MAP && (
               <>
-                {!gameState.matches("readonly") && (
+                {/*     {!gameState.matches("readonly") && (
                   <li className="p-1">
                     <Button
                       className="flex justify-between"
@@ -250,7 +253,7 @@ export const Menu = () => {
                       <img src={goblin} className="w-6 ml-2" alt="town" />
                     </Button>
                   </li>
-                )}
+                )} */}
                 <li className="p-1">
                   <Button
                     className="flex justify-between"
@@ -278,14 +281,22 @@ export const Menu = () => {
                     <img src={water} className="w-4 ml-2" alt="water" />
                   </Button>
                 </li>
-
+                <li className="p-1">
+                  <Button
+                    className="flex justify-between"
+                    onClick={() => handleNavigationClick(Section.Lottery)}
+                  >
+                    <span className="sm:text-sm flex-1">{t("Lottery")}</span>
+                    {/* <img src={goblin} className="w-4 ml-2" alt="Lottery" /> */}
+                  </Button>
+                </li>
                 <li className="p-1">
                   <Button
                     className="flex justify-between"
                     onClick={() => handleNavigationClick(Section.Wolf)}
                   >
                     <span className="sm:text-sm flex-1">{t("Wolf")}</span>
-                    <img src={water} className="w-4 ml-2" alt="Wolf" />
+                    {/* <img src={goblin} className="w-4 ml-2" alt="Wolf" /> */}
                   </Button>
                 </li>
                 <li className="p-1">

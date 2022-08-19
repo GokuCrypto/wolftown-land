@@ -1,6 +1,6 @@
 import React from "react";
 
-import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
+import { GRID_WIDTH_PX, GRID_HIGHT_PX } from "features/game/lib/constants";
 
 import { Section } from "lib/utils/hooks/useScrollIntoView";
 
@@ -40,7 +40,7 @@ export const Wolf: React.FC = () => {
         />
 
         <Frog />
-      {/*   <RunWolf /> */}
+        {/*   <RunWolf /> */}
         <img
           src={goblinSwimming}
           className="absolute "
@@ -60,7 +60,7 @@ export const Wolf: React.FC = () => {
           }}
         />
 
-         <img
+        <img
           src={goblinSwimming}
           className="absolute "
           style={{
@@ -87,8 +87,8 @@ export const Wolf: React.FC = () => {
             top: `${GRID_HIGHT_PX * 6}px`,
           }}
         />
-        
-       <img
+
+        <img
           src={goblinSnorkling}
           className="absolute "
           style={{

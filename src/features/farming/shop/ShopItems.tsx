@@ -23,7 +23,7 @@ export const ShopItems: React.FC<Props> = ({ onClose }) => {
 
   return (
     <Panel className="pt-5 relative">
-      <div className="flex justify-between absolute top-1.5 left-0.5 right-0 items-center">
+      {/* <div className="flex justify-between absolute top-1.5 left-0.5 right-0 items-center">
         <div className="flex">
           <Tab isActive={tab === "buy"} onClick={() => handleTabClick("buy")}>
             <img src={seeds} className="h-5 mr-2" />
@@ -42,7 +42,8 @@ export const ShopItems: React.FC<Props> = ({ onClose }) => {
       </div>
 
       {tab === "buy" && <Seeds onClose={onClose} />}
-      {tab === "sell" && <Plants />}
+      {tab === "sell" && <Plants />} */}
+      Coming soon
     </Panel>
   );
 };

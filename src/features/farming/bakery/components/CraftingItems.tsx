@@ -70,7 +70,7 @@ export const CraftingItems: React.FC<Props> = ({ items }) => {
         ))}
       </div>
       <OuterPanel className="flex-1 w-1/3">
-        <div className="flex flex-col justify-center items-center p-2 relative">
+        {/* <div className="flex flex-col justify-center items-center p-2 relative">
           <span className="text-shadow text-center">{selected.name}</span>
           <img
             src={ITEM_DETAILS[selected.name].image}
@@ -128,7 +128,8 @@ export const CraftingItems: React.FC<Props> = ({ items }) => {
           >
             {hasSelectedFood ? "Already crafted" : "Craft"}
           </Button>
-        </div>
+        </div> */}
+        Coming soon
       </OuterPanel>
     </div>
   );

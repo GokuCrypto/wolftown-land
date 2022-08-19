@@ -141,7 +141,7 @@ export const CraftingItems: React.FC<Props> = ({
 
   return (
     <div className="flex">
-      <div className="w-3/5 flex flex-wrap h-fit">
+      {/* <div className="w-3/5 flex flex-wrap h-fit">
         {Object.values(items).map((item) => (
           <Box
             isSelected={selected.name === item.name}
@@ -202,7 +202,8 @@ export const CraftingItems: React.FC<Props> = ({
           </div>
           {Action()}
         </div>
-      </OuterPanel>
+      </OuterPanel> */}
+      Coming soon
     </div>
   );
 };

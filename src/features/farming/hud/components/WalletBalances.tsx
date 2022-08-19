@@ -21,23 +21,24 @@ import { hasBoost } from "features/game/lib/boosts";
 import { getCropTime } from "features/game/events/plant";
 import { getKeys } from "features/game/types/craftables";
 import { WithdrawTokens } from "./WithdrawTokens"
+import { Balances } from '../lib/types'
+
+interface Props {
+  balances: Balances
+}
 
 const ITEM_CARD_MIN_HEIGHT = "148px";
 
-interface Props {
-  balance: string;
-}
-
 const TAB_CONTENT_HEIGHT = 380;
 
-export const WalletBalances = ({ balance }: Props) => {
+export const WalletBalances: React.FC<Props> = ({ balances }) => {
   const { t } = useTranslation()
   return (
     <div className="flex flex-col" style={{ minHeight: TAB_CONTENT_HEIGHT }}>
-      <div className="mt-2">
-        <div>BUSD: 0.0001</div>
-        <div>WOOL: 0.0001</div>
-        <div>MILK: 0.0001</div>
+      <div className="mt-2 ml-2">
+        <div>BUSD: { balances.BUSD }</div>
+        <div>WOOL: { balances.WTWOOL }</div>
+        <div>MILK: { balances.WTMILK }</div>
       </div>
     </div>
   );

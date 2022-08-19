@@ -25,25 +25,28 @@ import { getTax } from "lib/utils/tax";
 import { getOnChainState } from "features/game/actions/onchain";
 
 import { getAccountInfo } from "hooks/WolfConfig";
+import { Balances, EMPTY_BALANCES } from '../lib/types'
 
 interface Props {
+  balances: Balances;
   onWithdraw: (sfl: string) => void;
 }
-export const WithdrawTokens: React.FC<Props> = ({ onWithdraw }) => {
+export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
   const { authService } = useContext(AuthProvider.Context);
   const [authState] = useActor(authService);
 
   // const { goblinService } = useContext(Context);
   // const [goblinState] = useActor(goblinService);
 
-  const [tokenType, setTokenType] = useState("BUSD")
+  const [tokenType, setTokenType] = useState<keyof Balances>("BUSD")
 
   const [amount, setAmount] = useState<Decimal>(new Decimal(0));
 
-  const [balance, setBalance] = useState<Decimal>(new Decimal(0));
-  const [isLoading, setIsLoading] = useState(true);
+  // const [balance, setBalance] = useState<Decimal>(new Decimal(0));
 
-  console.log("tokenType=", tokenType)
+  const [ freshBalances, setFreshBalances ] = useState<Balances>(balances)
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const displayTokenName = () => {
     if(tokenType === "WTWOOL") return "WOOL"
@@ -53,22 +56,15 @@ export const WithdrawTokens: React.FC<Props> = ({ onWithdraw }) => {
 
   useEffect(() => {
     setIsLoading(true);
-
     const load = async () => {
-
       const info = await getAccountInfo()
-      console.log(info)
-      // const { game: state } = await getOnChainState({
-      //   id: goblinState.context.state.id as number,
-      //   farmAddress: goblinState.context.state.farmAddress as string,
-      // });
-
-      // setBalance(state.balance);
+      setFreshBalances(info);
       setIsLoading(false);
     };
+    if(JSON.stringify(balances) === JSON.stringify(EMPTY_BALANCES)) load();
+  }, [balances]);
 
-    load();
-  }, []);
+  const balance = new Decimal(balances[tokenType])
 
   // In order to be able to type into the input box amount needs to be able to be a string
   // for when the user deletes the 0. safeAmount is a getter that will return amount as a Decimal
@@ -173,7 +169,7 @@ export const WithdrawTokens: React.FC<Props> = ({ onWithdraw }) => {
         <span className="mb-3 text-base">Choose amount to withdraw</span>
       </div>
       <span className="text-sm">
-        {balance.toFixed(2)} { displayTokenName() } is available
+        {balances[tokenType]} { displayTokenName() } is available
       </span>
       <div className="flex items-center mt-2">
         <div className="relative">
@@ -243,15 +239,7 @@ export const WithdrawTokens: React.FC<Props> = ({ onWithdraw }) => {
         <span className="ml-2">{ displayTokenName() }</span> 
       </div>
 
-      {/*<div className="flex items-center mt-2 mb-2">
-        <img src={player} className="h-8 mr-2" />
-        <div>
-          <p className="text-sm">Sent to your wallet</p>
-          <p className="text-sm">
-            {shortAddress(metamask.myAccount || "XXXX")}
-          </p>
-        </div>
-      </div>*/}
+      
       <Button onClick={withdraw} disabled={disableWithdraw}>
         Withdraw
       </Button>

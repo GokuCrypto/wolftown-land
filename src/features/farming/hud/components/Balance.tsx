@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useActor } from "@xstate/react";
 import { useTranslation } from "react-i18next";
 import Modal from "react-bootstrap/Modal";
@@ -10,12 +10,12 @@ import close from "assets/icons/close.png";
 
 import { Context } from "features/game/GameProvider";
 import Decimal from "decimal.js-light";
-
+import { getAccountInfo } from "hooks/WolfConfig";
 import { getUserAddress } from '../../../../hooks/WHashConfig'
 import { DepositTabContent } from './DepositTabContent'
 import { WithdrawTabContent } from './WithdrawTabContent'
 import { WalletBalances } from './WalletBalances'
-
+import { Balances, EMPTY_BALANCES } from '../lib/types'
 
 type Tab = "deposit" | "withdraw" | "balance";
 
@@ -27,6 +27,8 @@ export const Balance: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [depositAddress, setDepositAddress] = useState('')
 
+  const [ balances, setBalances ] = useState<Balances>(EMPTY_BALANCES)
+
   const [currentTab, setCurrentTab] = useState<Tab>("balance");
   // const [inventoryItems] = useState<InventoryItemName[]>(
   //   makeInventoryItems(inventory)
@@ -36,6 +38,14 @@ export const Balance: React.FC = () => {
   const handleTabClick = (tab: Tab) => {
     setCurrentTab(tab);
   };
+
+  useEffect(() => {
+    const load = async () => {
+      const info = await getAccountInfo()
+      setBalances(info)
+    };
+    load();
+  }, []);
 
   const openBalance = async () => {
     setIsOpen(true)
@@ -118,9 +128,9 @@ export const Balance: React.FC = () => {
             />
           </div>
 
-          {currentTab === "balance" && <WalletBalances />}
+          {currentTab === "balance" && <WalletBalances balances={balances} />}
           {currentTab === "deposit" && <DepositTabContent address={depositAddress} />}
-          {currentTab === "withdraw" && <WithdrawTabContent balance="11" />}
+          {currentTab === "withdraw" && <WithdrawTabContent balances={balances} />}
         </Panel>
       </Modal>
     </div>

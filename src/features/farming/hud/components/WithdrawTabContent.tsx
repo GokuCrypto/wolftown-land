@@ -21,16 +21,16 @@ import { hasBoost } from "features/game/lib/boosts";
 import { getCropTime } from "features/game/events/plant";
 import { getKeys } from "features/game/types/craftables";
 import { WithdrawTokens } from "./WithdrawTokens"
-
+import { Balances } from '../lib/types'
 const ITEM_CARD_MIN_HEIGHT = "148px";
 
 interface Props {
-  balance: string;
+  balances: Balances;
 }
 
 const TAB_CONTENT_HEIGHT = 380;
 
-export const WithdrawTabContent = ({ balance }: Props) => {
+export const WithdrawTabContent = ({ balances }: Props) => {
   const { t } = useTranslation()
 
   const handleWithdraw = (val: string) => {
@@ -39,7 +39,7 @@ export const WithdrawTabContent = ({ balance }: Props) => {
   return (
     <div className="flex flex-col" style={{ minHeight: TAB_CONTENT_HEIGHT }}>
       <div className="mt-2">
-        <WithdrawTokens onWithdraw={ handleWithdraw } />
+        <WithdrawTokens balances={balances} onWithdraw={ handleWithdraw } />
       </div>
     </div>
   );

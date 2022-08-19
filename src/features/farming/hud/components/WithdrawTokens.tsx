@@ -18,8 +18,8 @@ import player from "assets/icons/player.png";
 import upArrow from "assets/icons/arrow_up.png";
 import downArrow from "assets/icons/arrow_down.png";
 
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import ToggleButton from 'react-bootstrap/ToggleButton';
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import ToggleButton from "react-bootstrap/ToggleButton";
 
 import { getTax } from "lib/utils/tax";
 import { getOnChainState } from "features/game/actions/onchain";
@@ -27,47 +27,46 @@ import { getOnChainState } from "features/game/actions/onchain";
 import { getAccountInfo } from "hooks/WolfConfig";
 import { submitWithdraw } from "hooks/WHashConfig";
 import { WithdrawForm } from "hooks/modules/Withdraw";
-import { Balances, EMPTY_BALANCES } from '../lib/types'
+import { Balances, EMPTY_BALANCES } from "../lib/types";
 
 interface Props {
   balances: Balances;
   onWithdraw: (sfl: string) => void;
 }
 export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const { authService } = useContext(AuthProvider.Context);
   const [authState] = useActor(authService);
 
-
-  const [tokenType, setTokenType] = useState<keyof Balances>("BUSD")
+  const [tokenType, setTokenType] = useState<keyof Balances>("BUSD");
   const [amount, setAmount] = useState<Decimal>(new Decimal(0));
-  const [addressTo, setAddressTo] = useState<string>('');
+  const [addressTo, setAddressTo] = useState<string>("");
 
-  const [ error, setError ] = useState('')
+  const [error, setError] = useState("");
   // const [balance, setBalance] = useState<Decimal>(new Decimal(0));
 
-  const [ freshBalances, setFreshBalances ] = useState<Balances>(balances)
+  const [freshBalances, setFreshBalances] = useState<Balances>(balances);
 
   const [isLoading, setIsLoading] = useState(true);
 
   const displayTokenName = () => {
-    if(tokenType === "WTWOOL") return "WOOL"
-    if(tokenType === "WTMILK") return "MILK"
-    return tokenType
-  }
+    if (tokenType === "WTWOOL") return "WOOL";
+    if (tokenType === "WTMILK") return "MILK";
+    return tokenType;
+  };
 
   useEffect(() => {
     setIsLoading(true);
     const load = async () => {
-      const info = await getAccountInfo()
-      console.log("info11111=", info)
+      const info = await getAccountInfo();
+      console.log("info11111=", info);
       setFreshBalances(info);
       setIsLoading(false);
     };
     load();
   }, [balances]);
 
-  const balance = new Decimal(balances[tokenType])
+  const balance = new Decimal(balances[tokenType]);
 
   // In order to be able to type into the input box amount needs to be able to be a string
   // for when the user deletes the 0. safeAmount is a getter that will return amount as a Decimal
@@ -77,20 +76,18 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
 
   const withdraw = async () => {
     if (amount > new Decimal(0)) {
-
       const withdraw: WithdrawForm = {
         coin: "BSC",
         tokenBase: tokenType,
         amount: amount.toNumber(),
-        addressTo: addressTo
-      }
-      const result = await submitWithdraw(withdraw)
-      if(result !== 200) {
-        setError(result.message)
+        addressTo: addressTo,
+      };
+      const result = await submitWithdraw(withdraw);
+      if (result.status !== 200) {
+        setError(result.message);
       } else {
         onWithdraw(amount.toString());
       }
-
     } else {
       setAmount(new Decimal(0));
     }
@@ -104,7 +101,7 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
     }
   };
 
-  const onAddressToChange =  (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onAddressToChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // console.log("xxx", e.target.value)
     // if (e.target.value === "" || !isAddress(e.target.value) ) {
     //   setAddressTo('');
@@ -118,7 +115,6 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
     if (balance.gte(0.01)) setAmount(balance.minus(new Decimal(0.01)));
   };
 
-
   if (isLoading) {
     return <span className="text-shadow loading mt-2">Loading</span>;
   }
@@ -128,7 +124,9 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
 
   // const enabled = authState.context.token?.userAccess.withdraw;
   const disableWithdraw =
-    safeAmount(amount).gte(balance) || safeAmount(amount).lt(0) || addressTo === '';
+    safeAmount(amount).gte(balance) ||
+    safeAmount(amount).lt(0) ||
+    addressTo === "";
 
   // if (!enabled) {
   //   return <span>Available May 9th</span>;
@@ -145,7 +143,7 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
             variant="secondary"
             name="radio"
             value="BUSD"
-            checked={tokenType === 'BUSD'}
+            checked={tokenType === "BUSD"}
             onClick={() => setTokenType("BUSD")}
           >
             BUSD
@@ -157,7 +155,7 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
             variant="secondary"
             name="radio"
             value="WTWOOL"
-            checked={tokenType === 'WTWOOL'}
+            checked={tokenType === "WTWOOL"}
             onClick={(e) => setTokenType("WTWOOL")}
           >
             WOOL
@@ -169,19 +167,19 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
             variant="secondary"
             name="radio"
             value="WTMILK"
-            checked={tokenType === 'WTMILK'}
+            checked={tokenType === "WTMILK"}
             onClick={(e) => setTokenType("WTMILK")}
           >
             MILK
           </ToggleButton>
         </ButtonGroup>
-        
       </div>
       <div>
         <span className="mb-3 text-base">Choose amount to withdraw</span>
       </div>
       <span className="text-sm">
-        {balance.toDecimalPlaces(2, Decimal.ROUND_DOWN).toString() } { displayTokenName() } is available
+        {balance.toDecimalPlaces(2, Decimal.ROUND_DOWN).toString()}{" "}
+        {displayTokenName()} is available
       </span>
       <div className="flex items-center mt-2">
         <div className="relative">
@@ -241,16 +239,13 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
             .mul((100 - tax) / 100)
             .toFixed(1)}`}
         </span>
-        <span className="ml-2">{ displayTokenName() }</span> 
+        <span className="ml-2">{displayTokenName()}</span>
       </div>
 
-      
-      <Button onClick={withdraw} >
-        { t("Withdraw") }
-      </Button>
+      <Button onClick={withdraw}>{t("Withdraw")}</Button>
 
       <span className="text-xs">
-        <span className="text-xs text-danger"> { error } </span>
+        <span className="text-xs text-danger"> {error} </span>
       </span>
     </>
   );

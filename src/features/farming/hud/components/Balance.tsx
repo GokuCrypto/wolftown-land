@@ -77,19 +77,6 @@ export const Balance: React.FC = () => {
         <div className="flex items-center text-white" onClick={openBalance}>
           <img src={wolf} className="w-5 img-highlight" />
           <span className="ml-2">{ t("Wallet") }</span>
-          {/*<span
-            className="text-white text-sm text-shadow ml-2"
-            onMouseEnter={() => setIsShown(true)}
-            onMouseLeave={() => setIsShown(false)}
-          >
-            {isShown === false ? (
-              game.context.state.balance
-                .toDecimalPlaces(4, Decimal.ROUND_DOWN)
-                .toString()
-            ) : (
-              <small>{game.context.state.balance.toString()}</small>
-            )}
-          </span>*/}
         </div>
       </InnerPanel>
       <Modal

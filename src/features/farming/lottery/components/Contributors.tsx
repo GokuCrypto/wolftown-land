@@ -17,6 +17,7 @@ import { ITEM_DETAILS } from "features/game/types/images";
 import { useShowScrollbar } from "lib/utils/hooks/useShowScrollbar";
 import classNames from "classnames";
 import { queryWolfLotteryGoodsList, doLottery } from "hooks/WolfConfig";
+import { Button } from "react-bootstrap";
 
 const TAB_CONTENT_HEIGHT = 340;
 
@@ -40,14 +41,36 @@ interface Props {
 
 export const Contributors: React.FC<Props> = ({ onClose }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [lotteryName, setLotteryName] = useState([]);
-  const [lotteryUrl, setLotteryUrl] = useState([]);
+  const [lotteryName, setLotteryName] = useState([""]);
+  const [lotteryUrl, setLotteryUrl] = useState([""]);
+  const [lotteryAmount, setLotteryAmount] = useState([""]);
+  const [message, setMessage] = useState("");
+
+  const todoLottery = () => {
+    doLottery().then((obj) => {
+      setMessage(obj ? "" : "error connect");
+    });
+  };
 
   useEffect(() => {
     setIsLoading(true);
     const load = async () => {
       queryWolfLotteryGoodsList().then((obj) => {
         console.log("objobj", obj);
+        if (obj != null && obj.length > 0) {
+          let lotteryNameInit: string[] = [];
+          let lotteryAmountInit = [];
+          let lotteryUrlInit = [];
+          for (var i = 0; i < obj.length; i++) {
+            lotteryNameInit[i] = obj[i].lotteryName;
+            lotteryAmountInit[i] = obj[i].amount;
+            lotteryUrlInit[i] = obj[i].lotteryUrl;
+          }
+
+          setLotteryName(lotteryNameInit);
+          setLotteryUrl(lotteryUrlInit);
+          setLotteryAmount(lotteryAmountInit);
+        }
       });
     };
     load();
@@ -75,7 +98,36 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
           scrollable: showScrollbar,
         })}
       >
-        <div className="flex flex-wrap items-center h-fit"></div>
+        <div className="flex flex-wrap items-center h-fit">
+          {lotteryName.length > 1 ? (
+            lotteryName.map((obj, idx) => (
+              <div style={{ width: "30%" }}>
+                <img
+                  style={{ width: "100%" }}
+                  src={lotteryUrl[idx]}
+                  key={idx}
+                />
+                <h1 key={idx + "h1"} className="text-xs text-center pt-2">
+                  {obj}*{lotteryAmount[idx]}
+                </h1>
+              </div>
+            ))
+          ) : (
+            <></>
+          )}
+        </div>
+      </div>
+
+      <div
+        style={{ marginTop: "20px" }}
+        className="flex flex-wrap justify-center items-center"
+      >
+        <Button onClick={todoLottery} className="overflow-hidden mb-2">
+          Lottery
+        </Button>
+        <p className="text-xs">
+          <span className="text-xs text-base"> {message} </span>
+        </p>
       </div>
     </>
   );

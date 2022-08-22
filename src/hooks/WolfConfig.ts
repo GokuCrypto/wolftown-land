@@ -406,11 +406,11 @@ export const queryBaglist = async () => {
 
   if ((XAccessToken)) {
     const response = await fetch(API_CONFIG.queryBaglist, {
-      method: 'post', headers: {
+      method: 'get', headers: {
         'X-Access-Token': XAccessToken,
         'token': XAccessToken,
         'Content-Type': 'application/json',
-      }, body: JSON.stringify({}),
+      },
     })
     if (response.status === 200) {
       const result = await response.json();
@@ -439,11 +439,11 @@ export const queryWolfLotteryGoodsList = async () => {
 
   if ((XAccessToken)) {
     const response = await fetch(API_CONFIG.queryWolfLotteryGoodsList, {
-      method: 'post', headers: {
+      method: 'get', headers: {
         'X-Access-Token': XAccessToken,
         'token': XAccessToken,
         'Content-Type': 'application/json',
-      }, body: JSON.stringify({}),
+      }
     })
     if (response.status === 200) {
       const result = await response.json();
@@ -474,11 +474,11 @@ export const doLottery = async () => {
 
   if ((XAccessToken)) {
     const response = await fetch(API_CONFIG.doLottery, {
-      method: 'post', headers: {
+      method: 'get', headers: {
         'X-Access-Token': XAccessToken,
         'token': XAccessToken,
         'Content-Type': 'application/json',
-      }, body: JSON.stringify({}),
+      }
     })
     if (response.status === 200) {
       const result = await response.json();

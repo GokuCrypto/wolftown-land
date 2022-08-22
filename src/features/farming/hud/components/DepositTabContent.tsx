@@ -35,11 +35,11 @@ interface Props {
 const TAB_CONTENT_HEIGHT = 380;
 
 export const DepositTabContent = ({ address }: Props) => {
-  console.log("address=",address)
   const { t } = useTranslation()
   const [tokenType, setTokenType] = useState<keyof Balances>("BUSD")
   const [amount, setAmount] = useState<Decimal>(new Decimal(0));
   const [isLoading, setIsLoading] = useState(true);
+  const [message, setMessage] = useState('')
   const displayTokenName = () => {
     if(tokenType === "WTWOOL") return "WOOL"
     if(tokenType === "WTMILK") return "MILK"
@@ -72,9 +72,18 @@ export const DepositTabContent = ({ address }: Props) => {
   };
 
   const deposit = async () => {
+    setMessage('')
     await metamask.initialise()
-    const result = await metamask.deposit(tokenType, address, amount.toString())
-    console.log(result)
+    try {
+      const receipt: any = await metamask.deposit(tokenType, address, amount.toString())
+      if(receipt?.status){
+        setMessage("Deposit Successfully")
+      }
+    } catch(error) {
+      // console.log("error===", error.message)
+      setMessage(error.message)
+    }
+    
   }
 
   if (isLoading) {
@@ -184,9 +193,9 @@ export const DepositTabContent = ({ address }: Props) => {
           { t("Deposit") }
         </Button>
 
-        {/*<span className="text-xs">
-          <span className="text-xs text-danger"> { error } </span>
-        </span>*/}
+        <span className="text-xs">
+          <span className="text-xs text-base"> {message} </span>
+        </span>
       </div>
     </div>
   );

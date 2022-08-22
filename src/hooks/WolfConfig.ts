@@ -2,7 +2,7 @@
 import firebase from 'firebase/compat/app';
 import { _getAddress, _getProvider } from './ethereum';
 import { useEffect } from 'react';
-
+import { ERRORS } from "lib/errors";
 
 // if (location.search && location.search.match(/enter-test-mode/)) localStorage.setItem('IsWolfTownTest', 'true');
 // localStorage.setItem('IsWolfTownTest', 'true');
@@ -150,11 +150,12 @@ export const initApp = async function () {
 /* 聚合登录登录信息 */
 
 export const loginOut = async function () {
-  try{
-    firebase.auth().signOut();  
-  } catch(e) {
-    console.log('err', e)
-  }
+  // try{
+  //   firebase.auth().signOut();  
+  // } catch(e) {
+  //   console.log('err', e)
+  // }
+
   // User is signed out.
   LoginUser = {
     displayName: "",
@@ -382,11 +383,13 @@ export const getAccountInfo = async () => {
           }
         }
       }
+    } else if(response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
     }
   }
 
   return acountInfo;
-
 }
 
 

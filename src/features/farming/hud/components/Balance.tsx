@@ -6,16 +6,18 @@ import { InnerPanel } from "components/ui/Panel";
 import { Panel } from "components/ui/Panel";
 import { Tab } from "components/ui/Tab";
 import token from "assets/land/1.png";
+import wolf from "assets/wt/wolf.png";
 import close from "assets/icons/close.png";
-
 import { Context } from "features/game/GameProvider";
 import Decimal from "decimal.js-light";
+import { ERRORS } from "lib/errors"
 import { getAccountInfo } from "hooks/WolfConfig"
 import { getUserAddress } from 'hooks/WHashConfig'
 import { DepositTabContent } from './DepositTabContent'
 import { WithdrawTabContent } from './WithdrawTabContent'
 import { WalletBalances } from './WalletBalances'
 import { Balances, EMPTY_BALANCES } from '../lib/types'
+import { useInterval } from "lib/utils/hooks/useInterval";
 
 
 type Tab = "deposit" | "withdraw" | "balance";
@@ -23,11 +25,11 @@ type Tab = "deposit" | "withdraw" | "balance";
 export const Balance: React.FC = () => {
   const { t } = useTranslation();
   const { gameService } = useContext(Context);
+  // console.log("gameService=", gameService.state)
   const [game] = useActor(gameService);
   const [isShown, setIsShown] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [depositAddress, setDepositAddress] = useState("");
-
   const [ balances, setBalances ] = useState<Balances>(EMPTY_BALANCES)
 
   const [currentTab, setCurrentTab] = useState<Tab>("balance");
@@ -36,12 +38,23 @@ export const Balance: React.FC = () => {
     setCurrentTab(tab);
   };
 
-  useEffect(() => {
-    const load = async () => {
-      const info = await getAccountInfo()
+  const loadAccount = async() => {
+    try{
+      const info = await getAccountInfo()  
       setBalances(info)
-    };
-    load();
+    } catch(e: any) {
+      if (e.message === ERRORS.SESSION_EXPIRED) {
+        gameService.send("EXPIRED");
+      }
+    }
+  }
+  
+  useInterval(async () => {
+    await loadAccount()
+  }, 10 * 1000);
+
+  useEffect(() => {
+    loadAccount()
   }, []);
 
   const openBalance = async () => {
@@ -61,9 +74,10 @@ export const Balance: React.FC = () => {
   return (
     <div>
       <InnerPanel className="fixed top-2 right-2 z-50 flex items-center shadow-lg cursor-pointer">
-        <div className="flex items-center" onClick={openBalance}>
-          <img src={token} className="w-8 img-highlight" />
-          <span
+        <div className="flex items-center text-white" onClick={openBalance}>
+          <img src={wolf} className="w-5 img-highlight" />
+          <span className="ml-2">{ t("Wallet") }</span>
+          {/*<span
             className="text-white text-sm text-shadow ml-2"
             onMouseEnter={() => setIsShown(true)}
             onMouseLeave={() => setIsShown(false)}
@@ -75,7 +89,7 @@ export const Balance: React.FC = () => {
             ) : (
               <small>{game.context.state.balance.toString()}</small>
             )}
-          </span>
+          </span>*/}
         </div>
       </InnerPanel>
       <Modal

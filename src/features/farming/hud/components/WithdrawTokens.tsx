@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import * as AuthProvider from "features/auth/lib/Provider";
 
 import { Context } from "features/game/GoblinProvider";
-
+// import { ToastContext } from "features/game/toast/ToastQueueProvider";
 import { shortAddress } from "features/farming/hud/components/Address";
 
 import { Button } from "components/ui/Button";
@@ -46,7 +46,7 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
 
   const [freshBalances, setFreshBalances] = useState<Balances>(balances);
 
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
 
   const displayTokenName = () => {
     if (tokenType === "WTWOOL") return "WOOL";
@@ -54,15 +54,15 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
     return tokenType;
   };
 
-  useEffect(() => {
-    setIsLoading(true);
-    const load = async () => {
-      const info = await getAccountInfo();
-      setFreshBalances(info);
-      setIsLoading(false);
-    };
-    load();
-  }, [balances]);
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   const load = async () => {
+  //     const info = await getAccountInfo();
+  //     setFreshBalances(info);
+  //     setIsLoading(false);
+  //   };
+  //   load();
+  // }, [balances]);
 
   const balance = new Decimal(freshBalances[tokenType]);
 
@@ -108,9 +108,9 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
     setAmount(balance);
   };
 
-  if (isLoading) {
-    return <span className="text-shadow loading mt-2">Loading</span>;
-  }
+  // if (isLoading) {
+  //   return <span className="text-shadow loading mt-2">Loading</span>;
+  // }
 
   // Use base 1000
   const tax = getTax(typeof amount !== "string" ? amount : new Decimal(0)) / 10;

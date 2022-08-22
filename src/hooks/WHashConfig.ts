@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 import { API_CONFIG, loginOut } from './WolfConfig';
 import { BetOrder } from './modules/BetOrder';
 import { Withdraw, WithdrawForm } from './modules/Withdraw';
-
+import { ERRORS } from "lib/errors";
 
 
 
@@ -27,6 +27,7 @@ export const getUserAddress = async (): Promise<string> => {
       }),
     })
 
+    console.log("response=", response)
     if (response.status === 200) {
       const result = await response.json();
       if (result.success) {
@@ -41,6 +42,8 @@ export const getUserAddress = async (): Promise<string> => {
           }
         }
       }
+    } else if(response.status === 401) { // token expired
+      throw new Error(ERRORS.SESSION_EXPIRED)
     }
   }
  

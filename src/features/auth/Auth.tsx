@@ -99,10 +99,8 @@ export const Auth: React.FC = () => {
             authState.matches("checkFarm") ||
             authState.matches({ connected: "checkingSupply" }) ||
             authState.matches({ connected: "checkingAccess" })) && <Loading />} */}
-          {/*<div>{ t('Welcome to Wolf Town') }</div>*/}
+          <div className="text-center mb-5">{ t('Welcome to Wolf Town') }</div>
           <Button onClick={login}>
-            {/*         <img src={"/assets/land/4.png"} /> */}
-           
             { t("Connect Wallet") }
           </Button>
           {/*{authState.matches("connecting") && (

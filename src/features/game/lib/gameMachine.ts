@@ -438,12 +438,15 @@ export function startGame(authContext: Options) {
         resetting: {
           invoke: {
             src: async (context, event) => {
+              console.log("resetting start=")
               // Autosave just in case
               const { success } = await reset({
                 farmId: Number(authContext.farmId),
                 token: authContext.rawToken as string,
                 fingerprint: context.fingerprint as string,
               });
+
+              console.log("resetting success=", success)
 
               return {
                 success,

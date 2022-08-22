@@ -42,8 +42,7 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
   const [amount, setAmount] = useState<Decimal>(new Decimal(0));
   const [addressTo, setAddressTo] = useState<string>("");
 
-  const [error, setError] = useState("");
-  // const [balance, setBalance] = useState<Decimal>(new Decimal(0));
+  const [message, setMessage] = useState("");
 
   const [freshBalances, setFreshBalances] = useState<Balances>(balances);
 
@@ -59,14 +58,13 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
     setIsLoading(true);
     const load = async () => {
       const info = await getAccountInfo();
-      console.log("info11111=", info);
       setFreshBalances(info);
       setIsLoading(false);
     };
     load();
   }, [balances]);
 
-  const balance = new Decimal(balances[tokenType]);
+  const balance = new Decimal(freshBalances[tokenType]);
 
   // In order to be able to type into the input box amount needs to be able to be a string
   // for when the user deletes the 0. safeAmount is a getter that will return amount as a Decimal
@@ -77,15 +75,16 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
   const withdraw = async () => {
     if (amount > new Decimal(0)) {
       const withdraw: WithdrawForm = {
-        coin: "BSC",
-        tokenBase: tokenType,
+        coin: tokenType,
+        tokenBase: "BSC",
         amount: amount.toNumber(),
         addressTo: addressTo,
       };
       const result = await submitWithdraw(withdraw);
       if (result.status !== 200) {
-        setError(result.message);
+        setMessage(result.message);
       } else {
+        setMessage('Withdraw successfully')
         onWithdraw(amount.toString());
       }
     } else {
@@ -102,17 +101,11 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
   };
 
   const onAddressToChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // console.log("xxx", e.target.value)
-    // if (e.target.value === "" || !isAddress(e.target.value) ) {
-    //   setAddressTo('');
-    // } else {
-    //   setAddressTo(e.target.value);
-    // }
     setAddressTo(e.target.value);
   };
 
   const setMax = () => {
-    if (balance.gte(0.01)) setAmount(balance.minus(new Decimal(0.01)));
+    setAmount(balance);
   };
 
   if (isLoading) {
@@ -125,8 +118,9 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
   // const enabled = authState.context.token?.userAccess.withdraw;
   const disableWithdraw =
     safeAmount(amount).gte(balance) ||
-    safeAmount(amount).lt(0) ||
-    addressTo === "";
+    safeAmount(amount).lte(0) ||
+    addressTo === "" ||
+    !isAddress(addressTo)
 
   // if (!enabled) {
   //   return <span>Available May 9th</span>;
@@ -242,10 +236,10 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
         <span className="ml-2">{displayTokenName()}</span>
       </div>
 
-      <Button onClick={withdraw}>{t("Withdraw")}</Button>
+      <Button onClick={withdraw} disabled={disableWithdraw}>{t("Withdraw")}</Button>
 
       <span className="text-xs">
-        <span className="text-xs text-danger"> {error} </span>
+        <span className="text-xs text-base"> {message} </span>
       </span>
     </>
   );

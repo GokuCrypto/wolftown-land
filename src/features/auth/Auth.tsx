@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useActor } from "@xstate/react";
 import Modal from "react-bootstrap/esm/Modal";
-
+import { useTranslation } from "react-i18next";
 import * as AuthProvider from "features/auth/lib/Provider";
 import LoginFast from "../../hooks/LoginFast";
 import { ErrorMessage } from "./ErrorMessage";
@@ -34,6 +34,7 @@ import { _getAddress } from "../../hooks/ethereum";
 export const Auth: React.FC = () => {
   const { authService } = useContext(AuthProvider.Context);
   const [authState, send] = useActor(authService);
+  const { t } = useTranslation()
 
   // const [connected, setConnected] = useState(false);
 
@@ -98,17 +99,18 @@ export const Auth: React.FC = () => {
             authState.matches("checkFarm") ||
             authState.matches({ connected: "checkingSupply" }) ||
             authState.matches({ connected: "checkingAccess" })) && <Loading />} */}
-
+          {/*<div>{ t('Welcome to Wolf Town') }</div>*/}
           <Button onClick={login}>
             {/*         <img src={"/assets/land/4.png"} /> */}
-            Connect Wallet
+           
+            { t("Connect Wallet") }
           </Button>
-          {authState.matches("connecting") && (
+          {/*{authState.matches("connecting") && (
             <>
               <div id="firebaseui-auth-container" />
               <LoginFast />
             </>
-          )}
+          )}*/}
           {authState.matches("signing") && <Signing />}
           {authState.matches({ connected: "noFarmLoaded" }) && <NoFarm />}
           {authState.matches({ connected: "supplyReached" }) && (

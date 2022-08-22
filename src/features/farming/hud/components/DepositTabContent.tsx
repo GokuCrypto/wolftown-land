@@ -79,9 +79,13 @@ export const DepositTabContent = ({ address }: Props) => {
       if(receipt?.status){
         setMessage("Deposit Successfully")
       }
-    } catch(error) {
+    } catch(error: any) {
       // console.log("error===", error.message)
-      setMessage(error.message)
+      if(error?.message) {
+        setMessage(error?.message)  
+      } else {
+        setMessage(error.toString())
+      }      
     }
     
   }

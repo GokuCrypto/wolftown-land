@@ -46,8 +46,16 @@ export const Auth: React.FC = () => {
   // };
   // connectedInfo();
 
+  const [ isSigning, setIsSigning ] = useState(false)
+
   const login = async() => {
-    await loginInEth()
+    setIsSigning(true)
+    try {
+      await loginInEth()  
+    } catch(e) {
+      
+    }
+    setIsSigning(false)
     if(await isLoggedIn()) {
       authService.send("START_GAME");  
     }
@@ -95,14 +103,22 @@ export const Auth: React.FC = () => {
         <img src={jumpingGoblin} className="absolute w-52 -top-[83px] -z-10" /> */}
 
         <Panel>
+          {
+            authState.matches("connecting") && (
+              <>
+                <div className="text-center mb-5">{ t('Welcome to Wolf Town') }</div>
+                <Button onClick={login} className="mb-2" disabled={isSigning}>
+                  { isSigning ? t("Signing") : t("Connect Wallet") }
+                </Button>
+              </>
+            )
+          }
+
           {/*   {(authState.matches({ connected: "loadingFarm" }) ||
             authState.matches("checkFarm") ||
             authState.matches({ connected: "checkingSupply" }) ||
             authState.matches({ connected: "checkingAccess" })) && <Loading />} */}
-          <div className="text-center mb-5">{ t('Welcome to Wolf Town') }</div>
-          <Button onClick={login}>
-            { t("Connect Wallet") }
-          </Button>
+          
           {/*{authState.matches("connecting") && (
             <>
               <div id="firebaseui-auth-container" />

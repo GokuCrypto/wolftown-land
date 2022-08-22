@@ -155,7 +155,7 @@ export const authMachine = createMachine<
             //   target: "oauthorising",
             //   cond: "hasDiscordCode",
             // },
-            // { target: "signing" },
+            // { target: "signing" }
           ],
           onError: {
             target: "unauthorised",
@@ -182,8 +182,9 @@ export const authMachine = createMachine<
         invoke: {
           src: "login",
           onDone: {
-            target: "connected",
-            actions: "assignToken",
+            target: "connected.authorised"
+            // target: "connected",
+            // actions: "assignToken",
           },
           onError: {
             target: "unauthorised",
@@ -518,11 +519,13 @@ export const authMachine = createMachine<
         };
       },
       login: async (): Promise<{ token: string }> => {
-        const { token } = await login();
+        // const { token } = await login();
 
-        return {
-          token,
-        };
+        // return {
+        //   token,
+        // };
+
+        return { token: "" }
       },
       oauthorise: async () => {
         const code = getDiscordCode() as string;

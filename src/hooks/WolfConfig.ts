@@ -198,8 +198,11 @@ export const loginInEth = async function () {
 
 export const isLoggedIn = function () {
   const login = localStorage.getItem('LoginUser');
+  const accessToken  = localStorage.getItem("XAccessToken")
+  console.log(login)
   if (login) {
-    return JSON.parse(login).uid !== ''
+    const logObj = JSON.parse(login)
+    return logObj.uid !== '' && accessToken !== ''
   } else {
     return false
   }
@@ -244,8 +247,6 @@ export const Login = async () => {
   let XAccessToken = localStorage.getItem('XAccessToken');
   const login = localStorage.getItem('LoginUser');
 
-  console.log("x=", login)
-
   if (!login) return
   // eslint-disable-next-line no-eval
   const loginUser = eval(JSON.parse(login));
@@ -253,7 +254,6 @@ export const Login = async () => {
     return;
   }
 
-  console.log('XAccessToken====', XAccessToken)
   /*   console.log("XAccessToken", XAccessToken, "LoginUser.uid", loginUser.uid, typeof XAccessToken); */
   if ((XAccessToken == null || XAccessToken === "" || XAccessToken === 'undefined') && loginUser.uid !== "") {
 
@@ -291,11 +291,7 @@ export const Login = async () => {
         console.log("responseresponse", result);
         console.log("responseresponse3", result.result.userInfo);
       }
-
-
     }
-
-
   }
 }
 

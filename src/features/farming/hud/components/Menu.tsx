@@ -185,13 +185,14 @@ export const Menu = () => {
             {/* Root menu */}
             {menuLevel === MENU_LEVELS.ROOT && (
               <>
-                {!gameState.matches("readonly") && (
+                {/*{!gameState.matches("readonly") && (
                   <li className="p-1">
                     <Button onClick={syncOnChain}>
                       <span className="sm:text-sm">Sync on chain</span>
                     </Button>
                   </li>
-                )}
+                )}*/}
+                
                 {/*   <li className="p-1 flex">
                   <Button onClick={handleHowToPlay}>
                     <span className="sm:text-sm flex-1">
@@ -212,14 +213,14 @@ export const Menu = () => {
                     <span className="sm:text-sm flex-1">{t("Map")}</span>
                   </Button>
                 </li>
-                <li className="p-1">
+                {/*<li className="p-1">
                   <Button
                     className="flex justify-between"
                     onClick={() => setMenuLevel(MENU_LEVELS.VIEW)}
                   >
                     <span className="sm:text-sm flex-1">{t("Community")}</span>
                   </Button>
-                </li>
+                </li>*/}
                 <li className="p-1">
                   <Button
                     className="flex justify-between"

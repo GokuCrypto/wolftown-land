@@ -84,7 +84,7 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
       if (result.status !== 200) {
         setMessage(result.message);
       } else {
-        setMessage('Withdraw successfully')
+        setMessage('Withdraw submitted')
         onWithdraw(amount.toString());
       }
     } else {

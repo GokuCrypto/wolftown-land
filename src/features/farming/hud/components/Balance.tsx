@@ -6,7 +6,7 @@ import { InnerPanel } from "components/ui/Panel";
 import { Panel } from "components/ui/Panel";
 import { Tab } from "components/ui/Tab";
 import token from "assets/land/1.png";
-import wolf from "assets/wt/wolf.png";
+import balance from "assets/wt/balance.png";
 import close from "assets/icons/close.png";
 import { Context } from "features/game/GameProvider";
 import Decimal from "decimal.js-light";
@@ -75,7 +75,7 @@ export const Balance: React.FC = () => {
     <div>
       <InnerPanel className="fixed top-2 right-2 z-50 flex items-center shadow-lg cursor-pointer">
         <div className="flex items-center text-white" onClick={openBalance}>
-          <img src={wolf} className="w-5 img-highlight" />
+          <img src={balance} className="w-5 img-highlight" />
           <span className="ml-2">{ t("Wallet") }</span>
         </div>
       </InnerPanel>

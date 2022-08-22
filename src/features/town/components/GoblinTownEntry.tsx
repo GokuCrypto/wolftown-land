@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
+import { GRID_WIDTH_PX, GRID_HIGHT_PX } from "features/game/lib/constants";
 
 import goblinCarry from "assets/npcs/goblin_carry.gif";
 import goblinSign from "assets/buildings/goblin_sign.png";
@@ -21,7 +21,7 @@ export const GoblinVillageEntry: React.FC = () => {
         top: `${GRID_HIGHT_PX * 3}px`,
       }}
     >
-      <img
+      {/*  <img
         src={goblinCarry}
         className="running hover:img-highlight cursor-pointer"
         style={{
@@ -29,8 +29,8 @@ export const GoblinVillageEntry: React.FC = () => {
           right: `${GRID_WIDTH_PX * 2}px`,
         }}
         onClick={() => setShowModal(true)}
-      />
-      <img
+      /> */}
+      {/* <img
         src={goblinSign}
         className="absolute hover:img-highlight cursor-pointer"
         style={{
@@ -47,7 +47,7 @@ export const GoblinVillageEntry: React.FC = () => {
           right: `${GRID_WIDTH_PX * 1.4}px`,
           top: `${GRID_HIGHT_PX * 1.8}px`,
         }}
-      />
+      /> */}
 
       <Modal centered show={showModal} onHide={() => setShowModal(false)}>
         <GoblinVillageModal onClose={() => setShowModal(false)} />

@@ -11,7 +11,7 @@ import dropSheet from "assets/resources/stone/stone_drop.png";
 import empty from "assets/resources/stone/stone_empty.png";
 import stone from "assets/resources/stone.png";
 
-import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
+import { GRID_WIDTH_PX, GRID_HIGHT_PX } from "features/game/lib/constants";
 import { Context } from "features/game/GameProvider";
 import classNames from "classnames";
 import { useActor } from "@xstate/react";
@@ -185,7 +185,7 @@ export const Stone: React.FC<Props> = ({ rockIndex }) => {
           className="group cursor-pointer  w-full h-full"
           onClick={shake}
         >
-          <Spritesheet
+          {/*       <Spritesheet
             className="group-hover:img-highlight pointer-events-none transform z-10"
             style={{
               width: `${GRID_WIDTH_PX * 5}px`,
@@ -205,7 +205,7 @@ export const Stone: React.FC<Props> = ({ rockIndex }) => {
             onLoopComplete={(spritesheet) => {
               spritesheet.pause();
             }}
-          />
+          /> */}
           <div
             className={`absolute top-10 transition pointer-events-none w-28 z-20 ${
               showLabel ? "opacity-100" : "opacity-0"
@@ -241,14 +241,14 @@ export const Stone: React.FC<Props> = ({ rockIndex }) => {
       />
 
       {/* Hide the empty rock behind  */}
-      <img
+      {/*  <img
         src={empty}
         className="absolute top-0 pointer-events-none -z-10"
         style={{
           width: `${GRID_WIDTH_PX * 5}px`,
         }}
       />
-
+ */}
       <div
         className={classNames(
           "transition-opacity pointer-events-none absolute top-12 left-8",

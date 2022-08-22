@@ -36,11 +36,11 @@ export const NoFarm: React.FC = () => {
         <div className="flex flex-col items-center">
           <div className="flex items-center mt-4 -mb-4 relative">
             <img src={suspicious} className="w-12" />
-            <img
+            {/*     <img
               src={idle}
               className="w-12 relative bottom-1"
               style={{ transform: "scaleX(-1)" }}
-            />
+            /> */}
             <img
               src={questionMark}
               className="absolute z-10 animate-float"

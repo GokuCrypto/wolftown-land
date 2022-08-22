@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
+import { GRID_WIDTH_PX, GRID_HIGHT_PX } from "features/game/lib/constants";
 
 import humanIdle from "assets/npcs/idle.gif";
 import humanSign from "assets/buildings/human_sign.png";
@@ -40,7 +40,7 @@ export const TownEntry: React.FC = () => {
         onClick={() => setShowModal(true)}
       />
 
-      <img
+      {/* <img
         src={humanIdle}
         className="absolute hover:img-highlight cursor-pointer"
         style={{
@@ -49,7 +49,7 @@ export const TownEntry: React.FC = () => {
           top: `${GRID_HIGHT_PX * 1.2}px`,
         }}
         onClick={() => setShowModal(true)}
-      />
+      /> */}
 
       <Modal centered show={showModal} onHide={() => setShowModal(false)}>
         <TownEntryModal onClose={() => setShowModal(false)} />

@@ -87,7 +87,7 @@ export const CropReward: React.FC<Props> = ({
                   transform: `scaleX(${offset.current % 2 === 0 ? 1 : -1})`,
                 }}
               >
-                <img src={idle} className="w-16" />
+                {/*  <img src={idle} className="w-16" /> */}
                 <img
                   src={secure}
                   id={id.current}

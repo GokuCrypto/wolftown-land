@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 
 import { Inbox } from "./components/Inbox";
-import { GRID_WIDTH_PX,GRID_HIGHT_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX, GRID_HIGHT_PX } from "features/game/lib/constants";
 
 import { Message } from "./types/message";
 import {
@@ -77,11 +77,11 @@ export const Mail: React.FC = () => {
       {hasUnread && (
         <img src={alerted} className="w-3 mx-3 pb-2 animate-float" />
       )}
-      <img
+      {/*    <img
         src={baldMan}
         className="absolute w-10 z-10 hover:cursor-pointer hover:img-highlight npc-shadow"
         onClick={() => setIsOpen(true)}
-      />
+      /> */}
       <span className="npc-shadow" />
       <Modal centered show={isOpen} onHide={() => setIsOpen(false)}>
         <Inbox inbox={inbox} isLoading={isLoading} onRead={onRead} />

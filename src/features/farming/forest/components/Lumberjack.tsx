@@ -8,7 +8,7 @@ import close from "assets/icons/close.png";
 
 import { Section, useScrollIntoView } from "lib/utils/hooks/useScrollIntoView";
 
-import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
+import { GRID_WIDTH_PX, GRID_HIGHT_PX } from "features/game/lib/constants";
 
 import { Panel } from "components/ui/Panel";
 import { Button } from "components/ui/Button";
@@ -34,7 +34,7 @@ export const Lumberjack: React.FC = () => {
           top: `${GRID_HIGHT_PX * 2.8}px`,
         }}
       />
-      <img
+      {/* <img
         src={idle}
         onClick={() => setShowModal(true)}
         className="absolute cursor-pointer hover:img-highlight"
@@ -44,7 +44,7 @@ export const Lumberjack: React.FC = () => {
           top: `${GRID_HIGHT_PX * 3.45}px`,
         }}
       />
-
+ */}
       <Modal centered show={showModal} onHide={() => setShowModal(false)}>
         <Panel>
           <img

@@ -223,6 +223,13 @@ export const API_CONFIG = {
   UserInfo: `${HASH_GAME_API}/sys/user/getUserInfo`,
   // get account info
   getAccount: `${HASH_GAME_API}/game/getAccount`,
+  // get bag info
+  queryBaglist: `${HASH_GAME_API}/game/queryBaglist`,
+  // get Lottery info
+  queryWolfLotteryGoodsList: `${HASH_GAME_API}/game/queryWolfLotteryGoodsList`,
+
+  // doLottery
+  doLottery: `${HASH_GAME_API}/game/doLottery`,
   // get address info
   getAddressInfo: `${HASH_GAME_API}/game/getUserAddress`,
   // order
@@ -379,7 +386,7 @@ export const getAccountInfo = async () => {
           }
         }
       }
-    } else if(response.status === 401) {
+    } else if (response.status === 401) {
       await loginOut()
       throw new Error(ERRORS.SESSION_EXPIRED)
     }
@@ -388,6 +395,106 @@ export const getAccountInfo = async () => {
   return acountInfo;
 }
 
+
+
+
+/* 获取用户背包数据信息 */
+export const queryBaglist = async () => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+
+  if ((XAccessToken)) {
+    const response = await fetch(API_CONFIG.queryBaglist, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify({}),
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+        // 设置token
+        const wolfUserGoodsList = result.result.wolfUserGoodsList;
+        console.log("response-accountList", wolfUserGoodsList);
+        return wolfUserGoodsList;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+
+
+
+
+/* 获取抽奖数据列表 */
+export const queryWolfLotteryGoodsList = async () => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+
+  if ((XAccessToken)) {
+    const response = await fetch(API_CONFIG.queryWolfLotteryGoodsList, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify({}),
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+        // 设置token
+        //返回数据参照  WolfUserGoods.ts
+        const wolfLotteryGoodsList = result.result.wolfLotteryGoodsList;
+        console.log("response-accountList", wolfLotteryGoodsList);
+        return wolfLotteryGoodsList;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+
+
+
+
+
+/* 抽奖 */
+export const doLottery = async () => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+
+  if ((XAccessToken)) {
+    const response = await fetch(API_CONFIG.doLottery, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify({}),
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+        // 抽奖结果数据
+        const wolfLotteryGoodsResult = result.result.wolfLotteryGoodsResult;
+        console.log("response-accountList", wolfLotteryGoodsResult);
+        return wolfLotteryGoodsResult;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
 
 
 

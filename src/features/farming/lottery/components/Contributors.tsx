@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CONFIG } from "lib/config";
 
@@ -16,6 +16,7 @@ import { ITEM_DETAILS } from "features/game/types/images";
 
 import { useShowScrollbar } from "lib/utils/hooks/useShowScrollbar";
 import classNames from "classnames";
+import { queryWolfLotteryGoodsList, doLottery } from "hooks/WolfConfig";
 
 const TAB_CONTENT_HEIGHT = 340;
 
@@ -38,20 +39,30 @@ interface Props {
 }
 
 export const Contributors: React.FC<Props> = ({ onClose }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [lotteryName, setLotteryName] = useState([]);
+  const [lotteryUrl, setLotteryUrl] = useState([]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const load = async () => {
+      queryWolfLotteryGoodsList().then((obj) => {
+        console.log("objobj", obj);
+      });
+    };
+    load();
+  }, []);
+
   const { ref: itemContainerRef, showScrollbar } =
     useShowScrollbar(TAB_CONTENT_HEIGHT);
   const navigate = useNavigate();
 
   return (
     <>
-      {/* <div className="flex flex-wrap justify-center items-center">
-        <img src={logo} className="w-2/3" />
+      <div className="flex flex-wrap justify-center items-center">
+        <h1 className="text-xl  text-center pt-1"> Lottery</h1>
         <p className="text-xs text-center pt-2">
-          WolfTown Game is a community project and we are so grateful to the
-          contributors who have helped out get closer to our vision.
-        </p>
-        <p className="text-xs text-center pt-3 mb-2">
-          If you like their work, visit their farm and buy them a coffee!
+          Welcome to the lottery center .
         </p>
       </div>
       <div
@@ -64,48 +75,8 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
           scrollable: showScrollbar,
         })}
       >
-        <div className="flex flex-wrap items-center h-fit">
-          {CONTRIBUTORS.map((contributor) => (
-            <div
-              key={contributor.name}
-              className="flex w-full mb-6"
-              id={contributor.name}
-            >
-              <div className="w-10 mr-4 flex justify-center">
-                <img src={AVATARS[contributor.avatar]} className="h-8" />
-              </div>
-              <div>
-                <p className="text-sm capitalize">
-                  {contributor.name}{" "}
-                  {CONFIG.NETWORK === "mainnet" && (
-                    <span
-                      className="underline cursor-pointer"
-                      onClick={() => {
-                        navigate(`/visit/${contributor.farmId}`);
-                        onClose();
-                      }}
-                    >
-                      #{contributor.farmId}
-                    </span>
-                  )}
-                </p>
-                <p className="text-sm">
-                  {contributor.role.map((role) => (
-                    <span
-                      key={role}
-                      className="capitalize flex items-center py-1"
-                    >
-                      {role}
-                      <img src={ROLE_BADGES[role]} className="h-5 ml-1" />
-                    </span>
-                  ))}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div> */}
-      Coming soon
+        <div className="flex flex-wrap items-center h-fit"></div>
+      </div>
     </>
   );
 };

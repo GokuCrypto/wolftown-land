@@ -198,7 +198,7 @@ export const loginInEth = async function () {
 
 export const isLoggedIn = function () {
   const login = localStorage.getItem('LoginUser');
-  const accessToken  = localStorage.getItem("XAccessToken")
+  const accessToken = localStorage.getItem("XAccessToken")
   console.log(login)
   if (login) {
     const logObj = JSON.parse(login)
@@ -224,12 +224,12 @@ export const API_CONFIG = {
   // get account info
   getAccount: `${HASH_GAME_API}/game/getAccount`,
   // get bag info
-  queryBaglist: `${HASH_GAME_API}/game/queryBaglist`,
+  queryBaglist: `${HASH_GAME_API}/wolftown/queryBaglist`,
   // get Lottery info
-  queryWolfLotteryGoodsList: `${HASH_GAME_API}/game/queryWolfLotteryGoodsList`,
+  queryWolfLotteryGoodsList: `${HASH_GAME_API}/wolftown/queryWolfLotteryGoodsList`,
 
   // doLottery
-  doLottery: `${HASH_GAME_API}/game/doLottery`,
+  doLottery: `${HASH_GAME_API}/wolftown/doLottery`,
   // get address info
   getAddressInfo: `${HASH_GAME_API}/game/getUserAddress`,
   // order

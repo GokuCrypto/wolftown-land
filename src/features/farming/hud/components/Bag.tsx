@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import Modal from "react-bootstrap/Modal";
 import { useActor } from "@xstate/react";
 
@@ -20,6 +21,7 @@ import { Context } from "features/game/GameProvider";
 import { queryBaglist } from "hooks/WolfConfig"
 
 export const Bag: React.FC = () => {
+  const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false);
   const { shortcutItem, gameService } = useContext(Context);
   const [game] = useActor(gameService);
@@ -46,7 +48,7 @@ export const Bag: React.FC = () => {
           alt="Bag"
         />
         {/*<img src={bag} className="w-8 mb-1" alt="inventory" />*/}
-        <Label className="hidden sm:block absolute -bottom-7">Bag</Label>
+        <Label className="hidden sm:block absolute -bottom-7">{t("Bag")}</Label>
       </div>
 
       <Modal size="lg" centered scrollable show={isOpen} onHide={() => setIsOpen(false)}>

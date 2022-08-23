@@ -103,17 +103,19 @@ export const DepositTabContent = ({ address }: Props) => {
   return (
     <div className="flex flex-col" style={{ minHeight: TAB_CONTENT_HEIGHT }}>
       <div className="mt-2">
+        
         <div className="flex flex-wrap">
           <ButtonGroup className="mb-2">
             <ToggleButton
               key="busd"
               id="busd"
               type="radio"
-              variant="secondary"
+              variant="warning"
               name="radio"
               value="BUSD"
               checked={tokenType === 'BUSD'}
               onClick={() => setTokenType("BUSD")}
+              className={ tokenType === 'BUSD' ? 'text-white': 'text-white bg-yellow-600'}
             >
               BUSD
             </ToggleButton>
@@ -121,11 +123,12 @@ export const DepositTabContent = ({ address }: Props) => {
               key="wool"
               id="wool"
               type="radio"
-              variant="secondary"
+              variant="warning"
               name="radio"
               value="WTWOOL"
               checked={tokenType === 'WTWOOL'}
               onClick={(e) => setTokenType("WTWOOL")}
+              className={ tokenType === 'WTWOOL' ? 'text-white': 'text-white bg-yellow-600'}
             >
               WOOL
             </ToggleButton>
@@ -133,28 +136,29 @@ export const DepositTabContent = ({ address }: Props) => {
               key="milk"
               id="milk"
               type="radio"
-              variant="secondary"
+              variant="warning"
               name="radio"
               value="WTMILK"
               checked={tokenType === 'WTMILK'}
               onClick={(e) => setTokenType("WTMILK")}
+              className={ tokenType === 'WTMILK' ? 'text-white': 'text-white bg-yellow-600'}
             >
               MILK
             </ToggleButton>
           </ButtonGroup>
         </div>
         <div>
-          <span className="mb-3 text-base">Choose amount to withdraw</span>
+          <span className="mb-3 text-base">{ t('Input amount to deposit') }</span>
         </div>
         <span className="text-sm">
-          {balance.toDecimalPlaces(2, Decimal.ROUND_DOWN).toString()} { displayTokenName() } is available
+          {balance.toDecimalPlaces(2, Decimal.ROUND_DOWN).toString()} { displayTokenName() } { t('is available') }
         </span>
         <div className="flex items-center mt-2">
           <div className="relative">
             <input
               type="text"
-              placeholder="Deposit Address"
-              className="text-shadow shadow-inner shadow-black bg-brown-200 p-2"
+              placeholder={ t('Deposit Address') }
+              className="shadow-inner shadow-black bg-brown-200 p-2"
               readOnly
               style={{ width: "600px", maxWidth: "100%" }}
               value={address}
@@ -189,7 +193,7 @@ export const DepositTabContent = ({ address }: Props) => {
               />*/}
             </div>
             <Button className="w-24 ml-6" onClick={setMax}>
-              Max
+              { t('Max') }
             </Button>
           </div>
         </div>

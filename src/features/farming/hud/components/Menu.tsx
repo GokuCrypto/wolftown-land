@@ -154,7 +154,7 @@ export const Menu = () => {
             />
             <span className="hidden md:flex">{t("Menu")}</span>
           </Button>
-          {!gameState.matches("readonly") && (
+          {/*{!gameState.matches("readonly") && (
             <Button
               onClick={autosave}
               disabled={gameState.matches("autosaving") ? true : false}
@@ -165,7 +165,7 @@ export const Menu = () => {
                 <span>Save</span>
               )}
             </Button>
-          )}
+          )}*/}
           {gameState.matches("readonly") && (
             <Button onClick={goBack}>
               <span>{t("Back")}</span>

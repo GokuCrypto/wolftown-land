@@ -37,5 +37,22 @@
   "Let's go":"开始游戏！",
   "Next":"下一步",
   "Basket":"篮子",
-  "Collectibles":"收藏品"
+  "Collectibles":"收藏品",
+  "Balance": "余额",
+  "Deposit": "充值",
+  "Withdraw": "提现",
+  "Bag": "背包",
+  "Meterial": "材料",
+  "Equip": "装备",
+  "Weapon": "武器",
+  "Animal": "动物",
+  "Wallet": "钱包",
+  "Input amount to deposit": "输入充值金额",
+  "is available": "可用",
+  "Deposit Address": "充值地址",
+  "Max": "最大",
+  "Input amount to withdraw": "输入提现金额",
+  "Withdraw Address": "提现地址",
+  "You will receive": "你将收到",
+  "tax": "税费"
 }

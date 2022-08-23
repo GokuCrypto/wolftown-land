@@ -134,11 +134,12 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
             key="busd"
             id="busd"
             type="radio"
-            variant="secondary"
+            variant="warning"
             name="radio"
             value="BUSD"
             checked={tokenType === "BUSD"}
             onClick={() => setTokenType("BUSD")}
+            className={ tokenType === 'BUSD' ? 'text-white': 'text-white bg-yellow-600'}
           >
             BUSD
           </ToggleButton>
@@ -146,11 +147,12 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
             key="wool"
             id="wool"
             type="radio"
-            variant="secondary"
+            variant="warning"
             name="radio"
             value="WTWOOL"
             checked={tokenType === "WTWOOL"}
             onClick={(e) => setTokenType("WTWOOL")}
+            className={ tokenType === 'WTWOOL' ? 'text-white': 'text-white bg-yellow-600'}
           >
             WOOL
           </ToggleButton>
@@ -158,29 +160,30 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
             key="milk"
             id="milk"
             type="radio"
-            variant="secondary"
+            variant="warning"
             name="radio"
             value="WTMILK"
             checked={tokenType === "WTMILK"}
             onClick={(e) => setTokenType("WTMILK")}
+            className={ tokenType === 'WTMILK' ? 'text-white': 'text-white bg-yellow-600'}
           >
             MILK
           </ToggleButton>
         </ButtonGroup>
       </div>
       <div>
-        <span className="mb-3 text-base">Choose amount to withdraw</span>
+        <span className="mb-3 text-base">{ t('Input amount to withdraw') }</span>
       </div>
       <span className="text-sm">
         {balance.toDecimalPlaces(2, Decimal.ROUND_DOWN).toString()}{" "}
-        {displayTokenName()} is available
+        {displayTokenName()} { t('is available') }
       </span>
       <div className="flex items-center mt-2">
         <div className="relative">
           <input
             type="text"
-            placeholder="Withdraw Address"
-            className="text-shadow shadow-inner shadow-black bg-brown-200 p-2"
+            placeholder={ t('Withdraw Address') }
+            className="shadow-inner shadow-black bg-brown-200 p-2"
             style={{ width: "600px", maxWidth: "100%" }}
             onChange={onAddressToChange}
           />
@@ -214,14 +217,14 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
             />*/}
           </div>
           <Button className="w-24 ml-6" onClick={setMax}>
-            Max
+            { t('Max') }
           </Button>
         </div>
 
         {amount.gte(0) && (
           <>
             <span className="text-xs">
-              <span className="text-xs">{tax}% fee</span>
+              <span className="text-xs">{tax}% {t("tax")}</span>
             </span>
           </>
         )}
@@ -229,7 +232,7 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
 
       <div className="flex items-center mt-3">
         <span className="">
-          {`You will receive: ${safeAmount(amount)
+          {t('You will receive')}:  {`${safeAmount(amount)
             .mul((100 - tax) / 100)
             .toFixed(1)}`}
         </span>

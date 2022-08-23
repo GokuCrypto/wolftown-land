@@ -10,3 +10,11 @@ export const EMPTY_BALANCES: Balances = {
   WTWOOL: '0',
   WTMILK: '0'
 }
+
+export interface BagItem {
+	id: string;
+	name: string;
+	type: string;
+	image: string;
+	amount: number;
+}

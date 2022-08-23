@@ -32,7 +32,7 @@ export const Town: React.FC = () => {
       <Shop />
       <Bakery />
       <Blacksmith />
-      <Mail />
+      {/*<Mail />*/}
       <TownHall />
       {!gameState.matches("readonly") && <GoblinVillageEntry />}
     </div>

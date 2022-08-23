@@ -3,6 +3,7 @@ import React from "react";
 import { Balance } from "./components/Balance";
 import { LangButton } from "./components/LangButton";
 import { Inventory } from "./components/Inventory";
+import { Bag } from "./components/Bag";
 import { Menu } from "./components/Menu";
 import { AudioPlayer } from "components/ui/AudioPlayer";
 import { VisitBanner } from "./components/VisitBanner";
@@ -17,7 +18,7 @@ export const Hud: React.FC = () => {
       <Menu />
       <LangButton />
       <Balance />
-      {/*<Inventory />*/}
+      <Bag />
       <AudioPlayer isFarming />
       <VisitBanner />
     </div>

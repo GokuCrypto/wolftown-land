@@ -29,8 +29,8 @@ export const Town: React.FC = () => {
         top: `calc(50% - ${GRID_HIGHT_PX * 18}px)`,
       }}
     >
-      <Shop />
-      <Bakery />
+      {/*<Shop />*/}
+      {/*<Bakery />*/}
       <Blacksmith />
       {/*<Mail />*/}
       <TownHall />

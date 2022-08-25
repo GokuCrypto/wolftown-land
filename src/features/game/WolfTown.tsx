@@ -44,7 +44,7 @@ export const WolfTown: React.FC = () => {
             // TODO dynamic game board size based on tile dimensions
           >
             <img src={background} className="absolute inset-0 w-full  " />
-            <ExpansionInfo />
+            {/*<ExpansionInfo />*/}
             <Game />
           </div>
         </ScrollContainer>

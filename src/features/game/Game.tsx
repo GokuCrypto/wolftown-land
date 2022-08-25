@@ -106,20 +106,20 @@ export const Game: React.FC = () => {
         </Panel>
       </Modal>
 
-      <ClockIssue show={gameState.context.offset > 0} />
+      {/*<ClockIssue show={gameState.context.offset > 0} />*/}
       <Hud />
-      <TeamDonation />
+      {/*<TeamDonation />*/}
       <Lottery />
       <Crops />
       {/* <Water /> */}
       <Wolf />
       <Animals />
-      <Decorations />
-      <Forest />
-      <Quarry />
+      {/*<Decorations />*/}
+      {/*<Forest />*/}
+      {/*<Quarry />*/}
       <Town />
-      <House />
-      <Lore />
+      {/*<House />*/}
+      {/*<Lore />*/}
       <GoblinShovel />
     </>
   );

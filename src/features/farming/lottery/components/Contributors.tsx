@@ -60,7 +60,6 @@ export const ContributorsInit: React.FC<PropsInit> = ({ onClose, times }) => {
     setIsLoading(true);
     const load = async () => {
       doLottery(times).then((obj) => {
-        console.log("obj.success", obj.success);
         if (!obj.success) {
           console.log("obj.message", obj.message);
           setMessage(obj.message);
@@ -137,8 +136,6 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
     setIsLoading(true);
     const load = async () => {
       queryWolfLotteryGoodsList().then((obj) => {
-        console.log("obj.success", obj.success);
-
         const wolfLotteryGoodsResultList = obj;
         if (
           wolfLotteryGoodsResultList != null &&

@@ -117,7 +117,7 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
 
   // const enabled = authState.context.token?.userAccess.withdraw;
   const disableWithdraw =
-    safeAmount(amount).gte(balance) ||
+    safeAmount(amount).gt(balance) ||
     safeAmount(amount).lte(0) ||
     addressTo === "" ||
     !isAddress(addressTo)

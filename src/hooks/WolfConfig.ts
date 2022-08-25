@@ -208,9 +208,9 @@ export const isLoggedIn = function () {
   }
 }
 
-/* export const HASH_GAME_API = "https://api.wolftown.games/jeecg-boot"; */
+export const HASH_GAME_API = "https://api.wolftown.games/jeecg-boot";
 
-export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/";
+/* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
 
 /* 配置数据 */
 export const API_CONFIG = {

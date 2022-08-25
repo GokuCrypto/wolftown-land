@@ -208,9 +208,9 @@ export const isLoggedIn = function () {
   }
 }
 
-export const HASH_GAME_API = "https://api.wolftown.games/jeecg-boot";
+/* export const HASH_GAME_API = "https://api.wolftown.games/jeecg-boot"; */
 
-/* export const HASH_GAME_API = "http://154.209.5.151:8080/jeecg-boot/"; */
+export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/";
 
 /* 配置数据 */
 export const API_CONFIG = {
@@ -467,26 +467,30 @@ export const queryWolfLotteryGoodsList = async () => {
 
 
 /* 抽奖 */
-export const doLottery = async () => {
+export const doLottery = async (times: number) => {
 
   const XAccessToken = localStorage.getItem('XAccessToken');
   /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
 
   if ((XAccessToken)) {
     const response = await fetch(API_CONFIG.doLottery, {
-      method: 'get', headers: {
+      method: 'post', headers: {
         'X-Access-Token': XAccessToken,
         'token': XAccessToken,
         'Content-Type': 'application/json',
-      }
+      }, body: JSON.stringify({
+        "times": times,
+      }),
     })
     if (response.status === 200) {
       const result = await response.json();
       if (result.success) {
         // 抽奖结果数据
-        const wolfLotteryGoodsResult = result.result.wolfLotteryGoodsResult;
-        console.log("response-accountList", wolfLotteryGoodsResult);
-        return wolfLotteryGoodsResult;
+        const wolfLotteryGoodsResultList = result.result.wolfLotteryGoodsResultList;
+        console.log("response-wolfLotteryGoodsResultList", result);
+        return result;
+      } else {
+        return result;
       }
     } else if (response.status === 401) {
       await loginOut()

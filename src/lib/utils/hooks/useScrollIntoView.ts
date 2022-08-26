@@ -3,6 +3,7 @@ export enum Section {
   Crops = "crops",
   Water = "water",
   Wolf = "wolf",
+  TV = "TV",
 
   Animals = "animals",
   Shop = "shop",

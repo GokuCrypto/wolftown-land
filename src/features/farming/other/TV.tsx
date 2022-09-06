@@ -14,7 +14,7 @@ class LiveBroadcast extends React.Component {
     return (
       <ReactPlayer
         className="react-player"
-        url="https://apd-ca675b64fd02a4e1ff2be034b0bccd1f.v.smtcdns.com/om.tc.qq.com/AqOu6Y2W2wuy_8LB-Ts6CbPL7y3xuvX5fYyRs_sHHm4I/uwMROfz2r5zCIaQXGdGnC2dfDmavB6NbsWKJAiRTQBPbT70a/b0526iymhsl.mp4?sdtfrom=v1010&guid=e2fdffd20045b5a0&vkey=DA99B274C27DB20BBB6CFDF22134E87099E4DC21AC1A77D7AD99ABBBF89489E19C3EA098E00B2D519DD6C828CCCDABCE0E92922BB39F72E02891CDDD8364E58AB7F09B54F0D10B9E7A6CED8D9D626B3457BA318FDAA85F52DB74C08AF2D2119450A2AFE07967D9472C158EA694D3F0AF4025BFA4857D508A79A663E76B9F562A"
+        url="/src/assets/tv/zts.mp4"
         width="140%"
         height="140px"
         playing={true}

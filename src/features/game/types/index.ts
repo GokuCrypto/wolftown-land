@@ -143,6 +143,23 @@ export const KNOWN_IDS: Record<InventoryItemName, number> = {
   "Orange Egg": 907,
   "Green Egg": 908,
   "Easter Bunny": 909,
+
+  //
+  "Sheep Fragment": 910,
+  "Wool Fragment": 911,
+
+
+  "Animal Coupons For Wolf": 912,
+  "Animal Coupons For Sheep": 913,
+  "Wool Coupons": 914,
+  "Sheep Coupons": 915,
+
+  "Land Coupons": 916,
+
+  "Land Fragment": 917,
+
+  "Animal NFT Coupons": 918,
+  "Land NFT Coupons": 919
 };
 
 // The reverse of above

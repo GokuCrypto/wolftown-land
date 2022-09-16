@@ -161,7 +161,7 @@ export interface ItemDetails extends Omit<LimitedItem, "name" | "description"> {
   section?: Section;
 }
 
-type Items = Record<InventoryItemName, ItemDetails>;
+type Items = Record<InventoryItemName | string, ItemDetails>;
 
 const crops = CROPS();
 const seeds = SEEDS();
@@ -702,4 +702,54 @@ export const ITEM_DETAILS: Items = {
     description: "A purple easter egg",
     image: purpleEgg,
   },
+
+  //
+  "Sheep Fragment": {
+    description: "A Sheep Fragment",
+    image: "https://img.wolftown.games/bag/Sheep_Fragment.png",
+  },
+  "Wool Fragment": {
+    description: "A Wool Fragment",
+    image: "https://img.wolftown.games/bag/Wool_Fragment.png",
+  },
+
+
+  "Animal Coupons For Wolf": {
+    description: "Use Wolf Fragment synthesis",
+    image: "https://img.wolftown.games/bag/Animal_NFT.png",
+  },
+  "Animal Coupons For Sheep": {
+    description: "Use Sheep Fragment synthesis",
+    image: "https://img.wolftown.games/bag/Animal_NFT.png",
+  },
+  "Wool Coupons": {
+    description: "A Wolf Coupons",
+    image: "https://img.wolftown.games/bag/Wool_Coupons.png",
+  },
+  "Sheep Coupons": {
+    description: "A Sheep Coupons",
+    image: "https://img.wolftown.games/bag/Sheep_Coupons.png",
+  },
+
+  "Land Coupons": {
+    description: "A Sheep Coupons",
+    image: "https://img.wolftown.games/bag/Land_Coupons.png",
+  },
+
+  "Land Fragment": {
+    description: "A Land Fragment",
+    image: "https://img.wolftown.games/bag/Land_Fragment.png",
+  },
+
+  "Animal NFT Coupons": {
+    description: "A Animal NFT Coupons",
+    image: "https://img.wolftown.games/bag/Animal_NFT.png",
+  },
+  "Land NFT Coupons": {
+    description: "A Land NFT Coupons",
+    image: "https://img.wolftown.games/bag/Land_NFT.png",
+  }
+
+
+
 };

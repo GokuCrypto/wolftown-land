@@ -279,13 +279,13 @@ export class Metamask {
   }
 
   public async deposit(token: string, to: string, amount: string) {
-    if(token === "BUSD") {
+    if (token === "BUSD") {
       return await this.tokenBUSD?.transfer(to, toWei(amount))
     }
-    if(token === "WTWOOL") {
+    if (token === "WTWOOL") {
       return await this.tokenWTWOOL?.transfer(to, toWei(amount))
     }
-    if(token === "WTMILK") {
+    if (token === "WTMILK") {
       return await this.tokenWTMILK?.transfer(to, toWei(amount))
     }
   }
@@ -307,6 +307,19 @@ export class Metamask {
       const parsed = parseMetamaskError(error);
 
       throw parsed;
+    }
+  }
+
+  /*数据上链 */
+  public async WebtoChain(token: string, to: string, amount: string) {
+    if (token === "BUSD") {
+      return await this.tokenBUSD?.transfer(to, toWei(amount))
+    }
+    if (token === "WTWOOL") {
+      return await this.tokenWTWOOL?.transfer(to, toWei(amount))
+    }
+    if (token === "WTMILK") {
+      return await this.tokenWTMILK?.transfer(to, toWei(amount))
     }
   }
 

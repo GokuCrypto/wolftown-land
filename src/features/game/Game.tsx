@@ -25,6 +25,8 @@ import { Quarry } from "features/farming/quarry/Quarry";
 import { TeamDonation } from "features/farming/teamDonation/TeamDonation";
 import { Forest } from "features/farming/forest/Forest";
 
+import { Blacksmith } from "features/farming/blacksmith/Blacksmith";
+
 import { StateValues } from "./lib/gameMachine";
 import { Town } from "features/farming/town/Town";
 import { ErrorCode } from "lib/errors";
@@ -112,6 +114,7 @@ export const Game: React.FC = () => {
       <Lottery />
       <TV />
       <Crops />
+      <Blacksmith />
       {/* <Water /> */}
       <Wolf />
       <Animals />

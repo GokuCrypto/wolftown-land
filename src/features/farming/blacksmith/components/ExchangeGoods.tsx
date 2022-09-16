@@ -1,32 +1,26 @@
-import React, { useContext, useState } from "react";
 import { useActor } from "@xstate/react";
 import classNames from "classnames";
 import Decimal from "decimal.js-light";
-import ReCAPTCHA from "react-google-recaptcha";
+import React, { useContext, useState } from "react";
 
 import token from "assets/wt/balance.png";
 
 import { Box } from "components/ui/Box";
-import { OuterPanel } from "components/ui/Panel";
 import { Button } from "components/ui/Button";
-import { ToastContext } from "features/game/toast/ToastQueueProvider";
+import { OuterPanel } from "components/ui/Panel";
 import { Context } from "features/game/GameProvider";
-import { ITEM_DETAILS } from "features/game/types/images";
-import { CraftableItem, Ingredient } from "features/game/types/craftables";
+import { ToastContext } from "features/game/toast/ToastQueueProvider";
+import { CraftableItem } from "features/game/types/craftables";
 import { InventoryItemName } from "features/game/types/game";
-import { Stock } from "components/ui/Stock";
-import {
-  reward,
-  synthesis,
-  getWolfUserGoodsToChainList,
-} from "hooks/WolfConfig";
+import { ITEM_DETAILS } from "features/game/types/images";
+import { reward } from "hooks/WolfConfig";
 interface Props {
   items: Partial<Record<InventoryItemName, CraftableItem>>;
   isBulk?: boolean;
   onClose: () => void;
 }
 
-export const CraftingItems: React.FC<Props> = ({
+export const ExchangeGoods: React.FC<Props> = ({
   items,
   onClose,
   isBulk = false,
@@ -34,10 +28,6 @@ export const CraftingItems: React.FC<Props> = ({
   const [selected, setSelected] = useState<CraftableItem>(
     Object.values(items)[0]
   );
-
-  /*   const [selectedIngredientName, setSelectedIngredientName] = useState<string>(
-    Object.values(items)[0].name
-  ); */
   const { setToast } = useContext(ToastContext);
   const { gameService, shortcutItem } = useContext(Context);
   const [showCaptcha, setShowCaptcha] = useState(false);
@@ -49,99 +39,40 @@ export const CraftingItems: React.FC<Props> = ({
   ] = useActor(gameService);
   const inventory = state.inventory;
 
-  const lessIngredients = (amount = 1) =>
-    selected.ingredients?.some((ingredient) =>
-      ingredient.amount.mul(amount).greaterThan(inventory[ingredient.item] || 0)
-    );
-
   const lessFunds = (amount = 1) => {
     if (!selected.tokenAmount) return;
 
     return state.balance.lessThan(selected.tokenAmount.mul(amount));
   };
 
-  const craft = (amount = 1) => {
-    gameService.send("item.crafted", {
-      item: selected.name,
-      amount,
-    });
-
-    setToast({ content: "SFL -$" + selected.tokenAmount?.mul(amount) });
-
-    selected.ingredients?.map((ingredient) => {
-      setToast({
-        content: ingredient.item + " -" + ingredient.amount.mul(amount),
-      });
-    });
-
-    shortcutItem(selected.name);
-  };
-
-  const onCaptchaSolved = async (captcha: string | null) => {
-    await new Promise((res) => setTimeout(res, 1000));
-
-    gameService.send("SYNC", { captcha });
-
-    onClose();
-  };
-
-  const handleNextSong = async (goodsName: string) => {
-    const result = await synthesis(goodsName);
+  //兑换到链上
+  const handleNextReward = async (goodsName: string) => {
+    const result = await reward(goodsName);
 
     if (!result.success) {
       setMessage(result.message);
     } else {
-      setMessage("Synthesis succeeded!");
+      setMessage("Request succeeded!");
     }
   };
 
   const Action = () => {
-    if (selected.disabled) {
-      return <span className="text-xs mt-1 text-shadow">Locked</span>;
-    }
-
-    return (
-      <div>
-        {/* <p className="text-xxs no-wrap text-center my-1 underline">
-            Sold out
-          </p>
-          <p className="text-xxs text-center">
-            Sync your farm to the Blockchain to restock
-          </p> */}
-        <Button
-          className="text-xs mt-1"
-          onClick={() => {
-            if (selected && selected.ingredients) {
-              handleNextSong(selected?.ingredients[0].item);
-            }
-          }}
-        >
-          Sync
-        </Button>
-        <span className="text-xs text-base"> {message} </span>
-      </div>
-    );
-
     return (
       <>
         <Button
-          disabled={lessFunds() || lessIngredients() || stock?.lessThan(1)}
           className="text-xxs sm:text-xs mt-1 whitespace-nowrap"
-          onClick={() => craft()}
+          onClick={() => handleNextReward(selected.name)}
         >
-          Craft {isBulk && "1"}
+          Send To Chain
         </Button>
-        {isBulk && (
-          <Button
-            disabled={
-              lessFunds(10) || lessIngredients(10) || stock?.lessThan(10)
-            }
-            className="text-xxs sm:text-xs mt-1 whitespace-nowrap"
-            onClick={() => craft(10)}
-          >
-            Craft 10
-          </Button>
-        )}
+
+        <Button
+          className="text-xxs sm:text-xs mt-1 whitespace-nowrap"
+          onClick={() => handleNextReward(selected.name)}
+        >
+          Mint
+        </Button>
+        <span className="text-xs mt-1 text-shadow">{message}</span>
       </>
     );
   };
@@ -198,7 +129,7 @@ export const CraftingItems: React.FC<Props> = ({
               );
             })}
 
-            <div className="flex justify-center items-end">
+            {/*      <div className="flex justify-center items-end">
               <img src={token} className="h-5 mr-1" />
               <span
                 className={classNames("text-xs text-shadow text-center mt-2 ", {
@@ -207,7 +138,7 @@ export const CraftingItems: React.FC<Props> = ({
               >
                 {`$${selected.tokenAmount?.toNumber()}`}
               </span>
-            </div>
+            </div> */}
           </div>
           {Action()}
         </div>

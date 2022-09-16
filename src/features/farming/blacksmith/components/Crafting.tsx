@@ -6,24 +6,31 @@ import close from "assets/icons/close.png";
 import { Panel } from "components/ui/Panel";
 import { Tab } from "components/ui/Tab";
 
-import { TOOLS } from "features/game/types/craftables";
-
+import { SynthesisGoods, ExchangesGoods } from "features/game/types/craftables";
+import { ExchangeGoods } from "./ExchangeGoods";
+import { ExchangeRecord } from "./ExchangeRecord";
 import { CraftingItems } from "./CraftingItems";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   onClose: () => void;
 }
 
 export const Crafting: React.FC<Props> = ({ onClose }) => {
-  const [tab, setTab] = useState<"craft">("craft");
-
+  const [tab, setTab] = useState<string>("craft");
+  const { t } = useTranslation();
   return (
     <Panel className="pt-5 relative">
       <div className="flex justify-between absolute top-1.5 left-0.5 right-0 items-center">
         <div className="flex">
           <Tab isActive={tab === "craft"} onClick={() => setTab("craft")}>
-            <img src={hammer} className="h-5 mr-2" />
-            <span className="text-sm text-shadow">Tools</span>
+            <span className="text-sm text-shadow">{t("synthesis")}</span>
+          </Tab>
+          <Tab isActive={tab === "exchange"} onClick={() => setTab("exchange")}>
+            <span className="text-sm text-shadow">{t("exchange")}</span>
+          </Tab>
+          <Tab isActive={tab === "record"} onClick={() => setTab("record")}>
+            <span className="text-sm text-shadow">{t(" record")}</span>
           </Tab>
         </div>
         <img
@@ -39,7 +46,14 @@ export const Crafting: React.FC<Props> = ({ onClose }) => {
         }}
       >
         {tab === "craft" && (
-          <CraftingItems items={TOOLS} isBulk onClose={onClose} />
+          <CraftingItems items={SynthesisGoods} isBulk onClose={onClose} />
+        )}
+        {tab === "exchange" && (
+          <ExchangeGoods items={ExchangesGoods} isBulk onClose={onClose} />
+        )}
+
+        {tab === "record" && (
+          <ExchangeRecord items={SynthesisGoods} isBulk onClose={onClose} />
         )}
       </div>
     </Panel>

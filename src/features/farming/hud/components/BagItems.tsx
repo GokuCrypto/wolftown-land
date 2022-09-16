@@ -32,14 +32,14 @@ import resource from "assets/resources/wood.png";
 import Decimal from "decimal.js-light";
 import { InventoryTabContent } from "./InventoryTabContent";
 import { ITEM_DETAILS } from "features/game/types/images";
-import { useTranslation } from 'react-i18next';
-import { queryBaglist } from "hooks/WolfConfig"
-import { ERRORS } from "lib/errors"
-import { BagItem } from "../lib/types"
-import { BagItemsTabContent } from "./BagItemsTabContent"
+import { useTranslation } from "react-i18next";
+import { queryBaglist } from "hooks/WolfConfig";
+import { ERRORS } from "lib/errors";
+import { BagItem } from "../lib/types";
+import { BagItemsTabContent } from "./BagItemsTabContent";
 
 type Tab = "Meterial" | "Equip" | "Weapon" | "Animal";
-const TABS = [ "Meterial" , "Equip" , "Weapon" , "Animal" ]
+const TABS = ["Meterial", "Equip", "Weapon", "Animal"];
 
 interface Props {
   onClose: () => void;
@@ -111,14 +111,14 @@ export const BagItems: React.FC<Props> = ({ onClose }) => {
   // );
   const [selectedItem, setSelectedItem] = useState<BagItem>();
 
-  const [allItems, setAllItems] = useState<BagItem[]>([])
+  const [allItems, setAllItems] = useState<BagItem[]>([]);
 
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
-  const loadBagItems = async() => {
-    setIsLoading(true)
-    try{
-      const items = await queryBaglist() 
+  const loadBagItems = async () => {
+    setIsLoading(true);
+    try {
+      const items = await queryBaglist();
       setAllItems(
         items.map((item: any) => {
           return {
@@ -127,25 +127,26 @@ export const BagItems: React.FC<Props> = ({ onClose }) => {
             type: item.goodsType,
             image: item.goodsUrl,
             amount: item.amount,
-          } as BagItem
+            attribute: item.remark,
+          } as BagItem;
         })
-      )
-      setIsLoading(false)
-    } catch(e: any) {
+      );
+      setIsLoading(false);
+    } catch (e: any) {
       if (e.message === ERRORS.SESSION_EXPIRED) {
         gameService.send("EXPIRED");
       }
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    loadBagItems()
+    loadBagItems();
   }, []);
 
   const items = useMemo(() => {
-    return allItems.filter(i => i.type === currentTab)
-  }, [currentTab, allItems])
+    return allItems.filter((i) => i.type === currentTab);
+  }, [currentTab, allItems]);
 
   const handleTabClick = (tab: Tab) => {
     setCurrentTab(tab);
@@ -156,7 +157,7 @@ export const BagItems: React.FC<Props> = ({ onClose }) => {
     <Panel className="pt-5 relative">
       <div className="flex justify-between absolute top-1.5 left-0.5 right-0 items-center">
         <div className="flex">
-          {TABS.map(tab => {
+          {TABS.map((tab) => {
             return (
               <Tab
                 key={tab}
@@ -169,7 +170,7 @@ export const BagItems: React.FC<Props> = ({ onClose }) => {
                   {t(tab)}
                 </span>
               </Tab>
-            )
+            );
           })}
         </div>
         <img
@@ -179,20 +180,23 @@ export const BagItems: React.FC<Props> = ({ onClose }) => {
         />
       </div>
 
-      {
-        isLoading ? (
-          <div className="flex flex-col" style={{ minHeight: TAB_CONTENT_HEIGHT }}>
-            <div className="mt-2">
-              <span className="text-shadow loading mt-2">Loading</span>
-            </div>
+      {isLoading ? (
+        <div
+          className="flex flex-col"
+          style={{ minHeight: TAB_CONTENT_HEIGHT }}
+        >
+          <div className="mt-2">
+            <span className="text-shadow loading mt-2">Loading</span>
           </div>
-        ) : 
+        </div>
+      ) : (
         <BagItemsTabContent
           tabName={currentTab}
           tabItems={items}
-          selectedItem={ items[0] }
+          selectedItem={items[0]}
+          onClose={onClose}
         />
-      }
+      )}
     </Panel>
   );
 };

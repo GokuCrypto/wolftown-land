@@ -2,7 +2,7 @@ import { Decimal } from "decimal.js-light";
 import { GameEvent } from "../events";
 
 import { CropName, SeedName } from "./crops";
-import { CraftableName, Food } from "./craftables";
+import { CraftableName, Food, Fragment } from "./craftables";
 import { ResourceName } from "./resources";
 import { SkillName } from "./skills";
 
@@ -62,7 +62,7 @@ export type InventoryItemName =
   | SkillName
   | EasterEgg
   | EasterBunny
-  | Food;
+  | Food | Fragment;
 
 export type Inventory = Partial<Record<InventoryItemName, Decimal>>;
 

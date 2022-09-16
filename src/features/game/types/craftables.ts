@@ -22,7 +22,7 @@ export type CraftableName =
   | SeedName
   | Food
   | Animal
-  | Flag;
+  | Flag | Synthesis | Exchanges;
 
 export interface Craftable {
   name: CraftableName;
@@ -42,6 +42,7 @@ export type Ingredient = {
   id?: number;
   item: InventoryItemName;
   amount: Decimal;
+  img?: string;
 };
 
 export interface CraftableItem {
@@ -52,6 +53,7 @@ export interface CraftableItem {
   ingredients?: Ingredient[];
   disabled?: boolean;
   requires?: InventoryItemName;
+  img?: string;
 }
 
 export interface LimitedItem extends CraftableItem {
@@ -104,11 +106,21 @@ export type Tool =
   | "Hammer"
   | "Rod";
 
+export type Synthesis = "Animal Coupons For Wolf" | "Animal Coupons For Sheep" | "Wool Coupons" | "Sheep Coupons" | "Land Coupons" | "Land NFT Coupons";
+
+export type Exchanges = "Animal NFT Coupons";
+
+
+
+
 export type Food =
   | "Pumpkin Soup"
   | "Roasted Cauliflower"
   | "Sauerkraut"
   | "Radish Pie";
+
+export type Fragment =
+  "Wool Fragment" | "Sheep Fragment" | "Land Fragment";
 
 export type Animal = "Chicken" | "Cow" | "Pig" | "Sheep";
 
@@ -236,6 +248,107 @@ export const TOOLS: Record<Tool, CraftableItem> = {
     ],
     disabled: true,
   },
+};
+
+
+
+export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
+  "Animal Coupons For Wolf": {
+    name: "Animal Coupons For Wolf",
+    description: "Used to Exchange Animal Coupons",
+    tokenAmount: new Decimal(0),
+
+    ingredients: [{
+      item: "Wool Coupons",
+
+      amount: new Decimal(2),
+    },],
+  },
+  "Animal Coupons For Sheep": {
+    name: "Animal Coupons For Sheep",
+    description: "Used to Exchange Animal Coupons",
+    tokenAmount: new Decimal(0),
+
+    ingredients: [
+      {
+
+        item: "Sheep Coupons",
+        amount: new Decimal(3),
+      },
+    ],
+  },
+
+
+  "Wool Coupons": {
+    name: "Wool Coupons",
+    description: "Used to collect Animal Coupons",
+
+    tokenAmount: new Decimal(0),
+    ingredients: [
+      {
+
+        item: "Wool Fragment",
+        amount: new Decimal(10),
+      },
+
+    ],
+  },
+  "Sheep Coupons": {
+    name: "Sheep Coupons",
+    description: "Used to collect Animal Coupons",
+    tokenAmount: new Decimal(0),
+
+    ingredients: [
+      {
+
+        item: "Sheep Fragment",
+        amount: new Decimal(10),
+      },
+
+    ],
+  },
+  "Land Coupons": {
+    name: "Land Coupons",
+    description: "Used to collect Land NFT",
+    tokenAmount: new Decimal(0),
+
+    ingredients: [
+      {
+
+        item: "Land Fragment",
+        amount: new Decimal(10),
+      },
+
+    ],
+  },
+  "Land NFT Coupons": {
+    name: "Land NFT Coupons",
+    description: "Used to Exchange Land NFT",
+    tokenAmount: new Decimal(0),
+
+    ingredients: [
+      {
+
+        item: "Land Coupons",
+        amount: new Decimal(1),
+      },
+
+    ],
+  },
+
+
+};
+
+
+
+export const ExchangesGoods: Record<Exchanges, CraftableItem> = {
+  "Animal NFT Coupons": {
+    name: "Animal NFT Coupons",
+    description: "Can be exchanged to the chain",
+    tokenAmount: new Decimal(0),
+    ingredients: [],
+  },
+
 };
 
 export const BLACKSMITH_ITEMS: Record<BlacksmithItem, LimitedItem> = {
@@ -441,6 +554,8 @@ export const CRAFTABLES: () => Craftables = () => ({
   ...FOODS(),
   ...ANIMALS,
   ...FLAGS,
+  ...SynthesisGoods,
+  ...ExchangesGoods,
 });
 
 /**

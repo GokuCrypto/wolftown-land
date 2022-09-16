@@ -3,8 +3,8 @@ import { useActor } from "@xstate/react";
 
 import { Context } from "features/game/GameProvider";
 
-import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
-import { Bakery } from "features/farming/bakery/Bakery";
+import { GRID_WIDTH_PX, GRID_HIGHT_PX } from "features/game/lib/constants";
+import { Craft } from "features/farming/bakery/Craft";
 import { Blacksmith } from "features/farming/blacksmith/Blacksmith";
 import { Shop } from "features/farming/shop/Shop";
 import { Mail } from "features/farming/mail/Mail";

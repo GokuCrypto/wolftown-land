@@ -11,13 +11,15 @@ import soup from "assets/icons/goblin_head.png";
 
 import { Crafting } from "./components/Crafting";
 import { Action } from "components/ui/Action";
-import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
+import { GRID_WIDTH_PX, GRID_HIGHT_PX } from "features/game/lib/constants";
 import { bakeryAudio } from "lib/utils/sfx";
+import { useTranslation } from "react-i18next";
 
-export const Bakery: React.FC = () => {
+export const Craft: React.FC = () => {
   const { gameService } = useContext(Context);
   const [gameState] = useActor(gameService);
   const [isBakeryModalOpen, showBakeryModal] = React.useState(false);
+  const { t } = useTranslation();
 
   const isNotReadOnly = !gameState.matches("readonly");
 

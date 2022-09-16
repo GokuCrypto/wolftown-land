@@ -208,9 +208,9 @@ export const isLoggedIn = function () {
   }
 }
 
-export const HASH_GAME_API = "https://api.wolftown.games/jeecg-boot";
-
-/* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
+/* export const HASH_GAME_API = "https://api.wolftown.games/jeecg-boot";
+ */
+export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/";
 
 /* 配置数据 */
 export const API_CONFIG = {
@@ -245,6 +245,12 @@ export const API_CONFIG = {
   getUserBetOrderHistory: `${HASH_GAME_API}/game/getUserBetOrderHistory`,
   /*用户提现 */
   userWithdrawal: `${HASH_GAME_API}/game/userWithdrawal`,
+  /*商品合成 */
+  synthesis: `${HASH_GAME_API}/wolftown/synthesis`,
+  /*商品兑奖 */
+  reward: `${HASH_GAME_API}/wolftown/reward`,
+  /*上链记录查询 */
+  getWolfUserGoodsToChainList: `${HASH_GAME_API}/wolftown/getWolfUserGoodsToChainList`,
 
 }
 
@@ -417,6 +423,9 @@ export const queryBaglist = async () => {
       if (result.success) {
         // 设置token
         const wolfUserGoodsList = result.result.wolfUserGoodsList;
+
+        //兑换/可兑奖配置
+        const goodsSynthesisConfigureList = result.result.goodsSynthesisConfigureList;
         console.log("response-accountList", wolfUserGoodsList);
         return wolfUserGoodsList;
       }
@@ -453,6 +462,111 @@ export const queryWolfLotteryGoodsList = async () => {
         const wolfLotteryGoodsList = result.result.wolfLotteryGoodsList;
         console.log("response-accountList", wolfLotteryGoodsList);
         return wolfLotteryGoodsList;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+
+
+
+
+/* 获取用户兑换上链历史记录 */
+export const getWolfUserGoodsToChainList = async () => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+
+  if ((XAccessToken)) {
+    const response = await fetch(API_CONFIG.getWolfUserGoodsToChainList, {
+      method: 'get', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+
+        const wolfUserGoodsToChainList = result.result.wolfUserGoodsToChainList;
+        console.log("response-wolfUserGoodsToChainList", result);
+        return result;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+
+
+
+/* 商品兑奖上链 */
+export const reward = async (goodsName: string) => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+
+  if ((XAccessToken)) {
+    const response = await fetch(API_CONFIG.reward, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify({
+        "goodsName": goodsName,
+      }),
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+        // 抽奖结果数据
+        const wolfUserGoodsToChain = result.result.wolfUserGoodsToChain;
+        console.log("response-wolfUserGoodsToChain", result);
+        return result;
+      } else {
+        return result;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+
+
+
+/* 合成物品 */
+export const synthesis = async (goodsName: string) => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+
+  if ((XAccessToken)) {
+    const response = await fetch(API_CONFIG.synthesis, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify({
+        "goodsName": goodsName,
+      }),
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+        // 抽奖结果数据
+        const wolfUserGoodsResult = result.result.wolfUserGoodsResult;
+        console.log("response-wolfUserGoodsResult", result);
+        return result;
+      } else {
+        return result;
       }
     } else if (response.status === 401) {
       await loginOut()
@@ -508,7 +622,8 @@ export const doLottery = async (times: number) => {
 
 /* 配置数据 end */
 
-
+import wTCheckWebFreeAbi from "assets/abi/WTCheckWebFree.json";
+import WTAnimalAbi from "assets/abi/wtAnimal.json";
 export const Constants = {
   ArenaHistoryBlock: (24 * 60 * 60 * 30) / 3,
   DEBUG_ADDRESS,
@@ -543,80 +658,19 @@ export const Constants = {
     OwnershipTotal: 10000000,
   },
   Contract: {
-    /*  BankAddress: '0x1f0c693F5cD661126e43b25a96FA703a0C8F2543',
-     WTWool: '0xAA15535fd352F60B937B4e59D8a2D52110A419dD',
-     WTMilk: '0x60Ca032Ba8057FedB98F6A5D9ba0242AD2182177',
-     Random: '0xb82Df0E936Be460C20246Dd81B0ad0476808e5e0',
-     WTAnimal: '0x14f112d437271e01664bb3680BcbAe2f6A3Fb5fB',
-     OldWTAnimal: '0xE686133662190070c4A4Bea477fCF48dF35F5b2c',
-     Barn: '0x10A6DC9fb8F8794d1Dc7D16B035c40923B148AA4',
-     OldBarn: '0x58eaBB38cc9D68bEA8E645B0f5Ec741C82f2871B',
-     OldBarnBUG: '0x386500b851CA1aF027247fa8Ab3A9dDd40753813',
-     V1AnimalTransfer: '0xCe487D0Ab195D28FE18D5279B042498f84eb051F',
-     WoolfTownAPI: '0x301216c75E8af09a3785c9fE7077c543eBB77B6F',
-     SkillManager: '0xAef63919ac27d048d9e0c31da474AD0FEedB141a',
-     BuildingGameManager: '0xbA58c345cA328F8bfA6A5607a15C2128CC6fBE61',
-     WTOwnershipDeed: '0xb61afda2288C4E8AC896B6d4E78BC0ca0C5D98DC',
-     WTOwnershipDeedURI: '0x71C0d09D512Fd51BCC96d3ee380a51448635d7DA',
-     ForestExploration: '0x6fbaAAF642D9d4A9fC0d2270035D91e100B4B3bC',
-     Fight: '0x9851E7eFc67F48E52E98454149793B4eA219F1c5',
-     Arena: '0x5f189c322d829aD8F3901A17c54DcC893345d8eB',
-     BuildingStakeManager: '0x7c176E44B6e925E8b5F0Fafc7b2Ec2876A6fE8aD',
-     WT_LP_USDT: '0xcAad85D48f31177040E25048FF4dd875eAE9Dea7',
-     WT_LP_BNB: '0xe9C7bc98901d1B71d63902602Bff6E37dCdE79fC',
-     USDT: '0x55d398326f99059fF775485246999027B3197955', */
+
+    WTCheckWebFree: '0x872e41c50a3780eba38ee0d56f3b0885f188b1a0',
+    WTAnimal: '0x14f112d437271e01664bb3680BcbAe2f6A3Fb5fB',
   },
 };
 export const AbiConfig: Record<keyof typeof Constants.Contract, any> = {
-  /* BankAddress: require('config/abi/wtWool'),
-  WTWool: require('config/abi/wtWool'),
-  WTMilk: require('config/abi/wtWool'),
-  Random: require('config/abi/wtWool'),
-  WTAnimal: require('config/abi/wtAnimal.json'),
-  OldWTAnimal: require('config/abi/wtAnimal.json'),
-  Barn: require('config/abi/wtBarn.json'),
-  OldBarn: require('config/abi/wtBarn.json'),
-  OldBarnBUG: require('config/abi/wtBarn.json'),
-  V1AnimalTransfer: require('config/abi/V1AnimalTransfer.json'),
-  WoolfTownAPI: require('config/abi/WoolfTownAPI.json'),
-  SkillManager: require('config/abi/SkillManager.json'),
-  BuildingGameManager: require('config/abi/BuildingGameManager.json'),
-  WTOwnershipDeed: require('config/abi/WTOwnershipDeed.json'),
-  WTOwnershipDeedURI: require('config/abi/WTOwnershipDeed.json'),
-  ForestExploration: require('config/abi/ForestExploration.json'),
-  Arena: require('config/abi/Arena.json'),
-  Fight: require('config/abi/Fight.json'),
-  BuildingStakeManager: require('config/abi/BuildingStakeManager.json'),
-  WT_LP_USDT: require('config/abi/lp.json'),
-  WT_LP_BNB: require('config/abi/lp.json'),
-  USDT: require('config/abi/wtWool'), */
+
+  WTCheckWebFree: wTCheckWebFreeAbi,
+  WTAnimal: WTAnimalAbi
 };
 if (!IsDevelopment) {
   console.log = () => null;
   console.error = () => null;
   console.info = () => null;
 }
-if (IsTest) {
-  Object.assign(Constants, {
-    BASE_URL: 'https://app.test.wolftown.world/animals',
-    BASE_IMAGE_URL: 'https://app.test.wolftown.world/images/animals',
-    API_SERVE: 'https://app.test.wolftown.world',
-    Chain: {
-      ID: '97',
-      PRC: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
-      Name: 'Binance Smart Chain Testnet',
-      nativeCurrency: {
-        name: 'tBNB',
-        symbol: 'tBNB',
-        decimals: 18,
-      },
-      ScanView: 'https://testnet.bscscan.com',
-      AddressView: 'https://testnet.bscscan.com/address',
-      TxView: 'https://testnet.bscscan.com/tx',
-    },
-    Contract: {
-      // api
 
-    },
-  });
-}

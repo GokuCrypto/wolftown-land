@@ -208,9 +208,12 @@ export const isLoggedIn = function () {
   }
 }
 
-export const HASH_GAME_API = "https://api.wolftown.games/jeecg-boot";
 
-/* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
+
+
+/* export const HASH_GAME_API = "https://api.wolftown.games/jeecg-boot"; */
+
+export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/";
 
 /* 配置数据 */
 export const API_CONFIG = {
@@ -659,7 +662,7 @@ export const Constants = {
   },
   Contract: {
 
-    WTCheckWebFree: '0x872e41c50a3780eba38ee0d56f3b0885f188b1a0',
+    WTCheckWebFree: '0x392C6A657F0233a4cBe0897bbd74a597B4530C43',
     WTAnimal: '0x14f112d437271e01664bb3680BcbAe2f6A3Fb5fB',
   },
 };

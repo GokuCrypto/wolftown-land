@@ -4,7 +4,6 @@ import Decimal from "decimal.js-light";
 import React, { useContext, useState } from "react";
 
 import token from "assets/wt/balance.png";
-
 import { Box } from "components/ui/Box";
 import { Button } from "components/ui/Button";
 import { OuterPanel } from "components/ui/Panel";
@@ -14,10 +13,23 @@ import { CraftableItem } from "features/game/types/craftables";
 import { InventoryItemName } from "features/game/types/game";
 import { ITEM_DETAILS } from "features/game/types/images";
 import { reward } from "hooks/WolfConfig";
+import { getContractHandler } from "hooks/ethereum";
+
 interface Props {
   items: Partial<Record<InventoryItemName, CraftableItem>>;
   isBulk?: boolean;
   onClose: () => void;
+}
+
+export interface WolfUserGoodsToChain {
+  id: string;
+  sign: string;
+  name: string;
+  image: string;
+  goodsFalseId: string;
+  owner: string;
+  attribute: string; //0待核销   1已核销
+  ctime: Date;
 }
 
 export const ExchangeGoods: React.FC<Props> = ({
@@ -28,6 +40,9 @@ export const ExchangeGoods: React.FC<Props> = ({
   const [selected, setSelected] = useState<CraftableItem>(
     Object.values(items)[0]
   );
+
+  const [selectedResult, setSelectedResult] = useState<WolfUserGoodsToChain>();
+
   const { setToast } = useContext(ToastContext);
   const { gameService, shortcutItem } = useContext(Context);
   const [showCaptcha, setShowCaptcha] = useState(false);
@@ -52,7 +67,64 @@ export const ExchangeGoods: React.FC<Props> = ({
     if (!result.success) {
       setMessage(result.message);
     } else {
+      const item = result.result.wolfUserGoodsToChain;
+      setSelectedResult({
+        id: item.id,
+        name: item.goodsName,
+        goodsFalseId: item.goodsFalseId,
+        image: item.goodsUrl,
+        sign: item.sign,
+        owner: result.result.owner,
+        attribute: item.writeOff,
+        ctime: item.createTime,
+      });
+      await handleNextToChain(
+        result.result.owner,
+        item.goodsFalseId,
+        item.sign
+      );
       setMessage("Request succeeded!");
+    }
+  };
+
+  //兑换到链上
+  const handleNextToChain = async (
+    owner: string | undefined,
+    falseid: string | undefined,
+    sign: string | undefined
+  ) => {
+    //链上操作
+    const contractss = await getContractHandler("WTCheckWebFree");
+
+    if (!contractss) return false;
+    console.log(
+      "WebtoChain",
+      "owner:",
+      owner,
+      "falseid:",
+      falseid,
+      "sign:",
+      sign
+    );
+    const mygo = await contractss.WebtoChain(owner, falseid, "wolftown", sign);
+  };
+
+  //兑换到链上
+  const mint = async () => {
+    //链上操作
+    const contractss = await getContractHandler("WTAnimal");
+
+    const wTCheckWebFree = await getContractHandler("WTCheckWebFree");
+    if (!contractss) return false;
+    if (!wTCheckWebFree) return false;
+    //查询免费可用次数
+    const mygo = await wTCheckWebFree.getAddressFreeLength(
+      selectedResult?.owner
+    );
+    if (mygo > 0) {
+      await contractss.mint();
+    } else {
+      setMessage("Insufficient free minutes");
     }
   };
 
@@ -68,7 +140,7 @@ export const ExchangeGoods: React.FC<Props> = ({
 
         <Button
           className="text-xxs sm:text-xs mt-1 whitespace-nowrap"
-          onClick={() => handleNextReward(selected.name)}
+          onClick={() => mint()}
         >
           Mint
         </Button>

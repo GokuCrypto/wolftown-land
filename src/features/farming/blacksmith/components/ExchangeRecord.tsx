@@ -104,6 +104,15 @@ export const ExchangeRecord: React.FC<Props> = ({
     const contractss = await getContractHandler("WTCheckWebFree");
 
     if (!contractss) return false;
+    console.log(
+      "WebtoChain",
+      "owner:",
+      owner,
+      "falseid:",
+      falseid,
+      "sign:",
+      sign
+    );
     const mygo = await contractss.WebtoChain(owner, falseid, "wolftown", sign);
   };
 
@@ -119,6 +128,8 @@ export const ExchangeRecord: React.FC<Props> = ({
     const mygo = await wTCheckWebFree.getAddressFreeLength(owner);
     if (mygo > 0) {
       await contractss.mint();
+    } else {
+      setMessage("Insufficient free minutes");
     }
   };
 
@@ -137,14 +148,15 @@ export const ExchangeRecord: React.FC<Props> = ({
         >
           Send To Chain
         </Button>
-        {isBulk && (
-          <Button
-            className="text-xxs sm:text-xs mt-1 whitespace-nowrap"
-            onClick={() => mint(selected?.owner)}
-          >
-            Mint
-          </Button>
-        )}
+
+        <Button
+          className="text-xxs sm:text-xs mt-1 whitespace-nowrap"
+          onClick={() => mint(selected?.owner)}
+        >
+          Mint
+        </Button>
+
+        <span className="text-xs mt-1 text-shadow">{message}</span>
       </>
     );
   };
@@ -152,10 +164,15 @@ export const ExchangeRecord: React.FC<Props> = ({
   return (
     <div className="flex">
       <div className="w-3/5 flex flex-wrap h-fit">
+        <span className="text-shadow text-center">
+          {" "}
+          If the "Exchage" operation is interrupted, you can continue here
+        </span>
+
         {Object.values(allItems).map((item) => (
           <Box
-            isSelected={selected?.name === item.name}
-            key={item.name}
+            isSelected={selected?.id === item.id}
+            key={item.id}
             onClick={() => setSelected(item)}
             image={ITEM_DETAILS[item.name].image}
             /* count={inventory[item.name]} */

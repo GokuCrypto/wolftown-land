@@ -12,6 +12,7 @@ import { Crafting } from "./components/Crafting";
 import { Action } from "components/ui/Action";
 import { GRID_WIDTH_PX, GRID_HIGHT_PX } from "features/game/lib/constants";
 import { blacksmithAudio } from "lib/utils/sfx";
+import { Section } from "lib/utils/hooks/useScrollIntoView";
 
 export const Blacksmith: React.FC = () => {
   const { gameService } = useContext(Context);
@@ -35,8 +36,8 @@ export const Blacksmith: React.FC = () => {
       // TODO some sort of coordinate system
       style={{
         width: `${GRID_WIDTH_PX * 5}px`,
-        left: `${GRID_WIDTH_PX * 4}px`,
-        top: `${GRID_HIGHT_PX * -8}px`,
+        left: `${GRID_WIDTH_PX * 14}px`,
+        top: `${GRID_HIGHT_PX * 4 - 5}px`,
       }}
     >
       <div

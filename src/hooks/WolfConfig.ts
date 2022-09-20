@@ -212,8 +212,8 @@ export const isLoggedIn = function () {
 
 
 export const HASH_GAME_API = "https://api.wolftown.games/jeecg-boot";
-
-/* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
+/* 
+export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
 
 /* 配置数据 */
 export const API_CONFIG = {
@@ -230,6 +230,9 @@ export const API_CONFIG = {
   queryBaglist: `${HASH_GAME_API}/wolftown/queryBaglist`,
   // get Lottery info
   queryWolfLotteryGoodsList: `${HASH_GAME_API}/wolftown/queryWolfLotteryGoodsList`,
+
+  // get Lottery info
+  queryBagByName: `${HASH_GAME_API}/wolftown/queryBagByName`,
 
   // doLottery
   doLottery: `${HASH_GAME_API}/wolftown/doLottery`,
@@ -431,6 +434,40 @@ export const queryBaglist = async () => {
         const goodsSynthesisConfigureList = result.result.goodsSynthesisConfigureList;
         console.log("response-accountList", wolfUserGoodsList);
         return wolfUserGoodsList;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+
+
+/* 用户背包物品-根据名称查询 */
+export const queryBagByName = async (goodsName: string) => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+  console.log("response-wolfUserGoods-XAccessToken", XAccessToken);
+  if ((XAccessToken)) {
+    const response = await fetch(`${API_CONFIG.queryBagByName}?token=${XAccessToken}&goodsName=${goodsName}`, {
+      method: 'get', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }
+    })
+
+    console.log("result-response", response);
+    if (response.status === 200) {
+      const result = await response.json();
+
+      if (result.success) {
+        // 设置token 
+        const wolfUserGoods = result.result.wolfUserGoods;
+        console.log("response-wolfUserGoods", wolfUserGoods);
+        return wolfUserGoods;
       }
     } else if (response.status === 401) {
       await loginOut()

@@ -14,7 +14,7 @@ import { InventoryItemName } from "features/game/types/game";
 import { ITEM_DETAILS } from "features/game/types/images";
 import { reward } from "hooks/WolfConfig";
 import { getContractHandler } from "hooks/ethereum";
-
+import { GoodsForNft } from "components/ui/GoodsForNft";
 interface Props {
   items: Partial<Record<InventoryItemName, CraftableItem>>;
   isBulk?: boolean;
@@ -166,7 +166,7 @@ export const ExchangeGoods: React.FC<Props> = ({
       </div>
       <OuterPanel className="flex-1 w-1/3">
         <div className="flex flex-col justify-center items-center p-2 relative">
-          {/*  <Stock item={selected} /> */}
+          <GoodsForNft item={selected} />
           <span className="text-shadow text-center">{selected.name}</span>
           <img
             src={ITEM_DETAILS[selected.name].image}

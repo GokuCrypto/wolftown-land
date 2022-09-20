@@ -45,114 +45,6 @@ interface Props {
   onClose: () => void;
 }
 
-export const ContributorsConfirm: React.FC<Props> = ({ onClose }) => {
-  const { t } = useTranslation();
-  const [isLoading, setIsLoading] = useState(false);
-  const { gameService, shortcutItem } = useContext(Context);
-
-  const [allItems, setAllItems] = useState<WolfUserGoodsToChain[]>([]);
-
-  const loadWolfUserGoodsToChainList = async () => {
-    setIsLoading(true);
-    try {
-      const itemsForChain = await getWolfUserGoodsToChainList();
-      console.log(
-        "itemsForChain.result.wolfUserGoodsToChainList",
-        itemsForChain.result
-      );
-      setAllItems(
-        itemsForChain.result.wolfUserGoodsToChainList.map((item: any) => {
-          return {
-            id: item.id,
-            name: item.goodsName,
-            goodsFalseId: item.goodsFalseId,
-            image: item.goodsUrl,
-            sign: item.sign,
-            owner: itemsForChain.result.owner,
-            attribute: item.writeOff,
-          } as WolfUserGoodsToChain;
-        })
-      );
-      setIsLoading(false);
-    } catch (e: any) {
-      if (e.message === ERRORS.SESSION_EXPIRED) {
-        gameService.send("EXPIRED");
-      }
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    loadWolfUserGoodsToChainList();
-  }, []);
-
-  //兑换到链上
-  const handleNextToChain = async (
-    owner: string,
-    falseid: string,
-    sign: string
-  ) => {
-    //链上操作
-  };
-
-  return (
-    <>
-      <div
-        className="flex items-center border-2 rounded-md border-black p-2   mb-3  "
-        style={{
-          minHeight: TAB_CONTENT_HEIGHT,
-          marginTop: -TAB_CONTENT_HEIGHT,
-          zIndex: 10,
-        }}
-      >
-        <OuterPanel className="flex-2 w-3/5">
-          {t("Exchange record")}
-          <div className="w-3/5 flex flex-wrap h-fit">
-            <ul className="list-disc">
-              {allItems.length > 0 ? (
-                allItems.map((item, ind) => (
-                  <li key={item.id} className="flex text-xs mb-3">
-                    <span className="mr-1">{ind + 1}.</span>
-                    <span>{item.name}</span>
-                    <span>step1:</span>
-                    <Button
-                      onClick={() => {
-                        handleNextToChain(
-                          item?.owner,
-                          item?.goodsFalseId,
-                          item.sign
-                        );
-                      }}
-                      className="w-100 h-12"
-                    >
-                      Send
-                    </Button>
-                    <span>step2:</span>
-                    <Button
-                      onClick={() => {
-                        handleNextToChain(
-                          item?.owner,
-                          item?.goodsFalseId,
-                          item.sign
-                        );
-                      }}
-                      className="w-100 h-12"
-                    >
-                      Mint
-                    </Button>
-                  </li>
-                ))
-              ) : (
-                <span className="mt-2 ml-2 text-shadow">{t("No item")}</span>
-              )}
-            </ul>
-          </div>
-        </OuterPanel>
-      </div>
-    </>
-  );
-};
-
 // const isSeed = (selectedItem: InventoryItemName) => selectedItem in SEEDS();
 
 export const BagItemsTabContent = ({
@@ -230,11 +122,6 @@ export const BagItemsTabContent = ({
           </div>
         </OuterPanel>
       </div>
-      {/*    <ContributorsConfirm
-        tabName={"confirm"}
-        tabItems={[]}
-        onClose={() => setIsOpen(false)}
-      /> */}
     </>
   );
 };

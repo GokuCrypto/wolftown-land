@@ -18,23 +18,37 @@ export const Town: React.FC = () => {
   const [gameState] = useActor(gameService);
 
   return (
-    <div
-      id={Section.Town}
-      className="z-10 absolute"
-      // TODO some sort of coordinate system
-      style={{
-        width: `${GRID_WIDTH_PX * 34.3}px`,
-        height: `${GRID_WIDTH_PX * 9}px`,
-        right: 0,
-        top: `calc(50% - ${GRID_HIGHT_PX * 18}px)`,
-      }}
-    >
-      {/*<Shop />*/}
-      {/*<Bakery />*/}
-      <Blacksmith />
-      {/*<Mail />*/}
-      <TownHall />
-      {!gameState.matches("readonly") && <GoblinVillageEntry />}
-    </div>
+    <>
+      <div
+        id={Section.Craft}
+        className="z-10 absolute"
+        // TODO some sort of coordinate system
+        style={{
+          width: `${GRID_WIDTH_PX * 34.3}px`,
+          height: `${GRID_WIDTH_PX * 9}px`,
+          right: `calc(10% )`,
+          top: `calc(38% - ${GRID_HIGHT_PX * 18}px)`,
+        }}
+      >
+        <Blacksmith />
+
+        {!gameState.matches("readonly") && <GoblinVillageEntry />}
+      </div>
+
+      <div
+        id={Section.Town}
+        className="z-10 absolute"
+        // TODO some sort of coordinate system
+        style={{
+          width: `${GRID_WIDTH_PX * 34.3}px`,
+          height: `${GRID_WIDTH_PX * 9}px`,
+          right: 0,
+          top: `calc(50% - ${GRID_HIGHT_PX * 18}px)`,
+        }}
+      >
+        <TownHall />
+        {!gameState.matches("readonly") && <GoblinVillageEntry />}
+      </div>
+    </>
   );
 };

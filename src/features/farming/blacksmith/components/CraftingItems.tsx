@@ -14,7 +14,7 @@ import { Context } from "features/game/GameProvider";
 import { ITEM_DETAILS } from "features/game/types/images";
 import { CraftableItem, Ingredient } from "features/game/types/craftables";
 import { InventoryItemName } from "features/game/types/game";
-import { Stock } from "components/ui/Stock";
+import { Goods } from "components/ui/Goods";
 import {
   reward,
   synthesis,
@@ -25,7 +25,7 @@ interface Props {
   isBulk?: boolean;
   onClose: () => void;
 }
-
+/*合成 铁匠铺 */
 export const CraftingItems: React.FC<Props> = ({
   items,
   onClose,
@@ -121,29 +121,6 @@ export const CraftingItems: React.FC<Props> = ({
         <span className="text-xs text-base"> {message} </span>
       </div>
     );
-
-    return (
-      <>
-        <Button
-          disabled={lessFunds() || lessIngredients() || stock?.lessThan(1)}
-          className="text-xxs sm:text-xs mt-1 whitespace-nowrap"
-          onClick={() => craft()}
-        >
-          Craft {isBulk && "1"}
-        </Button>
-        {isBulk && (
-          <Button
-            disabled={
-              lessFunds(10) || lessIngredients(10) || stock?.lessThan(10)
-            }
-            className="text-xxs sm:text-xs mt-1 whitespace-nowrap"
-            onClick={() => craft(10)}
-          >
-            Craft 10
-          </Button>
-        )}
-      </>
-    );
   };
 
   const stock = state.stock[selected.name] || new Decimal(0);
@@ -161,9 +138,8 @@ export const CraftingItems: React.FC<Props> = ({
           />
         ))}
       </div>
-      <OuterPanel className="flex-1 w-1/3">
+      <OuterPanel className="flex-1 w-2/3">
         <div className="flex flex-col justify-center items-center p-2 relative">
-          {/*  <Stock item={selected} /> */}
           <span className="text-shadow text-center">{selected.name}</span>
           <img
             src={ITEM_DETAILS[selected.name].image}
@@ -194,6 +170,7 @@ export const CraftingItems: React.FC<Props> = ({
                   >
                     {ingredient.amount.toNumber()}
                   </span>
+                  <Goods item={ingredient} />
                 </div>
               );
             })}

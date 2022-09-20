@@ -26,16 +26,16 @@ class LiveBroadcast extends React.Component {
 
 export const TV: React.FC = () => {
   const [bgcolor, setBgcolor] = useState(false);
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = React.useState(true);
 
   return (
     // Container
     <div
       style={{
-        height: "50px",
-        width: "380px",
-        left: "calc(50% - 1333px)",
-        top: "calc(56% - 80px)",
+        height: "115px",
+        width: "900px",
+        left: "calc(38.4% - 1336.2px)",
+        top: "calc(60% - 80px)",
         overflow: "hidden",
       }}
       className="absolute"

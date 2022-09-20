@@ -330,7 +330,7 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
       {
 
         item: "Land Coupons",
-        amount: new Decimal(1),
+        amount: new Decimal(5),
       },
 
     ],

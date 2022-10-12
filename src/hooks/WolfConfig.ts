@@ -215,7 +215,7 @@ export const isLoggedIn = function () {
 
 /* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
 /* test */
-export const HASH_GAME_API = "https://dev.api.wolftown.games/jeecg-boot";
+export const HASH_GAME_API = "https://devapi.wolftown.games/jeecg-boot";
 
 export const APP_WOLF_API = "https://app.wolftown.world/images/animals/";
 

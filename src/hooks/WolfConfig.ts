@@ -211,9 +211,11 @@ export const isLoggedIn = function () {
 
 
 
-export const HASH_GAME_API = "https://api.wolftown.games/jeecg-boot";
-/* 
-export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
+/* export const HASH_GAME_API = "https://api.wolftown.games/jeecg-boot"; */
+
+export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/";
+
+export const APP_WOLF_API = "https://app.wolftown.world/images/animals/";
 
 /* 配置数据 */
 export const API_CONFIG = {
@@ -233,7 +235,8 @@ export const API_CONFIG = {
 
   // get Lottery info
   queryBagByName: `${HASH_GAME_API}/wolftown/queryBagByName`,
-
+  // get Lottery info
+  queryBagByType: `${HASH_GAME_API}/wolftown/queryBagByType`,
   // doLottery
   doLottery: `${HASH_GAME_API}/wolftown/doLottery`,
   // get address info
@@ -257,6 +260,12 @@ export const API_CONFIG = {
   reward: `${HASH_GAME_API}/wolftown/reward`,
   /*上链记录查询 */
   getWolfUserGoodsToChainList: `${HASH_GAME_API}/wolftown/getWolfUserGoodsToChainList`,
+  /*放置土地*/
+  putLand: `${HASH_GAME_API}/wolftown/putLand`,
+
+  /*土地列表信息*/
+  getLandGameList: `${HASH_GAME_API}/wolftown/getLandGameList`,
+
 
 }
 
@@ -478,6 +487,40 @@ export const queryBagByName = async (goodsName: string) => {
 }
 
 
+/* 用户背包物品-根据类型查询 */
+export const queryBagByType = async (goodsType: string, goodsName: string) => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+  console.log("response-wolfUserGoods-XAccessToken", XAccessToken);
+  if ((XAccessToken)) {
+    const response = await fetch(`${API_CONFIG.queryBagByType}?token=${XAccessToken}&goodsType=${goodsType}&goodsName=${goodsName}`, {
+      method: 'get', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }
+    })
+
+    console.log("result-response", response);
+    if (response.status === 200) {
+      const result = await response.json();
+
+      if (result.success) {
+        // 设置token 
+        const wolfUserGoods = result.result.wolfUserGoods;
+        console.log("response-wolfUserGoods", wolfUserGoods);
+        return wolfUserGoods;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+
+
 
 
 /* 获取抽奖数据列表 */
@@ -655,6 +698,109 @@ export const doLottery = async (times: number) => {
 }
 
 
+
+
+/* 放置土地 */
+export const putLand = async (landName: string, animals: string) => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+
+  if ((XAccessToken)) {
+    const response = await fetch(API_CONFIG.putLand, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify({
+        "landName": landName,
+        "animals": animals
+      }),
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+        // 放置结果数据 
+        console.log("response-wolfUserGoodsResult", result);
+        return result;
+      } else {
+        return result;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+
+
+
+
+/* 释放土地 */
+export const reapingLand = async (landId: string) => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+
+  if ((XAccessToken)) {
+    const response = await fetch(API_CONFIG.putLand, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify({
+        "landId": landId,
+      }),
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+        // 放置结果数据 
+        console.log("response-wolfUserGoodsResult", result);
+        return result;
+      } else {
+        return result;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+
+
+
+/* 获取用户土地放置记录 */
+export const getLandGameList = async () => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+
+  if ((XAccessToken)) {
+    const response = await fetch(API_CONFIG.getLandGameList, {
+      method: 'get', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+
+        const landGameList = result.result.landGameList;
+        console.log("response-landGameList", landGameList);
+        return landGameList;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
 
 
 

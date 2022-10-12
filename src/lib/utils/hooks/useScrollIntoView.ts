@@ -5,6 +5,7 @@ export enum Section {
   Wolf = "wolf",
   TV = "TV",
   Craft = "Craft",
+  Landbuild = "Landbuild",
 
   Animals = "animals",
   Shop = "shop",

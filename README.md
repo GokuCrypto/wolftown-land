@@ -101,3 +101,9 @@ Tailwind is our CSS tool of choice. It enables us to:
 The previous version was used in unethically on other Blockchains. The team is working on deciding the licence that will best suit our community. Until then, the code falls under No Licence and cannot be reused.
 
 All media assets (images and music) are not available for use in commercial or private projects.
+
+# 升级涉及的表
+
+1、landGame 表结构
+2、wolf_user_goods 增加属性值
+3、增加产出物品配置表

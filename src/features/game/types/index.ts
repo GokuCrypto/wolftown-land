@@ -159,7 +159,59 @@ export const KNOWN_IDS: Record<InventoryItemName, number> = {
   "Land Fragment": 917,
 
   "Animal NFT Coupons": 918,
-  "Land NFT Coupons": 919
+  "Land NFT Coupons": 919,
+
+  "artillery": 920,
+  "artillery2": 921,
+  "artillery3": 922,
+  "bartizan": 923,
+  "bartizan2": 924,
+  "bartizan3": 925,
+  "Catapult": 926,
+  "Catapult2": 927,
+  "Catapult3": 928,
+  "Cyclone wheel car": 929,
+  "Cyclone wheel car2": 930,
+  "Cyclone wheel car3": 931,
+  "Rush Car": 932,
+  "Rush Car2": 933,
+  "Rush Car3": 934,
+
+
+  "Black sunken": 935,
+  "Black sunken2": 936,
+  "Black sunken3": 937,
+  "Chinese parasol": 938,
+  "Chinese parasol2": 939,
+  "Chinese parasol3": 940,
+  "Corundum": 941,
+  "Corundum2": 942,
+  "Corundum3": 943,
+  "fir wood": 944,
+  "fir wood2": 945,
+  "fir wood3": 946,
+  "pine": 947,
+  "pine2": 948,
+  "pine3": 949,
+
+
+  "copper": 950,
+  "copper2": 951,
+  "copper3": 952,
+  "gold": 953,
+  "gold2": 954,
+  "gold3": 955,
+  "iron": 956,
+  "iron2": 957,
+  "iron3": 958,
+  "Red gold": 959,
+  "Red gold2": 960,
+  "Red gold3": 961,
+  "titanium": 962,
+  "titanium2": 963,
+  "titanium3": 964,
+
+
 };
 
 // The reverse of above

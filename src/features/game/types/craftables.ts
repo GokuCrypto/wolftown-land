@@ -106,7 +106,7 @@ export type Tool =
   | "Hammer"
   | "Rod";
 
-export type Synthesis = "Animal Coupons For Wolf" | "Animal Coupons For Sheep" | "Wool Coupons" | "Sheep Coupons" | "Land Coupons" | "Land NFT Coupons";
+export type Synthesis = "Animal Coupons For Wolf" | "Animal Coupons For Sheep" | "Wool Coupons" | "Sheep Coupons" | "Land Coupons" | "Land NFT Coupons" | "artillery" | "artillery2" | "artillery3" | "bartizan" | "bartizan2" | "bartizan3" | "Catapult" | "Catapult2" | "Catapult3" | "Cyclone wheel car" | "Cyclone wheel car2" | "Cyclone wheel car3" | "Rush Car" | "Rush Car2" | "Rush Car3";
 
 export type Exchanges = "Animal NFT Coupons";
 
@@ -121,6 +121,15 @@ export type Food =
 
 export type Fragment =
   "Wool Fragment" | "Sheep Fragment" | "Land Fragment";
+
+
+export type Wood =
+  "Black sunken" | "Black sunken2" | "Black sunken3" | "Chinese parasol" | "Chinese parasol2" | "Chinese parasol3" | "Corundum" | "Corundum2" | "Corundum3" | "fir wood" | "fir wood2" | "fir wood3" | "pine" | "pine2" | "pine3";
+
+
+export type Stone =
+  "copper" | "copper2" | "copper3" | "gold" | "gold2" | "gold3" | "iron" | "iron2" | "iron3" | "Red gold" | "Red gold2" | "Red gold3" | "titanium" | "titanium2" | "titanium3";
+
 
 export type Animal = "Chicken" | "Cow" | "Pig" | "Sheep";
 
@@ -335,6 +344,82 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
 
     ],
   },
+  "artillery": {
+    name: "artillery", description: "artillery", ingredients: [{
+      item: "Black sunken", amount: new Decimal(2),
+    }, { item: "copper", amount: new Decimal(4), },],
+  },
+  "artillery2": {
+    name: "artillery2", description: "artillery2", ingredients: [{
+      item: "Black sunken2", amount: new Decimal(3),
+    }, { item: "copper2", amount: new Decimal(5), },],
+  },
+  "artillery3": {
+    name: "artillery3", description: "artillery3", ingredients: [{
+      item: "Black sunken3", amount: new Decimal(4),
+    }, { item: "copper3", amount: new Decimal(6), },],
+  },
+  "bartizan": {
+    name: "bartizan", description: "bartizan", ingredients: [{
+      item: "Chinese parasol", amount: new Decimal(5),
+    }, { item: "gold", amount: new Decimal(7), },],
+  },
+  "bartizan2": {
+    name: "bartizan2", description: "bartizan2", ingredients: [{
+      item: "Chinese parasol2", amount: new Decimal(6),
+    }, { item: "gold2", amount: new Decimal(8), },],
+  },
+  "bartizan3": {
+    name: "bartizan3", description: "bartizan3", ingredients: [{
+      item: "Chinese parasol3", amount: new Decimal(7),
+    }, { item: "gold3", amount: new Decimal(9), },],
+  },
+  "Catapult": {
+    name: "Catapult", description: "Catapult", ingredients: [{
+      item: "Corundum", amount: new Decimal(8),
+    }, { item: "iron", amount: new Decimal(4), },],
+  },
+  "Catapult2": {
+    name: "Catapult2", description: "Catapult2", ingredients: [{
+      item: "Corundum2", amount: new Decimal(9),
+    }, { item: "iron2", amount: new Decimal(5), },],
+  },
+  "Catapult3": {
+    name: "Catapult3", description: "Catapult3", ingredients: [{
+      item: "Corundum3", amount: new Decimal(10),
+    }, { item: "iron3", amount: new Decimal(6), },],
+  },
+  "Cyclone wheel car": {
+    name: "Cyclone wheel car", description: "Cyclone wheel car", ingredients: [{
+      item: "fir wood", amount: new Decimal(11),
+    }, { item: "Red gold", amount: new Decimal(7), },],
+  },
+  "Cyclone wheel car2": {
+    name: "Cyclone wheel car2", description: "Cyclone wheel car2", ingredients: [{
+      item: "fir wood2", amount: new Decimal(12),
+    }, { item: "Red gold2", amount: new Decimal(8), },],
+  },
+  "Cyclone wheel car3": {
+    name: "Cyclone wheel car3", description: "Cyclone wheel car3", ingredients: [{
+      item: "fir wood3", amount: new Decimal(13),
+    }, { item: "Red gold3", amount: new Decimal(9), },],
+  },
+  "Rush Car": {
+    name: "Rush Car", description: "Rush Car", ingredients: [{
+      item: "pine", amount: new Decimal(14),
+    }, { item: "titanium", amount: new Decimal(10), },],
+  },
+  "Rush Car2": {
+    name: "Rush Car2", description: "Rush Car2", ingredients: [{
+      item: "pine2", amount: new Decimal(15),
+    }, { item: "titanium2", amount: new Decimal(11), },],
+  },
+  "Rush Car3": {
+    name: "Rush Car3", description: "Rush Car3", ingredients: [{
+      item: "pine3", amount: new Decimal(16),
+    }, { item: "titanium3", amount: new Decimal(12), },],
+  },
+
 
 
 };

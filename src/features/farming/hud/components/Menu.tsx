@@ -264,13 +264,21 @@ export const Menu = () => {
                     <img src={town} className="w-6 ml-2" alt="town" />
                   </Button>
                 </li>
-                <li className="p-1">
+                {/*   <li className="p-1">
                   <Button
                     className="flex justify-between"
                     onClick={() => handleNavigationClick(Section.Crops)}
                   >
                     <span className="sm:text-sm flex-1">{t("Crops")}</span>
                     <img src={radish} className="w-4 ml-2" alt="crop" />
+                  </Button>
+                </li> */}
+                <li className="p-1">
+                  <Button
+                    className="flex justify-between"
+                    onClick={() => handleNavigationClick(Section.Landbuild)}
+                  >
+                    <span className="sm:text-sm flex-1">{t("Land")}</span>
                   </Button>
                 </li>
                 <li className="p-1">

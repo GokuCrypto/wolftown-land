@@ -748,7 +748,62 @@ export const ITEM_DETAILS: Items = {
   "Land NFT Coupons": {
     description: "A Land NFT Coupons",
     image: "https://img.wolftown.games/bag/Land_NFT.png",
-  }
+  },
+
+  "artillery": { description: "artillery", image: "https://img.wolftown.games/weapon/artillery.png", },
+  "artillery2": { description: "artillery2", image: "https://img.wolftown.games/weapon/artillery2.png", },
+  "artillery3": { description: "artillery3", image: "https://img.wolftown.games/weapon/artillery3.png", },
+  "bartizan": { description: "bartizan", image: "https://img.wolftown.games/weapon/bartizan.png", },
+  "bartizan2": { description: "bartizan2", image: "https://img.wolftown.games/weapon/bartizan2.png", },
+  "bartizan3": { description: "bartizan3", image: "https://img.wolftown.games/weapon/bartizan3.png", },
+  "Catapult": { description: "Catapult", image: "https://img.wolftown.games/weapon/Catapult.png", },
+  "Catapult2": { description: "Catapult2", image: "https://img.wolftown.games/weapon/Catapult2.png", },
+  "Catapult3": { description: "Catapult3", image: "https://img.wolftown.games/weapon/Catapult3.png", },
+  "Cyclone wheel car": { description: "Cyclone wheel car", image: "https://img.wolftown.games/weapon/Cyclone wheel car.png", },
+  "Cyclone wheel car2": { description: "Cyclone wheel car2", image: "https://img.wolftown.games/weapon/Cyclone wheel car2.png", },
+  "Cyclone wheel car3": { description: "Cyclone wheel car3", image: "https://img.wolftown.games/weapon/Cyclone wheel car3.png", },
+  "Rush Car": { description: "Rush Car", image: "https://img.wolftown.games/weapon/Rush Car.png", },
+  "Rush Car2": { description: "Rush Car2", image: "https://img.wolftown.games/weapon/Rush Car2.png", },
+  "Rush Car3": { description: "Rush Car3", image: "https://img.wolftown.games/weapon/Rush Car3.png", },
+
+  /*wood */
+
+  "Black sunken": { description: "Black sunken", image: "https://img.wolftown.games/metarial/wood/Black sunken.png", },
+  "Black sunken2": { description: "Black sunken2", image: "https://img.wolftown.games/metarial/wood/Black sunken2.png", },
+  "Black sunken3": { description: "Black sunken3", image: "https://img.wolftown.games/metarial/wood/Black sunken3.png", },
+  "Chinese parasol": { description: "Chinese parasol", image: "https://img.wolftown.games/metarial/wood/Chinese parasol.png", },
+  "Chinese parasol2": { description: "Chinese parasol2", image: "https://img.wolftown.games/metarial/wood/Chinese parasol2.png", },
+  "Chinese parasol3": { description: "Chinese parasol3", image: "https://img.wolftown.games/metarial/wood/Chinese parasol3.png", },
+  "Corundum": { description: "Corundum", image: "https://img.wolftown.games/metarial/wood/Corundum.png", },
+  "Corundum2": { description: "Corundum2", image: "https://img.wolftown.games/metarial/wood/Corundum2.png", },
+  "Corundum3": { description: "Corundum3", image: "https://img.wolftown.games/metarial/wood/Corundum3.png", },
+  "fir wood": { description: "fir wood", image: "https://img.wolftown.games/metarial/wood/fir wood.png", },
+  "fir wood2": { description: "fir wood2", image: "https://img.wolftown.games/metarial/wood/fir wood2.png", },
+  "fir wood3": { description: "fir wood3", image: "https://img.wolftown.games/metarial/wood/fir wood3.png", },
+  "pine": { description: "pine", image: "https://img.wolftown.games/metarial/wood/pine.png", },
+  "pine2": { description: "pine2", image: "https://img.wolftown.games/metarial/wood/pine2.png", },
+  "pine3": { description: "pine3", image: "https://img.wolftown.games/metarial/wood/pine3.png", },
+
+  /*stone */
+
+  "copper": { description: "copper", image: "https://img.wolftown.games/metarial/stone/copper.png", },
+  "copper2": { description: "copper2", image: "https://img.wolftown.games/metarial/stone/copper2.png", },
+  "copper3": { description: "copper3", image: "https://img.wolftown.games/metarial/stone/copper3.png", },
+  "gold": { description: "gold", image: "https://img.wolftown.games/metarial/stone/gold.png", },
+  "gold2": { description: "gold2", image: "https://img.wolftown.games/metarial/stone/gold2.png", },
+  "gold3": { description: "gold3", image: "https://img.wolftown.games/metarial/stone/gold3.png", },
+  "iron": { description: "iron", image: "https://img.wolftown.games/metarial/stone/iron.png", },
+  "iron2": { description: "iron2", image: "https://img.wolftown.games/metarial/stone/iron2.png", },
+  "iron3": { description: "iron3", image: "https://img.wolftown.games/metarial/stone/iron3.png", },
+  "Red gold": { description: "Red gold", image: "https://img.wolftown.games/metarial/stone/Red gold.png", },
+  "Red gold2": { description: "Red gold2", image: "https://img.wolftown.games/metarial/stone/Red gold2.png", },
+  "Red gold3": { description: "Red gold3", image: "https://img.wolftown.games/metarial/stone/Red gold3.png", },
+  "titanium": { description: "titanium", image: "https://img.wolftown.games/metarial/stone/titanium.png", },
+  "titanium2": { description: "titanium2", image: "https://img.wolftown.games/metarial/stone/titanium2.png", },
+  "titanium3": { description: "titanium3", image: "https://img.wolftown.games/metarial/stone/titanium3.png", },
+
+
+
 
 
 

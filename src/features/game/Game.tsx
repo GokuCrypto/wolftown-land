@@ -8,6 +8,8 @@ import { Water } from "features/farming/water/Water";
 import { Wolf } from "features/farming/wolf/Wolf";
 import { Lottery } from "features/farming/lottery/Lottery";
 import { TV } from "features/farming/other/TV";
+import { Landbuild } from "features/farming/land/Landbuild";
+
 import { Loading } from "features/auth/components";
 import { Animals } from "features/farming/animals/Animals";
 
@@ -113,6 +115,7 @@ export const Game: React.FC = () => {
       {/*<TeamDonation />*/}
       <Lottery />
       <TV />
+      <Landbuild />
       <Crops />
       <Blacksmith />
       {/* <Water /> */}

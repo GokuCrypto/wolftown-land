@@ -284,10 +284,9 @@ export const Menu = () => {
                 <li className="p-1">
                   <Button
                     className="flex justify-between"
-                    onClick={() => handleNavigationClick(Section.Water)}
+                    onClick={() => handleNavigationClick(Section.Arena)}
                   >
-                    <span className="sm:text-sm flex-1">{t("Water")}</span>
-                    <img src={water} className="w-4 ml-2" alt="water" />
+                    <span className="sm:text-sm flex-1">{t("Arena")}</span>
                   </Button>
                 </li>
                 <li className="p-1">

@@ -1,5 +1,5 @@
 import close from "assets/icons/close.png";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ScrollContainer from "react-indiana-drag-scroll";
 import boo from "assets/other/boo5.gif";
 import init from "assets/other/init.gif";
@@ -12,12 +12,22 @@ import { Tab } from "components/ui/Tab";
 import { ITEM_DETAILS } from "features/game/types/images";
 import { useTranslation } from "react-i18next";
 import { Fight } from "./Fight";
+import { getWolfArenaGameList, APP_WOLF_API } from "hooks/WolfConfig";
 
 const TAB_CONTENT_HEIGHT = 340;
 interface Props {
   onClose: () => void;
   landData?: any;
   animalIds?: any[];
+}
+
+export class ArenaInfo {
+  public landId?: string;
+  public url?: string;
+  public weapons?: any[];
+  public cdate?: Date;
+  public id?: string;
+  public position?: string;
 }
 
 export const UseArenaScrollIntoView = () => {
@@ -35,6 +45,70 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
   const { t } = useTranslation();
 
   const [isOpen, setIsOpen] = React.useState(false);
+  const [animalName, setAnimalName] = React.useState("");
+
+  const [arena, setArena] = useState([
+    new ArenaInfo(),
+    new ArenaInfo(),
+    new ArenaInfo(),
+    new ArenaInfo(),
+  ]);
+  const [arenaChose, setArenaChose] = useState([new ArenaInfo()]);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const loadLandGameList = async () => {
+    setIsLoading(true);
+    try {
+      console.log("loadLandGameList Animal???");
+      const result = await getWolfArenaGameList();
+      if (result && result.length > 0) {
+        const arenas = [
+          new ArenaInfo(),
+          new ArenaInfo(),
+          new ArenaInfo(),
+          new ArenaInfo(),
+        ];
+
+        for (var i = 0; i < result.length; i++) {
+          const weapons = result[i].weapons;
+          let animalsData = [];
+          if (weapons) {
+            //获取狼的信息
+            const animalsInit = weapons.split("@");
+            for (var j = 0; j < animalsInit.length; j++) {
+              console.log("animalsInit", animalsInit[j].replace("Sheep-"));
+              if (animalsInit[j]) {
+                animalsData[j] = {
+                  weapon: animalsInit[j],
+                  url: ITEM_DETAILS[animalsInit[j]].image,
+                };
+              }
+            }
+          }
+
+          arenas[i] = {
+            landId: result[i].landId,
+            url: result[i].landUrl,
+            weapons: animalsData,
+            id: result[i].id,
+            cdate: result[i].createTime,
+            position: result[i].position,
+          };
+        }
+        setArena(arenas);
+      }
+      console.log("bagAnimal", result);
+
+      setIsLoading(false);
+    } catch (e: any) {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadLandGameList();
+  }, []);
 
   return (
     <Panel className="pt-5 relative ">
@@ -134,25 +208,20 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
             className="absolute hover:img-highlight cursor-pointer"
           />
         </div>
+
+        <Modal centered show={isOpen} onHide={() => setIsOpen(false)}>
+          <img
+            src={close}
+            className="h-6 top-4 right-4 absolute  cursor-pointer"
+            onClick={() => setIsOpen(false)}
+          />
+          <Fight
+            onClose={() => {
+              setIsOpen(false);
+            }}
+          />
+        </Modal>
       </ScrollContainer>
-
-      <div className="flex justify-between absolute bottom-1.5 left-0.5 right-0 items-center">
-        <div className="flex"></div>
-        <button className="h-6 cursor-pointer mr-2 mb-1"> Start Fight</button>
-      </div>
-
-      <Modal centered show={isOpen} onHide={() => setIsOpen(false)}>
-        <img
-          src={close}
-          className="h-6 top-4 right-4 absolute cursor-pointer"
-          onClick={() => setIsOpen(false)}
-        />
-        <Fight
-          onClose={() => {
-            setIsOpen(false);
-          }}
-        />
-      </Modal>
     </Panel>
   );
 };

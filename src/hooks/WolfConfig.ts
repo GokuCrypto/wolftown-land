@@ -213,9 +213,9 @@ export const isLoggedIn = function () {
 
 /* export const HASH_GAME_API = "https://api.wolftown.games/jeecg-boot"; */
 
-/* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
+export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/";
 /* test */
-export const HASH_GAME_API = "https://devapi.wolftown.games/jeecg-boot";
+/* export const HASH_GAME_API = "https://devapi.wolftown.games/jeecg-boot"; */
 
 export const APP_WOLF_API = "https://app.wolftown.world/images/animals/";
 
@@ -264,9 +264,18 @@ export const API_CONFIG = {
   getWolfUserGoodsToChainList: `${HASH_GAME_API}/wolftown/getWolfUserGoodsToChainList`,
   /*放置土地*/
   putLand: `${HASH_GAME_API}/wolftown/putLand`,
+  /*释放土地*/
+  reapingLand: `${HASH_GAME_API}/wolftown/reapingLand`,
 
   /*土地列表信息*/
   getLandGameList: `${HASH_GAME_API}/wolftown/getLandGameList`,
+
+
+  /*放置战斗动物*/
+  putArena: `${HASH_GAME_API}/wolftown/putArena`,
+
+  /*查询战斗物品信息*/
+  getWolfArenaGameList: `${HASH_GAME_API}/wolftown/getWolfArenaGameList`,
 
 
 }
@@ -746,7 +755,7 @@ export const reapingLand = async (landId: string) => {
   /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
 
   if ((XAccessToken)) {
-    const response = await fetch(API_CONFIG.putLand, {
+    const response = await fetch(API_CONFIG.reapingLand, {
       method: 'post', headers: {
         'X-Access-Token': XAccessToken,
         'token': XAccessToken,
@@ -795,6 +804,72 @@ export const getLandGameList = async () => {
         const landGameList = result.result.landGameList;
         console.log("response-landGameList", landGameList);
         return landGameList;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+
+
+
+/* 放置战斗动物 */
+export const putArena = async (animalName: string, weapons: string) => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+
+  if ((XAccessToken)) {
+    const response = await fetch(API_CONFIG.putArena, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify({
+        "animalName": animalName,
+        "weapons": weapons
+      }),
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+        // 放置结果数据 
+        console.log("response-putArena", result);
+        return result;
+      } else {
+        return result;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+
+
+/* 获取用户战斗动物放置记录 */
+export const getWolfArenaGameList = async () => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+  if ((XAccessToken)) {
+    const response = await fetch(API_CONFIG.getWolfArenaGameList, {
+      method: 'get', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+
+        const wolfArenaGameList = result.result.wolfArenaGameList;
+        console.log("response-wolfArenaGameList", wolfArenaGameList);
+        return wolfArenaGameList;
       }
     } else if (response.status === 401) {
       await loginOut()

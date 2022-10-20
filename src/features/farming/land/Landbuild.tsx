@@ -19,6 +19,7 @@ export class LandInfo {
   public animals?: any[];
   public cdate?: Date;
   public id?: string;
+  public shit?: string;
 }
 
 export const Landbuild: React.FC = () => {
@@ -77,6 +78,7 @@ export const Landbuild: React.FC = () => {
             animals: animalsData,
             id: result[i].id,
             cdate: result[i].createTime,
+            shit: result[i].shit,
           };
         }
         setLand(lands);
@@ -166,6 +168,7 @@ export const Landbuild: React.FC = () => {
             }}
             landData={land[clickNumber]}
             animalIds={land[clickNumber].animals}
+            shitData={land[clickNumber].shit}
           />
         </Modal>
       </div>

@@ -213,9 +213,9 @@ export const isLoggedIn = function () {
 
 /* export const HASH_GAME_API = "https://api.wolftown.games/jeecg-boot"; */
 
-export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/";
+/* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
 /* test */
-/* export const HASH_GAME_API = "https://devapi.wolftown.games/jeecg-boot"; */
+export const HASH_GAME_API = "https://devapi.wolftown.games/jeecg-boot";
 
 export const APP_WOLF_API = "https://app.wolftown.world/images/animals/";
 
@@ -276,6 +276,9 @@ export const API_CONFIG = {
 
   /*查询战斗物品信息*/
   getWolfArenaGameList: `${HASH_GAME_API}/wolftown/getWolfArenaGameList`,
+
+  /*空投数据*/
+  airdrop: `${HASH_GAME_API}/wolftown/airdrop`,
 
 
 }
@@ -379,7 +382,8 @@ export const getAccountInfo = async () => {
   const acountInfo = {
     BUSD: '0',
     WTWOOL: '0',
-    WTMILK: '0'
+    WTMILK: '0',
+    integral: '0'
   }
 
   const XAccessToken = localStorage.getItem('XAccessToken');
@@ -414,6 +418,9 @@ export const getAccountInfo = async () => {
             }
             if (account.coin != null && account.coin === "WTMILK") {
               acountInfo.WTMILK = account.normalBalance.toString();
+            }
+            if (account.coin != null && account.coin === "integral") {
+              acountInfo.integral = account.normalBalance.toString();
             }
           }
         }
@@ -712,7 +719,7 @@ export const doLottery = async (times: number) => {
 
 
 /* 放置土地 */
-export const putLand = async (landName: string, animals: string) => {
+export const putLand = async (landName: string, animals: string, shit: string) => {
 
   const XAccessToken = localStorage.getItem('XAccessToken');
   /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
@@ -725,7 +732,8 @@ export const putLand = async (landName: string, animals: string) => {
         'Content-Type': 'application/json',
       }, body: JSON.stringify({
         "landName": landName,
-        "animals": animals
+        "animals": animals,
+        "shit": shit
       }),
     })
     if (response.status === 200) {
@@ -816,7 +824,7 @@ export const getLandGameList = async () => {
 
 
 /* 放置战斗动物 */
-export const putArena = async (animalName: string, weapons: string) => {
+export const putArena = async (animalName: string, weapons: string, position: string) => {
 
   const XAccessToken = localStorage.getItem('XAccessToken');
   /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
@@ -829,7 +837,8 @@ export const putArena = async (animalName: string, weapons: string) => {
         'Content-Type': 'application/json',
       }, body: JSON.stringify({
         "animalName": animalName,
-        "weapons": weapons
+        "weapons": weapons,
+        "position": position
       }),
     })
     if (response.status === 200) {
@@ -870,6 +879,39 @@ export const getWolfArenaGameList = async () => {
         const wolfArenaGameList = result.result.wolfArenaGameList;
         console.log("response-wolfArenaGameList", wolfArenaGameList);
         return wolfArenaGameList;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+
+
+
+/* 领取空投 */
+export const airDrop = async () => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+
+  if ((XAccessToken)) {
+    const response = await fetch(API_CONFIG.airdrop, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+        // 放置结果数据 
+        console.log("response-airDrop", result);
+        return result;
+      } else {
+        return result;
       }
     } else if (response.status === 401) {
       await loginOut()

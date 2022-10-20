@@ -3,7 +3,7 @@ import { useActor } from "@xstate/react";
 import classNames from "classnames";
 import Decimal from "decimal.js-light";
 import ReCAPTCHA from "react-google-recaptcha";
-
+import { useTranslation } from "react-i18next";
 import token from "assets/wt/balance.png";
 
 import { Box } from "components/ui/Box";
@@ -38,6 +38,7 @@ export const CraftingItems: React.FC<Props> = ({
   /*   const [selectedIngredientName, setSelectedIngredientName] = useState<string>(
     Object.values(items)[0].name
   ); */
+  const { t } = useTranslation();
   const { setToast } = useContext(ToastContext);
   const { gameService, shortcutItem } = useContext(Context);
   const [showCaptcha, setShowCaptcha] = useState(false);
@@ -112,7 +113,11 @@ export const CraftingItems: React.FC<Props> = ({
           className="text-xs mt-1"
           onClick={() => {
             if (selected && selected.ingredients) {
-              handleNextSong(selected?.ingredients[0].item);
+              handleNextSong(
+                selected?.ingredients[0].synthesis
+                  ? selected?.ingredients[0].synthesis
+                  : selected?.ingredients[0].item
+              );
             }
           }}
         >
@@ -159,7 +164,12 @@ export const CraftingItems: React.FC<Props> = ({
 
               return (
                 <div className="flex justify-center items-end" key={index}>
-                  <img src={item.image} className="h-5 me-2" />
+                  <img
+                    src={item.image}
+                    alt={item.description}
+                    title={t(item.description)}
+                    className="h-5 me-2"
+                  />
                   <span
                     className={classNames(
                       "text-xs text-shadow text-center mt-2 ",

@@ -30,6 +30,7 @@ interface Props {
   landData?: any;
   isBulk?: boolean;
   onClose: () => void;
+  shitData?: any;
 }
 /*操作台 */
 export const LandItems: React.FC<Props> = ({
@@ -37,6 +38,7 @@ export const LandItems: React.FC<Props> = ({
   onClose,
   isBulk = false,
   landData,
+  shitData,
 }) => {
   const [selected, setSelected] = useState<any>(Object.values(items)[0]);
   const [selectedNum, setSelectedNum] = useState(0);
@@ -46,6 +48,17 @@ export const LandItems: React.FC<Props> = ({
     goodsUrl: landData.url
       ? landData.url
       : "https://img.wolftown.games/other/blank.png",
+    id: landData.id,
+  });
+
+  const [shitName, setShitName] = useState<any>({
+    goodsName: shitData == "" ? shitData : "Field Shit 1",
+    goodsUrl:
+      shitData == "Animal feces"
+        ? "https://img.wolftown.games/bag/shit.gif"
+        : shitData == "Animal feces ball"
+        ? "https://img.wolftown.games/bag/shitball.gif"
+        : "https://img.wolftown.games/other/blank.png",
     id: landData.id,
   });
 
@@ -68,6 +81,7 @@ export const LandItems: React.FC<Props> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [bagAnimal, setBagAnimal] = useState<WolfUserGoods[]>();
   const [bagLand, setBagLand] = useState<WolfUserGoods[]>();
+  const [bagShit, setBagShit] = useState<WolfUserGoods[]>();
 
   const loadBagByType = async () => {
     setIsLoading(true);
@@ -83,6 +97,13 @@ export const LandItems: React.FC<Props> = ({
         setBagLand(result2);
       }
       console.log("bagLand", result2);
+
+      const result3 = await queryBagByType("Meterial", "Animal feces");
+      if (result3) {
+        setBagShit(result3);
+      }
+      console.log("bagShit", result3);
+
       setIsLoading(false);
     } catch (e: any) {
       setIsLoading(false);
@@ -111,7 +132,12 @@ export const LandItems: React.FC<Props> = ({
       }
     }
 
-    const result = await putLand(landInfo.goodsName, animals);
+    let shit = "";
+    if (shitName.goodsName != "Field shit 1") {
+      shit = shitName.goodsName;
+    }
+
+    const result = await putLand(landInfo.goodsName, animals, shit);
 
     if (!result.success) {
       setMessage(result.message);
@@ -211,6 +237,16 @@ export const LandItems: React.FC<Props> = ({
             image={item.goodsUrl}
           />
         ))}
+        <span className="w-100 text-shadow text-center">
+          {t("Animal feces")}
+        </span>
+        <Box key={shitName.goodsName} image={shitName.goodsUrl} />
+        <span
+          style={{ fontSize: "3px" }}
+          className="w-100 text-shadow text-center "
+        >
+          {t("Animal manure is a very good fertilizer")}
+        </span>
       </div>
 
       <OuterPanel className="flex-1 w-2/3">
@@ -223,6 +259,26 @@ export const LandItems: React.FC<Props> = ({
               image={item.goodsUrl}
               onClick={() => {
                 setLandinfo({
+                  goodsName: item.goodsName,
+                  goodsUrl: item.goodsUrl,
+                });
+              }}
+            />
+          ))}
+
+          <div className="border-t border-white w-full mt-2 pt-1">
+            <div className="flex justify-center items-end"></div>
+          </div>
+        </div>
+        <div className="flex flex-col justify-center items-center p-2 relative">
+          <span className=" text-shadow text-center">{t("Animal feces")}</span>
+
+          {bagShit?.map((item) => (
+            <Box
+              key={item.goodsName}
+              image={item.goodsUrl}
+              onClick={() => {
+                setShitName({
                   goodsName: item.goodsName,
                   goodsUrl: item.goodsUrl,
                 });

@@ -6,7 +6,7 @@ import { ITEM_DETAILS } from "features/game/types/images";
 import { CraftableItem, Ingredient } from "features/game/types/craftables";
 
 import { Context } from "features/game/GameProvider";
-import { queryBagByName } from "hooks/WolfConfig";
+import { queryBagByName, queryBagByType } from "hooks/WolfConfig";
 interface Props {
   item: Ingredient;
 }
@@ -21,10 +21,18 @@ export const Goods: React.FC<Props> = ({ item }) => {
     try {
       console.log("not Load???");
 
-      const result = await queryBagByName(item.item);
+      if (item.item.indexOf("Land-") == -1) {
+        const result = await queryBagByName(item.item);
 
-      if (result.amount) {
-        setBagNumber(result.amount);
+        if (result.amount) {
+          setBagNumber(result.amount);
+        }
+      } else {
+        const result = await queryBagByType("Equip", item.item);
+
+        if (result.length) {
+          setBagNumber(result.length);
+        }
       }
 
       setIsLoading(false);

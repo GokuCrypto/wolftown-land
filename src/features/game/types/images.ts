@@ -802,7 +802,14 @@ export const ITEM_DETAILS: Items = {
   "titanium2": { description: "titanium2", image: "https://img.wolftown.games/metarial/stone/titanium2.png", },
   "titanium3": { description: "titanium3", image: "https://img.wolftown.games/metarial/stone/titanium3.png", },
 
+  /*LAND */
 
+  "Land-L1": { description: "Land-L1", image: "https://img.wolftown.games/land/land1.png", },
+  "Land-L2": { description: "Land-L2", image: "https://img.wolftown.games/land/land2.png", },
+  "Land-L3": { description: "Land-L3", image: "https://img.wolftown.games/land/land3.png", },
+  "Land-M1": { description: "Land-M1", image: "https://img.wolftown.games/land/mountain1.png", },
+  "Land-M2": { description: "Land-M2", image: "https://img.wolftown.games/land/mountain2.png", },
+  "Land-M3": { description: "Land-M3", image: "https://img.wolftown.games/land/mountain3.png", },
 
 
 

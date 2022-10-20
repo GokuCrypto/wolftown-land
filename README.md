@@ -107,3 +107,4 @@ All media assets (images and music) are not available for use in commercial or p
 1、landGame 表结构
 2、wolf_user_goods 增加属性值
 3、增加产出物品配置表
+4、goods_synthesis_configure 扩大 goods_name 字段

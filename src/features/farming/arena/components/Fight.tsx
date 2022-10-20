@@ -15,10 +15,10 @@ import { ArenaItems } from "./ArenaItems";
 const TAB_CONTENT_HEIGHT = 340;
 interface Props {
   onClose: () => void;
-  postion?: any;
+  position?: any;
 }
 
-export const Fight: React.FC<Props> = ({ onClose }) => {
+export const Fight: React.FC<Props> = ({ onClose, position }) => {
   const [tab, setTab] = useState<string>("craft");
   const { t } = useTranslation();
 
@@ -69,7 +69,12 @@ export const Fight: React.FC<Props> = ({ onClose }) => {
         }}
       >
         {tab === "craft" && (
-          <ArenaItems items={BlankGoods} isBulk onClose={onClose} />
+          <ArenaItems
+            position={position}
+            items={BlankGoods}
+            isBulk
+            onClose={onClose}
+          />
         )}
       </div>
     </Panel>

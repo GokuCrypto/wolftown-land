@@ -7,13 +7,44 @@ import goblin from "assets/npcs/goblin.gif";
 import arenabg from "assets/other/arena/arenabg.png";
 import { Panel } from "components/ui/Panel";
 import { Modal } from "react-bootstrap";
-
+import { createGlobalStyle } from "styled-components";
 import { Tab } from "components/ui/Tab";
 import { ITEM_DETAILS } from "features/game/types/images";
 import { useTranslation } from "react-i18next";
 import { Fight } from "./Fight";
 import { getWolfArenaGameList, APP_WOLF_API } from "hooks/WolfConfig";
+import { map } from "lodash";
 
+const MintStyle = createGlobalStyle`
+
+@keyframes rightMove
+{
+    from {transform: translate(0,0);}
+    to {transform: translate(350px,0);}
+}
+
+@keyframes leftMove
+{
+    from {transform: translate(0,0);}
+    to {transform: translate(-350px,0);}
+}
+
+@keyframes downMove
+{
+    from {transform: translate(0,0);}
+    to {transform: translate(0,350px);}
+}
+
+@keyframes upMove
+{
+    from {transform: translate(0,0);}
+    to {transform: translate(0,-350px);}
+}
+
+
+
+
+`;
 const TAB_CONTENT_HEIGHT = 340;
 interface Props {
   onClose: () => void;
@@ -22,7 +53,7 @@ interface Props {
 }
 
 export class ArenaInfo {
-  public landId?: string;
+  public animalName?: string;
   public url?: string;
   public weapons?: any[];
   public cdate?: Date;
@@ -45,14 +76,15 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
   const { t } = useTranslation();
 
   const [isOpen, setIsOpen] = React.useState(false);
+  const [position, setPostion] = React.useState("");
+
   const [animalName, setAnimalName] = React.useState("");
 
-  const [arena, setArena] = useState([
-    new ArenaInfo(),
-    new ArenaInfo(),
-    new ArenaInfo(),
-    new ArenaInfo(),
-  ]);
+  const [leftarena, setLeftArena] = useState(new ArenaInfo());
+  const [rightarena, setRightArena] = useState(new ArenaInfo());
+  const [uparena, setUpArena] = useState(new ArenaInfo());
+  const [downarena, setDownArena] = useState(new ArenaInfo());
+
   const [arenaChose, setArenaChose] = useState([new ArenaInfo()]);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -71,15 +103,14 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
         ];
 
         for (var i = 0; i < result.length; i++) {
-          const weapons = result[i].weapons;
-          let animalsData = [];
+          const weapons = result[i].weaponNames;
+          let weaponsData = [];
           if (weapons) {
             //获取狼的信息
             const animalsInit = weapons.split("@");
             for (var j = 0; j < animalsInit.length; j++) {
-              console.log("animalsInit", animalsInit[j].replace("Sheep-"));
               if (animalsInit[j]) {
-                animalsData[j] = {
+                weaponsData[j] = {
                   weapon: animalsInit[j],
                   url: ITEM_DETAILS[animalsInit[j]].image,
                 };
@@ -88,15 +119,27 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
           }
 
           arenas[i] = {
-            landId: result[i].landId,
-            url: result[i].landUrl,
-            weapons: animalsData,
+            animalName: result[i].animalName,
+            url:
+              APP_WOLF_API +
+              result[i].animalName.replace("Sheep-", "").replace("Wolf-", "") +
+              ".png",
+            weapons: weaponsData,
             id: result[i].id,
             cdate: result[i].createTime,
             position: result[i].position,
           };
+          if (result[i].position == "left") {
+            setLeftArena(arenas[i]);
+          } else if (result[i].position == "right") {
+            setRightArena(arenas[i]);
+          } else if (result[i].position == "up") {
+            setUpArena(arenas[i]);
+            console.log("up-arenas[i]", arenas[i]);
+          } else if (result[i].position == "down") {
+            setDownArena(arenas[i]);
+          }
         }
-        setArena(arenas);
       }
       console.log("bagAnimal", result);
 
@@ -112,6 +155,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
 
   return (
     <Panel className="pt-5 relative ">
+      <MintStyle />
       <div className="flex justify-between absolute top-1.5 left-0.5 right-0 items-center">
         <div className="flex"></div>
         <img
@@ -151,62 +195,283 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
             className="absolute"
           />
           {/* 上 */}
-          <img
-            onClick={() => {
-              setIsOpen(true);
-            }}
-            id="arenacenter"
-            src={init}
-            style={{
-              height: "80px",
-              width: "80px",
-              left: "calc(16% )",
-              top: "calc(69%)",
-            }}
-            className="absolute hover:img-highlight cursor-pointer"
-          />
+
+          {uparena.url ? (
+            <>
+              <img
+                id="arenacenter"
+                src={uparena.url}
+                style={{
+                  height: "80px",
+                  width: "80px",
+                  left: "calc(16% )",
+                  top: "calc(69%)",
+                }}
+                className="absolute hover:img-highlight cursor-pointer"
+              />
+              {uparena.weapons?.map((item, idx) => (
+                <>
+                  <img
+                    id="arenacenter"
+                    src={item.url}
+                    key={"uparena" + idx}
+                    style={{
+                      height: "80px",
+                      width: "80px",
+                      left:
+                        "calc(16% - " +
+                        (idx % 2 == 0 ? -1 : 1) * (idx + 1) * 40 +
+                        "px)",
+                      top: "calc(58%)",
+                    }}
+                    className="absolute hover:img-highlight cursor-pointer"
+                  />
+
+                  <img
+                    id="arenacenter"
+                    src={"https://img.wolftown.games/other/up.png"}
+                    key={"rightarena" + idx}
+                    style={{
+                      height: "40px",
+
+                      animation: "upMove  " + (idx / 10 + 2) + "s infinite",
+                      left:
+                        "calc(16.5% - " +
+                        (idx % 2 == 0 ? -1 : 1) * (idx + 1) * 40 +
+                        "px)",
+                      top: "calc(58%)",
+                    }}
+                    className="absolute hover:img-highlight cursor-pointer"
+                  />
+                </>
+              ))}
+            </>
+          ) : (
+            <>
+              {" "}
+              <img
+                onClick={() => {
+                  setIsOpen(true);
+                  setPostion("up");
+                }}
+                id="arenacenter"
+                src={init}
+                style={{
+                  height: "80px",
+                  width: "80px",
+                  left: "calc(16% )",
+                  top: "calc(69%)",
+                }}
+                className="absolute hover:img-highlight cursor-pointer"
+              />
+            </>
+          )}
           {/* 下 */}
-          <img
-            src={init}
-            onClick={() => {
-              setIsOpen(true);
-            }}
-            style={{
-              height: "80px",
-              width: "80px",
-              left: "calc(16% )",
-              top: "calc(158%)",
-            }}
-            className="absolute hover:img-highlight cursor-pointer"
-          />
+
+          {downarena.url ? (
+            <>
+              <img
+                id="arenacenter"
+                src={downarena.url}
+                style={{
+                  height: "80px",
+                  width: "80px",
+                  left: "calc(16% )",
+                  top: "calc(158%)",
+                }}
+                className="absolute hover:img-highlight cursor-pointer"
+              />
+              {downarena.weapons?.map((item, idx) => (
+                <>
+                  <img
+                    id="arenacenter"
+                    src={item.url}
+                    key={"downarena" + idx}
+                    style={{
+                      height: "80px",
+                      width: "80px",
+                      left:
+                        "calc(16% - " +
+                        (idx % 2 == 0 ? -1 : 1) * (idx + 1) * 40 +
+                        "px)",
+                      top: "calc(169%)",
+                    }}
+                    className="absolute hover:img-highlight cursor-pointer"
+                  />
+
+                  <img
+                    id="arenacenter"
+                    src={"https://img.wolftown.games/other/down.png"}
+                    key={"rightarena" + idx}
+                    style={{
+                      height: "40px",
+
+                      animation: "downMove  " + (idx / 10 + 2) + "s infinite",
+                      left:
+                        "calc(16.5% - " +
+                        (idx % 2 == 0 ? -1 : 1) * (idx + 1) * 40 +
+                        "px)",
+                      top: "calc(169%)",
+                    }}
+                    className="absolute hover:img-highlight cursor-pointer"
+                  />
+                </>
+              ))}
+            </>
+          ) : (
+            <img
+              src={init}
+              onClick={() => {
+                setIsOpen(true);
+                setPostion("down");
+              }}
+              style={{
+                height: "80px",
+                width: "80px",
+                left: "calc(16% )",
+                top: "calc(158%)",
+              }}
+              className="absolute hover:img-highlight cursor-pointer"
+            />
+          )}
           {/* 左 */}
-          <img
-            src={init}
-            onClick={() => {
-              setIsOpen(true);
-            }}
-            style={{
-              height: "80px",
-              width: "80px",
-              left: "calc(9.5% )",
-              top: "calc(112%)",
-            }}
-            className="absolute hover:img-highlight cursor-pointer"
-          />
+
+          {leftarena.url ? (
+            <>
+              <img
+                id="arenacenter"
+                src={leftarena.url}
+                style={{
+                  height: "80px",
+                  width: "80px",
+                  left: "calc(9.5% )",
+                  top: "calc(112%)",
+                }}
+                className="absolute hover:img-highlight cursor-pointer"
+              />
+              {leftarena.weapons?.map((item, idx) => (
+                <>
+                  <img
+                    id="arenacenter"
+                    src={item.url}
+                    key={"leftarena" + idx}
+                    style={{
+                      height: "80px",
+                      width: "80px",
+                      left: "calc(8% )",
+                      top:
+                        "calc(112% - " +
+                        (idx % 2 == 0 ? -1 : 1) * (idx + 1) * 50 +
+                        "px)",
+                    }}
+                    className="absolute hover:img-highlight cursor-pointer"
+                  />
+
+                  <img
+                    id="arenacenter"
+                    src={"https://img.wolftown.games/other/left.png"}
+                    key={"rightarena" + idx}
+                    style={{
+                      height: "40px",
+                      left: "calc(8% )",
+                      animation: "leftMove  " + (idx / 10 + 2) + "s infinite",
+                      top:
+                        "calc(112% - " +
+                        (idx % 2 == 0 ? -1 : 1) * (idx + 1) * 50 +
+                        "px)",
+                    }}
+                    className="absolute hover:img-highlight cursor-pointer"
+                  />
+                </>
+              ))}
+            </>
+          ) : (
+            <img
+              src={init}
+              onClick={() => {
+                setIsOpen(true);
+                setPostion("left");
+              }}
+              style={{
+                height: "80px",
+                width: "80px",
+                left: "calc(9.5% )",
+                top: "calc(112%)",
+              }}
+              className="absolute hover:img-highlight cursor-pointer"
+            />
+          )}
           {/* 右 */}
-          <img
-            src={init}
-            onClick={() => {
-              setIsOpen(true);
-            }}
-            style={{
-              height: "80px",
-              width: "80px",
-              left: "calc(22.8% )",
-              top: "calc(116%)",
-            }}
-            className="absolute hover:img-highlight cursor-pointer"
-          />
+
+          {rightarena.url ? (
+            <>
+              <img
+                id="arenacenter"
+                src={rightarena.url}
+                style={{
+                  height: "80px",
+                  width: "80px",
+                  left: "calc(22.8% )",
+                  top: "calc(116%)",
+                }}
+                className="absolute hover:img-highlight cursor-pointer"
+              />
+              {rightarena.weapons?.map((item, idx) => (
+                <>
+                  <img
+                    id="arenacenter"
+                    src={item.url}
+                    key={"rightarena" + idx}
+                    style={{
+                      height: "80px",
+                      width: "80px",
+                      left: "calc(24% )",
+                      top:
+                        "calc(116% - " +
+                        (idx % 2 == 0 ? -1 : 1) * (idx + 1) * 50 +
+                        "px)",
+                    }}
+                    className="absolute hover:img-highlight cursor-pointer"
+                  />
+
+                  <img
+                    id="arenacenter"
+                    src={"https://img.wolftown.games/other/right.png"}
+                    key={"rightarena" + idx}
+                    style={{
+                      height: "40px",
+                      left: "calc(24% )",
+                      animation: "rightMove  " + (idx / 10 + 2) + "s infinite",
+                      top:
+                        "calc(116% - " +
+                        (idx % 2 == 0 ? -1 : 1) * (idx + 1) * 50 +
+                        "px)",
+                    }}
+                    className="absolute hover:img-highlight cursor-pointer"
+                  />
+                </>
+              ))}
+            </>
+          ) : (
+            <img
+              src={init}
+              onClick={() => {
+                setIsOpen(true);
+                setPostion("right");
+              }}
+              style={{
+                height: "80px",
+                width: "80px",
+                left: "calc(22.8% )",
+                top: "calc(116%)",
+              }}
+              className="absolute hover:img-highlight cursor-pointer"
+            />
+          )}
+          {/* 怪物上 */}
+          {/* 怪物下 */}
+          {/* 怪物左 */}
+          {/* 怪物右 */}
         </div>
 
         <Modal centered show={isOpen} onHide={() => setIsOpen(false)}>
@@ -216,6 +481,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
             onClick={() => setIsOpen(false)}
           />
           <Fight
+            position={position}
             onClose={() => {
               setIsOpen(false);
             }}

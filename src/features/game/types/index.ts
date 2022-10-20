@@ -162,20 +162,18 @@ export const KNOWN_IDS: Record<InventoryItemName, number> = {
   "Land NFT Coupons": 919,
 
   "artillery": 920,
-  "artillery2": 921,
-  "artillery3": 922,
+
+
   "bartizan": 923,
-  "bartizan2": 924,
-  "bartizan3": 925,
+
+
   "Catapult": 926,
-  "Catapult2": 927,
-  "Catapult3": 928,
+
+
   "Cyclone wheel car": 929,
-  "Cyclone wheel car2": 930,
-  "Cyclone wheel car3": 931,
+
   "Rush Car": 932,
-  "Rush Car2": 933,
-  "Rush Car3": 934,
+
 
 
   "Black sunken": 935,
@@ -210,6 +208,13 @@ export const KNOWN_IDS: Record<InventoryItemName, number> = {
   "titanium": 962,
   "titanium2": 963,
   "titanium3": 964,
+
+  "Land-L1": 965,
+  "Land-L2": 966,
+  "Land-L3": 967,
+  "Land-M1": 968,
+  "Land-M2": 969,
+  "Land-M3": 970,
 
 
 };

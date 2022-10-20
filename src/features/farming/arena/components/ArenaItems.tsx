@@ -22,23 +22,26 @@ import { queryBagByType, putArena } from "hooks/WolfConfig";
 
 import { t } from "i18next";
 import { BigNumber } from "ethers";
+
 interface Props {
   items: Partial<Record<any, any>>;
 
   isBulk?: boolean;
   onClose: () => void;
+  position: string;
 }
 /*操作台 */
 export const ArenaItems: React.FC<Props> = ({
   items,
   onClose,
   isBulk = false,
+  position,
 }) => {
   const [selected, setSelected] = useState<any>(Object.values(items)[0]);
   const [selectedNum, setSelectedNum] = useState(0);
 
   const [arenaInfo, setArenainfo] = useState<any>({
-    goodsName: "Field Land 1",
+    goodsName: "Field 1",
     goodsUrl: "https://img.wolftown.games/other/blank.png",
   });
 
@@ -93,7 +96,7 @@ export const ArenaItems: React.FC<Props> = ({
 
     let weapons = "";
 
-    if (arenaInfo.goodsName == "Field Land 1") {
+    if (arenaInfo.goodsName == "Field 1") {
       setMessage("Land Please select land!");
       return false;
     }
@@ -104,12 +107,12 @@ export const ArenaItems: React.FC<Props> = ({
       }
     }
 
-    const result = await putArena(arenaInfo.goodsName, weapons);
+    const result = await putArena(arenaInfo.goodsName, weapons, position);
 
     if (!result.success) {
       setMessage(result.message);
     } else {
-      setMessage("Land succeeded!");
+      setMessage("Arena succeeded!");
     }
   };
 
@@ -132,8 +135,20 @@ export const ArenaItems: React.FC<Props> = ({
                 goodsName: "Field 3",
                 goodsUrl: "https://img.wolftown.games/other/blank.png",
               },
+              {
+                goodsName: "Field 4",
+                goodsUrl: "https://img.wolftown.games/other/blank.png",
+              },
+              {
+                goodsName: "Field 5",
+                goodsUrl: "https://img.wolftown.games/other/blank.png",
+              },
+              {
+                goodsName: "Field 6",
+                goodsUrl: "https://img.wolftown.games/other/blank.png",
+              },
             ]);
-            setSelected({
+            setArenainfo({
               goodsName: "Field 1",
               goodsUrl: "https://img.wolftown.games/other/blank.png",
             });

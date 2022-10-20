@@ -274,7 +274,8 @@ export class Metamask {
     return {
       BUSD: fromWei(balanceOfBUSD),
       WTWOOL: fromWei(balanceOfWOOL),
-      WTMILK: fromWei(balanceOfMILK)
+      WTMILK: fromWei(balanceOfMILK),
+      integral: "0"
     }
   }
 

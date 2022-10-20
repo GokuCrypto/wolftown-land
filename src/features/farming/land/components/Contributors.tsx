@@ -32,12 +32,14 @@ interface Props {
   onClose: () => void;
   landData?: any;
   animalIds?: any[];
+  shitData?: string;
 }
 
 export const Contributors: React.FC<Props> = ({
   onClose,
   landData,
   animalIds,
+  shitData,
 }) => {
   const [tab, setTab] = useState<string>("craft");
   const { t } = useTranslation();
@@ -90,6 +92,7 @@ export const Contributors: React.FC<Props> = ({
             isBulk
             onClose={onClose}
             landData={landData}
+            shitData={shitData}
           />
         )}
       </div>

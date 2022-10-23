@@ -2,10 +2,10 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 
 import townHall from "assets/buildings/townhall.png";
-import heart from "assets/icons/heart.png";
+import heart from "assets/wt/wolf.png";
 import close from "assets/icons/close.png";
 
-import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
+import { GRID_WIDTH_PX, GRID_HIGHT_PX } from "features/game/lib/constants";
 import { Action } from "components/ui/Action";
 import { Panel } from "components/ui/Panel";
 import { Contributors } from "./components/Contributors";

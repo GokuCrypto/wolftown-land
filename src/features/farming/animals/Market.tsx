@@ -3,10 +3,10 @@ import React from "react";
 import { Section } from "lib/utils/hooks/useScrollIntoView";
 
 import { Chickens } from "./components/Chickens";
-import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
+import { GRID_WIDTH_PX, GRID_HIGHT_PX } from "features/game/lib/constants";
 import { Barn } from "./components/Barn";
 
-export const Animals: React.FC = () => {
+export const Market: React.FC = () => {
   return (
     // Container
     <div
@@ -21,7 +21,7 @@ export const Animals: React.FC = () => {
       <div className="h-full w-full relative">
         {/* Navigation Center Point */}
         <span
-          id={Section.Animals}
+          id={Section.Market}
           className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
         />
 

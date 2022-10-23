@@ -17,7 +17,7 @@ import { Settings } from "./Settings";
 
 import mobileMenu from "assets/icons/hamburger_menu.png";
 import questionMark from "assets/icons/expression_confused.png";
-import radish from "assets/icons/radish.png";
+import radish from "assets/icons/market.png";
 import town from "assets/icons/town.png";
 import water from "assets/icons/expression_working.png";
 
@@ -264,15 +264,15 @@ export const Menu = () => {
                     <img src={town} className="w-6 ml-2" alt="town" />
                   </Button>
                 </li>
-                {/*   <li className="p-1">
+                <li className="p-1">
                   <Button
                     className="flex justify-between"
-                    onClick={() => handleNavigationClick(Section.Crops)}
+                    onClick={() => handleNavigationClick(Section.Market)}
                   >
-                    <span className="sm:text-sm flex-1">{t("Crops")}</span>
-                    <img src={radish} className="w-4 ml-2" alt="crop" />
+                    <span className="sm:text-sm flex-1">{t("Market")}</span>
+                    <img src={radish} className="w-4 ml-2" alt="Market" />
                   </Button>
-                </li> */}
+                </li>
                 <li className="p-1">
                   <Button
                     className="flex justify-between"

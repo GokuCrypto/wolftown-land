@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
 
 import close from "assets/icons/close.png";
-import chicken from "assets/resources/chicken.png";
+import market from "assets/icons/market.png";
 
 import { Panel } from "components/ui/Panel";
 import { Tab } from "components/ui/Tab";
 import { ANIMALS } from "features/game/types/craftables";
-import { CraftingItems } from "features/farming/blacksmith/components/CraftingItems";
+import { CraftingItems } from "./CraftingItems";
 import * as Auth from "features/auth/lib/Provider";
 import { useActor } from "@xstate/react";
 
@@ -24,8 +24,8 @@ export const BarnSale: React.FC<Props> = ({ onClose }) => {
       <div className="flex justify-between absolute top-1.5 left-0.5 right-0 items-center">
         <div className="flex">
           <Tab isActive={tab === "animals"} onClick={() => setTab("animals")}>
-            <img src={chicken} className="h-5 mr-2" />
-            <span className="text-sm text-shadow">Animals</span>
+            <img src={market} className="h-5 mr-2" />
+            <span className="text-sm text-shadow">Wolf Town Market</span>
           </Tab>
         </div>
         <img
@@ -40,9 +40,7 @@ export const BarnSale: React.FC<Props> = ({ onClose }) => {
           minHeight: "200px",
         }}
       >
-        {tab === "animals" && (
-          <CraftingItems items={ANIMALS} onClose={onClose} />
-        )}
+        {tab === "animals" && <CraftingItems onClose={onClose} />}
       </div>
     </Panel>
   );

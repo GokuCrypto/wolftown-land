@@ -1,34 +1,16 @@
-import React, { useEffect, useState, useContext } from "react";
-import Decimal from "decimal.js-light";
 import { Box } from "components/ui/Box";
-import { OuterPanel } from "components/ui/Panel";
-import { ITEM_DETAILS } from "features/game/types/images";
-import { InventoryItemName } from "features/game/types/game";
-import { useTranslation } from "react-i18next";
-import { SEEDS, CropName } from "features/game/types/crops";
 import { Button } from "components/ui/Button";
-import { Context } from "features/game/GameProvider";
-import { WolfUserGoodsToChain } from "../lib/types";
+import { OuterPanel } from "components/ui/Panel";
+import Decimal from "decimal.js-light";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { WolfMarket } from "hooks/modules/WolfMarket";
+import Datetime from "react-datetime";
 
-import timer from "assets/icons/timer.png";
-import lightning from "assets/icons/lightning.png";
-
-import { secondsToMidString } from "lib/utils/time";
-import classNames from "classnames";
-import { useShowScrollbar } from "lib/utils/hooks/useShowScrollbar";
-import { useScrollIntoView } from "lib/utils/hooks/useScrollIntoView";
-import { Inventory, TabItems } from "./InventoryItems";
-import { getShortcuts } from "../lib/shortcuts";
-import { hasBoost } from "features/game/lib/boosts";
-import { getCropTime } from "features/game/events/plant";
-import { getKeys } from "features/game/types/craftables";
+import { reward } from "hooks/WolfConfig";
 import { BagItem } from "../lib/types";
-import { ERRORS } from "lib/errors";
-import {
-  reward,
-  synthesis,
-  getWolfUserGoodsToChainList,
-} from "hooks/WolfConfig";
+
+import { marketAdd } from "hooks/WHashConfig";
 
 const ITEM_CARD_MIN_HEIGHT = "148px";
 
@@ -38,6 +20,43 @@ interface Props {
   selectedItem?: BagItem;
   // onClick: (item: BagItem) => void;
 }
+
+/**
+ * 日期格式化
+ * @param {*} date
+ * @param {*} fmt
+ */
+const dateFormat = (date: any, fmt: any) => {
+  date = new Date(date);
+  var a = ["日", "一", "二", "三", "四", "五", "六"];
+  var o = {
+    "M+": date.getMonth() + 1, // 月份
+    "d+": date.getDate(), // 日
+    "h+": date.getHours(), // 小时
+    "m+": date.getMinutes(), // 分
+    "s+": date.getSeconds(), // 秒
+    "q+": Math.floor((date.getMonth() + 3) / 3), // 季度
+    S: date.getMilliseconds(), // 毫秒
+    w: date.getDay(), // 周
+    W: a[date.getDay()], // 大写周
+    T: "T",
+  };
+  if (/(y+)/.test(fmt)) {
+    fmt = fmt.replace(
+      RegExp.$1,
+      (date.getFullYear() + "").substr(4 - RegExp.$1.length)
+    );
+  }
+  for (var k in o) {
+    if (new RegExp("(" + k + ")").test(fmt)) {
+      fmt = fmt.replace(
+        RegExp.$1,
+        RegExp.$1.length === 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length)
+      );
+    }
+  }
+  return fmt;
+};
 
 const TAB_CONTENT_HEIGHT = 384;
 
@@ -66,19 +85,86 @@ export const BagItemsTabContent = ({
     selectedItem || tabItems[0]
   );
 
+  const [price, setPrice] = useState(new Decimal(0));
+  const [coinType, setCoinType] = useState("BUSD");
+  const [type, setType] = useState("Price");
+  const [dateValue, setDateValue] = useState<any>(new Date());
+
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === "") {
+      setPrice(new Decimal(0));
+    } else {
+      setPrice(new Decimal(Number(e.target.value)));
+    }
+  };
+
+  const onSelecttChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (e.target.value === "") {
+      setCoinType("BUSD");
+    } else {
+      setCoinType(e.target.value);
+    }
+  };
+
+  const onSelecttTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (e.target.value === "") {
+      setType("Price");
+    } else {
+      setType(e.target.value);
+    }
+  };
+
+  var valid = (current: any) => {
+    return current.isAfter(new Date());
+  };
+
   useEffect(() => {
     if (selectedItem) setSelected(selectedItem);
   }, [selectedItem]);
 
-  //兑换到链上
-  const handleNextReward = async (goodsName: string) => {
-    const result = await reward(goodsName);
+  const Action = () => {
+    const handleNextSong = async (goods: BagItem) => {
+      const wolfMarket = new WolfMarket();
+      wolfMarket.goodsName = goods.name.replace("\\n", "");
+      if (price.eq(0)) {
+        setMessage("Please fill in the selling price!");
+        return;
+      }
+      wolfMarket.price = price.toNumber();
+      wolfMarket.currency = coinType;
+      if (type == "Price") {
+        wolfMarket.type = "0";
+      } else {
+        wolfMarket.type = "1";
+        wolfMarket.biddingEndTime = dateFormat(
+          dateValue,
+          "yyyy-MM-dd hh:mm:ss"
+        );
+      }
+      console.log("wolfMarket", wolfMarket);
+      const result = await marketAdd(wolfMarket);
+      if (result?.message) {
+        setMessage(result.message);
+      } else {
+        setMessage("Successful listing in the market!");
+      }
+    };
 
-    if (!result.success) {
-      setMessage(result.message);
-    } else {
-      setMessage("Request succeeded!");
-    }
+    return (
+      <div>
+        <Button
+          className="text-xs mt-3"
+          onClick={() => {
+            if (selected) {
+              handleNextSong(selected);
+            }
+          }}
+        >
+          sell out
+        </Button>
+        <span className="text-xs text-base"> {message} </span>
+      </div>
+    );
   };
 
   return (
@@ -115,10 +201,76 @@ export const BagItemsTabContent = ({
             <span className="text-shadow text-center mt-2 sm:text-sm">
               {selected?.name}
             </span>
-
-            <span className="text-xs">
-              <span className="text-xs text-base"> {message} </span>
+            <span className="text-shadow text-center mt-2 sm:text-sm">
+              {"------------"}
             </span>
+            <span className="text-shadow text-center mt-2 sm:text-sm">
+              {"Selling price"}
+            </span>
+            <span className="flex items-center mt-2">
+              <input
+                onChange={onInputChange}
+                value={
+                  typeof price === "string"
+                    ? ""
+                    : price.toDecimalPlaces(2, Decimal.ROUND_DOWN).toNumber()
+                }
+                className="ml-20 shadow-inner shadow-black bg-brown-200 p-2 w-50"
+              />
+            </span>
+            <span className="text-shadow text-center mt-2 sm:text-sm">
+              {"------------"}
+            </span>
+            <span className="text-shadow text-center mt-2 sm:text-sm">
+              {"Coin Type of sale"}
+            </span>
+            <span className="text-shadow text-center mt-2 sm:text-sm">
+              <select
+                className="text-shadow text-center mt-2 sm:text-sm bg-brown-200"
+                defaultValue={coinType}
+                onChange={onSelecttChange}
+              >
+                <option value={"WTWOOL"}>WTWOOL</option>
+                <option value={"BUSD"}>BUSD</option>
+                <option value={"WTMILK"}>WTMILK</option>
+              </select>
+            </span>
+
+            <span className="text-shadow text-center mt-2 sm:text-sm">
+              <select
+                className="text-shadow text-center mt-2 sm:text-sm bg-brown-200"
+                defaultValue={type}
+                onChange={onSelecttTypeChange}
+              >
+                <option value={"Price"}>Price</option>
+                <option value={"Bidding"}>Bidding</option>
+              </select>
+            </span>
+            {type == "Bidding" && (
+              <>
+                {" "}
+                <span className="text-shadow text-center mt-2 sm:text-sm">
+                  {"------------"}
+                </span>
+                <span className="text-shadow text-center mt-2 sm:text-sm">
+                  {"Auction deadline"}
+                </span>{" "}
+                <span className="text-shadow text-center mt-2 sm:text-sm">
+                  {" "}
+                  <Datetime
+                    locale="zh-ch"
+                    dateFormat="YYYY-MM-DD"
+                    timeFormat="HH:mm:ss"
+                    onChange={(e) => {
+                      setDateValue(e);
+                    }}
+                    isValidDate={valid}
+                  />
+                </span>
+              </>
+            )}
+
+            {Action()}
           </div>
         </OuterPanel>
       </div>

@@ -56,7 +56,10 @@
     "react-i18next": "^11.14.3",
     "react-player": "2.10.1",
     "styled-components": "^5.3.3",
-    "@types/styled-components": "^5.1.24"
+    "@types/styled-components": "^5.1.24" ,
+    "react-datetime":"^3.1.1",
+    "moment":"^2.29.4" 
+  
   },
   "devDependencies": {
     "@rollup/plugin-inject": "^4.0.4",

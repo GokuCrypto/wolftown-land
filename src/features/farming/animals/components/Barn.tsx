@@ -5,10 +5,10 @@ import { Modal } from "react-bootstrap";
 import { Context } from "features/game/GameProvider";
 
 import barn from "assets/buildings/barn.png";
-import chicken from "assets/resources/chicken.png";
+import market from "assets/icons/market.png";
 import { barnAudio } from "lib/utils/sfx";
 
-import { GRID_WIDTH_PX,GRID_HIGHT_PX } from "features/game/lib/constants";
+import { GRID_WIDTH_PX, GRID_HIGHT_PX } from "features/game/lib/constants";
 import { Action } from "components/ui/Action";
 import { BarnSale } from "./BarnSale";
 import classNames from "classnames";
@@ -44,8 +44,8 @@ export const Barn: React.FC = () => {
         {isNotReadOnly && (
           <Action
             className="absolute bottom-12 left-16"
-            text="Barn"
-            icon={chicken}
+            text="Market"
+            icon={market}
             onClick={openBarn}
           />
         )}

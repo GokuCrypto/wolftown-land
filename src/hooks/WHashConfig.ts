@@ -3,6 +3,7 @@ import { API_CONFIG, loginOut } from './WolfConfig';
 import { BetOrder } from './modules/BetOrder';
 import { Withdraw, WithdrawForm } from './modules/Withdraw';
 import { ERRORS } from "lib/errors";
+import { WolfMarket } from './modules/WolfMarket';
 
 
 
@@ -42,11 +43,11 @@ export const getUserAddress = async (): Promise<string> => {
           }
         }
       }
-    } else if(response.status === 401) { // token expired
+    } else if (response.status === 401) { // token expired
       throw new Error(ERRORS.SESSION_EXPIRED)
     }
   }
- 
+
   return addressInfo;
 }
 
@@ -256,6 +257,96 @@ export const submitWithdraw = async (withdraw: WithdrawForm) => {
         'token': XAccessToken,
         'Content-Type': 'application/json',
       }, body: JSON.stringify(withdraw),
+    })
+
+
+    if (response.status === 200) {
+      const result = await response.json();
+
+      if (result.success) {
+        return { status: 200 }
+      }
+      return { status: 500, message: result.message.replace("操作失败，") }
+
+    }
+
+    if (response.status === 401) {
+      // 登录超时处理办法
+      loginOut();
+      return { status: 500, message: " Token is invalid, please login again !" }
+    }
+
+    return { status: 500, message: "NO Connect!" }
+  }
+  return { status: 500, message: "NO Login!" }
+
+
+
+
+}
+
+
+
+
+/* 上架商品 */
+export const marketAdd = async (wolfMarket: WolfMarket) => {
+
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  const uid = localStorage.getItem('userInfo_userid');
+
+  // eslint-disable-next-line eqeqeq
+  if (XAccessToken && (XAccessToken != "") && uid != "") {
+    // 组装数据对象
+    const response = await fetch(API_CONFIG.marketAdd, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify(wolfMarket),
+    })
+
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+        return { status: 200 }
+      }
+      return { status: 500, message: result.message.replace("操作失败，") }
+    }
+
+    if (response.status === 401) {
+      // 登录超时处理办法
+      loginOut();
+      return { status: 500, message: " Token is invalid, please login again !" }
+    }
+    return { status: 500, message: "NO Connect!" }
+  }
+  return { status: 500, message: "NO Login!" }
+
+
+
+
+}
+
+
+
+/* 购买商品 */
+export const marketBuy = async (wolfMarket: WolfMarket) => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  const uid = localStorage.getItem('userInfo_userid');
+
+  // eslint-disable-next-line eqeqeq
+  if (XAccessToken && (XAccessToken != "") && uid != "") {
+    // 组装数据对象
+
+
+    const response = await fetch(API_CONFIG.marketBuy, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify(wolfMarket),
     })
 
 

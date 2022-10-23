@@ -12,7 +12,7 @@ import { Landbuild } from "features/farming/land/Landbuild";
 import { Arena } from "features/farming/arena/Arena";
 
 import { Loading } from "features/auth/components";
-import { Animals } from "features/farming/animals/Animals";
+import { Market } from "features/farming/animals/Market";
 
 import { useInterval } from "lib/utils/hooks/useInterval";
 import * as AuthProvider from "features/auth/lib/Provider";
@@ -122,7 +122,7 @@ export const Game: React.FC = () => {
       <Blacksmith />
       {/* <Water /> */}
       <Wolf />
-      <Animals />
+      <Market />
       {/*<Decorations />*/}
       {/*<Forest />*/}
       {/*<Quarry />*/}

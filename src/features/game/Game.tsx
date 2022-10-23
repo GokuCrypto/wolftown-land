@@ -119,7 +119,7 @@ export const Game: React.FC = () => {
       <Landbuild />
       <Arena />
       <Crops />
-      <Blacksmith />
+
       {/* <Water /> */}
       <Wolf />
       <Market />

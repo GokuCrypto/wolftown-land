@@ -352,12 +352,7 @@ export const marketBuy = async (wolfMarket: WolfMarket) => {
 
     if (response.status === 200) {
       const result = await response.json();
-
-      if (result.success) {
-        return { status: 200 }
-      }
-      return { status: 500, message: result.message.replace("操作失败，") }
-
+      return result;
     }
 
     if (response.status === 401) {

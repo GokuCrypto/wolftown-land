@@ -14,6 +14,7 @@ import { useTranslation } from "react-i18next";
 import { Fight } from "./Fight";
 import { getWolfArenaGameList, APP_WOLF_API } from "hooks/WolfConfig";
 import { map } from "lodash";
+import { Monster } from "./Monster";
 
 const MintStyle = createGlobalStyle`
 
@@ -469,6 +470,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
             />
           )}
           {/* 怪物上 */}
+          <Monster />
           {/* 怪物下 */}
           {/* 怪物左 */}
           {/* 怪物右 */}

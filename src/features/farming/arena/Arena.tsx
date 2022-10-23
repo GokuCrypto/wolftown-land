@@ -1,6 +1,6 @@
 import close from "assets/icons/close.png";
 
-import areanwolf from "assets/other/arean-wolf.png";
+import areanwolf from "assets/land/arena.png";
 import { Section } from "lib/utils/hooks/useScrollIntoView";
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
@@ -15,10 +15,10 @@ export const Arena: React.FC = () => {
     // Container
     <div
       style={{
-        height: "450px",
-        width: "260px",
-        top: "calc(60% - 980px)",
-        right: "calc(50% - 140px)",
+        height: "520px",
+        width: "450px",
+        bottom: "calc(1.5% + 30px)",
+        right: "calc(30% - 120px)",
         overflow: "hidden",
       }}
       className="absolute"

@@ -16,6 +16,8 @@ import { CraftableItem, Ingredient } from "features/game/types/craftables";
 import { InventoryItemName } from "features/game/types/game";
 import { Goods } from "components/ui/Goods";
 import { marketList } from "hooks/WolfConfig";
+import { marketBuy } from "hooks/WHashConfig";
+
 interface Props {
   isBulk?: boolean;
   onClose: () => void;
@@ -31,6 +33,8 @@ export const CraftingItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
   const [message, setMessage] = useState("");
   const [pageNo, setPageNo] = useState("1");
   const [pageSize, setPageSize] = useState("20");
+  const [amount, setAmount] = useState<Decimal>(new Decimal(0));
+
   const [
     {
       context: { state },
@@ -62,12 +66,38 @@ export const CraftingItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
     loadWolfMarketList();
   }, []);
 
-  const handleNextSong = async (goodsName: string) => {
-    /*  if (!result.success) {
+  const onPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === "") {
+      setAmount(new Decimal(0));
+    } else {
+      setAmount(new Decimal(Number(e.target.value)));
+    }
+  };
+
+  const handleNextSong = async (selected: any) => {
+    const wolfMarket = new WolfMarket();
+    wolfMarket.id = selected.id;
+    if (selected.type == "1") {
+      console.log(
+        "amount.toNumber()",
+        amount.toNumber(),
+        "selected.price",
+        selected.price
+      );
+      if (amount.toNumber() <= selected.price) {
+        setMessage("Your bid is too low!");
+        return false;
+      }
+      wolfMarket.biddingPrice = amount.toNumber();
+    }
+    wolfMarket.biddingPrice;
+    const result = await marketBuy(wolfMarket);
+    if (!result?.success) {
       setMessage(result.message);
     } else {
-      setMessage("Synthesis succeeded!");
-    } */
+      setMessage("Buy succeeded!");
+    }
+    loadWolfMarketList();
   };
 
   const Action = () => {
@@ -96,7 +126,10 @@ export const CraftingItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
             <Box
               isSelected={selected?.id === item?.id}
               key={item?.id}
-              onClick={() => setSelected(item)}
+              onClick={() => {
+                setSelected(item);
+                setAmount(new Decimal(item?.price + 10));
+              }}
               image={item?.goodsUrl}
             />
           ))}
@@ -109,11 +142,9 @@ export const CraftingItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
             className="h-16 img-highlight mt-1"
             alt={selected?.goodsName}
           />
+
           <span className="text-shadow text-center mt-2 sm:text-sm">
-            <img src={token} className="h-5 mr-1" />
-          </span>
-          <span className="text-shadow text-center mt-2 sm:text-sm">
-            {selected?.price}
+            {selected?.price} {selected?.currency}
           </span>
           <span className="text-shadow text-center mt-2 sm:text-sm">
             {selected?.biddingEndTime != null && "End time:"}
@@ -122,6 +153,19 @@ export const CraftingItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
           <span className="text-shadow text-center mt-2 sm:text-sm">
             {selected?.numberOfBids != null && "Number of bids:"}
             {selected?.numberOfBids}
+          </span>
+
+          <span className="text-shadow text-center mt-2 sm:text-sm">
+            {selected?.biddingEndTime != null && (
+              <>
+                My Price:
+                <input
+                  defaultValue={selected?.price + 10}
+                  className="text-shadow shadow-inner shadow-black bg-brown-200 w-32 p-2 text-center"
+                  onChange={onPriceChange}
+                />
+              </>
+            )}
           </span>
 
           {Action()}

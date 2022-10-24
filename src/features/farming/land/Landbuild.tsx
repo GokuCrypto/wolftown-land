@@ -122,7 +122,7 @@ export const Landbuild: React.FC = () => {
         <div className="h-full w-full relative">
           {land.map((obj, ind) => (
             <div
-              style={{ overflow: "hidden" }}
+              style={{ overflow: "hidden", height: "120px" }}
               key={"img_i_max" + ind}
               className="relative w-1/3 float-left  ml-4 mt-2 mb-1 hover:img-highlight cursor-pointer"
             >

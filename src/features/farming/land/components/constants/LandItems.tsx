@@ -133,7 +133,7 @@ export const LandItems: React.FC<Props> = ({
     }
 
     let shit = "";
-    if (shitName.goodsName != "Field shit 1") {
+    if (shitName.goodsName != "Field Shit 1") {
       shit = shitName.goodsName;
     }
 

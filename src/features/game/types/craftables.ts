@@ -107,7 +107,7 @@ export type Tool =
   | "Hammer"
   | "Rod";
 
-export type Synthesis = "Animal Coupons For Wolf" | "Animal Coupons For Sheep" | "Wool Coupons" | "Sheep Coupons" | "Land Coupons" | "Land NFT Coupons" | "artillery" | "bartizan" | "Catapult" | "Cyclone wheel car" | "Rush Car" | "Land-L2" | "Land-L3" | "Land-M2" | "Land-M3";
+export type Synthesis = "Animal Coupons For Wolf" | "Animal Coupons For Sheep" | "Wool Coupons" | "Sheep Coupons" | "Land Coupons" | "Land NFT Coupons" | "artillery" | "bartizan" | "Catapult" | "Cyclone wheel car" | "Rush Car" | "Land-L2" | "Land-L3" | "Land-M2" | "Land-M3" | "Animal feces ball";
 
 export type Exchanges = "Animal NFT Coupons";
 
@@ -121,7 +121,7 @@ export type Food =
   | "Radish Pie";
 
 export type Fragment =
-  "Wool Fragment" | "Sheep Fragment" | "Land Fragment";
+  "Wool Fragment" | "Sheep Fragment" | "Land Fragment" | "Animal feces";
 
 
 export type Wood =
@@ -341,6 +341,20 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
 
         item: "Land Coupons",
         amount: new Decimal(5),
+      },
+
+    ],
+  },
+
+  "Animal feces ball": {
+    name: "Animal feces ball",
+    description: "Animal feces ball",
+    tokenAmount: new Decimal(0),
+    ingredients: [
+      {
+
+        item: "Animal feces",
+        amount: new Decimal(10),
       },
 
     ],

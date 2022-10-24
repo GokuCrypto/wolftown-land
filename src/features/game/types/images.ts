@@ -811,7 +811,8 @@ export const ITEM_DETAILS: Items = {
   "Land-M2": { description: "Land-M2", image: "https://img.wolftown.games/land/mountain2.png", },
   "Land-M3": { description: "Land-M3", image: "https://img.wolftown.games/land/mountain3.png", },
 
-
+  "Animal feces": { description: "Animal feces", image: "https://img.wolftown.games/bag/shit.gif", },
+  "Animal feces ball": { description: "Animal feces ball", image: "https://img.wolftown.games/bag/shitball.gif", },
 
 
 };

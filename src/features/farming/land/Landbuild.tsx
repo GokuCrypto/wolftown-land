@@ -8,10 +8,11 @@ import dragonfly from "assets/decorations/dragonfly.gif";
 import gifbg from "assets/other/tv.gif";
 import uuu from "assets/lottery/uuu.gif";
 import ReactPlayer from "react-player";
-
+import { LandTime } from "./components/LandTime";
 import land1 from "assets/landbuild/land1.png";
 import { Contributors } from "./components/Contributors";
 import { getLandGameList, APP_WOLF_API } from "hooks/WolfConfig";
+import { size } from "lodash";
 
 export class LandInfo {
   public landId?: string;
@@ -94,7 +95,7 @@ export const Landbuild: React.FC = () => {
   useEffect(() => {
     loadLandGameList();
   }, []);
-
+  console.log("执行了一次");
   return (
     // Container
     <div
@@ -150,6 +151,12 @@ export const Landbuild: React.FC = () => {
                     />
                   </>
                 ))}
+              </div>
+              <div
+                style={{ bottom: "20px", fontSize: "8px", color: "#fff" }}
+                className="relative w-full"
+              >
+                <LandTime cdate={obj.cdate} />
               </div>
             </div>
           ))}

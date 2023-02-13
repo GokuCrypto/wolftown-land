@@ -6,6 +6,7 @@ export enum Section {
   TV = "TV",
   Craft = "Craft",
   Landbuild = "Landbuild",
+  Pvp = "Pvp",
   Arena = "Arena",
   Market = "Market",
   Animals = "animals",

@@ -217,13 +217,12 @@ export const isLoggedIn = function () {
 /* test */
 export const HASH_GAME_API = "https://devapi.wolftown.games/jeecg-boot";
 
-export const APP_WOLF_API = "https://app.wolftown.world/images/animals/";
+export const APP_WOLF_API = "https://app.wolftown.games/images/wtanimalsSmall/";
 
 /* 配置数据 */
 export const API_CONFIG = {
   Login: `${HASH_GAME_API}/sys/login`,
   Logout: `${HASH_GAME_API}/sys/logout`,
-  ForgePassword: `${HASH_GAME_API}/auth/forge-password`,
   Register: `${HASH_GAME_API}/auth/register`,
   SendSms: `${HASH_GAME_API}/account/sms`,
   // get my info
@@ -243,9 +242,7 @@ export const API_CONFIG = {
   doLottery: `${HASH_GAME_API}/wolftown/doLottery`,
   // get address info
   getAddressInfo: `${HASH_GAME_API}/game/getUserAddress`,
-  // order
-  betOrder_add: `${HASH_GAME_API}/hash/betOrder/add`,
-  betOrder_list: `${HASH_GAME_API}/hash/betOrder/list`,
+
   /*获取最近一期中奖数据 */
   getLastPrizeNumer: `${HASH_GAME_API}/game/getLastPrizeNumer`,
   /*获取用户订单数据*/
@@ -288,7 +285,10 @@ export const API_CONFIG = {
 
   /*市场-出价*/
   marketBuy: `${HASH_GAME_API}/wolftown/marketBuy`,
-
+  /*PVP战斗*/
+  pvp: `${HASH_GAME_API}/wolftown/pvp`,
+  /*战斗记录-分页列表查询*/
+  pvpList: `${HASH_GAME_API}/wolftown/pvpList`,
 
 }
 
@@ -940,6 +940,53 @@ export const marketList = async (params: any, pageNo: string, pageSize: string) 
   }
 
 }
+
+
+
+
+/* 获取市场列表 */
+export const pvpList = async (params: any, pageNo: string, pageSize: string) => {
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+  if ((XAccessToken)) {
+
+    let url = API_CONFIG.pvpList;
+    if (params) {
+      let paramsArray: any[] = [];
+      //拼接参数
+
+      Object.keys(params).forEach(key => paramsArray.push(key + '=' + (typeof params[key] == 'undefined' ? "" : params[key])))
+      if (url.search(/\?/) === -1) {
+        url += '?' + paramsArray.join('&')
+      } else {
+        url += '&' + paramsArray.join('&')
+      }
+    }
+
+    url += '&pageNo=' + pageNo
+    url += '&pageSize=' + pageSize
+    const response = await fetch(url, {
+      method: 'get', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+
+        console.log("response-marketList", result);
+        return result;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+
 
 
 

@@ -5,6 +5,7 @@ import { Withdraw, WithdrawForm } from './modules/Withdraw';
 import { ERRORS } from "lib/errors";
 import { WolfMarket } from './modules/WolfMarket';
 
+import { PvpData } from './modules/PvpData';
 
 
 /* 获取地址信息 */
@@ -52,54 +53,6 @@ export const getUserAddress = async (): Promise<string> => {
 }
 
 
-
-/* 提交订单 */
-export const submitOrder = async (betorder: BetOrder) => {
-  console.log("betorder", JSON.stringify({
-    betorder
-  }));
-
-  const XAccessToken = localStorage.getItem('XAccessToken');
-  const uid = localStorage.getItem('userInfo_userid');
-
-  // eslint-disable-next-line eqeqeq
-  if (XAccessToken && (XAccessToken != "") && uid != "") {
-    // 组装数据对象
-
-
-    const response = await fetch(API_CONFIG.betOrder_add, {
-      method: 'post', headers: {
-        'X-Access-Token': XAccessToken,
-        'token': XAccessToken,
-        'Content-Type': 'application/json',
-      }, body: JSON.stringify(betorder),
-    })
-
-
-    if (response.status === 200) {
-      const result = await response.json();
-
-      if (result.success) {
-        return { status: 200 }
-      }
-      return { status: 500, message: result.message.replace("操作失败，") }
-
-    }
-
-    if (response.status === 401) {
-      // 登录超时处理办法
-      loginOut();
-      return { status: 500, message: " Token is invalid, please login again !" }
-    }
-
-    return { status: 500, message: "NO Connect!" }
-  }
-  return { status: 500, message: "NO Login!" }
-
-
-
-
-}
 
 
 
@@ -347,6 +300,47 @@ export const marketBuy = async (wolfMarket: WolfMarket) => {
         'token': XAccessToken,
         'Content-Type': 'application/json',
       }, body: JSON.stringify(wolfMarket),
+    })
+
+
+    if (response.status === 200) {
+      const result = await response.json();
+      return result;
+    }
+
+    if (response.status === 401) {
+      // 登录超时处理办法
+      loginOut();
+      return { status: 500, message: " Token is invalid, please login again !" }
+    }
+
+    return { status: 500, message: "NO Connect!" }
+  }
+  return { status: 500, message: "NO Login!" }
+
+
+
+
+}
+
+
+
+/* 购买商品 */
+export const pvp = async (pvpData: PvpData) => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  const uid = localStorage.getItem('userInfo_userid');
+
+  // eslint-disable-next-line eqeqeq
+  if (XAccessToken && (XAccessToken != "") && uid != "") {
+    // 组装数据对象
+
+    const response = await fetch(API_CONFIG.pvp, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify(pvpData),
     })
 
 

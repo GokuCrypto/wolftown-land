@@ -41,7 +41,7 @@ export const Arena: React.FC = () => {
           />
         </div>
 
-        <Modal centered show={isOpen} onHide={() => setIsOpen(false)}>
+        <Modal size="xl" centered show={isOpen} onHide={() => setIsOpen(false)}>
           <img
             src={close}
             className="h-6 top-4 right-4 absolute cursor-pointer"

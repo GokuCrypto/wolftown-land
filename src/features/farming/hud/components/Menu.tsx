@@ -284,6 +284,14 @@ export const Menu = () => {
                 <li className="p-1">
                   <Button
                     className="flex justify-between"
+                    onClick={() => handleNavigationClick(Section.Pvp)}
+                  >
+                    <span className="sm:text-sm flex-1">{t("PVP")}</span>
+                  </Button>
+                </li>
+                <li className="p-1">
+                  <Button
+                    className="flex justify-between"
                     onClick={() => handleNavigationClick(Section.Arena)}
                   >
                     <span className="sm:text-sm flex-1">{t("Arena")}</span>

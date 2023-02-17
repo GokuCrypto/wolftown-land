@@ -45,58 +45,6 @@ interface Props {
   onClose: () => void;
 }
 
-// export type TabItems = Record<string, { img: string; items: object }>;
-
-// const BASKET_CATEGORIES: TabItems = {
-//   Seeds: {
-//     img: seed,
-//     items: SEEDS(),
-//   },
-//   Tools: {
-//     img: tool,
-//     items: TOOLS,
-//   },
-//   Resources: {
-//     img: resource,
-//     items: RESOURCES,
-//   },
-//   Crops: {
-//     img: crop,
-//     items: CROPS(),
-//   },
-// };
-
-// const COLLECTIBLE_CATEGORIES: TabItems = {
-//   NFTs: {
-//     img: nft,
-//     items: { ...BLACKSMITH_ITEMS, ...BARN_ITEMS, ...MARKET_ITEMS, ...FLAGS },
-//   },
-//   Foods: {
-//     img: food,
-//     items: FOODS(),
-//   },
-//   Eggs: {
-//     img: food,
-//     items: {
-//       "Pink Egg": ITEM_DETAILS["Pink Egg"],
-//       "Purple Egg": ITEM_DETAILS["Purple Egg"],
-//       "Red Egg": ITEM_DETAILS["Red Egg"],
-//       "Blue Egg": ITEM_DETAILS["Blue Egg"],
-//       "Orange Egg": ITEM_DETAILS["Orange Egg"],
-//       "Green Egg": ITEM_DETAILS["Green Egg"],
-//       "Yellow Egg": ITEM_DETAILS["Yellow Egg"],
-//     },
-//   },
-// };
-
-// export type Inventory = Partial<Record<InventoryItemName, Decimal>>;
-
-// const makeInventoryItems = (inventory: Inventory) => {
-//   const items = getKeys(inventory) as InventoryItemName[];
-//   return items.filter(
-//     (itemName) => !!inventory[itemName] && !inventory[itemName]?.equals(0)
-//   );
-// };
 const TAB_CONTENT_HEIGHT = 380;
 
 export const BagItems: React.FC<Props> = ({ onClose }) => {

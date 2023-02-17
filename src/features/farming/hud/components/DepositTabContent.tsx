@@ -7,8 +7,9 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import { Button } from "components/ui/Button";
 
-import { Balances, EMPTY_BALANCES } from '../lib/types'
+import { Balances, EMPTY_BALANCES, Allowances, EMPTY_ALLOWANCES } from '../lib/types'
 import { metamask } from "lib/blockchain/metamask"
+
 
 // import { ITEM_DETAILS } from "features/game/types/images";
 // import { InventoryItemName } from "features/game/types/game";
@@ -46,6 +47,9 @@ export const DepositTabContent = ({ address }: Props) => {
     return tokenType
   }
   const [ balances, setBalances ] = useState<Balances>(EMPTY_BALANCES)
+  const [ allowances, setAllowances] = useState<Allowances>(EMPTY_ALLOWANCES)
+  const [ approved, setApproved] = useState(false)
+  const [ pendingTx, setPendingTx] = useState(false)
 
   useEffect(() => {
     setIsLoading(true);
@@ -53,12 +57,15 @@ export const DepositTabContent = ({ address }: Props) => {
       await metamask.initialise()
       const balances = await metamask.getBalances()
       setBalances(balances);
+      const allowances = await metamask.getAllowances()
+      setAllowances(allowances)
       setIsLoading(false);
     };
     load()
-  }, []);
+  }, [approved]);
 
   const balance = new Decimal(balances[tokenType])
+  const allowance = new Decimal(allowances[tokenType])
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === "") {
@@ -74,10 +81,23 @@ export const DepositTabContent = ({ address }: Props) => {
   const deposit = async () => {
     setMessage('')
     await metamask.initialise()
+    setPendingTx(true)
+    if(new Decimal(amount).gt(allowance) || allowance.eq(0)) {
+      const receipt: any = await metamask.approve(tokenType)
+      if(receipt?.status){
+        setApproved(true)
+        setMessage("Approved Successfully")
+      } else {
+        setPendingTx(false)
+        return
+      }
+    }
+
     try {
-      const receipt: any = await metamask.deposit(tokenType, address, amount.toString())
+      const receipt: any = await metamask.deposit(tokenType, amount.toString())
       if(receipt?.status){
         setMessage("Deposit Successfully")
+        setPendingTx(false)
       }
     } catch(error: any) {
       // console.log("error===", error.message)
@@ -85,9 +105,9 @@ export const DepositTabContent = ({ address }: Props) => {
         setMessage(error?.message)  
       } else {
         setMessage(error.toString())
-      }      
+      }
+      setPendingTx(false) 
     }
-    
   }
 
   if (isLoading) {
@@ -153,7 +173,7 @@ export const DepositTabContent = ({ address }: Props) => {
         <span className="text-sm">
           {balance.toDecimalPlaces(2, Decimal.ROUND_DOWN).toString()} { displayTokenName() } { t('is available') }
         </span>
-        <div className="flex items-center mt-2">
+        {/*<div className="flex items-center mt-2">
           <div className="relative">
             <input
               type="text"
@@ -164,7 +184,7 @@ export const DepositTabContent = ({ address }: Props) => {
               value={address}
             />
           </div>
-        </div>
+        </div>*/}
         <div className="h-16">
           <div className="flex items-center mt-2">
             <div className="relative mr-4">
@@ -197,7 +217,7 @@ export const DepositTabContent = ({ address }: Props) => {
             </Button>
           </div>
         </div>
-        <Button onClick={deposit} >
+        <Button onClick={deposit} disabled={pendingTx} >
           { t("Deposit") }
         </Button>
 

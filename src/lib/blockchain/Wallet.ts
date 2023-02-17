@@ -1,14 +1,14 @@
 import { CONFIG } from "lib/config";
 import Web3 from "web3";
 import { AbiItem } from "web3-utils";
-import TokenJSON from "./abis/Token.json";
+import WalletJSON from "./abis/Wallet.json";
 
-const tokenAddress = CONFIG.TOKEN_CONTRACT;
+const walletAddress = CONFIG.WALLET_CONTRACT;
 
 /**
  * Token contract
  */
-export class Token {
+export class Wallet {
   private web3: Web3;
   private account: string;
 
@@ -18,45 +18,15 @@ export class Token {
     this.web3 = web3;
     this.account = account;
     this.contract = new this.web3.eth.Contract(
-      TokenJSON as AbiItem[],
-      (address as string ) || (tokenAddress as string)
+      WalletJSON as AbiItem[],
+      (address as string ) || (walletAddress as string)
     );
   }
 
-  public async allowance(spender: string) {
-    const balance = await this.contract.methods
-      .allowance(this.account, spender)
-      .call();
-
-    return balance;
-  }
-
-  /**
-   * Keep full wei amount as used for approving/sending
-   */
-  public async balanceOf(address: string) {
-    const balance = await this.contract.methods
-      .balanceOf(address)
-      .call({ from: this.account });
-
-    return balance;
-  }
-
-  /**
-   * Onchain SFL balance
-   */
-  public async totalSupply() {
-    const supply = await this.contract.methods
-      .totalSupply()
-      .call({ from: this.account });
-
-    return supply;
-  }
-
-  public async approve(spender: string, amount: string) {
+  public async deposit(token: string, amount: string) {
     return new Promise((resolve, reject) => {
       this.contract.methods
-        .approve(spender, amount)
+        .deposit(token, amount)
         .send({ from: this.account })
         .on("error", function (error: any) {
           console.log({ error });
@@ -72,10 +42,10 @@ export class Token {
     });
   }
 
-  public async transfer(to: string, amount: string) {
+  public async withdraw(id: string, token: string, amount: string, s: string, signature: string) {
     return new Promise((resolve, reject) => {
       this.contract.methods
-        .transfer(to, amount)
+        .withdrawSigle(id, token, amount, signature)
         .send({ from: this.account })
         .on("error", function (error: any) {
           console.log({ error });
@@ -90,4 +60,25 @@ export class Token {
         });
     });
   }
+
+  public async depositNFTs(token: string, tokenIds: number[]) {
+    return new Promise((resolve, reject) => {
+      this.contract.methods
+        .depositNFTs(token, tokenIds)
+        .send({ from: this.account })
+        .on("error", function (error: any) {
+          console.log({ error });
+          reject(error);
+        })
+        .on("transactionHash", function (transactionHash: any) {
+          console.log({ transactionHash });
+        })
+        .on("receipt", function (receipt: any) {
+          console.log({ receipt });
+          resolve(receipt);
+        });
+    });
+  }
+
+  
 }

@@ -8,6 +8,7 @@ import { Inventory } from "./Inventory";
 import { Pair } from "./Pair";
 import { WishingWell } from "./WishingWell";
 import { Token } from "./Token";
+import { Wallet } from "./Wallet";
 import { toHex, toWei, fromWei } from "web3-utils";
 import { CONFIG } from "lib/config";
 import { estimateGasPrice, parseMetamaskError } from "./utils";
@@ -33,6 +34,9 @@ export class Metamask {
   private tokenBUSD: Token | null = null;
   private tokenWTWOOL: Token | null = null;
   private tokenWTMILK: Token | null = null;
+
+  private wallet: Wallet | null = null;
+
 
   private async initialiseContracts() {
     try {
@@ -69,7 +73,7 @@ export class Metamask {
       this.tokenBUSD = new Token(this.web3 as Web3, this.account as string, CONFIG.BUSD_CONTRACT)
       this.tokenWTWOOL = new Token(this.web3 as Web3, this.account as string, CONFIG.WTWOOL_CONTRACT)
       this.tokenWTMILK = new Token(this.web3 as Web3, this.account as string, CONFIG.WTMILK_CONTRACT)
-
+      this.wallet = new Wallet(this.web3 as Web3, this.account as string, CONFIG.WALLET_CONTRACT)
 
     } catch (e: any) {
       // Timeout, retry
@@ -278,17 +282,43 @@ export class Metamask {
       integral: "0"
     }
   }
+  public async getAllowances() {
+    const allowanceOfBUSD = await this.tokenBUSD?.allowance(CONFIG.WALLET_CONTRACT)
+    const allowanceOfWOOL = await this.tokenWTWOOL?.allowance(CONFIG.WALLET_CONTRACT)
+    const allowanceOfMILK = await this.tokenWTMILK?.allowance(CONFIG.WALLET_CONTRACT)
 
-  public async deposit(token: string, to: string, amount: string) {
-    if (token === "BUSD") {
-      return await this.tokenBUSD?.transfer(to, toWei(amount))
+    return {
+      BUSD: fromWei(allowanceOfBUSD),
+      WTWOOL: fromWei(allowanceOfWOOL),
+      WTMILK: fromWei(allowanceOfMILK)
     }
-    if (token === "WTWOOL") {
-      return await this.tokenWTWOOL?.transfer(to, toWei(amount))
+  }
+
+  public async approve(tokenType: string) {
+    const amountMax = '10000000000'
+    if (tokenType === "BUSD") {
+      return await this.tokenBUSD?.approve(CONFIG.WALLET_CONTRACT, toWei(amountMax))
     }
-    if (token === "WTMILK") {
-      return await this.tokenWTMILK?.transfer(to, toWei(amount))
+    if (tokenType === "WTWOOL") {
+      return await this.tokenWTWOOL?.approve(CONFIG.WALLET_CONTRACT, toWei(amountMax))
     }
+    if (tokenType === "WTMILK") {
+      return await this.tokenWTMILK?.approve(CONFIG.WALLET_CONTRACT, toWei(amountMax))
+    }
+  }
+
+  public async deposit(tokenType: string, amount: string) {
+    
+
+    let token;
+    if(tokenType === "BUSD") {
+      token = CONFIG.BUSD_CONTRACT
+    } else if(tokenType === "WTWOOL") {
+      token = CONFIG.WTWOOL_CONTRACT
+    } else {
+      token = CONFIG.WTMILK_CONTRACT
+    }
+    return await this.wallet?.deposit(token, toWei(amount))
   }
 
   public async donate(

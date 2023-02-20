@@ -281,6 +281,15 @@ export const Menu = () => {
                     <span className="sm:text-sm flex-1">{t("Land")}</span>
                   </Button>
                 </li>
+
+                <li className="p-1">
+                  <Button
+                    className="flex justify-between"
+                    onClick={() => handleNavigationClick(Section.Build)}
+                  >
+                    <span className="sm:text-sm flex-1">{t("Build")}</span>
+                  </Button>
+                </li>
                 <li className="p-1">
                   <Button
                     className="flex justify-between"

@@ -36,14 +36,14 @@ export const Town: React.FC = () => {
       </div>
 
       <div
-        id={Section.Town}
+        id={Section.Build}
         className="z-10 absolute"
         // TODO some sort of coordinate system
         style={{
-          width: `${GRID_WIDTH_PX * 34.3}px`,
+          width: `${GRID_WIDTH_PX * 2}px`,
           height: `${GRID_WIDTH_PX * 9}px`,
           right: 0,
-          top: `calc(50% - ${GRID_HIGHT_PX * 18}px)`,
+          top: `calc(50% - ${GRID_HIGHT_PX * 28}px)`,
         }}
       >
         <TownHall />

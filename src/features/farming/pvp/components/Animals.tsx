@@ -20,43 +20,6 @@ interface Props {
   // onClick: (item: BagItem) => void;
 }
 
-/**
- * 日期格式化
- * @param {*} date
- * @param {*} fmt
- */
-const dateFormat = (date: any, fmt: any) => {
-  date = new Date(date);
-  var a = ["日", "一", "二", "三", "四", "五", "六"];
-  var o = {
-    "M+": date.getMonth() + 1, // 月份
-    "d+": date.getDate(), // 日
-    "h+": date.getHours(), // 小时
-    "m+": date.getMinutes(), // 分
-    "s+": date.getSeconds(), // 秒
-    "q+": Math.floor((date.getMonth() + 3) / 3), // 季度
-    S: date.getMilliseconds(), // 毫秒
-    w: date.getDay(), // 周
-    W: a[date.getDay()], // 大写周
-    T: "T",
-  };
-  if (/(y+)/.test(fmt)) {
-    fmt = fmt.replace(
-      RegExp.$1,
-      (date.getFullYear() + "").substr(4 - RegExp.$1.length)
-    );
-  }
-  for (var k in o) {
-    if (new RegExp("(" + k + ")").test(fmt)) {
-      fmt = fmt.replace(
-        RegExp.$1,
-        RegExp.$1.length === 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length)
-      );
-    }
-  }
-  return fmt;
-};
-
 const TAB_CONTENT_HEIGHT = 384;
 
 interface Props {
@@ -70,6 +33,7 @@ export const Animals = ({ tabName, tabItems }: Props) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [confirmation, setConfirmation] = useState("Send to Chain");
   const [message, setMessage] = useState("");
+
   const [confirmationSynthesis, setConfirmationSynthesis] =
     useState("Synthesis");
 
@@ -80,7 +44,7 @@ export const Animals = ({ tabName, tabItems }: Props) => {
 
   const [price, setPrice] = useState(new Decimal(0));
 
-  const [type, setType] = useState("0");
+  const [type, setType] = useState("1");
   const [dateValue, setDateValue] = useState<any>(new Date());
   const [isLodding, setIslodding] = useState(false);
 
@@ -212,12 +176,16 @@ export const Animals = ({ tabName, tabItems }: Props) => {
                 defaultValue={type}
                 onChange={onSelecttChange}
               >
-                <option value={"0"}>1V1</option>
-                <option value={"1"}>3V3</option>
-                <option value={"2"}>Disorderly fighting</option>
+                <option value={"1"}>1 {t("number")}</option>
+                <option value={"5"}>5 {t("number")}</option>
+                <option value={"10"}>10 {t("number")}</option>
               </select>
             </span>
-
+            <span className="text-shadow text-center mt-2 sm:text-sm">
+              {type == "1" && <>500WTWOOL+1000WTMILK</>}
+              {type == "5" && <>2500WTWOOL+5000WTMILK</>}
+              {type == "10" && <>5000WTWOOL+10000WTMILK</>}
+            </span>
             {Action()}
           </div>
         </OuterPanel>

@@ -359,7 +359,4 @@ export const pvp = async (pvpData: PvpData) => {
   }
   return { status: 500, message: "NO Login!" }
 
-
-
-
 }

@@ -39,7 +39,7 @@ export const LandTime: React.FC<Props> = ({ cdate }) => {
         beto / 1000 - hourEnd * 60 * 60 - minutesEnd * 60
       );
 
-      console.log(
+      /*     console.log(
         "beto",
         beto,
         "hourEnd",
@@ -52,7 +52,7 @@ export const LandTime: React.FC<Props> = ({ cdate }) => {
         cdate,
         date,
         ccdate
-      );
+      ); */
       plat = [
         `${hourEnd}`.padStart(2, "0"),
         `${minutesEnd}`.padStart(2, "0"),

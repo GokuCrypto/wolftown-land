@@ -77,6 +77,7 @@ export const WalletBalances: React.FC<Props> = ({ balances }) => {
             --------------
           </div>
           <div>My integral: {freshBalances.integral}</div>
+          <div>My Build integral: {freshBalances.Build}</div>
           <div>-------------- --------------</div>
           <div>
             {" "}

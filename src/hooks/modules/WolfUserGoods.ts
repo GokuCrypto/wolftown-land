@@ -21,6 +21,7 @@ export class WolfUserGoods {
   public remark!: string;
   /**uid*/
   public uid!: string;
-
+  /**landLock*/
+  public landLock!: string;
 }
 

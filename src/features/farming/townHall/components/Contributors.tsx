@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CONFIG } from "lib/config";
 
-import logo from "assets/brand/logo.png";
+import logo from "assets/brand/wolflogo.png";
 import bumpkin from "assets/npcs/bumpkin.png";
 import goblin from "assets/npcs/goblin.gif";
 import man from "assets/npcs/idle.gif";
+import { buildList, build } from "hooks/WolfConfig";
+import { Build } from "hooks/modules/Build";
 
+import level1 from "assets/brand/1.png";
+import level2 from "assets/brand/2.png";
+import level3 from "assets/brand/3.png";
+import level4 from "assets/brand/4.png";
+import { useTranslation } from "react-i18next";
+import { Button } from "components/ui/Button";
 import {
   Contributor,
   ContributorRole,
@@ -41,18 +49,63 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
   const { ref: itemContainerRef, showScrollbar } =
     useShowScrollbar(TAB_CONTENT_HEIGHT);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [msg, setMsg] = useState("");
+
+  const [buildItem, setBuildItem] = useState<Build[]>([]);
+  const { t } = useTranslation();
+
+  const loadBagByType = async () => {
+    setIsLoading(true);
+    try {
+      const buildIt = new Build();
+      buildIt.status = 1;
+      const result = await buildList(buildIt, "1", "1000");
+
+      if (result?.result?.records) {
+        console.log("result?.result?.records", result?.result?.records);
+        setBuildItem(result?.result?.records);
+      }
+
+      setIsLoading(false);
+    } catch (e: any) {
+      setIsLoading(false);
+    }
+  };
+
+  const buildInit = async (ids: string) => {
+    setIsLoading(true);
+    try {
+      const buildIt = new Build();
+      buildIt.id = ids;
+      const result = await build(buildIt);
+
+      if (result?.success) {
+        setMsg("Success Build");
+      } else {
+        setMsg(result?.message);
+      }
+
+      setIsLoading(false);
+    } catch (e: any) {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadBagByType();
+  }, []);
 
   return (
     <>
-      {/* <div className="flex flex-wrap justify-center items-center">
+      {/* 建筑股权 */}
+      <div className="flex flex-wrap justify-center items-center">
         <img src={logo} className="w-2/3" />
         <p className="text-xs text-center pt-2">
-          WolfTown Game is a community project and we are so grateful to the
-          contributors who have helped out get closer to our vision.
+          The construction of Wolf Town is in full swing. Now you need to donate
+          corresponding materials, and you will get corresponding rewards.
         </p>
-        <p className="text-xs text-center pt-3 mb-2">
-          If you like their work, visit their farm and buy them a coffee!
-        </p>
+        <p style={{ color: "red" }}>{msg}</p>
       </div>
       <div
         ref={itemContainerRef}
@@ -65,47 +118,58 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
         })}
       >
         <div className="flex flex-wrap items-center h-fit">
-          {CONTRIBUTORS.map((contributor) => (
+          {buildItem.map((item) => (
             <div
-              key={contributor.name}
-              className="flex w-full mb-6"
-              id={contributor.name}
+              key={item.goodsName}
+              className="flex w-full mb-6 ml-3"
+              id={item.goodsName}
             >
-              <div className="w-10 mr-4 flex justify-center">
-                <img src={AVATARS[contributor.avatar]} className="h-8" />
+              <div className="w-10 ml-4 flex justify-center">
+                LV.{item.level}
               </div>
-              <div>
-                <p className="text-sm capitalize">
-                  {contributor.name}{" "}
-                  {CONFIG.NETWORK === "mainnet" && (
-                    <span
-                      className="underline cursor-pointer"
-                      onClick={() => {
-                        navigate(`/visit/${contributor.farmId}`);
-                        onClose();
-                      }}
-                    >
-                      #{contributor.farmId}
-                    </span>
-                  )}
-                </p>
-                <p className="text-sm">
-                  {contributor.role.map((role) => (
-                    <span
-                      key={role}
-                      className="capitalize flex items-center py-1"
-                    >
-                      {role}
-                      <img src={ROLE_BADGES[role]} className="h-5 ml-1" />
-                    </span>
-                  ))}
-                </p>
+
+              <div className="w-10 ml-4 flex justify-center">
+                <img
+                  src={
+                    item.level == 1
+                      ? level1
+                      : item.level == 2
+                      ? level2
+                      : item.level == 3
+                      ? level3
+                      : item.level == 4
+                      ? level4
+                      : ""
+                  }
+                  className="h-8"
+                />
+              </div>
+
+              <div className="w-20 ml-4 flex justify-center">
+                {item.goodsName}
+              </div>
+              <div className="w-10 ml-4 flex justify-center">
+                <img src={item.goodsUrl} className="h-8" />
+              </div>
+
+              <div className="w-10 ml-4 flex justify-center">
+                x{item.amount}
+              </div>
+
+              <div className="w-20 ml-8 flex justify-center">
+                <Button
+                  className="bg-brown-200 active:bg-brown-200 w-full"
+                  onClick={() => {
+                    buildInit(item.id);
+                  }}
+                >
+                  {t("Build")}
+                </Button>
               </div>
             </div>
           ))}
         </div>
-      </div> */}
-      Coming soon
+      </div>
     </>
   );
 };

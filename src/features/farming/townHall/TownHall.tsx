@@ -23,15 +23,15 @@ export const TownHall: React.FC = () => {
       // TODO some sort of coordinate system
       style={{
         width: `${GRID_WIDTH_PX * 6.5}px`,
-        left: `${GRID_WIDTH_PX * 15.4}px`,
-        top: `${GRID_HIGHT_PX * -9}px`,
+        left: `${GRID_WIDTH_PX * -15.4}px`,
+        top: `${GRID_HIGHT_PX * 1}px`,
       }}
     >
       <div className={"cursor-pointer hover:img-highlight"}>
         <img src={townHall} alt="market" onClick={open} className="w-full" />
         <Action
           className="absolute bottom-24 left-8"
-          text="Town Hall"
+          text="Town Build"
           icon={heart}
           onClick={open}
         />

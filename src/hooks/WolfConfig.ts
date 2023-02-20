@@ -4,6 +4,8 @@ import { _getAddress, _getProvider } from './ethereum';
 import { useEffect } from 'react';
 import { ERRORS } from "lib/errors";
 import { WolfMarket } from './modules/WolfMarket';
+import { Build } from './modules/Build';
+
 // if (location.search && location.search.match(/enter-test-mode/)) localStorage.setItem('IsWolfTownTest', 'true');
 // localStorage.setItem('IsWolfTownTest', 'true');
 // const IsTest = localStorage.getItem('IsWolfTownTest') === 'true';
@@ -290,6 +292,11 @@ export const API_CONFIG = {
   /*战斗记录-分页列表查询*/
   pvpList: `${HASH_GAME_API}/wolftown/pvpList`,
 
+  /*建筑任务-分页列表查询*/
+  buildList: `${HASH_GAME_API}/wolftown/buildList`,
+  /*build游戏*/
+  build: `${HASH_GAME_API}/wolftown/build`,
+
 }
 
 
@@ -392,7 +399,8 @@ export const getAccountInfo = async () => {
     BUSD: '0',
     WTWOOL: '0',
     WTMILK: '0',
-    integral: '0'
+    integral: '0',
+    Build: '0'
   }
 
   const XAccessToken = localStorage.getItem('XAccessToken');
@@ -430,6 +438,9 @@ export const getAccountInfo = async () => {
             }
             if (account.coin != null && account.coin === "integral") {
               acountInfo.integral = account.normalBalance.toString();
+            }
+            if (account.coin != null && account.coin === "Build") {
+              acountInfo.Build = account.normalBalance.toString();
             }
           }
         }
@@ -1022,6 +1033,92 @@ export const airDrop = async () => {
   }
 
 }
+
+
+
+
+
+/* 获取市场列表 */
+export const buildList = async (params: any, pageNo: string, pageSize: string) => {
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+  if ((XAccessToken)) {
+
+    let url = API_CONFIG.buildList;
+    if (params) {
+      let paramsArray: any[] = [];
+      //拼接参数
+
+      Object.keys(params).forEach(key => paramsArray.push(key + '=' + (typeof params[key] == 'undefined' ? "" : params[key])))
+      if (url.search(/\?/) === -1) {
+        url += '?' + paramsArray.join('&')
+      } else {
+        url += '&' + paramsArray.join('&')
+      }
+    }
+
+    url += '&pageNo=' + pageNo
+    url += '&pageSize=' + pageSize
+    const response = await fetch(url, {
+      method: 'get', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+
+        console.log("response-marketList", result);
+        return result;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+
+
+
+/* 购买商品 */
+export const build = async (build: Build) => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  const uid = localStorage.getItem('userInfo_userid');
+
+  // eslint-disable-next-line eqeqeq
+  if (XAccessToken && (XAccessToken != "") && uid != "") {
+    // 组装数据对象
+
+    const response = await fetch(API_CONFIG.build, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify(build),
+    })
+
+
+    if (response.status === 200) {
+      const result = await response.json();
+      return result;
+    }
+
+    if (response.status === 401) {
+      // 登录超时处理办法
+      loginOut();
+      return { status: 500, message: " Token is invalid, please login again !" }
+    }
+
+    return { status: 500, message: "NO Connect!" }
+  }
+  return { status: 500, message: "NO Login!" }
+
+}
+
 
 
 

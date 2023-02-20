@@ -92,7 +92,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
       >
         <img src={bg} className="w-full" />
         <img
-          style={{ marginTop: "-600px" }}
+          style={{ marginTop: "-600px", marginLeft: "25%" }}
           src={battle}
           className="absolute  items-center"
         />
@@ -100,9 +100,12 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
           style={{ marginTop: "-120px" }}
           className="bg-brown-600 p-0.5 text-white shadow-lg flex-1 w-full  flex"
         >
-          <div className="  p-0.5 text-white shadow-lg  w-2/5 flex">
+          <div className="  p-0.5 text-white shadow-lg  w-2/5 ">
             <div style={{ writingMode: "vertical-rl" }}>{t("  battles")}</div>
-            <div className="  p-0.5 text-white shadow-lg flex-1 w-full flex">
+            <div
+              style={{ marginTop: "-130px", marginLeft: "20px" }}
+              className="  p-0.5 text-white shadow-lg flex-1 w-full flex"
+            >
               <Box
                 onClick={() => {
                   if (!items[0]?.goodsUrl) {
@@ -144,6 +147,52 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
                 image={items[4]?.goodsUrl}
               ></Box>
             </div>
+
+            <div
+              style={{ marginLeft: "20px" }}
+              className="   p-0.5 text-white shadow-lg flex-1 w-full flex"
+            >
+              <Box
+                onClick={() => {
+                  if (!items[5]?.goodsUrl) {
+                    setIsOpen(true);
+                  }
+                }}
+                image={items[5]?.goodsUrl}
+              ></Box>
+              <Box
+                onClick={() => {
+                  if (!items[6]?.goodsUrl) {
+                    setIsOpen(true);
+                  }
+                }}
+                image={items[6]?.goodsUrl}
+              ></Box>
+              <Box
+                onClick={() => {
+                  if (!items[7]?.goodsUrl) {
+                    setIsOpen(true);
+                  }
+                }}
+                image={items[7]?.goodsUrl}
+              ></Box>
+              <Box
+                onClick={() => {
+                  if (!items[8]?.goodsUrl) {
+                    setIsOpen(true);
+                  }
+                }}
+                image={items[8]?.goodsUrl}
+              ></Box>
+              <Box
+                onClick={() => {
+                  if (!items[9]?.goodsUrl) {
+                    setIsOpen(true);
+                  }
+                }}
+                image={items[9]?.goodsUrl}
+              ></Box>
+            </div>
           </div>
           {/*    <div className="  p-0.5 text-white shadow-lg flex-1 w-1/3 flex h-2">
             <div style={{ writingMode: "vertical-rl" }}>
@@ -157,25 +206,26 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
               {t("Combat record")}
             </div>
             <div
-              style={{ maxHeight: "100px", height: "100px", overflowY: "auto" }}
+              className="  w-full  "
+              style={{
+                maxHeight: "100px",
+                height: "100px",
+                overflowY: "auto",
+                fontSize: "10px",
+              }}
             >
-              <table>
+              <table className="  w-full  ">
                 <thead>
-                  <th>{t("type")}</th>
-                  <th>{t("time")}</th>
-                  <th>{t("status")}</th>
-                  <th>{t("reward")}</th>
+                  <th className="w-1/5">{t("type")}</th>
+                  <th className="w-1/5">{t("time")}</th>
+                  <th className="w-1/5">{t("status")}</th>
+                  <th className="w-1/5">{t("status")}</th>
+                  <th className="w-1/5">{t("reward")}</th>
                 </thead>
                 <tbody>
                   {history.map((val, idx) => (
                     <tr>
-                      <td>
-                        {val.pvpType == 0
-                          ? "1v1"
-                          : val.pvpType == 1
-                          ? "3v3"
-                          : "Scuffle"}
-                      </td>
+                      <td>{val.pvpType + "Number"}</td>
                       <td>{val.pvpTime}</td>
                       <td>
                         {val.status == 0
@@ -184,7 +234,14 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
                           ? "Inbattle"
                           : "complete"}
                       </td>
-                      <td>{val.reward}</td>
+                      <td>
+                        {val.sucFail == 1
+                          ? "Suc"
+                          : val.result == 0
+                          ? "Fail"
+                          : ""}
+                      </td>
+                      <td>{val.reward ? val.reward : "-"}</td>
                     </tr>
                   ))}
                 </tbody>

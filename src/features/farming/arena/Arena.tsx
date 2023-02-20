@@ -7,7 +7,8 @@ import { Modal } from "react-bootstrap";
 
 import { Contributors } from "./components/Contributors";
 import { UseArenaScrollIntoView } from "./components/Contributors";
-
+import heart from "assets/wt/wolf.png";
+import { Action } from "components/ui/Action";
 export const Arena: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -38,6 +39,13 @@ export const Arena: React.FC = () => {
               UseArenaScrollIntoView();
             }}
             className="relative w-100 float-left  ml-4 mt-2 mb-1 hover:img-highlight cursor-pointer"
+          />
+
+          <Action
+            icon={heart}
+            className="absolute bottom-24 ml-8"
+            text="Town Arean"
+            onClick={() => setIsOpen(true)}
           />
         </div>
 

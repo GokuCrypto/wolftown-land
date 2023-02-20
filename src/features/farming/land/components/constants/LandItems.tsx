@@ -89,7 +89,7 @@ export const LandItems: React.FC<Props> = ({
       console.log("not Animal???");
       const result = await queryBagByType("Animal", "");
       if (result) {
-        setBagAnimal(result);
+        setBagAnimal(result?.filter((val: any) => val.landLock != 1));
       }
       console.log("bagAnimal", result);
       const result2 = await queryBagByType("Equip", "Land-");

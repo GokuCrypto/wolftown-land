@@ -10,10 +10,10 @@ import wolfpvp from "assets/land/arean-wolf.png";
 import ReactPlayer from "react-player";
 import { Contributors } from "./components/Contributors";
 import land1 from "assets/landbuild/land1.png";
-
+import { Action } from "components/ui/Action";
 import { getLandGameList, APP_WOLF_API } from "hooks/WolfConfig";
 import { size } from "lodash";
-
+import heart from "assets/wt/wolf.png";
 export class LandInfo {
   public landId?: string;
   public url?: string;
@@ -59,6 +59,13 @@ export const Pvp: React.FC = () => {
             }}
             src={wolfpvp}
             className="relative w-100 "
+          />
+
+          <Action
+            icon={heart}
+            className="absolute bottom-24 left-8"
+            text="Town PVP"
+            onClick={() => setIsOpen(true)}
           />
         </div>
 

@@ -243,7 +243,7 @@ export const BagItemsTabContent = ({
                 onChange={onSelecttTypeChange}
               >
                 <option value={"Price"}>Price</option>
-                <option value={"Bidding"}>Bidding</option>
+                {/*   <option value={"Bidding"}>Bidding</option> */}
               </select>
             </span>
             {type == "Bidding" && (

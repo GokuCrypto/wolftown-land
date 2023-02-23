@@ -59,7 +59,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
     setIsLoading(true);
     try {
       const buildIt = new Build();
-      buildIt.status = 1;
+
       const result = await buildList(buildIt, "1", "1000");
 
       if (result?.result?.records) {
@@ -117,18 +117,24 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
           scrollable: showScrollbar,
         })}
       >
-        <div className="flex flex-wrap items-center h-fit">
+        <div
+          style={{ fontSize: "10px" }}
+          className="flex flex-wrap items-center h-fit"
+        >
           {buildItem.map((item) => (
             <div
               key={item.goodsName}
               className="flex w-full mb-6 ml-3"
               id={item.goodsName}
             >
+              <div className="w-60 ml-4 flex justify-center">
+                {t(item.goodsType)}
+              </div>
               <div className="w-10 ml-4 flex justify-center">
                 LV.{item.level}
               </div>
 
-              <div className="w-10 ml-4 flex justify-center">
+              <div className="w-20 ml-4 flex justify-center">
                 <img
                   src={
                     item.level == 1
@@ -148,7 +154,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
               <div className="w-20 ml-4 flex justify-center">
                 {item.goodsName}
               </div>
-              <div className="w-10 ml-4 flex justify-center">
+              <div className="w-20 ml-4 flex justify-center">
                 <img src={item.goodsUrl} className="h-8" />
               </div>
 
@@ -156,14 +162,16 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
                 x{item.amount}
               </div>
 
-              <div className="w-20 ml-8 flex justify-center">
+              <div className="w-30 ml-8 flex justify-center">
                 <Button
                   className="bg-brown-200 active:bg-brown-200 w-full"
                   onClick={() => {
-                    buildInit(item.id);
+                    if (item.status == 1) {
+                      buildInit(item.id);
+                    }
                   }}
                 >
-                  {t("Build")}
+                  {item.status == 1 ? t("Build") : t("Coming soon")}
                 </Button>
               </div>
             </div>

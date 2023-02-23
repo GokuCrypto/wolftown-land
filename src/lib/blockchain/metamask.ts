@@ -279,7 +279,8 @@ export class Metamask {
       BUSD: fromWei(balanceOfBUSD),
       WTWOOL: fromWei(balanceOfWOOL),
       WTMILK: fromWei(balanceOfMILK),
-      integral: "0"
+      integral: "0",
+      Build: "0"
     }
   }
   public async getAllowances() {
@@ -308,12 +309,12 @@ export class Metamask {
   }
 
   public async deposit(tokenType: string, amount: string) {
-    
+
 
     let token;
-    if(tokenType === "BUSD") {
+    if (tokenType === "BUSD") {
       token = CONFIG.BUSD_CONTRACT
-    } else if(tokenType === "WTWOOL") {
+    } else if (tokenType === "WTWOOL") {
       token = CONFIG.WTWOOL_CONTRACT
     } else {
       token = CONFIG.WTMILK_CONTRACT

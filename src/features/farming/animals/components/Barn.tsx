@@ -50,7 +50,7 @@ export const Barn: React.FC = () => {
           />
         )}
       </div>
-      <Modal centered show={isOpen} onHide={() => setIsOpen(false)}>
+      <Modal size={"xl"} centered show={isOpen} onHide={() => setIsOpen(false)}>
         <BarnSale onClose={() => setIsOpen(false)} />
       </Modal>
     </div>

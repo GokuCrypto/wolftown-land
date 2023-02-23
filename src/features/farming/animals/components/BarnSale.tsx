@@ -2,11 +2,12 @@ import React, { useContext, useState } from "react";
 
 import close from "assets/icons/close.png";
 import market from "assets/icons/market.png";
+import { useTranslation } from "react-i18next";
 
 import { Panel } from "components/ui/Panel";
 import { Tab } from "components/ui/Tab";
 import { ANIMALS } from "features/game/types/craftables";
-import { CraftingItems } from "./CraftingItems";
+import { MarketItems } from "././MarketItems";
 import * as Auth from "features/auth/lib/Provider";
 import { useActor } from "@xstate/react";
 
@@ -18,6 +19,7 @@ export const BarnSale: React.FC<Props> = ({ onClose }) => {
   const [tab, setTab] = useState<"animals">("animals");
   const { authService } = useContext(Auth.Context);
   const [authState] = useActor(authService);
+  const { t } = useTranslation();
 
   return (
     <Panel className="pt-5 relative">
@@ -25,7 +27,7 @@ export const BarnSale: React.FC<Props> = ({ onClose }) => {
         <div className="flex">
           <Tab isActive={tab === "animals"} onClick={() => setTab("animals")}>
             <img src={market} className="h-5 mr-2" />
-            <span className="text-sm text-shadow">Wolf Town Market</span>
+            <span className="text-sm text-shadow">{t("Wolf Town Market")}</span>
           </Tab>
         </div>
         <img
@@ -37,10 +39,10 @@ export const BarnSale: React.FC<Props> = ({ onClose }) => {
 
       <div
         style={{
-          minHeight: "200px",
+          minHeight: "500px",
         }}
       >
-        {tab === "animals" && <CraftingItems onClose={onClose} />}
+        {tab === "animals" && <MarketItems onClose={onClose} />}
       </div>
     </Panel>
   );

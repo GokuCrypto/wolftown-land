@@ -4,6 +4,7 @@ import { Modal } from "react-bootstrap";
 import townHall from "assets/buildings/townhall.png";
 import heart from "assets/wt/wolf.png";
 import close from "assets/icons/close.png";
+import { useTranslation } from "react-i18next";
 
 import { GRID_WIDTH_PX, GRID_HIGHT_PX } from "features/game/lib/constants";
 import { Action } from "components/ui/Action";
@@ -12,6 +13,7 @@ import { Contributors } from "./components/Contributors";
 
 export const TownHall: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const { t } = useTranslation();
 
   const open = () => {
     setIsOpen(true);
@@ -37,7 +39,7 @@ export const TownHall: React.FC = () => {
         />
       </div>
 
-      <Modal centered show={isOpen} onHide={() => setIsOpen(false)}>
+      <Modal size="xl" centered show={isOpen} onHide={() => setIsOpen(false)}>
         <Panel>
           <img
             src={close}

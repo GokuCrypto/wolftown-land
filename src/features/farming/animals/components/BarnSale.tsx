@@ -39,7 +39,7 @@ export const BarnSale: React.FC<Props> = ({ onClose }) => {
 
       <div
         style={{
-          minHeight: "500px",
+          minHeight: "550px",
         }}
       >
         {tab === "animals" && <MarketItems onClose={onClose} />}

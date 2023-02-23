@@ -11,6 +11,7 @@ import { reward } from "hooks/WolfConfig";
 import { BagItem } from "../lib/types";
 
 import { marketAdd } from "hooks/WHashConfig";
+import { WolfUserGoods } from "hooks/modules/WolfUserGoods";
 
 const ITEM_CARD_MIN_HEIGHT = "148px";
 
@@ -185,8 +186,11 @@ export const BagItemsTabContent = ({
             <span className="mt-2 ml-2 text-shadow">{t("No item")}</span>
           )}
         </div>
-        <OuterPanel className="flex-1 w-1/3">
-          <div className="flex flex-col justify-center items-center p-2 relative">
+        <OuterPanel className="flex-1 w-1/3 ">
+          <div
+            style={{ fontSize: "10px" }}
+            className="flex flex-col justify-center items-center p-2 relative"
+          >
             {selected && (
               <span className="w-12 text-center -mt-4 sm:mr-auto bg-blue-600 text-shadow border text-xxs p-1 rounded-md">
                 {selected?.amount}
@@ -201,76 +205,97 @@ export const BagItemsTabContent = ({
             <span className="text-shadow text-center mt-2 sm:text-sm">
               {selected?.name}
             </span>
-            <span className="text-shadow text-center mt-2 sm:text-sm">
-              {"------------"}
-            </span>
-            <span className="text-shadow text-center mt-2 sm:text-sm">
-              {"Selling price"}
-            </span>
-            <span className="flex items-center mt-2">
-              <input
-                onChange={onInputChange}
-                value={
-                  typeof price === "string"
-                    ? ""
-                    : price.toDecimalPlaces(2, Decimal.ROUND_DOWN).toNumber()
-                }
-                className="ml-20 shadow-inner shadow-black bg-brown-200 p-2 w-50"
-              />
-            </span>
-            <span className="text-shadow text-center mt-2 sm:text-sm">
-              {"------------"}
-            </span>
-            <span className="text-shadow text-center mt-2 sm:text-sm">
-              {"Coin Type of sale"}
-            </span>
-            <span className="text-shadow text-center mt-2 sm:text-sm">
-              <select
-                className="text-shadow text-center mt-2 sm:text-sm bg-brown-200"
-                defaultValue={coinType}
-                onChange={onSelecttChange}
-              >
-                <option value={"WTWOOL"}>WTWOOL</option>
-                <option value={"BUSD"}>BUSD</option>
-                <option value={"WTMILK"}>WTMILK</option>
-              </select>
-            </span>
 
-            <span className="text-shadow text-center mt-2 sm:text-sm">
-              <select
-                className="text-shadow text-center mt-2 sm:text-sm bg-brown-200"
-                defaultValue={type}
-                onChange={onSelecttTypeChange}
-              >
-                <option value={"Price"}>Price</option>
-                {/*   <option value={"Bidding"}>Bidding</option> */}
-              </select>
-            </span>
-            {type == "Bidding" && (
+            {selected?.type === "Animal" && (
               <>
-                {" "}
                 <span className="text-shadow text-center mt-2 sm:text-sm">
                   {"------------"}
                 </span>
                 <span className="text-shadow text-center mt-2 sm:text-sm">
-                  {"Auction deadline"}
-                </span>{" "}
+                  {"power: "}
+                  {selected?.pow ? selected?.pow : 0}
+                </span>
                 <span className="text-shadow text-center mt-2 sm:text-sm">
-                  {" "}
-                  <Datetime
-                    locale="zh-ch"
-                    dateFormat="YYYY-MM-DD"
-                    timeFormat="HH:mm:ss"
-                    onChange={(e) => {
-                      setDateValue(e);
-                    }}
-                    isValidDate={valid}
-                  />
+                  {"level: "} {selected?.level ? selected?.level : 1}
                 </span>
               </>
             )}
 
-            {Action()}
+            {(selected?.type === "Meterial" || selected?.type === "Weapon") && (
+              <>
+                <span className="text-shadow text-center mt-2 sm:text-sm">
+                  {"------------"}
+                </span>
+                <span className="text-shadow text-center mt-2 sm:text-sm">
+                  {"Selling price"}
+                </span>
+                <span className="flex items-center mt-2">
+                  <input
+                    onChange={onInputChange}
+                    value={
+                      typeof price === "string"
+                        ? ""
+                        : price
+                            .toDecimalPlaces(2, Decimal.ROUND_DOWN)
+                            .toNumber()
+                    }
+                    className="ml-20 shadow-inner shadow-black bg-brown-200 p-2 w-50"
+                  />
+                </span>
+                <span className="text-shadow text-center mt-2 sm:text-sm">
+                  {"------------"}
+                </span>
+                <span className="text-shadow text-center mt-2 sm:text-sm">
+                  {"Coin Type of sale"}
+                </span>
+                <span className="text-shadow text-center mt-2 sm:text-sm">
+                  <select
+                    className="text-shadow text-center mt-2 sm:text-sm bg-brown-200"
+                    defaultValue={coinType}
+                    onChange={onSelecttChange}
+                  >
+                    <option value={"WTWOOL"}>WTWOOL</option>
+                    <option value={"BUSD"}>BUSD</option>
+                    <option value={"WTMILK"}>WTMILK</option>
+                  </select>
+                </span>
+
+                <span className="text-shadow text-center mt-2 sm:text-sm">
+                  <select
+                    className="text-shadow text-center mt-2 sm:text-sm bg-brown-200"
+                    defaultValue={type}
+                    onChange={onSelecttTypeChange}
+                  >
+                    <option value={"Price"}>Price</option>
+                    {/*   <option value={"Bidding"}>Bidding</option> */}
+                  </select>
+                </span>
+                {type == "Bidding" && (
+                  <>
+                    {" "}
+                    <span className="text-shadow text-center mt-2 sm:text-sm">
+                      {"------------"}
+                    </span>
+                    <span className="text-shadow text-center mt-2 sm:text-sm">
+                      {"Auction deadline"}
+                    </span>{" "}
+                    <span className="text-shadow text-center mt-2 sm:text-sm">
+                      {" "}
+                      <Datetime
+                        locale="zh-ch"
+                        dateFormat="YYYY-MM-DD"
+                        timeFormat="HH:mm:ss"
+                        onChange={(e) => {
+                          setDateValue(e);
+                        }}
+                        isValidDate={valid}
+                      />
+                    </span>
+                  </>
+                )}
+                {Action()}
+              </>
+            )}
           </div>
         </OuterPanel>
       </div>

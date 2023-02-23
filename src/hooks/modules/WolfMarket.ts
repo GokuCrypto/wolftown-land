@@ -55,4 +55,8 @@ export class WolfMarket {
   /**出价次数*/
 
   public numberOfBids!: number;
+
+  /*价格升降 */
+
+  /*时间升降 */
 }

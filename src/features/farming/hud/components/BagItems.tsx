@@ -76,6 +76,8 @@ export const BagItems: React.FC<Props> = ({ onClose }) => {
             image: item.goodsUrl,
             amount: item.amount,
             attribute: item.remark,
+            pow: item.pow,
+            level: item.level,
           } as BagItem;
         })
       );

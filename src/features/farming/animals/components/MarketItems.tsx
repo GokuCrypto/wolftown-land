@@ -32,10 +32,14 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
   const [showCaptcha, setShowCaptcha] = useState(false);
   const [message, setMessage] = useState("");
   const [pageNo, setPageNo] = useState("1");
-  const [pageSize, setPageSize] = useState("20");
+  const [pageSize, setPageSize] = useState("14");
   const [amount, setAmount] = useState<Decimal>(new Decimal(0));
   const [goodsType, setGoodsType] = useState("");
   const [goodsName, setGoodsName] = useState("");
+  const [coin, setCoin] = useState("");
+  const [total, setTotal] = useState("");
+  const [page, setPage] = useState("");
+  const [desc, setDesc] = useState("");
 
   const [
     {
@@ -59,11 +63,18 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
         wolfMarket.goodsName = goodsName;
       }
 
+      if (coin) {
+        wolfMarket.currency = coin;
+      }
+
       console.log("wolfMarket.status ", wolfMarket.status);
       const result = await marketList(wolfMarket, pageNo, pageSize);
 
       if (result?.result?.records) {
         setItems(result?.result?.records);
+        setTotal(result?.result?.total);
+
+        setPage(result?.result?.pages);
       }
 
       setIsLoading(false);
@@ -74,7 +85,7 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
 
   useEffect(() => {
     loadWolfMarketList();
-  }, [goodsType + goodsName]);
+  }, [goodsType + goodsName + coin + pageNo]);
 
   const onPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === "") {
@@ -90,6 +101,14 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
 
   const onSelecttChangeLevel = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setGoodsName(e.target.value);
+  };
+
+  const onSelecttChangeCoin = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCoin(e.target.value);
+  };
+
+  const onSelecttChangeDesc = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setDesc(e.target.value);
   };
 
   const handleNextSong = async (selected: any) => {
@@ -138,11 +157,44 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
 
   type Tab = "Meterial" | "Equip" | "Weapon" | "Animal";
 
+  const PageAction = () => {
+    return (
+      <div
+        style={{
+          float: "left",
+          position: "absolute",
+          bottom: "10px",
+          paddingTop: "20px",
+        }}
+        className="w-full flex flex-wrap h-fit  "
+      >
+        <div
+          style={{ cursor: "pointer", marginRight: "10px" }}
+          onClick={() => {
+            if (Number(pageNo) > 1) {
+              setPageNo(Number(pageNo) - 1 + "");
+            }
+          }}
+        >
+          Prev
+        </div>
+        <input style={{ textAlign: "center", color: "#000" }} value={pageNo} />
+        <div
+          style={{ cursor: "pointer", marginLeft: "10px" }}
+          onClick={() => setPageNo(Number(pageNo) + 1 + "")}
+        >
+          Next
+        </div>
+        <div style={{ marginLeft: "10px" }}>Total:{total}</div>
+      </div>
+    );
+  };
+
   const SelectAction = () => {
     return (
       <div style={{ float: "left" }} className="w-full flex flex-wrap h-fit  ">
         <select
-          className="text-shadow text-center mt-2 sm:text-sm bg-brown-200"
+          className="w-20 text-shadow text-center mt-2 sm:text-sm bg-brown-200"
           defaultValue={goodsType}
           onChange={onSelecttChange}
         >
@@ -154,42 +206,65 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
         </select>
 
         <select
-          className="text-shadow text-center mt-2 sm:text-sm bg-brown-200 ml-5"
+          className=" w-20 text-shadow text-center mt-2 sm:text-sm bg-brown-200 ml-5"
           defaultValue={goodsName}
           onChange={onSelecttChangeLevel}
         >
           <option value={""}>ALL</option>
           <option value={"artillery"}>{t("artillery")}</option>
           <option value={"bartizan"}>{t("bartizan")}</option>
-          <option value={"3"}>Lv.3</option>
-          <option value={"4"}>Lv.4</option>
-          <option value={"5"}>Lv.5</option>
+          <option value={"Catapult"}>{t("Catapult")}</option>
+          <option value={"Cyclone wheel car"}>{t("Cyclone wheel car")}</option>
+          <option value={"Rush Car"}>{t("Rush Car")}</option>
         </select>
 
         <select
-          className="text-shadow text-center mt-2 sm:text-sm bg-brown-200 ml-5"
+          className="w-20 text-shadow text-center mt-2 sm:text-sm bg-brown-200 ml-5"
           defaultValue={goodsName}
           onChange={onSelecttChangeLevel}
         >
           <option value={""}>ALL</option>
-          <option value={"artillery"}>{t("artillery")}</option>
-          <option value={"bartizan"}>{t("bartizan")}</option>
-          <option value={"3"}>Lv.3</option>
-          <option value={"4"}>Lv.4</option>
-          <option value={"5"}>Lv.5</option>
+          <option value={"Black sunken"}>{t("Black sunken")}</option>
+          <option value={"Chinese paraso"}>{t("Chinese paraso")}</option>
+          <option value={"Corundum"}>{t("Corundum")}</option>
+          <option value={"fir wood"}>{t("fir wood")}</option>
+          <option value={"pine"}>{t("pine")}</option>
         </select>
 
         <select
-          className="text-shadow text-center mt-2 sm:text-sm bg-brown-200 ml-5"
+          className="w-20 text-shadow text-center mt-2 sm:text-sm bg-brown-200 ml-5"
           defaultValue={goodsName}
           onChange={onSelecttChangeLevel}
         >
           <option value={""}>ALL</option>
-          <option value={"artillery"}>{t("artillery")}</option>
-          <option value={"bartizan"}>{t("bartizan")}</option>
-          <option value={"3"}>Lv.3</option>
-          <option value={"4"}>Lv.4</option>
-          <option value={"5"}>Lv.5</option>
+          <option value={"copper"}>{t("copper")}</option>
+          <option value={"gold"}>{t("gold")}</option>
+          <option value={"iron"}>{t("iron")}</option>
+          <option value={"Red gold"}>{t("Red gold")}</option>
+          <option value={"titanium"}>{t("titanium")}</option>
+        </select>
+
+        <select
+          className="w-20 text-shadow text-center mt-2 sm:text-sm bg-brown-200 ml-5"
+          defaultValue={coin}
+          onChange={onSelecttChangeCoin}
+        >
+          <option value={""}>ALL</option>
+          <option value={"BUSD"}>{t("BUSD")}</option>
+          <option value={"WTWOOL"}>{t("WTWOOL")}</option>
+          <option value={"WTMILK"}>{t("WTMILK")}</option>
+        </select>
+
+        <select
+          className="w-20 text-shadow text-center mt-2 sm:text-sm bg-brown-200 ml-5"
+          defaultValue={desc}
+          onChange={onSelecttChangeDesc}
+        >
+          <option value={""}>ALL</option>
+          <option value={"price_desc"}>{t("price ⇓")}</option>
+          <option value={"price_asc"}>{t("price ⇑")}</option>
+          <option value={"create_time_desc"}>{t("time ⇓")}</option>
+          <option value={"create_time_asc"}>{t("time ⇑")}</option>
         </select>
       </div>
     );
@@ -201,19 +276,30 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
         {SelectAction()}
         {items != null &&
           items?.map((item) => (
-            <Box
-              isSelected={selected?.id === item?.id}
-              key={item?.id}
-              onClick={() => {
-                setSelected(item);
-                setAmount(new Decimal(item?.price + 10));
-              }}
-              image={item?.goodsUrl}
-            />
+            <div style={{ fontSize: "10px" }} className="w-1/2 flex mt-2">
+              <Box
+                isSelected={selected?.id === item?.id}
+                key={item?.id}
+                onClick={() => {
+                  setSelected(item);
+                  setAmount(new Decimal(item?.price + 10));
+                }}
+                image={item?.goodsUrl}
+              />
+              <div className="w-2/3 ml-2">
+                <div className="w-full">name:{item.goodsName}</div>
+                <div className="w-full">price:{item.price}</div>
+                <div className="w-full">Coin:{item.currency}</div>
+              </div>
+            </div>
           ))}
+        {PageAction()}
       </div>
       <OuterPanel className="flex-1 w-2/3">
-        <div className="flex flex-col justify-center items-center p-2 relative">
+        <div
+          style={{ minHeight: "500px" }}
+          className="flex flex-col justify-center items-center p-2 relative"
+        >
           <span className="text-shadow text-center">{selected?.goodsName}</span>
           <img
             src={selected?.goodsUrl}

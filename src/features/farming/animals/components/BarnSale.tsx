@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const BarnSale: React.FC<Props> = ({ onClose }) => {
-  const [tab, setTab] = useState<"animals">("animals");
+  const [tab, setTab] = useState("Market");
   const { authService } = useContext(Auth.Context);
   const [authState] = useActor(authService);
   const { t } = useTranslation();
@@ -25,9 +25,18 @@ export const BarnSale: React.FC<Props> = ({ onClose }) => {
     <Panel className="pt-5 relative">
       <div className="flex justify-between absolute top-1.5 left-0.5 right-0 items-center">
         <div className="flex">
-          <Tab isActive={tab === "animals"} onClick={() => setTab("animals")}>
+          <Tab isActive={tab === "Market"} onClick={() => setTab("Market")}>
             <img src={market} className="h-5 mr-2" />
             <span className="text-sm text-shadow">{t("Wolf Town Market")}</span>
+          </Tab>
+
+          <Tab isActive={tab === "My List"} onClick={() => setTab("My List")}>
+            <img src={market} className="h-5 mr-2" />
+            <span className="text-sm text-shadow">{t("My List")}</span>
+          </Tab>
+          <Tab isActive={tab === "Store"} onClick={() => setTab("Store")}>
+            <img src={market} className="h-5 mr-2" />
+            <span className="text-sm text-shadow">{t("Wolf Town Store")}</span>
           </Tab>
         </div>
         <img
@@ -42,7 +51,9 @@ export const BarnSale: React.FC<Props> = ({ onClose }) => {
           minHeight: "550px",
         }}
       >
-        {tab === "animals" && <MarketItems onClose={onClose} />}
+        {tab === "Market" && <MarketItems onClose={onClose} />}
+        {tab === "My List" && <MarketItems onClose={onClose} />}
+        {tab === "Store" && <MarketItems onClose={onClose} />}
       </div>
     </Panel>
   );

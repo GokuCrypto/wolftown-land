@@ -266,7 +266,7 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
   "Animal Coupons For Wolf": {
     name: "Animal Coupons For Wolf",
     description: "Used to Exchange Animal Coupons",
-    tokenAmount: new Decimal(0),
+    tokenAmount: new Decimal(500),
 
     ingredients: [{
       item: "Wool Coupons",
@@ -277,7 +277,7 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
   "Animal Coupons For Sheep": {
     name: "Animal Coupons For Sheep",
     description: "Used to Exchange Animal Coupons",
-    tokenAmount: new Decimal(0),
+    tokenAmount: new Decimal(500),
 
     ingredients: [
       {
@@ -293,7 +293,7 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
     name: "Wool Coupons",
     description: "Used to collect Animal Coupons",
 
-    tokenAmount: new Decimal(0),
+    tokenAmount: new Decimal(100),
     ingredients: [
       {
 
@@ -306,7 +306,7 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
   "Sheep Coupons": {
     name: "Sheep Coupons",
     description: "Used to collect Animal Coupons",
-    tokenAmount: new Decimal(0),
+    tokenAmount: new Decimal(100),
 
     ingredients: [
       {
@@ -320,7 +320,7 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
   "Land Coupons": {
     name: "Land Coupons",
     description: "Used to collect Land NFT",
-    tokenAmount: new Decimal(0),
+    tokenAmount: new Decimal(100),
 
     ingredients: [
       {
@@ -334,7 +334,7 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
   "Land NFT Coupons": {
     name: "Land NFT Coupons",
     description: "Used to Exchange Land NFT",
-    tokenAmount: new Decimal(0),
+    tokenAmount: new Decimal(500),
 
     ingredients: [
       {
@@ -361,7 +361,7 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
   },
   /*多个合成区 */
   "bartizan": {
-    name: "bartizan", description: "bartizan", ingredients: [
+    name: "bartizan", description: "bartizan", tokenAmount: new Decimal(100), ingredients: [
       {
         item: "Chinese parasol", amount: new Decimal(10), synthesis: "@Chinese parasol@copper@amount@10@10@"
       },
@@ -369,7 +369,7 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
   },
 
   "Catapult": {
-    name: "Catapult", description: "Catapult", ingredients: [
+    name: "Catapult", description: "Catapult", tokenAmount: new Decimal(200), ingredients: [
       { item: "Chinese parasol", amount: new Decimal(5), synthesis: "@Chinese parasol@copper@pine@iron@amount@5@5@10@10@" },
       { item: "copper", amount: new Decimal(5), },
       { item: "pine", amount: new Decimal(10), },
@@ -377,7 +377,7 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
     ],
   },
   "artillery": {
-    name: "artillery", description: "artillery", ingredients: [
+    name: "artillery", description: "artillery", tokenAmount: new Decimal(300), ingredients: [
       { item: "Chinese parasol", amount: new Decimal(5), synthesis: "@Chinese parasol@copper@pine@iron@fir wood@gold@amount@5@5@5@5@5@5@" },
       { item: "copper", amount: new Decimal(5), },
       { item: "pine", amount: new Decimal(5), },
@@ -389,7 +389,7 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
 
 
   "Cyclone wheel car": {
-    name: "Cyclone wheel car", description: "Cyclone wheel car", ingredients: [
+    name: "Cyclone wheel car", description: "Cyclone wheel car", tokenAmount: new Decimal(400), ingredients: [
       { item: "bartizan", amount: new Decimal(1), synthesis: "@bartizan@Catapult@artillery@Rush Car@titanium@Corundum@Black sunken@Red gold@amount@1@1@1@1@5@5@1@1@" },
       { item: "Catapult", amount: new Decimal(1), },
       { item: "artillery", amount: new Decimal(1), },
@@ -402,7 +402,7 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
   },
 
   "Rush Car": {
-    name: "Rush Car", description: "Rush Car", ingredients: [
+    name: "Rush Car", description: "Rush Car", tokenAmount: new Decimal(500), ingredients: [
       { item: "bartizan", amount: new Decimal(1), synthesis: "@bartizan@Catapult@artillery@titanium@Corundum@amount@1@1@1@5@5@" },
       { item: "Catapult", amount: new Decimal(1), },
       { item: "artillery", amount: new Decimal(1), },
@@ -413,22 +413,22 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
 
 
   "Land-L2": {
-    name: "Land-L2", description: "Land-L2", ingredients: [
+    name: "Land-L2", description: "Land-L2", tokenAmount: new Decimal(0), ingredients: [
       { item: "Land-L1", amount: new Decimal(2), },
     ],
   },
   "Land-L3": {
-    name: "Land-L3", description: "Land-L3", ingredients: [
+    name: "Land-L3", description: "Land-L3", tokenAmount: new Decimal(0), ingredients: [
       { item: "Land-L2", amount: new Decimal(2), },
     ],
   },
   "Land-M2": {
-    name: "Land-M2", description: "Land-M2", ingredients: [
+    name: "Land-M2", description: "Land-M2", tokenAmount: new Decimal(0), ingredients: [
       { item: "Land-M1", amount: new Decimal(2), },
     ],
   },
   "Land-M3": {
-    name: "Land-M3", description: "Land-M3", ingredients: [
+    name: "Land-M3", description: "Land-M3", tokenAmount: new Decimal(0), ingredients: [
       { item: "Land-M2", amount: new Decimal(2), },
     ],
   },

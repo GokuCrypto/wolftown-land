@@ -159,12 +159,15 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
               </div>
 
               <div className="w-10 ml-4 flex justify-center">
+                {item.personAmount}
+              </div>
+              <div className="w-10 ml-4 flex justify-center">
                 x{item.amount}
               </div>
 
               <div className="w-30 ml-8 flex justify-center">
                 <Button
-                  className="bg-brown-200 active:bg-brown-200 w-full"
+                  className="w-30 bg-brown-200 active:bg-brown-200 "
                   onClick={() => {
                     if (item.status == 1) {
                       buildInit(item.id);

@@ -28,5 +28,12 @@ export class Build {
   /**buildInt*/
   public buildInt!: number;
 
+
+  /**personAmount*/
+  public personAmount!: number;
+
+
+  /**buildInt*/
+  public totalGuAmount!: number;
 }
 

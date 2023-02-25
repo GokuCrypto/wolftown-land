@@ -192,7 +192,7 @@ export const CraftingItems: React.FC<Props> = ({
                   "text-red-500": lessFunds(),
                 })}
               >
-                {`$${selected.tokenAmount?.toNumber()}`}
+                {`${selected.tokenAmount?.toNumber()}`}
               </span>
             </div>
           </div>

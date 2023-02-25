@@ -10,17 +10,18 @@ import balance from "assets/wt/balance.png";
 import close from "assets/icons/close.png";
 import { Context } from "features/game/GameProvider";
 import Decimal from "decimal.js-light";
-import { ERRORS } from "lib/errors"
-import { getAccountInfo } from "hooks/WolfConfig"
-import { getUserAddress } from 'hooks/WHashConfig'
-import { DepositTabContent } from './DepositTabContent'
-import { WithdrawTabContent } from './WithdrawTabContent'
-import { WalletBalances } from './WalletBalances'
-import { Balances, EMPTY_BALANCES } from '../lib/types'
+import { ERRORS } from "lib/errors";
+import { getAccountInfo } from "hooks/WolfConfig";
+import { getUserAddress } from "hooks/WHashConfig";
+import { DepositTabContent } from "./DepositTabContent";
+import { WithdrawTabContent } from "./WithdrawTabContent";
+import { WalletFlow } from "./WalletFlow";
+
+import { WalletBalances } from "./WalletBalances";
+import { Balances, EMPTY_BALANCES } from "../lib/types";
 import { useInterval } from "lib/utils/hooks/useInterval";
 
-
-type Tab = "deposit" | "withdraw" | "balance";
+type Tab = "deposit" | "withdraw" | "balance" | "Capital flow";
 
 export const Balance: React.FC = () => {
   const { t } = useTranslation();
@@ -30,7 +31,7 @@ export const Balance: React.FC = () => {
   const [isShown, setIsShown] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [depositAddress, setDepositAddress] = useState("");
-  const [ balances, setBalances ] = useState<Balances>(EMPTY_BALANCES)
+  const [balances, setBalances] = useState<Balances>(EMPTY_BALANCES);
 
   const [currentTab, setCurrentTab] = useState<Tab>("balance");
 
@@ -38,23 +39,23 @@ export const Balance: React.FC = () => {
     setCurrentTab(tab);
   };
 
-  const loadAccount = async() => {
-    try{
-      const info = await getAccountInfo()  
-      setBalances(info)
-    } catch(e: any) {
+  const loadAccount = async () => {
+    try {
+      const info = await getAccountInfo();
+      setBalances(info);
+    } catch (e: any) {
       if (e.message === ERRORS.SESSION_EXPIRED) {
         gameService.send("EXPIRED");
       }
     }
-  }
-  
+  };
+
   useInterval(async () => {
-    await loadAccount()
+    await loadAccount();
   }, 10 * 1000);
 
   useEffect(() => {
-    loadAccount()
+    loadAccount();
   }, []);
 
   const openBalance = async () => {
@@ -76,7 +77,7 @@ export const Balance: React.FC = () => {
       <InnerPanel className="fixed top-2 right-2 z-50 flex items-center shadow-lg cursor-pointer">
         <div className="flex items-center text-white" onClick={openBalance}>
           <img src={balance} className="w-5 img-highlight" />
-          <span className="ml-2">{ t("Wallet") }</span>
+          <span className="ml-2">{t("Wallet")}</span>
         </div>
       </InnerPanel>
       <Modal
@@ -119,6 +120,16 @@ export const Balance: React.FC = () => {
                   {t("Withdraw")}
                 </span>
               </Tab>
+
+              <Tab
+                className="flex items-center"
+                isActive={currentTab === "Capital flow"}
+                onClick={() => handleTabClick("Capital flow")}
+              >
+                <span className="text-xs sm:text-sm overflow-hidden text-ellipsis">
+                  {t("Capital flow")}
+                </span>
+              </Tab>
             </div>
             <img
               src={close}
@@ -128,8 +139,14 @@ export const Balance: React.FC = () => {
           </div>
 
           {currentTab === "balance" && <WalletBalances balances={balances} />}
-          {currentTab === "deposit" && <DepositTabContent address={depositAddress} />}
-          {currentTab === "withdraw" && <WithdrawTabContent balances={balances} />}
+          {currentTab === "deposit" && (
+            <DepositTabContent address={depositAddress} />
+          )}
+          {currentTab === "withdraw" && (
+            <WithdrawTabContent balances={balances} />
+          )}
+
+          {currentTab === "Capital flow" && <WalletFlow />}
         </Panel>
       </Modal>
     </div>

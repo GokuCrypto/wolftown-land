@@ -15,15 +15,15 @@ import { ITEM_DETAILS } from "features/game/types/images";
 import { CraftableItem, Ingredient } from "features/game/types/craftables";
 import { InventoryItemName } from "features/game/types/game";
 import { Goods } from "components/ui/Goods";
-import { marketList } from "hooks/WolfConfig";
-import { marketBuy } from "hooks/WHashConfig";
+import { myList } from "hooks/WolfConfig";
+import { marketRemove } from "hooks/WHashConfig";
 
 interface Props {
   isBulk?: boolean;
   onClose: () => void;
 }
 /*  铁匠铺 */
-export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
+export const MyListItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
   const [selected, setSelected] = useState<any>();
   const [items, setItems] = useState<any[]>([]);
   const { t } = useTranslation();
@@ -69,7 +69,7 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
       }
 
       console.log("wolfMarket.status ", wolfMarket.status);
-      const result = await marketList(wolfMarket, pageNo, pageSize);
+      const result = await myList(wolfMarket, pageNo, pageSize);
 
       if (result?.result?.records) {
         setItems(result?.result?.records);
@@ -129,11 +129,11 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
       wolfMarket.biddingPrice = amount.toNumber();
     }
     wolfMarket.biddingPrice;
-    const result = await marketBuy(wolfMarket);
+    const result = await marketRemove(wolfMarket);
     if (!result?.success) {
       setMessage(result.message);
     } else {
-      setMessage("Buy succeeded!");
+      setMessage("Remove succeeded!");
     }
     loadWolfMarketList();
   };
@@ -149,7 +149,7 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
             }
           }}
         >
-          Buy
+          Remove
         </Button>
         <span className="text-xs text-base"> {message} </span>
       </div>
@@ -192,83 +192,7 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
   };
 
   const SelectAction = () => {
-    return (
-      <div style={{ float: "left" }} className="w-full flex flex-wrap h-fit  ">
-        <select
-          className="w-20 text-shadow text-center mt-2 sm:text-sm bg-brown-200"
-          defaultValue={goodsType}
-          onChange={onSelecttChange}
-        >
-          <option value={""}>ALL</option>
-          <option value={"Meterial"}>Meterial</option>
-          <option value={"Equip"}>Equip</option>
-          <option value={"Weapon"}>Weapon</option>
-          <option value={"Animal"}>Animal</option>
-        </select>
 
-        <select
-          className=" w-20 text-shadow text-center mt-2 sm:text-sm bg-brown-200 ml-5"
-          defaultValue={goodsName}
-          onChange={onSelecttChangeLevel}
-        >
-          <option value={""}>ALL</option>
-          <option value={"artillery"}>{t("artillery")}</option>
-          <option value={"bartizan"}>{t("bartizan")}</option>
-          <option value={"Catapult"}>{t("Catapult")}</option>
-          <option value={"Cyclone wheel car"}>{t("Cyclone wheel car")}</option>
-          <option value={"Rush Car"}>{t("Rush Car")}</option>
-        </select>
-
-        <select
-          className="w-20 text-shadow text-center mt-2 sm:text-sm bg-brown-200 ml-5"
-          defaultValue={goodsName}
-          onChange={onSelecttChangeLevel}
-        >
-          <option value={""}>ALL</option>
-          <option value={"Black sunken"}>{t("Black sunken")}</option>
-          <option value={"Chinese paraso"}>{t("Chinese paraso")}</option>
-          <option value={"Corundum"}>{t("Corundum")}</option>
-          <option value={"fir wood"}>{t("fir wood")}</option>
-          <option value={"pine"}>{t("pine")}</option>
-        </select>
-
-        <select
-          className="w-20 text-shadow text-center mt-2 sm:text-sm bg-brown-200 ml-5"
-          defaultValue={goodsName}
-          onChange={onSelecttChangeLevel}
-        >
-          <option value={""}>ALL</option>
-          <option value={"copper"}>{t("copper")}</option>
-          <option value={"gold"}>{t("gold")}</option>
-          <option value={"iron"}>{t("iron")}</option>
-          <option value={"Red gold"}>{t("Red gold")}</option>
-          <option value={"titanium"}>{t("titanium")}</option>
-        </select>
-
-        <select
-          className="w-20 text-shadow text-center mt-2 sm:text-sm bg-brown-200 ml-5"
-          defaultValue={coin}
-          onChange={onSelecttChangeCoin}
-        >
-          <option value={""}>ALL</option>
-          <option value={"BUSD"}>{t("BUSD")}</option>
-          <option value={"WTWOOL"}>{t("WTWOOL")}</option>
-          <option value={"WTMILK"}>{t("WTMILK")}</option>
-        </select>
-
-        <select
-          className="w-20 text-shadow text-center mt-2 sm:text-sm bg-brown-200 ml-5"
-          defaultValue={desc}
-          onChange={onSelecttChangeDesc}
-        >
-          <option value={""}>ALL</option>
-          <option value={"price_desc"}>{t("price ⇓")}</option>
-          <option value={"price_asc"}>{t("price ⇑")}</option>
-          <option value={"create_time_desc"}>{t("time ⇓")}</option>
-          <option value={"create_time_asc"}>{t("time ⇑")}</option>
-        </select>
-      </div>
-    );
   };
 
   return (

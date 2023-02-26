@@ -4,6 +4,7 @@ import { BetOrder } from './modules/BetOrder';
 import { Withdraw, WithdrawForm } from './modules/Withdraw';
 import { ERRORS } from "lib/errors";
 import { WolfMarket } from './modules/WolfMarket';
+import { WolfTownStore } from './modules/WolfTownStore';
 
 import { PvpData } from './modules/PvpData';
 
@@ -322,9 +323,86 @@ export const marketBuy = async (wolfMarket: WolfMarket) => {
 
 
 }
+/* 下架商品*/
+export const marketRemove = async (wolfMarket: WolfMarket) => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  const uid = localStorage.getItem('userInfo_userid');
+
+  // eslint-disable-next-line eqeqeq
+  if (XAccessToken && (XAccessToken != "") && uid != "") {
+    // 组装数据对象
+
+
+    const response = await fetch(API_CONFIG.marketRemove, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify(wolfMarket),
+    })
+
+
+    if (response.status === 200) {
+      const result = await response.json();
+      return result;
+    }
+
+    if (response.status === 401) {
+      // 登录超时处理办法
+      loginOut();
+      return { status: 500, message: " Token is invalid, please login again !" }
+    }
+
+    return { status: 500, message: "NO Connect!" }
+  }
+  return { status: 500, message: "NO Login!" }
 
 
 
+
+}
+
+
+/* 购买商店商品 */
+export const storeBuy = async (wolfTownStore: WolfTownStore) => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  const uid = localStorage.getItem('userInfo_userid');
+
+  // eslint-disable-next-line eqeqeq
+  if (XAccessToken && (XAccessToken != "") && uid != "") {
+    // 组装数据对象
+
+
+    const response = await fetch(API_CONFIG.storeBuy, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify(wolfTownStore),
+    })
+
+
+    if (response.status === 200) {
+      const result = await response.json();
+      return result;
+    }
+
+    if (response.status === 401) {
+      // 登录超时处理办法
+      loginOut();
+      return { status: 500, message: " Token is invalid, please login again !" }
+    }
+
+    return { status: 500, message: "NO Connect!" }
+  }
+  return { status: 500, message: "NO Login!" }
+
+
+
+
+}
 /* 购买商品 */
 export const pvp = async (pvpData: PvpData) => {
 

@@ -5,7 +5,7 @@ import Decimal from "decimal.js-light";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useTranslation } from "react-i18next";
 import token from "assets/wt/balance.png";
-import { WolfMarket } from "hooks/modules/WolfMarket";
+import { WolfTownStore } from "hooks/modules/WolfTownStore";
 import { Box } from "components/ui/Box";
 import { OuterPanel } from "components/ui/Panel";
 import { Button } from "components/ui/Button";
@@ -15,15 +15,15 @@ import { ITEM_DETAILS } from "features/game/types/images";
 import { CraftableItem, Ingredient } from "features/game/types/craftables";
 import { InventoryItemName } from "features/game/types/game";
 import { Goods } from "components/ui/Goods";
-import { marketList } from "hooks/WolfConfig";
-import { marketBuy } from "hooks/WHashConfig";
-
+import { wolfTownStoreList } from "hooks/WolfConfig";
+ import { marketBuy } from "hooks/WHashConfig";
+ import { storeBuy } from "hooks/WHashConfig";
 interface Props {
   isBulk?: boolean;
   onClose: () => void;
 }
 /*  铁匠铺 */
-export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
+export const WolfTownStoreItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
   const [selected, setSelected] = useState<any>();
   const [items, setItems] = useState<any[]>([]);
   const { t } = useTranslation();
@@ -53,23 +53,19 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
   const loadWolfMarketList = async () => {
     setIsLoading(true);
     try {
-      const wolfMarket = new WolfMarket();
-      wolfMarket.status = "0";
+      const wolfTownStore = new WolfTownStore();
 
       if (goodsType) {
-        wolfMarket.goodsType = goodsType;
+        wolfTownStore.goodsType = goodsType;
       }
 
       if (goodsName) {
-        wolfMarket.goodsName = goodsName;
+        wolfTownStore.goodsName = goodsName;
       }
 
-      if (coin) {
-        wolfMarket.currency = coin;
-      }
 
-      console.log("wolfMarket.status ", wolfMarket.status);
-      const result = await marketList(wolfMarket, pageNo, pageSize);
+      console.log("wolfMarket.goodsType ", wolfTownStore.goodsType);
+      const result = await wolfTownStoreList(wolfTownStore, pageNo, pageSize);
 
       if (result?.result?.records) {
         setItems(result?.result?.records);
@@ -113,8 +109,8 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
   };
 
   const handleNextSong = async (selected: any) => {
-    const wolfMarket = new WolfMarket();
-    wolfMarket.id = selected.id;
+    const wolfTownStore = new WolfTownStore();
+    wolfTownStore.id = selected.id;
     if (selected.type == "1") {
       console.log(
         "amount.toNumber()",
@@ -126,10 +122,9 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
         setMessage("Your bid is too low!");
         return false;
       }
-      wolfMarket.biddingPrice = amount.toNumber();
+       
     }
-    wolfMarket.biddingPrice;
-    const result = await marketBuy(wolfMarket);
+    const result = await storeBuy(wolfTownStore);
     if (!result?.success) {
       setMessage(result.message);
     } else {
@@ -290,7 +285,7 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
               <div className="w-2/3 ml-2">
                 <div className="w-full">name:{item.goodsName}</div>
                 <div className="w-full">price:{item.price}</div>
-                <div className="w-full">Coin:{item.currency}</div>
+                <div className="w-full">Coin:{item.coin}</div>
               </div>
             </div>
           ))}

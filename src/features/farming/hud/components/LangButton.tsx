@@ -25,7 +25,7 @@ const LangButtonCpt: React.FC = () => {
 
   return (
     <InnerPanel
-      className={"fixed top-2 right-40 z-50 flex items-center shadow-lg"}
+      className={"fixed top-2 lang z-50 flex items-center shadow-lg"}
     >
       <select
         onClick={languageClick}

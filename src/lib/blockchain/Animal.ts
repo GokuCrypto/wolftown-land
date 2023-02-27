@@ -55,7 +55,7 @@ export class Animal {
 
   public async isApprovedForAll(spender: string) {
     return await this.contract.methods
-      .allowance(this.account, spender)
+      .isApprovedForAll(this.account, spender)
       .call();
   }
 
@@ -71,7 +71,7 @@ export class Animal {
   }
 
   public async getAniamls() {
-    const balance = await this.contract.methods.balanceOf(this.account)
+    const balance = await this.contract.methods.balanceOf(this.account).call()
     const calls = Array.from( { length: balance }).map((_,i) => {
       return {
         address: tokenAddress,

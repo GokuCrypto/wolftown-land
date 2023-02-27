@@ -251,8 +251,6 @@ img {
   }
 }
 
-
-
 .language-button {
   padding: 4px;
   box-shadow: 0px 0px 6px;
@@ -271,4 +269,18 @@ img {
 .language-button-globe {
   width: 25px;
   margin-left: 5px;
+}
+.lang {
+  right: 16.5rem;
+}
+.wallet {
+  right: 7rem;
+}
+.bigbox {
+  height: 5rem;
+  width: 5rem;
+}
+.bigbox-selected {
+  height: 5.5rem;
+  width: 5.5rem;
 }

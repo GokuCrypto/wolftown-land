@@ -9,6 +9,7 @@ import { Pair } from "./Pair";
 import { WishingWell } from "./WishingWell";
 import { Token } from "./Token";
 import { Wallet } from "./Wallet";
+import { Animal } from "./Animal";
 import { toHex, toWei, fromWei } from "web3-utils";
 import { CONFIG } from "lib/config";
 import { estimateGasPrice, parseMetamaskError } from "./utils";
@@ -34,6 +35,9 @@ export class Metamask {
   private tokenBUSD: Token | null = null;
   private tokenWTWOOL: Token | null = null;
   private tokenWTMILK: Token | null = null;
+
+  private animal: Animal | null = null;
+
 
   private wallet: Wallet | null = null;
 
@@ -74,7 +78,7 @@ export class Metamask {
       this.tokenWTWOOL = new Token(this.web3 as Web3, this.account as string, CONFIG.WTWOOL_CONTRACT)
       this.tokenWTMILK = new Token(this.web3 as Web3, this.account as string, CONFIG.WTMILK_CONTRACT)
       this.wallet = new Wallet(this.web3 as Web3, this.account as string, CONFIG.WALLET_CONTRACT)
-
+      this.animal = new Animal(this.web3 as Web3, this.account as string, CONFIG.ANIMAL_CONTRACT)
     } catch (e: any) {
       // Timeout, retry
       if (e.code === "-32005") {
@@ -283,6 +287,7 @@ export class Metamask {
       Build: "0"
     }
   }
+
   public async getAllowances() {
     const allowanceOfBUSD = await this.tokenBUSD?.allowance(CONFIG.WALLET_CONTRACT)
     const allowanceOfWOOL = await this.tokenWTWOOL?.allowance(CONFIG.WALLET_CONTRACT)
@@ -293,6 +298,11 @@ export class Metamask {
       WTWOOL: fromWei(allowanceOfWOOL),
       WTMILK: fromWei(allowanceOfMILK)
     }
+  }
+
+  public async getAnimals() {
+    const animals = await this.animal?.getAniamls()
+    return animals
   }
 
   public async approve(tokenType: string) {
@@ -309,8 +319,6 @@ export class Metamask {
   }
 
   public async deposit(tokenType: string, amount: string) {
-
-
     let token;
     if (tokenType === "BUSD") {
       token = CONFIG.BUSD_CONTRACT
@@ -320,6 +328,25 @@ export class Metamask {
       token = CONFIG.WTMILK_CONTRACT
     }
     return await this.wallet?.deposit(token, toWei(amount))
+  }
+
+
+  public async isApproved(nftType: string) {
+    if(nftType === 'animal') {
+      return await this.animal?.isApprovedForAll(CONFIG.WALLET_CONTRACT)
+    }
+  }
+
+  public async approveForAll(nftType: string) {
+    if(nftType === 'animal') {
+      return await this.animal?.approveForAll(CONFIG.WALLET_CONTRACT)
+    }
+  }
+
+  public async depositNFTs(nftType: string, ids: number[]) {
+    if (nftType === "animal") {
+      return await this.wallet?.depositNFTs(CONFIG.ANIMAL_CONTRACT, ids)
+    }
   }
 
   public async donate(

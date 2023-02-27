@@ -155,7 +155,7 @@ export const initApp = async function () {
 
 export const loginOut = async function () {
   // try{
-  //   firebase.auth().signOut();  
+  //   firebase.auth().signOut();
   // } catch(e) {
   //   console.log('err', e)
   // }
@@ -283,12 +283,20 @@ export const API_CONFIG = {
 
   /*市场表-分页列表查询*/
   marketList: `${HASH_GAME_API}/wolftown/marketList`,
+  /*市场-个人挂售表*/
+  myList: `${HASH_GAME_API}/wolftown/myList`,
+   /*市场-个人挂售表*/
+  wolfTownStoreList: `${HASH_GAME_API}/wolftown/wolfTownStoreList`,
 
   /*市场-上架*/
   marketAdd: `${HASH_GAME_API}/wolftown/marketAdd`,
 
   /*市场-出价*/
   marketBuy: `${HASH_GAME_API}/wolftown/marketBuy`,
+    /*市场-下架*/
+  marketRemove: `${HASH_GAME_API}/wolftown/marketRemove`,
+  /*市场-商店*/
+  storeBuy: `${HASH_GAME_API}/wolftown/storeBuy`,
   /*PVP战斗*/
   pvp: `${HASH_GAME_API}/wolftown/pvp`,
   /*战斗记录-分页列表查询*/
@@ -515,7 +523,7 @@ export const queryBagByName = async (goodsName: string) => {
       const result = await response.json();
 
       if (result.success) {
-        // 设置token 
+        // 设置token
         const wolfUserGoods = result.result.wolfUserGoods;
         console.log("response-wolfUserGoods", wolfUserGoods);
         return wolfUserGoods;
@@ -549,7 +557,7 @@ export const queryBagByType = async (goodsType: string, goodsName: string) => {
       const result = await response.json();
 
       if (result.success) {
-        // 设置token 
+        // 设置token
         const wolfUserGoods = result.result.wolfUserGoods;
         console.log("response-wolfUserGoods", wolfUserGoods);
         return wolfUserGoods;
@@ -763,7 +771,7 @@ export const putLand = async (landName: string, animals: string, shit: string) =
     if (response.status === 200) {
       const result = await response.json();
       if (result.success) {
-        // 放置结果数据 
+        // 放置结果数据
         console.log("response-wolfUserGoodsResult", result);
         return result;
       } else {
@@ -799,7 +807,7 @@ export const reapingLand = async (landId: string) => {
     if (response.status === 200) {
       const result = await response.json();
       if (result.success) {
-        // 放置结果数据 
+        // 放置结果数据
         console.log("response-wolfUserGoodsResult", result);
         return result;
       } else {
@@ -868,7 +876,7 @@ export const putArena = async (animalName: string, weapons: string, position: st
     if (response.status === 200) {
       const result = await response.json();
       if (result.success) {
-        // 放置结果数据 
+        // 放置结果数据
         console.log("response-putArena", result);
         return result;
       } else {
@@ -956,6 +964,90 @@ export const marketList = async (params: any, pageNo: string, pageSize: string) 
 
 }
 
+/* 获取市场贩卖商品列表 */
+export const wolfTownStoreList = async (params: any, pageNo: string, pageSize: string) => {
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+  if ((XAccessToken)) {
+
+    let url = API_CONFIG.wolfTownStoreList;
+    if (params) {
+      let paramsArray: any[] = [];
+      //拼接参数
+
+      Object.keys(params).forEach(key => paramsArray.push(key + '=' + (typeof params[key] == 'undefined' ? "" : params[key])))
+      if (url.search(/\?/) === -1) {
+        url += '?' + paramsArray.join('&')
+      } else {
+        url += '&' + paramsArray.join('&')
+      }
+    }
+
+    url += '&pageNo=' + pageNo
+    url += '&pageSize=' + pageSize
+    const response = await fetch(url, {
+      method: 'get', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+
+        console.log("response-marketList", result);
+        return result;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+/* 获取个人挂售列表 */
+export const myList = async (params: any, pageNo: string, pageSize: string) => {
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+  if ((XAccessToken)) {
+
+    let url = API_CONFIG.myList;
+    if (params) {
+      let paramsArray: any[] = [];
+      //拼接参数
+
+      Object.keys(params).forEach(key => paramsArray.push(key + '=' + (typeof params[key] == 'undefined' ? "" : params[key])))
+      if (url.search(/\?/) === -1) {
+        url += '?' + paramsArray.join('&')
+      } else {
+        url += '&' + paramsArray.join('&')
+      }
+    }
+
+    url += '&pageNo=' + pageNo
+    url += '&pageSize=' + pageSize
+    const response = await fetch(url, {
+      method: 'get', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+
+        console.log("response-marketList", result);
+        return result;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
 
 
 
@@ -1024,7 +1116,7 @@ export const airDrop = async () => {
     if (response.status === 200) {
       const result = await response.json();
       if (result.success) {
-        // 放置结果数据 
+        // 放置结果数据
         console.log("response-airDrop", result);
         return result;
       } else {

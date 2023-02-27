@@ -10,6 +10,8 @@ import { ANIMALS } from "features/game/types/craftables";
 import { MarketItems } from "././MarketItems";
 import * as Auth from "features/auth/lib/Provider";
 import { useActor } from "@xstate/react";
+import { MyListItems } from "././MyListItems";
+import { WolfTownStoreItems } from "././WolfTownStoreItems";
 
 interface Props {
   onClose: () => void;
@@ -52,8 +54,8 @@ export const BarnSale: React.FC<Props> = ({ onClose }) => {
         }}
       >
         {tab === "Market" && <MarketItems onClose={onClose} />}
-        {tab === "My List" && <MarketItems onClose={onClose} />}
-        {tab === "Store" && <MarketItems onClose={onClose} />}
+        {tab === "My List" && <MyListItems onClose={onClose} />}
+        {tab === "Store" && <WolfTownStoreItems onClose={onClose} />}
       </div>
     </Panel>
   );

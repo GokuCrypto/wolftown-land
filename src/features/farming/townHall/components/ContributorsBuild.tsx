@@ -1,15 +1,15 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CONFIG } from "lib/config";
-import { Modal } from "react-bootstrap";
-import close from "assets/icons/close.png";
+
 import logo from "assets/brand/wolflogo.png";
 import bumpkin from "assets/npcs/bumpkin.png";
 import goblin from "assets/npcs/goblin.gif";
 import man from "assets/npcs/idle.gif";
 import { buildList, build } from "hooks/WolfConfig";
 import { Build } from "hooks/modules/Build";
-import { Panel } from "components/ui/Panel";
+import { BuildItem } from "hooks/modules/BuildItem";
+
 import level1 from "assets/brand/1.png";
 import level2 from "assets/brand/2.png";
 import level3 from "assets/brand/3.png";
@@ -22,7 +22,6 @@ import {
   CONTRIBUTORS,
 } from "../constants/contributors";
 import { ITEM_DETAILS } from "features/game/types/images";
-import { ContributorsBuild } from "./ContributorsBuild";
 
 import { useShowScrollbar } from "lib/utils/hooks/useShowScrollbar";
 import classNames from "classnames";
@@ -45,9 +44,10 @@ const ROLE_BADGES: Record<ContributorRole, string> = {
 
 interface Props {
   onClose: () => void;
+  goodsType: string;
 }
 
-export const Contributors: React.FC<Props> = ({ onClose }) => {
+export const ContributorsBuild: React.FC<Props> = ({ onClose, goodsType }) => {
   const { ref: itemContainerRef, showScrollbar } =
     useShowScrollbar(TAB_CONTENT_HEIGHT);
   const navigate = useNavigate();
@@ -55,11 +55,8 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
   const [msg, setMsg] = useState("");
 
   const [buildItem, setBuildItem] = useState<Build[]>([]);
-
-  const [goodsType, setGoodsType] = useState("");
-
   const { t } = useTranslation();
-  const [isOpen, setIsOpen] = React.useState(false);
+
   const loadBagByType = async () => {
     setIsLoading(true);
     try {
@@ -78,6 +75,26 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
     }
   };
 
+  const buildInit = async (ids: string) => {
+    setIsLoading(true);
+    try {
+      const buildIt = new Build();
+      buildIt.id = ids;
+      buildIt.goodsType = goodsType;
+      const result = await build(buildIt);
+
+      if (result?.success) {
+        setMsg("Success Build");
+      } else {
+        setMsg(result?.message);
+      }
+
+      setIsLoading(false);
+    } catch (e: any) {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     loadBagByType();
   }, []);
@@ -86,12 +103,16 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
     <>
       {/* 建筑股权 */}
       <div className="flex flex-wrap justify-center items-center">
-        <img src={logo} className="w-2/3" />
-        <p className="text-xs text-center pt-2">
-          The construction of Wolf Town is in full swing. Now you need to donate
-          corresponding materials, and you will get corresponding rewards.
+        <p
+          style={{ color: "#af1d18", fontSize: "30px" }}
+          className="text-xs text-center pt-2"
+        >
+          {goodsType}
         </p>
+        <br />
         <p style={{ color: "red" }}>{msg}</p>
+        <br />
+        <br />
       </div>
       <div
         ref={itemContainerRef}
@@ -113,35 +134,13 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
               className="flex w-full mb-6 ml-3"
               id={item.goodsName}
             >
-              <div className="w-60 ml-4 flex justify-center">
-                {t(item.goodsType)}
+              <div className="w-20 ml-4 flex justify-center">
+                {item.goodsName}
               </div>
-              <div className="w-10 ml-4 flex justify-center">
-                LV.{item.level}
+              <div className="w-20 ml-4 flex justify-center">
+                <img src={item.goodsUrl} className="h-8" />
               </div>
 
-              <div className="w-20 ml-4 flex justify-center">
-                <img
-                  src={
-                    item.level == 1
-                      ? level1
-                      : item.level == 2
-                      ? level2
-                      : item.level == 3
-                      ? level3
-                      : item.level == 4
-                      ? level4
-                      : ""
-                  }
-                  className="h-8"
-                />
-              </div>
-              <div className="w-30 ml-4 flex justify-center">
-                {item.totalAmount + "(" + 0 + ")"}
-              </div>
-              <div className="w-10 ml-4 flex justify-center">
-                {item.personAmount}
-              </div>
               <div className="w-10 ml-4 flex justify-center">
                 x{item.amount}
               </div>
@@ -150,33 +149,16 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
                 <Button
                   className="w-30 bg-brown-200 active:bg-brown-200 "
                   onClick={() => {
-                    if (item.status == 1) {
-                      setGoodsType(item.goodsType);
-                      setIsOpen(true);
-                    }
+                    buildInit(item.id);
                   }}
                 >
-                  {item.status == 1 ? t("Details") : t("Coming soon")}
+                  {t("Build")}
                 </Button>
               </div>
             </div>
           ))}
         </div>
       </div>
-
-      <Modal centered show={isOpen} onHide={() => setIsOpen(false)}>
-        <Panel>
-          <img
-            src={close}
-            className="h-6 top-4 right-4 absolute cursor-pointer"
-            onClick={() => setIsOpen(false)}
-          />
-          <ContributorsBuild
-            goodsType={goodsType}
-            onClose={() => setIsOpen(false)}
-          />
-        </Panel>
-      </Modal>
     </>
   );
 };

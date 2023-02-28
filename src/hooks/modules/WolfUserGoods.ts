@@ -23,5 +23,8 @@ export class WolfUserGoods {
   public uid!: string;
   /**landLock*/
   public landLock!: string;
+
+  /**landLock*/
+  public pvpTime!: Date;
 }
 

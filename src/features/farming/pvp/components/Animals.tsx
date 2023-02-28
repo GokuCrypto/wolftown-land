@@ -11,6 +11,7 @@ import { reward } from "hooks/WolfConfig";
 import { WolfUserGoods } from "hooks/modules/WolfUserGoods";
 
 import { pvp } from "hooks/WHashConfig";
+import { parse } from "path";
 
 const ITEM_CARD_MIN_HEIGHT = "148px";
 
@@ -26,13 +27,51 @@ interface Props {
   onClose: () => void;
 }
 
-// const isSeed = (selectedItem: InventoryItemName) => selectedItem in SEEDS();
-
 export const Animals = ({ tabName, tabItems }: Props) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = React.useState(false);
   const [confirmation, setConfirmation] = useState("Send to Chain");
   const [message, setMessage] = useState("");
+
+  /**
+   * JS 计算两个时间间隔多久（时分秒）
+   * @param startTime "2019-10-23 15:27:23"
+   * @param endTime "2019-10-23 15:27:55"
+   * @return 1天2时3分5秒
+   */
+  const twoTimeInterval = (endTime: any, startTime: any) => {
+    // 开始时间
+
+    // 时间相差秒数
+    let dateDiff = endTime.getTime() - startTime.getTime();
+
+    // 计算出小时数
+    let hours = Math.floor(dateDiff / (3600 * 1000));
+
+    console.log(
+      "hourshourshourshourshours",
+      dateDiff,
+      startTime,
+      endTime,
+      hours
+    );
+
+    return hours;
+  };
+
+  var d1 = new Date();
+
+  const tabItemss = tabItems?.filter(
+    (val) =>
+      twoTimeInterval(d1, val?.pvpTime ? new Date(val?.pvpTime) : new Date()) >=
+        8 || !val?.pvpTime
+  );
+
+  const tabItemsItems = tabItems?.filter(
+    (val) =>
+      twoTimeInterval(d1, val?.pvpTime ? new Date(val?.pvpTime) : new Date()) <
+        8 && val?.pvpTime
+  );
 
   const [confirmationSynthesis, setConfirmationSynthesis] =
     useState("Synthesis");
@@ -128,32 +167,54 @@ export const Animals = ({ tabName, tabItems }: Props) => {
   return (
     <>
       <div className="flex" style={{ minHeight: TAB_CONTENT_HEIGHT }}>
-        <div className="w-3/5 flex flex-wrap h-fit">
-          {tabItems.length > 0 ? (
-            tabItems.map((item) => (
-              <Box
-                isSelected={selecteds?.some((val) => {
-                  return val.goodsName === item.goodsName;
-                })}
-                key={item.goodsName}
-                onClick={() => {
-                  if (
-                    !selecteds?.some((val) => {
-                      return val.goodsName === item.goodsName;
-                    })
-                  ) {
-                    selecteds.push(item);
-                    setSelecteds(selecteds);
-                    setIslodding(!isLodding);
-                  }
-                }}
-                image={item.goodsUrl}
-                count={new Decimal(item.amount)}
-              />
-            ))
-          ) : (
-            <span className="mt-2 ml-2 text-shadow">{t("No item")}</span>
-          )}
+        <div className="w-3/5  ">
+          <div
+            style={{ height: "200px" }}
+            className="w-3/5 flex flex-wrap h-fit "
+          >
+            {tabItemss?.length > 0 ? (
+              tabItemss?.map((item) => (
+                <Box
+                  isSelected={selecteds?.some((val) => {
+                    return val.goodsName === item.goodsName;
+                  })}
+                  key={item.goodsName}
+                  onClick={() => {
+                    if (
+                      !selecteds?.some((val) => {
+                        return val.goodsName === item.goodsName;
+                      })
+                    ) {
+                      selecteds.push(item);
+                      setSelecteds(selecteds);
+                      setIslodding(!isLodding);
+                    }
+                  }}
+                  image={item.goodsUrl}
+                  count={new Decimal(item.amount)}
+                />
+              ))
+            ) : (
+              <span className="mt-2 ml-2 text-shadow">{t("No item")}</span>
+            )}
+          </div>
+          <div className="w-3/5 flex flex-wrap h-fit">{t("Cooling item")}</div>
+          <div className="w-3/5 flex flex-wrap h-fit">
+            {tabItemsItems?.length > 0 ? (
+              tabItemsItems?.map((item) => (
+                <Box
+                  isSelected={selecteds?.some((val) => {
+                    return val.goodsName === item.goodsName;
+                  })}
+                  key={item.goodsName}
+                  image={item.goodsUrl}
+                  count={new Decimal(item.amount)}
+                />
+              ))
+            ) : (
+              <span className="mt-2 ml-2 text-shadow">{t("No item")}</span>
+            )}
+          </div>
         </div>
         <OuterPanel className="flex-1 w-1/3">
           <div className="flex flex-col justify-center items-center p-2 relative">

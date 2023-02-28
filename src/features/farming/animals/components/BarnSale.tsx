@@ -3,7 +3,8 @@ import React, { useContext, useState } from "react";
 import close from "assets/icons/close.png";
 import market from "assets/icons/market.png";
 import { useTranslation } from "react-i18next";
-
+import { MyListItems } from "././MyListItems";
+import { WolfTownStoreItems } from "././WolfTownStoreItems";
 import { Panel } from "components/ui/Panel";
 import { Tab } from "components/ui/Tab";
 import { ANIMALS } from "features/game/types/craftables";
@@ -52,8 +53,9 @@ export const BarnSale: React.FC<Props> = ({ onClose }) => {
         }}
       >
         {tab === "Market" && <MarketItems onClose={onClose} />}
-        {tab === "My List" && <MarketItems onClose={onClose} />}
-        {tab === "Store" && <MarketItems onClose={onClose} />}
+
+        {tab === "My List" && <MyListItems onClose={onClose} />}
+        {tab === "Store" && <WolfTownStoreItems onClose={onClose} />}
       </div>
     </Panel>
   );

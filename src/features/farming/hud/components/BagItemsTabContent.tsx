@@ -212,11 +212,11 @@ export const BagItemsTabContent = ({
                   {"------------"}
                 </span>
                 <span className="text-shadow text-center mt-2 sm:text-sm">
-                  {"power: "}
+                  {"Skill points: "}
                   {selected?.pow ? selected?.pow : 0}
                 </span>
                 <span className="text-shadow text-center mt-2 sm:text-sm">
-                  {"level: "} {selected?.level ? selected?.level : 1}
+                  {"level/power: "} {selected?.level ? selected?.level : 1}
                 </span>
               </>
             )}

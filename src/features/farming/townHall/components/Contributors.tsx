@@ -116,7 +116,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
               <div className="w-60 ml-4 flex justify-center">
                 {t(item.goodsType)}
               </div>
-              <div className="w-10 ml-4 flex justify-center">
+              {/*  <div className="w-10 ml-4 flex justify-center">
                 LV.{item.level}
               </div>
 
@@ -135,16 +135,16 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
                   }
                   className="h-8"
                 />
-              </div>
+              </div> */}
               <div className="w-30 ml-4 flex justify-center">
                 {item.totalAmount + "(" + 0 + ")"}
               </div>
               <div className="w-10 ml-4 flex justify-center">
                 {item.personAmount}
               </div>
-              <div className="w-10 ml-4 flex justify-center">
+              {/*   <div className="w-10 ml-4 flex justify-center">
                 x{item.amount}
-              </div>
+              </div> */}
 
               <div className="w-30 ml-8 flex justify-center">
                 <Button

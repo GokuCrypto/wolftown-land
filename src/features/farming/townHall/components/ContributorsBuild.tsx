@@ -137,6 +137,27 @@ export const ContributorsBuild: React.FC<Props> = ({ onClose, goodsType }) => {
               <div className="w-20 ml-4 flex justify-center">
                 {item.goodsName}
               </div>
+
+              <div className="w-10 ml-4 flex justify-center">
+                LV.{item.level}
+              </div>
+
+              {/* <div className="w-20 ml-4 flex justify-center">
+                <img
+                  src={
+                    item.level == 1
+                      ? level1
+                      : item.level == 2
+                      ? level2
+                      : item.level == 3
+                      ? level3
+                      : item.level == 4
+                      ? level4
+                      : ""
+                  }
+                  className="h-8"
+                />
+              </div> */}
               <div className="w-20 ml-4 flex justify-center">
                 <img src={item.goodsUrl} className="h-8" />
               </div>

@@ -39,7 +39,7 @@ export const TownHall: React.FC = () => {
         />
       </div>
 
-      <Modal size="xl" centered show={isOpen} onHide={() => setIsOpen(false)}>
+      <Modal size="lg" centered show={isOpen} onHide={() => setIsOpen(false)}>
         <Panel>
           <img
             src={close}

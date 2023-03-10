@@ -17,22 +17,23 @@ import { InventoryItemName } from "features/game/types/game";
 import { Goods } from "components/ui/Goods";
 
 import { WolfUserGoods } from "hooks/modules/WolfUserGoods";
-
+import { useTranslation } from 'react-i18next'; 
 import { queryBagByType, putLand, reapingLand } from "hooks/WolfConfig";
 import {
   reward,
   synthesis,
   getWolfUserGoodsToChainList,
 } from "hooks/WolfConfig";
-import { t } from "i18next";
 interface Props {
   items: Partial<Record<any, any>>;
   landData?: any;
   isBulk?: boolean;
   onClose: () => void;
   shitData?: any;
+   
 }
 /*操作台 */
+
 export const LandItems: React.FC<Props> = ({
   items,
   onClose,
@@ -42,7 +43,6 @@ export const LandItems: React.FC<Props> = ({
 }) => {
   const [selected, setSelected] = useState<any>(Object.values(items)[0]);
   const [selectedNum, setSelectedNum] = useState(0);
-
   const [landInfo, setLandinfo] = useState<any>({
     goodsName: landData.landId ? landData.landId : "Field Land 1",
     goodsUrl: landData.url
@@ -70,7 +70,7 @@ export const LandItems: React.FC<Props> = ({
   const [showCaptcha, setShowCaptcha] = useState(false);
 
   const [landBuilditems, setLandBuilditems] = useState(Object.values(items));
-
+  const { t } = useTranslation();
   const [message, setMessage] = useState("");
   const [
     {
@@ -140,7 +140,7 @@ export const LandItems: React.FC<Props> = ({
     const result = await putLand(landInfo.goodsName, animals, shit);
 
     if (!result.success) {
-      setMessage(result.message);
+   setMessage(result.message);  
     } else {
       setMessage("Land succeeded!");
     }
@@ -159,11 +159,13 @@ export const LandItems: React.FC<Props> = ({
     const result = await reapingLand(landInfo.id);
 
     if (!result.success) {
-      setMessage(result.message);
+    setMessage(result.message);    
     } else {
       setMessage("Land succeeded!");
     }
   };
+    
+    
 
   const Action = () => {
     return (
@@ -252,8 +254,8 @@ export const LandItems: React.FC<Props> = ({
       <OuterPanel className="flex-1 w-2/3">
         <div className="flex flex-col justify-center items-center p-2 relative">
           <span className=" text-shadow text-center">{t("My Land")}</span>
-
-          {bagLand?.map((item) => (
+          <div style={{ height: "220px", overflowY: "scroll",paddingRight: "20px" }}>
+            {bagLand?.map((item) => (
             <Box
               key={item.goodsName}
               image={item.goodsUrl}
@@ -264,7 +266,8 @@ export const LandItems: React.FC<Props> = ({
                 });
               }}
             />
-          ))}
+          ))}</div>
+          
 
           <div className="border-t border-white w-full mt-2 pt-1">
             <div className="flex justify-center items-end"></div>
@@ -291,11 +294,12 @@ export const LandItems: React.FC<Props> = ({
           </div>
         </div>
       </OuterPanel>
-      <OuterPanel className="flex-1 w-2/3">
-        <div className="flex flex-col justify-center items-center p-2 relative">
+      <OuterPanel className="flex-1 w-2/3" >
+        <div className="flex flex-col justify-center items-center p-2 relative" 
+        >
           <span className="text-shadow text-center">{t("My animals")}</span>
-
-          {bagAnimal?.map((item) => (
+          <div style={{ height: "220px", overflowY: "scroll",paddingRight: "20px" }}>          
+            {bagAnimal?.map((item) => (
             <Box
               key={item.goodsName}
               image={item.goodsUrl}
@@ -318,7 +322,8 @@ export const LandItems: React.FC<Props> = ({
                 }
               }}
             />
-          ))}
+          ))}</div>
+
 
           <div className="border-t border-white w-full mt-2 pt-1">
             <div className="flex justify-center items-end"></div>

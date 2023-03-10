@@ -34,8 +34,8 @@ export interface BagItem {
   image: string;
   amount: number;
   attribute: string;//0 可以合成  1 可兑换
-  pow: string
-  level: string
+  pow: number
+  level: number
 
 }
 

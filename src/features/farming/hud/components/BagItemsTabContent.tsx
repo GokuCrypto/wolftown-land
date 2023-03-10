@@ -86,11 +86,23 @@ export const BagItemsTabContent = ({
     selectedItem || tabItems[0]
   );
 
-  const [price, setPrice] = useState(new Decimal(0));
+  const [price, setPrice] = useState(new Decimal(0));    
   const [coinType, setCoinType] = useState("BUSD");
   const [type, setType] = useState("Price");
   const [dateValue, setDateValue] = useState<any>(new Date());
-
+  //根据技能得到算力等级
+  const levelUP = ()=>{
+    if(selected?.pow && selected.pow <= 100){
+        return 1;
+    }
+    else {
+      let calculatedLevel = Math.ceil(( selected?.pow||0- 100) / 200) + 1;
+      if(calculatedLevel>=100){
+        return 100;
+      }
+      else return calculatedLevel;
+    }
+  }
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === "") {
       setPrice(new Decimal(0));
@@ -212,11 +224,12 @@ export const BagItemsTabContent = ({
                   {"------------"}
                 </span>
                 <span className="text-shadow text-center mt-2 sm:text-sm">
-                  {"Skill points: "}
-                  {selected?.pow ? selected?.pow : 0}
+                  {"Skill points: "}  
+                  {selected?.pow ? selected?.pow :selected.pow}
                 </span>
                 <span className="text-shadow text-center mt-2 sm:text-sm">
-                  {"level/power: "} {selected?.level ? selected?.level : 1}
+                
+                {"level/power: "} {selected?.level ? selected?.level :levelUP()}
                 </span>
               </>
             )}

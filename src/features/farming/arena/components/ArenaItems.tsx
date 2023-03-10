@@ -191,8 +191,8 @@ export const ArenaItems: React.FC<Props> = ({
       <OuterPanel className="flex-1 w-2/3">
         <div className="flex flex-col justify-center items-center p-2 relative">
           <span className=" text-shadow text-center">{t("My Animal")}</span>
-
-          {bagAnimal?.map((item) => (
+            <div style={{ height: "220px", overflowY: "scroll",paddingRight: "20px" }}>
+            {bagAnimal?.map((item) => (
             <Box
               key={item.goodsName}
               image={item.goodsUrl}
@@ -204,10 +204,12 @@ export const ArenaItems: React.FC<Props> = ({
               }}
             />
           ))}
-
+            </div>
           <div className="border-t border-white w-full mt-2 pt-1">
             <div className="flex justify-center items-end"></div>
           </div>
+
+
         </div>
       </OuterPanel>
       <OuterPanel className="flex-1 w-2/3 ">

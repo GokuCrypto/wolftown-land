@@ -144,6 +144,7 @@ export const CraftingItems: React.FC<Props> = ({
         ))}
       </div>
       <OuterPanel className="flex-1 w-2/3">
+
         <div className="flex flex-col justify-center items-center p-2 relative">
           <span className="text-shadow text-center">{selected.name}</span>
           <img
@@ -161,8 +162,8 @@ export const CraftingItems: React.FC<Props> = ({
               const lessIngredient = new Decimal(
                 inventory[ingredient.item] || 0
               ).lessThan(ingredient.amount);
-
               return (
+                
                 <div className="flex justify-center items-end" key={index}>
                   <img
                     src={item.image}
@@ -180,7 +181,7 @@ export const CraftingItems: React.FC<Props> = ({
                   >
                     {ingredient.amount.toNumber()}
                   </span>
-                  <Goods item={ingredient} />
+                  <Goods item={ingredient}  />
                 </div>
               );
             })}

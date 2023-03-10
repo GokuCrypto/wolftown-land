@@ -34,7 +34,7 @@ export const Invite: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-end mr-2 sm:block fixed top-16 right-12 z-50">
+    <div className="flex flex-col items-end mr-2 sm:block fixed top-16 right-15 z-50">
       <div
         className="w-12 h-12 sm:mx-8 mt-2 mr-1 relative flex justify-center items-center shadow rounded-full cursor-pointer"
         onClick={handleInventoryClick}

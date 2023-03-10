@@ -5,14 +5,14 @@ import { useActor } from "@xstate/react";
 
 import basket from "assets/icons/basket.png";
 import button from "assets/ui/button/round_button.png";
-import bag from "assets/wt/backpack.png";
+import bag from "assets/wt/invite.png";
 
 import { Label } from "components/ui/Label";
 import { Box } from "components/ui/Box";
 
 import { ERRORS } from "lib/errors";
 import { InventoryItems } from "./InventoryItems";
-import { BagItems } from "./BagItems";
+import { InviteDetail } from "./InviteDetail";
 import { Context } from "features/game/GameProvider";
 
 // import { getShortcuts } from "../lib/shortcuts";
@@ -20,7 +20,7 @@ import { Context } from "features/game/GameProvider";
 
 import { queryBaglist } from "hooks/WolfConfig";
 
-export const Bag: React.FC = () => {
+export const Invite: React.FC = () => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const { shortcutItem, gameService } = useContext(Context);
@@ -34,14 +34,16 @@ export const Bag: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-end mr-2 sm:block fixed top-16 right-0 z-50">
+    <div className="flex flex-col items-end mr-2 sm:block fixed top-16 right-12 z-50">
       <div
-        className="w-12 h-12 sm:mx-8 mt-2 relative flex justify-center items-center shadow rounded-full cursor-pointer"
+        className="w-12 h-12 sm:mx-8 mt-2 mr-1 relative flex justify-center items-center shadow rounded-full cursor-pointer"
         onClick={handleInventoryClick}
       >
         <img src={bag} className="absolute w-full h-full -z-10" alt="Bag" />
         {/*<img src={bag} className="w-8 mb-1" alt="inventory" />*/}
-        <Label className="hidden sm:block absolute -bottom-7">{t("Bag")}</Label>
+        <Label className="hidden sm:block absolute -bottom-7">
+          {t("Invite")}
+        </Label>
       </div>
 
       <Modal
@@ -51,7 +53,7 @@ export const Bag: React.FC = () => {
         show={isOpen}
         onHide={() => setIsOpen(false)}
       >
-        <BagItems onClose={() => setIsOpen(false)} />
+        <InviteDetail onClose={() => setIsOpen(false)} />
       </Modal>
     </div>
   );

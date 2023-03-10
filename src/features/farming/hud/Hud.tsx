@@ -4,6 +4,8 @@ import { Balance } from "./components/Balance";
 import { LangButton } from "./components/LangButton";
 import { Inventory } from "./components/Inventory";
 import { Bag } from "./components/Bag";
+import { Invite } from "./components/Invite";
+
 import { Menu } from "./components/Menu";
 import { AudioPlayer } from "components/ui/AudioPlayer";
 import { VisitBanner } from "./components/VisitBanner";
@@ -21,6 +23,7 @@ export const Hud: React.FC = () => {
       <Balance />
       <NftWallet />
       <Bag />
+      <Invite />
       {/*<AudioPlayer isFarming />*/}
       <VisitBanner />
     </div>

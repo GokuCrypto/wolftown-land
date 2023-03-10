@@ -3,11 +3,13 @@ import { useTranslation } from "react-i18next";
 import { InnerPanel } from "components/ui/Panel";
 import lang from "assets/icons/lang.svg";
 import { withDefaultProps } from "./Rxt";
+import { useIsMobile } from "lib/utils/hooks/useIsMobile";
+
 const defaultProps = {};
 type CptProps = {} & typeof defaultProps;
 const LangButtonCpt: React.FC = () => {
   const { i18n } = useTranslation();
-
+  const [isMobile] = useIsMobile();
   const languageClick = useCallback(async (e) => {
     console.log(e.target.value);
     if (e.target.value === "en") {
@@ -25,22 +27,39 @@ const LangButtonCpt: React.FC = () => {
 
   return (
     <InnerPanel
-      className={"fixed top-2 lang z-50 flex items-center shadow-lg"}
+      className={"fixed bottom-2 right-1 lang z-50 flex items-center shadow-lg"}
     >
-      <select
-        onClick={languageClick}
-        className="language-button-select"
-        defaultValue={i18n.language || "en"}
-      >
-        <option value="en">En</option>
-        <option value="zh">CN</option>
-      </select>
-      <img
-        src={lang}
-        onClick={languageClick}
-        style={{ width: "25px" }}
-        alt="LangIcon"
-      />
+      {!isMobile && (
+        <>
+          <select
+            onClick={languageClick}
+            className="language-button-select"
+            defaultValue={i18n.language || "en"}
+          >
+            <option value="en">En</option>
+            <option value="zh">CN</option>
+          </select>
+          <img
+            src={lang}
+            onClick={languageClick}
+            style={{ width: "25px" }}
+            alt="LangIcon"
+          />
+        </>
+      )}
+
+      {isMobile && (
+        <>
+          <select
+            onClick={languageClick}
+            className="language-button-select"
+            defaultValue={i18n.language || "en"}
+          >
+            <option value="en">En</option>
+            <option value="zh">CN</option>
+          </select>
+        </>
+      )}
     </InnerPanel>
   );
 };

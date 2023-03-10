@@ -219,8 +219,8 @@ export const isLoggedIn = function () {
 
 // export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/";
 /* test */
- export const HASH_GAME_API = "https://devapi.wolftown.games/jeecg-boot"; 
-/* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
+/* export const HASH_GAME_API = "https://devapi.wolftown.games/jeecg-boot"; */
+export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/";
 /* test */
 
 export const APP_WOLF_API = "https://app.wolftown.games/images/wtanimalsSmall/";
@@ -232,7 +232,7 @@ export const API_CONFIG = {
   Register: `${HASH_GAME_API}/auth/register`,
   SendSms: `${HASH_GAME_API}/account/sms`,
   // get my info
-  UserInfo: `${HASH_GAME_API}/sys/user/getUserInfo`,
+  UserInfo: `${HASH_GAME_API}/wolftown/getUserInfo`,
   // get account info
   getAccount: `${HASH_GAME_API}/game/getAccount`,
   // get bag info

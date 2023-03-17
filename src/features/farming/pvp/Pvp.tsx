@@ -14,6 +14,7 @@ import { Action } from "components/ui/Action";
 import { getLandGameList, APP_WOLF_API } from "hooks/WolfConfig";
 import { size } from "lodash";
 import heart from "assets/wt/wolf.png";
+import { useTranslation } from "react-i18next";
 export class LandInfo {
   public landId?: string;
   public url?: string;
@@ -28,7 +29,7 @@ export const Pvp: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [landId, setLandId] = React.useState("");
   const [clickNumber, setClickNumber] = React.useState(0);
-
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {}, []);
@@ -64,7 +65,7 @@ export const Pvp: React.FC = () => {
           <Action
             icon={heart}
             className="absolute bottom-24 left-8"
-            text="Town PVP"
+            text={t("Town SVW")}
             onClick={() => setIsOpen(true)}
           />
         </div>

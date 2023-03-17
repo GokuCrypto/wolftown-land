@@ -54,5 +54,24 @@
   "Input amount to withdraw": "输入提现金额",
   "Withdraw Address": "提现地址",
   "You will receive": "你将收到",
-  "tax": "税费"
+  "tax": "税费",
+  "It's not time to harvest":"未到收割时间",
+  "Craft":"制造工坊",
+  "Town Arean":"狼镇攻防战",
+  "Land":"土地",
+  "MarKettt":"交易市场",
+  "Town SVW":"多人对战",
+  "Recovers in:":"恢复于",
+  "Come Town Build":"建设狼镇",
+  "Market":"交易市场",
+  "Wolf":"狼群",
+  "Lottery":"抽奖",
+  "Arena":"攻防战",
+  "PVP":"多人对战",
+  "Build":"建设狼镇",
+  "Wolf Town Market":"自由市集",
+  "My List":"个人挂售",
+  "Wolf Town Store":"商店"
+
+
 }

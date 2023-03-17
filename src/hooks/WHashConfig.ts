@@ -6,7 +6,7 @@ import { ERRORS } from "lib/errors";
 import { WolfMarket } from './modules/WolfMarket';
 
 import { PvpData } from './modules/PvpData';
-
+import { Animal } from 'features/farming/pvp/components/Animal';
 import { WolfTownStore } from './modules/WolfTownStore';
 /* 获取地址信息 */
 export const getUserAddress = async (): Promise<string> => {
@@ -442,4 +442,32 @@ export const storeBuy = async (wolfTownStore: WolfTownStore) => {
 
 
 
+}
+
+
+/*解除pvp冷却时间*/
+export const handleClearCoolingTime = async (selectedGoodsNames:string[] ) => {
+  const XAccessToken = localStorage.getItem('XAccessToken');
+
+  if ((XAccessToken)) {
+  const response = await fetch(API_CONFIG.handleClearCoolingTime, {
+    method: 'POST',
+    headers: {
+      'X-Access-Token': XAccessToken,
+      'token': XAccessToken,
+      'Content-Type': 'application/json;charset=UTF-8',
+    },
+    body:JSON.stringify({selectedGoodsNames}),
+  });
+  if (response.status === 200) {
+    const result = await response.json();
+    if (result.success) {
+      console.log("response-handleClearCoolingTime", result);
+      return result;
+    }
+  } else if (response.status === 401) {
+    await loginOut()
+    throw new Error(ERRORS.SESSION_EXPIRED)
+  }
+}
 }

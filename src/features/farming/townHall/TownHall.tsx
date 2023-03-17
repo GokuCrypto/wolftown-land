@@ -33,7 +33,7 @@ export const TownHall: React.FC = () => {
         <img src={townHall} alt="market" onClick={open} className="w-full" />
         <Action
           className="absolute bottom-24 left-8"
-          text="Town Build"
+          text={t("Come Town Build")}
           icon={heart}
           onClick={open}
         />

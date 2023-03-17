@@ -2,7 +2,7 @@ import { Box } from "components/ui/Box";
 import { Button } from "components/ui/Button";
 import { OuterPanel } from "components/ui/Panel";
 import Decimal from "decimal.js-light";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { PvpData } from "hooks/modules/PvpData";
 import Datetime from "react-datetime";
@@ -10,8 +10,9 @@ import Datetime from "react-datetime";
 import { reward } from "hooks/WolfConfig";
 import { WolfUserGoods } from "hooks/modules/WolfUserGoods";
 
-import { pvp } from "hooks/WHashConfig";
+import { pvp ,handleClearCoolingTime} from "hooks/WHashConfig";
 import { parse } from "path";
+
 
 const ITEM_CARD_MIN_HEIGHT = "148px";
 
@@ -82,11 +83,11 @@ export const Animals = ({ tabName, tabItems }: Props) => {
   const [selecteds, setSelecteds] = useState<WolfUserGoods[]>([]);
 
   const [price, setPrice] = useState(new Decimal(0));
-
+  const [showClearButton, setShowClearButton] = useState(false);
   const [type, setType] = useState("1");
   const [dateValue, setDateValue] = useState<any>(new Date());
   const [isLodding, setIslodding] = useState(false);
-
+const [selectedGoodsNames, setSelectedGoodsNames] = useState<string[]>([]);
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === "") {
       setPrice(new Decimal(0));
@@ -151,6 +152,27 @@ export const Animals = ({ tabName, tabItems }: Props) => {
         >
           {t("Battle")}
         </Button>
+        {showClearButton && (
+        <Button
+        className="text-xs mt-3" 
+        onClick={() => {
+          // 清除冷却时间的代码...
+        handleClearCoolingTime(selectedGoodsNames).then(result => {
+          if (result?.message) {
+            setMessage(result.message);
+          } else {
+            setMessage("Successful clearn");
+          }
+        console.log(result);
+        }).catch(error => {
+        console.error(error);
+        });
+ ;
+          }}>
+            
+            {t("Clear Cooling Time") + "\n" + "500WTWOOL/animal"}
+        </Button>
+        )}
         <span className="text-xs text-base"> {message} </span>
       </div>
     );
@@ -207,13 +229,28 @@ export const Animals = ({ tabName, tabItems }: Props) => {
                     return val.goodsName === item.goodsName;
                   })}
                   key={item.goodsName}
+                  onClick={() => {
+                    if (
+                      !selecteds?.some((val) => {
+                        return val.goodsName === item.goodsName;
+                      })
+                    ) {
+                      // selecteds.push({...item});
+                      setSelecteds((prev) => [...prev, {...item}]);
+                      setIslodding(!isLodding);
+                      setSelectedGoodsNames((prev) => [...prev, item.goodsName]); // 存储选中的 goodsName
+                    }
+                    setShowClearButton(true);
+                   }}
                   image={item.goodsUrl}
                   count={new Decimal(item.amount)}
                 />
               ))
             ) : (
               <span className="mt-2 ml-2 text-shadow">{t("No item")}</span>
-            )}
+            )
+            }
+            
           </div>
         </div>
         <OuterPanel className="flex-1 w-1/3">

@@ -19,11 +19,11 @@ export const Hud: React.FC = () => {
   return (
     <div data-html2canvas-ignore="true" aria-label="Hud">
       <Menu />
-      <LangButton />
+      {/* <LangButton /> */}
       <Balance />
       <NftWallet />
       <Bag />
-      <Invite />
+      {/* <Invite /> */}
       {/*<AudioPlayer isFarming />*/}
       <VisitBanner />
     </div>

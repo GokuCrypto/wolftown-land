@@ -3,7 +3,7 @@ import { useActor } from "@xstate/react";
 import { Modal } from "react-bootstrap";
 
 import { Context } from "features/game/GameProvider";
-
+import { useTranslation } from "react-i18next";
 import barn from "assets/buildings/barn.png";
 import market from "assets/icons/market.png";
 import { barnAudio } from "lib/utils/sfx";
@@ -17,7 +17,7 @@ export const Barn: React.FC = () => {
   const { gameService } = useContext(Context);
   const [gameState] = useActor(gameService);
   const [isOpen, setIsOpen] = React.useState(false);
-
+  const { t } = useTranslation();
   const isNotReadOnly = !gameState.matches("readonly");
 
   const openBarn = () => {
@@ -44,7 +44,7 @@ export const Barn: React.FC = () => {
         {isNotReadOnly && (
           <Action
             className="absolute bottom-12 left-16"
-            text="Market"
+            text={t("MarKettt")}
             icon={market}
             onClick={openBarn}
           />

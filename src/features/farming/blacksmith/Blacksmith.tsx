@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useActor } from "@xstate/react";
 import { Modal } from "react-bootstrap";
 import classNames from "classnames";
-
+import { useTranslation } from "react-i18next";
 import { Context } from "features/game/GameProvider";
 
 import blacksmith from "assets/buildings/blacksmith_building.gif";
@@ -18,7 +18,7 @@ export const Blacksmith: React.FC = () => {
   const { gameService } = useContext(Context);
   const [gameState] = useActor(gameService);
   const [isOpen, setIsOpen] = React.useState(false);
-
+  const { t } = useTranslation();
   const isNotReadOnly = !gameState.matches("readonly");
 
   const openBlacksmith = () => {
@@ -55,7 +55,7 @@ export const Blacksmith: React.FC = () => {
         {isNotReadOnly && (
           <Action
             className="absolute -bottom-8 left-1"
-            text="Craft"
+            text={t("Craft")}
             icon={hammer}
             onClick={openBlacksmith}
           />

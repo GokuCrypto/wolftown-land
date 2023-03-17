@@ -27,24 +27,26 @@ const LangButtonCpt: React.FC = () => {
 
   return (
     <InnerPanel
-      className={"fixed bottom-2 right-1 lang z-50 flex items-center shadow-lg"}
+    
+    className="col p-1"
+      // className={"fixed bottom-2 right-1 lang z-50 flex items-center shadow-lg"}
     >
       {!isMobile && (
         <>
           <select
             onClick={languageClick}
-            className="language-button-select"
+            className=" language-button-select"
             defaultValue={i18n.language || "en"}
           >
             <option value="en">En</option>
             <option value="zh">CN</option>
           </select>
-          <img
+          {/* <img
             src={lang}
             onClick={languageClick}
-            style={{ width: "25px" }}
+            style={{ width: "25px", verticalAlign: "middle" }}
             alt="LangIcon"
-          />
+          /> */}
         </>
       )}
 

@@ -9,9 +9,11 @@ import { Contributors } from "./components/Contributors";
 import { UseArenaScrollIntoView } from "./components/Contributors";
 import heart from "assets/wt/wolf.png";
 import { Action } from "components/ui/Action";
+import { useTranslation } from "react-i18next";
+
 export const Arena: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
-
+  const { t } = useTranslation();
   return (
     // Container
     <div
@@ -44,7 +46,7 @@ export const Arena: React.FC = () => {
           <Action
             icon={heart}
             className="absolute bottom-24 ml-8"
-            text="Town Arean"
+            text={t("Town Arean")}
             onClick={() => setIsOpen(true)}
           />
         </div>

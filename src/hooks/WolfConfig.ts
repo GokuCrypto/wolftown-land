@@ -155,7 +155,7 @@ export const initApp = async function () {
 
 export const loginOut = async function () {
   // try{
-  //   firebase.auth().signOut();  
+  //   firebase.auth().signOut();
   // } catch(e) {
   //   console.log('err', e)
   // }
@@ -215,7 +215,7 @@ export const isLoggedIn = function () {
 
 
 
-// export const HASH_GAME_API = "https://api.wolftown.games/jeecg-boot"; 
+// export const HASH_GAME_API = "https://api.wolftown.games/jeecg-boot";
 
 // export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/";
 /* test */
@@ -272,8 +272,8 @@ export const API_CONFIG = {
 
   /*土地列表信息*/
   getLandGameList: `${HASH_GAME_API}/wolftown/getLandGameList`,
-
-
+  /*解除pvp冷却时间*/
+  handleClearCoolingTime: `${HASH_GAME_API}/wolftown/handleClearCoolingTime`,
   /*放置战斗动物*/
   putArena: `${HASH_GAME_API}/wolftown/putArena`,
 
@@ -527,7 +527,7 @@ export const queryBagByName = async (goodsName: string) => {
       const result = await response.json();
 
       if (result.success) {
-        // 设置token 
+        // 设置token
         const wolfUserGoods = result.result.wolfUserGoods;
         console.log("response-wolfUserGoods", wolfUserGoods);
         return wolfUserGoods;
@@ -561,7 +561,7 @@ export const queryBagByType = async (goodsType: string, goodsName: string) => {
       const result = await response.json();
 
       if (result.success) {
-        // 设置token 
+        // 设置token
         const wolfUserGoods = result.result.wolfUserGoods;
         console.log("response-wolfUserGoods", wolfUserGoods);
         return wolfUserGoods;
@@ -775,7 +775,7 @@ export const putLand = async (landName: string, animals: string, shit: string) =
     if (response.status === 200) {
       const result = await response.json();
       if (result.success) {
-        // 放置结果数据 
+        // 放置结果数据
         console.log("response-wolfUserGoodsResult", result);
         return result;
       } else {
@@ -811,7 +811,7 @@ export const reapingLand = async (landId: string) => {
     if (response.status === 200) {
       const result = await response.json();
       if (result.success) {
-        // 放置结果数据 
+        // 放置结果数据
         console.log("response-wolfUserGoodsResult", result);
         return result;
       } else {
@@ -880,7 +880,7 @@ export const putArena = async (animalName: string, weapons: string, position: st
     if (response.status === 200) {
       const result = await response.json();
       if (result.success) {
-        // 放置结果数据 
+        // 放置结果数据
         console.log("response-putArena", result);
         return result;
       } else {
@@ -1036,7 +1036,7 @@ export const airDrop = async () => {
     if (response.status === 200) {
       const result = await response.json();
       if (result.success) {
-        // 放置结果数据 
+        // 放置结果数据
         console.log("response-airDrop", result);
         return result;
       } else {
@@ -1181,6 +1181,50 @@ export const transactionFlowList = async (params: any, pageNo: string, pageSize:
   }
 
 }
+//建筑贡献表
+export const totalContribute = async (params: any, pageNo: string, pageSize: string) => {
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  if (XAccessToken) {
+    let url = API_CONFIG.transactionFlowList;
+    if (params) {
+      let paramsArray: any[] = [];
+      Object.keys(params).forEach(key => paramsArray.push(key + '=' + (typeof params[key] == 'undefined' ? "" : params[key])))
+      if (url.search(/\?/) === -1) {
+        url += '?' + paramsArray.join('&')
+      } else {
+        url += '&' + paramsArray.join('&')
+      }
+    }
+    url += '&pageNo=' + pageNo
+    url += '&pageSize=' + pageSize
+    const response = await fetch(url, {
+      method: 'get', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result?.success) {
+        console.log("response-transactionFlowList", result);
+
+        const columns = Object.keys(result.data[0]);
+        const columnSums: { [key: string]: number } = {};
+        columns.forEach((column) => {
+          const sum = result.data.reduce((total:number, row:number) => {
+            return total + (row[column] || 0);
+          }, 0);
+          columnSums[column] = sum;
+        });
+        return columnSums;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+}
 
 
 /* 获取市场贩卖商品列表 */
@@ -1257,7 +1301,7 @@ export const myList = async (params: any, pageNo: string, pageSize: string) => {
       const result = await response.json();
       if (result.success) {
 
-        console.log("response-marketList", result);
+        console.log("response-myList", result);
         return result;
       }
     } else if (response.status === 401) {
@@ -1267,6 +1311,7 @@ export const myList = async (params: any, pageNo: string, pageSize: string) => {
   }
 
 }
+
 
 
 

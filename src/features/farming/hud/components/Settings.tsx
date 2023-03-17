@@ -5,7 +5,7 @@ import * as Auth from "features/auth/lib/Provider";
 import { Modal } from "react-bootstrap";
 import { Button } from "components/ui/Button";
 import { Panel } from "components/ui/Panel";
-
+import { LangButton } from "features/farming/hud/components/LangButton";
 import alert from "assets/icons/expression_alerted.png";
 import { Context } from "features/game/GameProvider";
 import { useTranslation } from 'react-i18next'; 
@@ -64,6 +64,7 @@ export const Settings: React.FC<Props> = ({ isOpen, onClose }) => {
     }
     return (
       <div className="flex flex-col">
+        <LangButton/>
         <Button className="col p-1" onClick={onLogout}>
           {t("Logout")}
         </Button>

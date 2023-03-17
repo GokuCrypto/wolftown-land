@@ -7,7 +7,7 @@ import logo from "assets/brand/wolflogo.png";
 import bumpkin from "assets/npcs/bumpkin.png";
 import goblin from "assets/npcs/goblin.gif";
 import man from "assets/npcs/idle.gif";
-import { buildList, build } from "hooks/WolfConfig";
+import { buildList, build,  totalContribute, transactionFlowList, } from "hooks/WolfConfig";
 import { Build } from "hooks/modules/Build";
 import { Panel } from "components/ui/Panel";
 import level1 from "assets/brand/1.png";
@@ -46,7 +46,6 @@ const ROLE_BADGES: Record<ContributorRole, string> = {
 interface Props {
   onClose: () => void;
 }
-
 export const Contributors: React.FC<Props> = ({ onClose }) => {
   const { ref: itemContainerRef, showScrollbar } =
     useShowScrollbar(TAB_CONTENT_HEIGHT);
@@ -57,14 +56,13 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
   const [buildItem, setBuildItem] = useState<Build[]>([]);
 
   const [goodsType, setGoodsType] = useState("");
-
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = React.useState(false);
+
   const loadBagByType = async () => {
     setIsLoading(true);
     try {
       const buildIt = new Build();
-
       const result = await buildList(buildIt, "1", "1000");
 
       if (result?.result?.records) {
@@ -80,6 +78,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
 
   useEffect(() => {
     loadBagByType();
+    
   }, []);
 
   return (
@@ -137,7 +136,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
                 />
               </div> */}
               <div className="w-30 ml-4 flex justify-center">
-                {item.totalAmount + "(" + 0 + ")"}
+                {item.totalAmount + "(" + `${item.totalGuAmount}` + ")"}
               </div>
               <div className="w-10 ml-4 flex justify-center">
                 {item.personAmount}

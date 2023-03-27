@@ -219,8 +219,8 @@ export const isLoggedIn = function () {
 
 // export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/";
 /* test */
-/* export const HASH_GAME_API = "https://devapi.wolftown.games/jeecg-boot"; */
-export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/";
+export const HASH_GAME_API = "https://devapi.wolftown.games/jeecg-boot";
+/* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
 /* test */
 
 export const APP_WOLF_API = "https://app.wolftown.games/images/wtanimalsSmall/";
@@ -1212,7 +1212,7 @@ export const totalContribute = async (params: any, pageNo: string, pageSize: str
         const columns = Object.keys(result.data[0]);
         const columnSums: { [key: string]: number } = {};
         columns.forEach((column) => {
-          const sum = result.data.reduce((total:number, row:number) => {
+          const sum = result.data.reduce((total: number, row: number) => {
             return total + (row[column] || 0);
           }, 0);
           columnSums[column] = sum;

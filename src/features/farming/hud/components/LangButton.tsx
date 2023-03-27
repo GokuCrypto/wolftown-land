@@ -26,11 +26,7 @@ const LangButtonCpt: React.FC = () => {
   }, []);
 
   return (
-    <InnerPanel
-    
-    className="col p-1"
-      // className={"fixed bottom-2 right-1 lang z-50 flex items-center shadow-lg"}
-    >
+    <InnerPanel className="col p-1 d-flex  justify-content-center ">
       {!isMobile && (
         <>
           <select

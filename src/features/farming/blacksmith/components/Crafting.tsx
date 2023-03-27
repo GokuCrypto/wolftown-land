@@ -9,6 +9,8 @@ import { Tab } from "components/ui/Tab";
 import { SynthesisGoods, ExchangesGoods } from "features/game/types/craftables";
 import { ExchangeGoods } from "./ExchangeGoods";
 import { ExchangeRecord } from "./ExchangeRecord";
+import { Repair } from "./Repair";
+
 import { CraftingItems } from "./CraftingItems";
 import { useTranslation } from "react-i18next";
 
@@ -32,6 +34,9 @@ export const Crafting: React.FC<Props> = ({ onClose }) => {
           <Tab isActive={tab === "record"} onClick={() => setTab("record")}>
             <span className="text-sm text-shadow">{t(" record")}</span>
           </Tab>
+          <Tab isActive={tab === "repair"} onClick={() => setTab("repair")}>
+            <span className="text-sm text-shadow">{t(" repair")}</span>
+          </Tab>
         </div>
         <img
           src={close}
@@ -54,6 +59,9 @@ export const Crafting: React.FC<Props> = ({ onClose }) => {
 
         {tab === "record" && (
           <ExchangeRecord items={SynthesisGoods} isBulk onClose={onClose} />
+        )}
+        {tab === "repair" && (
+          <Repair items={SynthesisGoods} isBulk onClose={onClose} />
         )}
       </div>
     </Panel>

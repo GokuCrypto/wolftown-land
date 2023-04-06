@@ -19,19 +19,30 @@ export const Goods: React.FC<Props> = ({ item }) => {
     setIsLoading(true);
 
     try {
-      console.log("not Load???");
-
       if (item.item.indexOf("Land-") == -1) {
         const result = await queryBagByName(item.item);
 
         if (result.amount) {
           setBagNumber(result.amount);
+        } else {
+          setBagNumber(0);
         }
       } else {
-        const result = await queryBagByType("Equip", item.item);
+        let result = await queryBagByType(
+          "Equip",
+          item.item.replace("Max", "")
+        );
+
+        if (item.item.indexOf("MaxLand-") > -1) {
+          result = result.filter((val: any) => val.nftId > 60000);
+        } else {
+          result = result.filter((val: any) => val.nftId < 60000);
+        }
 
         if (result.length) {
           setBagNumber(result.length);
+        } else {
+          setBagNumber(0);
         }
       }
 
@@ -40,7 +51,6 @@ export const Goods: React.FC<Props> = ({ item }) => {
       setIsLoading(false);
     }
   };
-  console.log("bagNumber", bagNumber);
 
   useEffect(() => {
     loadBagByName();

@@ -35,5 +35,8 @@ export class Build {
 
   /**buildInt*/
   public totalGuAmount!: number;
+
+  /**totalGu*/
+  public totalGu!: number;
 }
 

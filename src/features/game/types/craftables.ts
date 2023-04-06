@@ -107,7 +107,7 @@ export type Tool =
   | "Hammer"
   | "Rod";
 
-export type Synthesis = "Animal Coupons For Wolf" | "Animal Coupons For Sheep" | "Wool Coupons" | "Sheep Coupons" | "Land Coupons" | "Land NFT Coupons" | "artillery" | "bartizan" | "Catapult" | "Cyclone wheel car" | "Rush Car" | "Land-L2" | "Land-L3" | "Land-M2" | "Land-M3" | "MaxLand-L2" | "MaxLand-L3" | "MaxLand-M2" | "MaxLand-M3" | "Animal feces ball";
+export type Synthesis = "Animal Coupons For Wolf" | "Animal Coupons For Sheep" | "Wool Coupons" | "Sheep Coupons" | "Land Coupons" | "Land NFT Coupons" | "artillery" | "bartizan" | "Catapult" | "Cyclone wheel car" | "Rush Car" | "Land-L1|M1" | "Land-L2" | "Land-L3" | "Land-M2" | "Land-M3" | "MaxLand-L2" | "MaxLand-L3" | "MaxLand-M2" | "MaxLand-M3" | "Animal feces ball";
 
 export type Exchanges = "Animal NFT Coupons";
 
@@ -414,7 +414,7 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
       { item: "Corundum", amount: new Decimal(5), },
     ],
   },
-
+  /*土地合成区 */
 
   "Land-L2": {
     name: "Land-L2", description: "Land-L2", tokenAmount: new Decimal(0), ingredients: [
@@ -436,29 +436,33 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
       { item: "Land-M2", amount: new Decimal(2), },
     ],
   },
-
+  /*特别土地 */
   "MaxLand-L2": {
-    name: "Land-L2", description: "Special Land-L2", tokenAmount: new Decimal(0), ingredients: [
-      { item: "Land-L1", amount: new Decimal(2), },
+    name: "MaxLand-L2", description: "Special Land-L2", tokenAmount: new Decimal(0), ingredients: [
+      { item: "MaxLand-L1", amount: new Decimal(2), },
     ],
   },
   "MaxLand-L3": {
-    name: "Land-L3", description: "Special Land-L3", tokenAmount: new Decimal(0), ingredients: [
-      { item: "Land-L2", amount: new Decimal(2), },
+    name: "MaxLand-L3", description: "Special Land-L3", tokenAmount: new Decimal(0), ingredients: [
+      { item: "MaxLand-L2", amount: new Decimal(2), },
     ],
   },
   "MaxLand-M2": {
-    name: "Land-M2", description: "Special Land-M2", tokenAmount: new Decimal(0), ingredients: [
-      { item: "Land-M1", amount: new Decimal(2), },
+    name: "MaxLand-M2", description: "Special Land-M2", tokenAmount: new Decimal(0), ingredients: [
+      { item: "MaxLand-M1", amount: new Decimal(2), },
     ],
   },
   "MaxLand-M3": {
-    name: "Land-M3", description: "Special Land-M3", tokenAmount: new Decimal(0), ingredients: [
-      { item: "Land-M2", amount: new Decimal(2), },
+    name: "MaxLand-M3", description: "Special Land-M3", tokenAmount: new Decimal(0), ingredients: [
+      { item: "MaxLand-M2", amount: new Decimal(2), },
     ],
   },
 
-
+  "Land-L1|M1": {
+    name: "Land-L1|M1", description: "Randomly generate special land/mountains", tokenAmount: new Decimal(0), ingredients: [
+      { item: "Land NFT Coupons", amount: new Decimal(1), },
+    ],
+  },
 
 
 };

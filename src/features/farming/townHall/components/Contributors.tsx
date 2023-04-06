@@ -7,7 +7,12 @@ import logo from "assets/brand/wolflogo.png";
 import bumpkin from "assets/npcs/bumpkin.png";
 import goblin from "assets/npcs/goblin.gif";
 import man from "assets/npcs/idle.gif";
-import { buildList, build,  totalContribute, transactionFlowList, } from "hooks/WolfConfig";
+import {
+  buildList,
+  build,
+  totalContribute,
+  transactionFlowList,
+} from "hooks/WolfConfig";
 import { Build } from "hooks/modules/Build";
 import { Panel } from "components/ui/Panel";
 import level1 from "assets/brand/1.png";
@@ -78,7 +83,6 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
 
   useEffect(() => {
     loadBagByType();
-    
   }, []);
 
   return (
@@ -135,6 +139,10 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
                   className="h-8"
                 />
               </div> */}
+              <div className="w-30 ml-4 flex justify-center">
+                {"Amount(" + `${item.totalGu ? item.totalGu : 0}` + ")"}
+              </div>
+
               <div className="w-30 ml-4 flex justify-center">
                 {item.totalAmount + "(" + `${item.totalGuAmount}` + ")"}
               </div>

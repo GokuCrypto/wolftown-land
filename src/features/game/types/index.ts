@@ -228,6 +228,7 @@ export const KNOWN_IDS: Record<InventoryItemName, number> = {
   "Level_1 drawing": 980,
   "Level_2 drawing": 981,
   "Level_3 drawing": 982,
+  "Land-L1|M1": 983
 
 };
 

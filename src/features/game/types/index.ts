@@ -216,8 +216,18 @@ export const KNOWN_IDS: Record<InventoryItemName, number> = {
   "Land-M2": 969,
   "Land-M3": 970,
   "Animal feces": 971,
-  "Animal feces ball": 972
+  "Animal feces ball": 972,
 
+  "MaxLand-L1": 974,
+  "MaxLand-L2": 975,
+  "MaxLand-L3": 976,
+  "MaxLand-M1": 977,
+  "MaxLand-M2": 978,
+  "MaxLand-M3": 979,
+
+  "Level_1 drawing": 980,
+  "Level_2 drawing": 981,
+  "Level_3 drawing": 982,
 
 };
 

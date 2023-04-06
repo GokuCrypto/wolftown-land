@@ -811,8 +811,20 @@ export const ITEM_DETAILS: Items = {
   "Land-M2": { description: "Land-M2", image: "https://img.wolftown.games/land/mountain2.png", },
   "Land-M3": { description: "Land-M3", image: "https://img.wolftown.games/land/mountain3.png", },
 
+
+  "MaxLand-L1": { description: "Land-L1", image: "https://img.wolftown.games/land/land1.png", },
+  "MaxLand-L2": { description: "Land-L2", image: "https://img.wolftown.games/land/land2.png", },
+  "MaxLand-L3": { description: "Land-L3", image: "https://img.wolftown.games/land/land3.png", },
+  "MaxLand-M1": { description: "Land-M1", image: "https://img.wolftown.games/land/mountain1.png", },
+  "MaxLand-M2": { description: "Land-M2", image: "https://img.wolftown.games/land/mountain2.png", },
+  "MaxLand-M3": { description: "Land-M3", image: "https://img.wolftown.games/land/mountain3.png", },
+
+  "Level_1 drawing": { description: "Level_1 drawing", image: "https://img.wolftown.games/blueprint/lv1.png", },
+  "Level_2 drawing": { description: "Level_2 drawing", image: "https://img.wolftown.games/blueprint/lv2.png", },
+  "Level_3 drawing": { description: "Level_3 drawing", image: "https://img.wolftown.games/blueprint/lv3.png", },
+
+
   "Animal feces": { description: "Animal feces", image: "https://img.wolftown.games/bag/shit.gif", },
   "Animal feces ball": { description: "Animal feces ball", image: "https://img.wolftown.games/bag/shitball.gif", },
-
 
 };

@@ -107,7 +107,7 @@ export type Tool =
   | "Hammer"
   | "Rod";
 
-export type Synthesis = "Animal Coupons For Wolf" | "Animal Coupons For Sheep" | "Wool Coupons" | "Sheep Coupons" | "Land Coupons" | "Land NFT Coupons" | "artillery" | "bartizan" | "Catapult" | "Cyclone wheel car" | "Rush Car" | "Land-L2" | "Land-L3" | "Land-M2" | "Land-M3" | "Animal feces ball";
+export type Synthesis = "Animal Coupons For Wolf" | "Animal Coupons For Sheep" | "Wool Coupons" | "Sheep Coupons" | "Land Coupons" | "Land NFT Coupons" | "artillery" | "bartizan" | "Catapult" | "Cyclone wheel car" | "Rush Car" | "Land-L2" | "Land-L3" | "Land-M2" | "Land-M3" | "MaxLand-L2" | "MaxLand-L3" | "MaxLand-M2" | "MaxLand-M3" | "Animal feces ball";
 
 export type Exchanges = "Animal NFT Coupons";
 
@@ -125,11 +125,11 @@ export type Fragment =
 
 
 export type Wood =
-  "Black sunken" | "Black sunken2" | "Black sunken3" | "Chinese parasol" | "Chinese parasol2" | "Chinese parasol3" | "Corundum" | "Corundum2" | "Corundum3" | "fir wood" | "fir wood2" | "fir wood3" | "pine" | "pine2" | "pine3" | "Land-L1" | "Land-M1";
+  "Black sunken" | "Black sunken2" | "Black sunken3" | "Chinese parasol" | "Chinese parasol2" | "Chinese parasol3" | "Corundum" | "Corundum2" | "Corundum3" | "fir wood" | "fir wood2" | "fir wood3" | "pine" | "pine2" | "pine3" | "Land-L1" | "Land-M1" | "MaxLand-L1" | "MaxLand-M1";
 
 
 export type Stone =
-  "copper" | "copper2" | "copper3" | "gold" | "gold2" | "gold3" | "iron" | "iron2" | "iron3" | "Red gold" | "Red gold2" | "Red gold3" | "titanium" | "titanium2" | "titanium3";
+  "copper" | "copper2" | "copper3" | "gold" | "gold2" | "gold3" | "iron" | "iron2" | "iron3" | "Red gold" | "Red gold2" | "Red gold3" | "titanium" | "titanium2" | "titanium3" | "Level_1 drawing" | "Level_2 drawing" | "Level_3 drawing";
 
 
 export type Animal = "Chicken" | "Cow" | "Pig" | "Sheep";
@@ -363,27 +363,31 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
   "bartizan": {
     name: "bartizan", description: "bartizan", tokenAmount: new Decimal(100), ingredients: [
       {
-        item: "Chinese parasol", amount: new Decimal(10), synthesis: "@Chinese parasol@copper@amount@10@10@"
+        item: "Chinese parasol", amount: new Decimal(10), synthesis: "@Chinese parasol@copper@Level_1 drawing@amount@10@10@1@"
       },
-      { item: "copper", amount: new Decimal(10), },],
+      { item: "copper", amount: new Decimal(10), },
+      { item: "Level_1 drawing", amount: new Decimal(1), },
+    ],
   },
 
   "Catapult": {
     name: "Catapult", description: "Catapult", tokenAmount: new Decimal(200), ingredients: [
-      { item: "Chinese parasol", amount: new Decimal(5), synthesis: "@Chinese parasol@copper@pine@iron@amount@5@5@10@10@" },
+      { item: "Chinese parasol", amount: new Decimal(5), synthesis: "@Chinese parasol@copper@pine@iron@Level_2 drawing@amount@5@5@10@10@1@" },
       { item: "copper", amount: new Decimal(5), },
       { item: "pine", amount: new Decimal(10), },
       { item: "iron", amount: new Decimal(10), },
+      { item: "Level_2 drawing", amount: new Decimal(1), },
     ],
   },
   "artillery": {
     name: "artillery", description: "artillery", tokenAmount: new Decimal(300), ingredients: [
-      { item: "Chinese parasol", amount: new Decimal(5), synthesis: "@Chinese parasol@copper@pine@iron@fir wood@gold@amount@5@5@5@5@5@5@" },
+      { item: "Chinese parasol", amount: new Decimal(5), synthesis: "@Chinese parasol@copper@pine@iron@fir wood@gold@Level_3 drawing@amount@5@5@5@5@5@5@1@" },
       { item: "copper", amount: new Decimal(5), },
       { item: "pine", amount: new Decimal(5), },
       { item: "iron", amount: new Decimal(5), },
       { item: "fir wood", amount: new Decimal(5), },
       { item: "gold", amount: new Decimal(5), },
+      { item: "Level_3 drawing", amount: new Decimal(1), },
     ],
   },
 
@@ -429,6 +433,27 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
   },
   "Land-M3": {
     name: "Land-M3", description: "Land-M3", tokenAmount: new Decimal(0), ingredients: [
+      { item: "Land-M2", amount: new Decimal(2), },
+    ],
+  },
+
+  "MaxLand-L2": {
+    name: "Land-L2", description: "Special Land-L2", tokenAmount: new Decimal(0), ingredients: [
+      { item: "Land-L1", amount: new Decimal(2), },
+    ],
+  },
+  "MaxLand-L3": {
+    name: "Land-L3", description: "Special Land-L3", tokenAmount: new Decimal(0), ingredients: [
+      { item: "Land-L2", amount: new Decimal(2), },
+    ],
+  },
+  "MaxLand-M2": {
+    name: "Land-M2", description: "Special Land-M2", tokenAmount: new Decimal(0), ingredients: [
+      { item: "Land-M1", amount: new Decimal(2), },
+    ],
+  },
+  "MaxLand-M3": {
+    name: "Land-M3", description: "Special Land-M3", tokenAmount: new Decimal(0), ingredients: [
       { item: "Land-M2", amount: new Decimal(2), },
     ],
   },

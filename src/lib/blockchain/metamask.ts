@@ -10,6 +10,8 @@ import { WishingWell } from "./WishingWell";
 import { Token } from "./Token";
 import { Wallet } from "./Wallet";
 import { Animal } from "./Animal";
+import { Land } from "./Land";
+
 import { toHex, toWei, fromWei } from "web3-utils";
 import { CONFIG } from "lib/config";
 import { estimateGasPrice, parseMetamaskError } from "./utils";
@@ -38,6 +40,7 @@ export class Metamask {
 
   private animal: Animal | null = null;
 
+  private land: Land | null = null;
 
   private wallet: Wallet | null = null;
 
@@ -79,6 +82,8 @@ export class Metamask {
       this.tokenWTMILK = new Token(this.web3 as Web3, this.account as string, CONFIG.WTMILK_CONTRACT)
       this.wallet = new Wallet(this.web3 as Web3, this.account as string, CONFIG.WALLET_CONTRACT)
       this.animal = new Animal(this.web3 as Web3, this.account as string, CONFIG.ANIMAL_CONTRACT)
+      this.land = new Land(this.web3 as Web3, this.account as string, CONFIG.LAND_CONTRACT)
+
     } catch (e: any) {
       // Timeout, retry
       if (e.code === "-32005") {
@@ -305,6 +310,14 @@ export class Metamask {
     return animals
   }
 
+  public async getLands() {
+
+    console.log("balance", 123123123);
+
+    const animals = await this.land?.getLands()
+    return animals
+  }
+
   public async approve(tokenType: string) {
     const amountMax = '10000000000'
     if (tokenType === "BUSD") {
@@ -332,20 +345,27 @@ export class Metamask {
 
 
   public async isApproved(nftType: string) {
-    if(nftType === 'animal') {
+    if (nftType === 'animal') {
       return await this.animal?.isApprovedForAll(CONFIG.WALLET_CONTRACT)
+    }
+    if (nftType === 'land') {
+      return await this.land?.isApprovedForAll(CONFIG.WALLET_CONTRACT)
     }
   }
 
   public async approveForAll(nftType: string) {
-    if(nftType === 'animal') {
+    if (nftType === 'animal') {
       return await this.animal?.approveForAll(CONFIG.WALLET_CONTRACT)
+    } else if (nftType === 'land') {
+      return await this.land?.approveForAll(CONFIG.WALLET_CONTRACT)
     }
   }
 
   public async depositNFTs(nftType: string, ids: number[]) {
     if (nftType === "animal") {
       return await this.wallet?.depositNFTs(CONFIG.ANIMAL_CONTRACT, ids)
+    } else if (nftType === "land") {
+      return await this.wallet?.depositNFTs(CONFIG.LAND_CONTRACT, ids)
     }
   }
 

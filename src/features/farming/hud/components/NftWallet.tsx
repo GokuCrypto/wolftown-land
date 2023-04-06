@@ -15,13 +15,15 @@ import { getAccountInfo } from "hooks/WolfConfig";
 import { getUserAddress } from "hooks/WHashConfig";
 import { NftDepositTab } from "./NftDepositTab";
 import { NftWithdrawTab } from "./NftWithdrawTab";
+import { NftWithdrawRecords } from "./NftWithdrawRecords";
+
 import { WalletFlow } from "./WalletFlow";
 
 import { WalletBalances } from "./WalletBalances";
 import { Balances, EMPTY_BALANCES } from "../lib/types";
 import { useInterval } from "lib/utils/hooks/useInterval";
 
-type Tab = "deposit" | "withdraw" | "balance" | "Capital flow";
+type Tab = "deposit" | "withdraw" | "balance" | "Capital flow" | "records";
 
 export const NftWallet: React.FC = () => {
   const { t } = useTranslation();
@@ -90,7 +92,6 @@ export const NftWallet: React.FC = () => {
         <Panel className="pt-5 relative">
           <div className="flex justify-between absolute top-1.5 left-0.5 right-0 items-center">
             <div className="flex">
-              
               <Tab
                 className="flex items-center"
                 isActive={currentTab === "deposit"}
@@ -111,7 +112,16 @@ export const NftWallet: React.FC = () => {
                   {t("Withdraw")}
                 </span>
               </Tab>
-
+              <Tab
+                className="flex items-center"
+                isActive={currentTab === "records"}
+                onClick={() => handleTabClick("records")}
+              >
+                {/*<img src={sunflowerPlant} className="h-4 sm:h-5 mr-2" />*/}
+                <span className="text-xs sm:text-sm overflow-hidden text-ellipsis">
+                  {t("records")}
+                </span>
+              </Tab>
               {/*<Tab
                 className="flex items-center"
                 isActive={currentTab === "Capital flow"}
@@ -129,13 +139,11 @@ export const NftWallet: React.FC = () => {
             />
           </div>
 
-         
           {currentTab === "deposit" && (
             <NftDepositTab address={depositAddress} />
           )}
-          {currentTab === "withdraw" && (
-            <NftWithdrawTab />
-          )}
+          {currentTab === "withdraw" && <NftWithdrawTab />}
+          {currentTab === "records" && <NftWithdrawRecords />}
           {/*{currentTab === "Capital flow" && <WalletFlow />}*/}
         </Panel>
       </Modal>

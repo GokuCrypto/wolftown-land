@@ -6,6 +6,7 @@ import { CopyField } from "components/ui/CopyField";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import { Button } from "components/ui/Button";
+import { getNftToChainList, nftWithdraw } from "hooks/WolfConfig";
 
 import {
   Balances,
@@ -32,6 +33,7 @@ export const NftWithdrawTab = () => {
   const [lands, setLands] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [tokenType, setTokenType] = useState<any>("Animal");
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -45,14 +47,33 @@ export const NftWithdrawTab = () => {
   }, []);
 
   const handleSelect = (id: string | number) => {
-    if (selectedIds.find((v) => v === id)) {
+    /* if (selectedIds.find((v) => v === id)) {
       setSelectedIds(selectedIds.filter((v) => v !== id));
     } else {
       setSelectedIds(selectedIds.concat([id]));
-    }
+    } */
+    selectedIds[0] = id;
+    setSelectedIds(selectedIds);
+    setIsLoading(!isLoading);
   };
 
-  const withdraw = async () => {};
+  const toCenterSign = async () => {
+    //暂时只能一个
+
+    if (selectedIds.length != 1) {
+      setMessage("Only one can be selected");
+      return;
+    }
+
+    nftWithdraw(selectedIds[0]).then((result) => {
+      if (result.success) {
+        setMessage("Success");
+      } else {
+        setMessage(result?.message);
+      }
+    });
+  };
+
   return (
     <div className="flex flex-col" style={{ minHeight: TAB_CONTENT_HEIGHT }}>
       <div className="flex flex-wrap">
@@ -93,12 +114,6 @@ export const NftWithdrawTab = () => {
         className="w-full flex flex-wrap h-fit"
         style={{ maxHeight: TAB_CONTENT_HEIGHT, overflowY: "auto" }}
       >
-        {isLoading && (
-          <p className="text-white text-xs text-shadow mb-2 pl-2.5">
-            Loading...
-          </p>
-        )}
-
         {tokenType === "Animal" &&
           animals.map((animal: any, i: number) => (
             <BigBox
@@ -121,9 +136,10 @@ export const NftWithdrawTab = () => {
           ))}
       </div>
       <div className="mt-2">
-        <Button onClick={withdraw} disabled={isLoading}>
-          {t("Withdraw")}
-        </Button>
+        <Button onClick={toCenterSign}>{t("Withdraw")}</Button>
+      </div>
+      <div className="mt-2">
+        <span className="text-xs text-base"> {message} </span>
       </div>
     </div>
   );

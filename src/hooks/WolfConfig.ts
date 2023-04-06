@@ -215,12 +215,12 @@ export const isLoggedIn = function () {
 
 
 
-// export const HASH_GAME_API = "https://api.wolftown.games/jeecg-boot";
+/* export const HASH_GAME_API = "https://mainapi.wolftown.games/jeecg-boot"; */
 
-// export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/";
+export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/";
 /* test */
-export const HASH_GAME_API = "https://devapi.wolftown.games/jeecg-boot";
-/* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
+/* export const HASH_GAME_API = "https://devapi.wolftown.games/jeecg-boot";
+ *//* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
 /* test */
 
 export const APP_WOLF_API = "https://app.wolftown.games/images/wtanimalsSmall/";
@@ -312,6 +312,11 @@ export const API_CONFIG = {
   marketRemove: `${HASH_GAME_API}/wolftown/marketRemove`,
   /*市场-商店*/
   storeBuy: `${HASH_GAME_API}/wolftown/storeBuy`,
+
+  /*nft上链 */
+  nftWithdraw: `${HASH_GAME_API}/wolftown/nftWithdraw`,
+  /*bft上链记录查询 */
+  getNftToChainList: `${HASH_GAME_API}/wolftown/getNftToChainList`,
 
 }
 
@@ -631,6 +636,38 @@ export const getWolfUserGoodsToChainList = async () => {
 
         const wolfUserGoodsToChainList = result.result.wolfUserGoodsToChainList;
         console.log("response-wolfUserGoodsToChainList", result);
+        return result;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+
+
+
+/* 获取用户兑换上链历史记录 */
+export const getNftToChainList = async () => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+
+  if ((XAccessToken)) {
+    const response = await fetch(API_CONFIG.getNftToChainList, {
+      method: 'get', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+
+        const getNftToChainList = result.result.getNftToChainList;
+        console.log("response-getNftToChainList", result);
         return result;
       }
     } else if (response.status === 401) {
@@ -1139,6 +1176,47 @@ export const build = async (build: Build) => {
 
 
 
+
+/* NFT查询 */
+export const nftWithdraw = async (goodsId: string) => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  const uid = localStorage.getItem('userInfo_userid');
+
+  // eslint-disable-next-line eqeqeq
+  if (XAccessToken && (XAccessToken != "") && uid != "") {
+    // 组装数据对象
+
+    const response = await fetch(API_CONFIG.nftWithdraw, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify({
+        "goodsId": goodsId,
+      }),
+    })
+
+
+    if (response.status === 200) {
+      const result = await response.json();
+      return result;
+    }
+
+    if (response.status === 401) {
+      // 登录超时处理办法
+      loginOut();
+      return { status: 500, message: " Token is invalid, please login again !" }
+    }
+
+    return { status: 500, message: "NO Connect!" }
+  }
+  return { status: 500, message: "NO Login!" }
+
+}
+
+
+
 /* 账户流水数据 */
 export const transactionFlowList = async (params: any, pageNo: string, pageSize: string) => {
   const XAccessToken = localStorage.getItem('XAccessToken');
@@ -1319,6 +1397,8 @@ export const myList = async (params: any, pageNo: string, pageSize: string) => {
 
 import wTCheckWebFreeAbi from "assets/abi/WTCheckWebFree.json";
 import WTAnimalAbi from "assets/abi/wtAnimal.json";
+import VaultAbi from "assets/abi/Vault.json";
+
 export const Constants = {
   ArenaHistoryBlock: (24 * 60 * 60 * 30) / 3,
   DEBUG_ADDRESS,
@@ -1356,12 +1436,16 @@ export const Constants = {
 
     WTCheckWebFree: '0x392C6A657F0233a4cBe0897bbd74a597B4530C43',
     WTAnimal: '0x14f112d437271e01664bb3680BcbAe2f6A3Fb5fB',
+    WTLand: '0x7A7E298FfeB8f316E39496592062619f9B83044E',
+    Vault: '0x5EaE7A5c17080627c4F6596FFfc4e645A8136bf2'
   },
 };
 export const AbiConfig: Record<keyof typeof Constants.Contract, any> = {
 
   WTCheckWebFree: wTCheckWebFreeAbi,
-  WTAnimal: WTAnimalAbi
+  WTAnimal: WTAnimalAbi,
+  WTLand: WTAnimalAbi,
+  Vault: VaultAbi
 };
 if (!IsDevelopment) {
   console.log = () => null;

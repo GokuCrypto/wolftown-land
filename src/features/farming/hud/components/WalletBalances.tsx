@@ -82,7 +82,7 @@ export const WalletBalances: React.FC<Props> = ({ balances }) => {
           <div>
             {" "}
             <Button onClick={getAirDrop} className="mb-2">
-              {t("Get Test Data")}
+              {t("Redeem Points")}
             </Button>
           </div>
           <div>-------------- --------------</div>

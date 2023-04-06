@@ -6,6 +6,7 @@ import { CopyField } from "components/ui/CopyField";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import { Button } from "components/ui/Button";
+import { toHex, toWei, fromWei } from "web3-utils";
 
 import {
   Balances,
@@ -42,13 +43,18 @@ const TAB_CONTENT_HEIGHT = 380;
 export const NftDepositTab = ({ address }: Props) => {
   const { t } = useTranslation();
   const [selectedIds, setSelectedIds] = useState<any[]>([]);
+  const [selectedIdsLand, setSelectedIdsLand] = useState<any[]>([]);
+
   const [tokenType, setTokenType] = useState<any>("Animal");
   const [message, setMessage] = useState("");
 
   const [pendingTx, setPendingTx] = useState(false);
   const [animals, setAnimals] = useState<any[]>([]);
+  const [lands, setLands] = useState<any[]>([]);
+
   const [isLoading, setIsLoading] = useState(true);
   const [isAnimalApproved, setIsAnimalApproved] = useState(false);
+  const [isLandApproved, setIsLandApproved] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -56,13 +62,20 @@ export const NftDepositTab = ({ address }: Props) => {
       await metamask.initialise();
       try {
         const isApproved = await metamask.isApproved("animal");
+        const isApprovedLand = await metamask.isApproved("land");
         setIsAnimalApproved(isApproved);
+        setIsLandApproved(isApprovedLand);
       } catch (err) {
         console.log("err = ", err);
       }
       const balances = await metamask.getAnimals();
+      const balancesForLand = await metamask.getLands();
       if (balances) {
         setAnimals(balances);
+        setIsLoading(false);
+      }
+      if (balancesForLand) {
+        setLands(balancesForLand);
         setIsLoading(false);
       }
     };
@@ -74,6 +87,14 @@ export const NftDepositTab = ({ address }: Props) => {
       setSelectedIds(selectedIds.filter((v) => v !== id));
     } else {
       setSelectedIds(selectedIds.concat([id]));
+    }
+  };
+
+  const handleSelectLand = (id: string | number) => {
+    if (selectedIdsLand.find((v) => v === id)) {
+      setSelectedIdsLand(selectedIdsLand.filter((v) => v !== id));
+    } else {
+      setSelectedIdsLand(selectedIdsLand.concat([id]));
     }
   };
 
@@ -99,6 +120,43 @@ export const NftDepositTab = ({ address }: Props) => {
 
     try {
       const receipt: any = await metamask.depositNFTs("animal", selectedIds);
+      if (receipt?.status) {
+        setMessage("Deposit Submitted");
+        setPendingTx(false);
+      }
+    } catch (error: any) {
+      // console.log("error===", error.message)
+      if (error?.message) {
+        setMessage(error?.message);
+      } else {
+        setMessage(error.toString());
+      }
+      setPendingTx(false);
+    }
+  };
+
+  const depositLand = async () => {
+    setMessage("");
+    await metamask.initialise();
+    setPendingTx(true);
+
+    if (!isLandApproved) {
+      try {
+        const receipt: any = await metamask.approveForAll("land");
+        if (receipt?.status) {
+          setIsLandApproved(true);
+        } else {
+          setPendingTx(false);
+          return;
+        }
+      } catch (err) {
+        setPendingTx(false);
+        return;
+      }
+    }
+
+    try {
+      const receipt: any = await metamask.depositNFTs("land", selectedIdsLand);
       if (receipt?.status) {
         setMessage("Deposit Submitted");
         setPendingTx(false);
@@ -186,10 +244,23 @@ export const NftDepositTab = ({ address }: Props) => {
             className="w-full flex flex-wrap h-fit"
             style={{ maxHeight: TAB_CONTENT_HEIGHT, overflowY: "auto" }}
           >
-            <p>Coming soon</p>
+            {lands.map((land, i) => (
+              <BigBox
+                key={`land_${land.id}`}
+                isSelected={selectedIdsLand.find((v) => v === land.id)}
+                onClick={() => handleSelectLand(land.id)}
+                image={land.imageSmall}
+                id={land.id}
+              />
+            ))}
           </div>
           <div className="mt-2">
-            <Button disabled>{t("Deposit")}</Button>
+            <Button
+              onClick={depositLand}
+              disabled={pendingTx || isLoading || selectedIdsLand.length === 0}
+            >
+              {t("Deposit")}
+            </Button>
           </div>
         </>
       )}

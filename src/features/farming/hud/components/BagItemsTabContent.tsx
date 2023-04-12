@@ -86,28 +86,26 @@ export const BagItemsTabContent = ({
     selectedItem || tabItems[0]
   );
 
-  const [price, setPrice] = useState(new Decimal(0));    
+  const [price, setPrice] = useState("0");
   const [coinType, setCoinType] = useState("BUSD");
   const [type, setType] = useState("Price");
   const [dateValue, setDateValue] = useState<any>(new Date());
   //根据技能得到算力等级
-  const levelUP = ()=>{
-    if(selected?.pow && selected.pow <= 100){
-        return 1;
-    }
-    else {
-      let calculatedLevel = Math.ceil(( selected?.pow||0- 100) / 200) + 1;
-      if(calculatedLevel>=100){
+  const levelUP = () => {
+    if (selected?.pow && selected.pow <= 100) {
+      return 1;
+    } else {
+      let calculatedLevel = Math.ceil((selected?.pow || 0 - 100) / 200) + 1;
+      if (calculatedLevel >= 100) {
         return 100;
-      }
-      else return calculatedLevel;
+      } else return calculatedLevel;
     }
-  }
+  };
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === "") {
-      setPrice(new Decimal(0));
+      setPrice("0");
     } else {
-      setPrice(new Decimal(Number(e.target.value)));
+      setPrice(e.target.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, "$1$2.$3"));
     }
   };
 
@@ -139,11 +137,12 @@ export const BagItemsTabContent = ({
     const handleNextSong = async (goods: BagItem) => {
       const wolfMarket = new WolfMarket();
       wolfMarket.goodsName = goods.name.replace("\\n", "");
-      if (price.eq(0)) {
+
+      if (Number(price) == 0) {
         setMessage("Please fill in the selling price!");
         return;
       }
-      wolfMarket.price = price.toNumber();
+      wolfMarket.price = Number(price);
       wolfMarket.currency = coinType;
       if (type == "Price") {
         wolfMarket.type = "0";
@@ -224,12 +223,12 @@ export const BagItemsTabContent = ({
                   {"------------"}
                 </span>
                 <span className="text-shadow text-center mt-2 sm:text-sm">
-                  {"Skill points: "}  
-                  {selected?.pow ? selected?.pow :selected.pow}
+                  {"Skill points: "}
+                  {selected?.pow ? selected?.pow : selected.pow}
                 </span>
                 <span className="text-shadow text-center mt-2 sm:text-sm">
-                
-                {"level/power: "} {selected?.level ? selected?.level :levelUP()}
+                  {"level/power: "}{" "}
+                  {selected?.level ? selected?.level : levelUP()}
                 </span>
               </>
             )}
@@ -245,13 +244,7 @@ export const BagItemsTabContent = ({
                 <span className="flex items-center mt-2">
                   <input
                     onChange={onInputChange}
-                    value={
-                      typeof price === "string"
-                        ? ""
-                        : price
-                            .toDecimalPlaces(2, Decimal.ROUND_DOWN)
-                            .toNumber()
-                    }
+                    value={price.toString()}
                     className="ml-20 shadow-inner shadow-black bg-brown-200 p-2 w-50"
                   />
                 </span>

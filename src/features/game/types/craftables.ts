@@ -417,43 +417,43 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
   /*土地合成区 */
 
   "Land-L2": {
-    name: "Land-L2", description: "Land-L2", tokenAmount: new Decimal(0), ingredients: [
+    name: "Land-L2", description: "Land-L2", tokenAmount: new Decimal(2000), ingredients: [
       { item: "Land-L1", amount: new Decimal(2), },
     ],
   },
   "Land-L3": {
-    name: "Land-L3", description: "Land-L3", tokenAmount: new Decimal(0), ingredients: [
+    name: "Land-L3", description: "Land-L3", tokenAmount: new Decimal(2000), ingredients: [
       { item: "Land-L2", amount: new Decimal(2), },
     ],
   },
   "Land-M2": {
-    name: "Land-M2", description: "Land-M2", tokenAmount: new Decimal(0), ingredients: [
+    name: "Land-M2", description: "Land-M2", tokenAmount: new Decimal(5000), ingredients: [
       { item: "Land-M1", amount: new Decimal(2), },
     ],
   },
   "Land-M3": {
-    name: "Land-M3", description: "Land-M3", tokenAmount: new Decimal(0), ingredients: [
+    name: "Land-M3", description: "Land-M3", tokenAmount: new Decimal(5000), ingredients: [
       { item: "Land-M2", amount: new Decimal(2), },
     ],
   },
   /*特别土地 */
   "MaxLand-L2": {
-    name: "MaxLand-L2", description: "Special Land-L2", tokenAmount: new Decimal(0), ingredients: [
+    name: "MaxLand-L2", description: "Special Land-L2", tokenAmount: new Decimal(2000), ingredients: [
       { item: "MaxLand-L1", amount: new Decimal(2), },
     ],
   },
   "MaxLand-L3": {
-    name: "MaxLand-L3", description: "Special Land-L3", tokenAmount: new Decimal(0), ingredients: [
+    name: "MaxLand-L3", description: "Special Land-L3", tokenAmount: new Decimal(2000), ingredients: [
       { item: "MaxLand-L2", amount: new Decimal(2), },
     ],
   },
   "MaxLand-M2": {
-    name: "MaxLand-M2", description: "Special Land-M2", tokenAmount: new Decimal(0), ingredients: [
+    name: "MaxLand-M2", description: "Special Land-M2", tokenAmount: new Decimal(5000), ingredients: [
       { item: "MaxLand-M1", amount: new Decimal(2), },
     ],
   },
   "MaxLand-M3": {
-    name: "MaxLand-M3", description: "Special Land-M3", tokenAmount: new Decimal(0), ingredients: [
+    name: "MaxLand-M3", description: "Special Land-M3", tokenAmount: new Decimal(5000), ingredients: [
       { item: "MaxLand-M2", amount: new Decimal(2), },
     ],
   },

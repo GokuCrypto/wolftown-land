@@ -1437,7 +1437,9 @@ export const Constants = {
     WTCheckWebFree: '0x392C6A657F0233a4cBe0897bbd74a597B4530C43',
     WTAnimal: '0x14f112d437271e01664bb3680BcbAe2f6A3Fb5fB',
     WTLand: '0x7A7E298FfeB8f316E39496592062619f9B83044E',
-    Vault: '0x5EaE7A5c17080627c4F6596FFfc4e645A8136bf2'
+    Vault: '0x5EaE7A5c17080627c4F6596FFfc4e645A8136bf2',
+    VaultAdmin: '0x9e6141724aaed30877a16882355080252013bbc6'
+
   },
 };
 export const AbiConfig: Record<keyof typeof Constants.Contract, any> = {
@@ -1445,7 +1447,8 @@ export const AbiConfig: Record<keyof typeof Constants.Contract, any> = {
   WTCheckWebFree: wTCheckWebFreeAbi,
   WTAnimal: WTAnimalAbi,
   WTLand: WTAnimalAbi,
-  Vault: VaultAbi
+  Vault: VaultAbi,
+  VaultAdmin: VaultAbi
 };
 if (!IsDevelopment) {
   console.log = () => null;

@@ -2,11 +2,13 @@ import { CONFIG } from "lib/config";
 import Web3 from "web3";
 import { AbiItem } from "web3-utils";
 import LandJSON from "./abis/Land.json";
+import LandLevel from "./abis/LandLevel.json";
+
 import { multicall } from './utils'
 import Decimal from "decimal.js-light";
 
 const tokenAddress = CONFIG.LAND_CONTRACT;
-
+const tokenLevelAddress = CONFIG.LAND_LEVEL_CONTRACT;
 export const fetchAnimals = async (ids: number[]) => {
   const groupSize = ids.length / 100 + (ids.length % 100 === 0 ? 0 : 1)
 
@@ -94,11 +96,22 @@ export class Land {
       }
     })
 
+    const levels = ids.map((id: any) => {
+      return {
+        address: tokenLevelAddress,
+        name: 'getLevel',
+        params: id
+      }
+    })
+
     const traits = await multicall(LandJSON, traitCalls)
+    const levelDatas = await multicall(LandLevel, levels)
+
+    console.log("levelDataslevelDatas", levelDatas)
 
     const lands = ids.map(([id], i: number) => {
       const power = traits[i].power.toNumber()
-      const level = traits[i].level.toNumber()
+      const level = levelDatas[i]
 
       const type = traits[i].kind === 0 ? 'farm' : 'mine'
       const imageSmall = `/images/lands/${type}_${level}.png`

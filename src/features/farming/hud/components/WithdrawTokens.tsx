@@ -84,7 +84,7 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
       if (result.status !== 200) {
         setMessage(result.message);
       } else {
-        setMessage('Withdraw submitted')
+        setMessage("Withdraw submitted");
         onWithdraw(amount.toString());
       }
     } else {
@@ -120,7 +120,7 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
     safeAmount(amount).gt(balance) ||
     safeAmount(amount).lte(0) ||
     addressTo === "" ||
-    !isAddress(addressTo)
+    (addressTo != null && addressTo.length != 42);
 
   // if (!enabled) {
   //   return <span>Available May 9th</span>;
@@ -139,7 +139,9 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
             value="BUSD"
             checked={tokenType === "BUSD"}
             onClick={() => setTokenType("BUSD")}
-            className={ tokenType === 'BUSD' ? 'text-white': 'text-white bg-yellow-600'}
+            className={
+              tokenType === "BUSD" ? "text-white" : "text-white bg-yellow-600"
+            }
           >
             BUSD
           </ToggleButton>
@@ -152,7 +154,9 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
             value="WTWOOL"
             checked={tokenType === "WTWOOL"}
             onClick={(e) => setTokenType("WTWOOL")}
-            className={ tokenType === 'WTWOOL' ? 'text-white': 'text-white bg-yellow-600'}
+            className={
+              tokenType === "WTWOOL" ? "text-white" : "text-white bg-yellow-600"
+            }
           >
             WOOL
           </ToggleButton>
@@ -165,26 +169,28 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
             value="WTMILK"
             checked={tokenType === "WTMILK"}
             onClick={(e) => setTokenType("WTMILK")}
-            className={ tokenType === 'WTMILK' ? 'text-white': 'text-white bg-yellow-600'}
+            className={
+              tokenType === "WTMILK" ? "text-white" : "text-white bg-yellow-600"
+            }
           >
             MILK
           </ToggleButton>
         </ButtonGroup>
       </div>
       <div>
-        <span className="mb-3 text-base">{ t('Input amount to withdraw') }</span>
+        <span className="mb-3 text-base">{t("Input amount to withdraw")}</span>
       </div>
       <span className="text-sm">
         {balance.toDecimalPlaces(2, Decimal.ROUND_DOWN).toString()}{" "}
-        {displayTokenName()} { t('is available') }
+        {displayTokenName()} {t("is available")}
       </span>
       <div className="flex items-center mt-2">
         <div className="relative">
           <input
             type="text"
-            placeholder={ t('Withdraw Address') }
+            placeholder={t("Withdraw Address")}
             className="shadow-inner shadow-black bg-brown-200 p-2"
-            style={{ width: "600px", maxWidth: "100%" }}
+            style={{ width: "100%", maxWidth: "100%" }}
             onChange={onAddressToChange}
           />
         </div>
@@ -217,14 +223,16 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
             />*/}
           </div>
           <Button className="w-24 ml-6" onClick={setMax}>
-            { t('Max') }
+            {t("Max")}
           </Button>
         </div>
 
         {amount.gte(0) && (
           <>
             <span className="text-xs">
-              <span className="text-xs">{tax}% {t("tax")}</span>
+              <span className="text-xs">
+                {tax}% {t("tax")}
+              </span>
             </span>
           </>
         )}
@@ -232,14 +240,17 @@ export const WithdrawTokens: React.FC<Props> = ({ balances, onWithdraw }) => {
 
       <div className="flex items-center mt-3">
         <span className="">
-          {t('You will receive')}:  {`${safeAmount(amount)
+          {t("You will receive")}:{" "}
+          {`${safeAmount(amount)
             .mul((100 - tax) / 100)
             .toFixed(1)}`}
         </span>
         <span className="ml-2">{displayTokenName()}</span>
       </div>
 
-      <Button onClick={withdraw} disabled={disableWithdraw}>{t("Withdraw")}</Button>
+      <Button onClick={withdraw} disabled={disableWithdraw}>
+        {t("Withdraw")}
+      </Button>
 
       <span className="text-xs">
         <span className="text-xs text-base"> {message} </span>

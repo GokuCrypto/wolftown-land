@@ -154,7 +154,7 @@ export const ArenaItems: React.FC<Props> = ({
             });
           }}
         >
-          Clear
+          {t("Clear")}
         </Button>
 
         <Button
@@ -163,7 +163,7 @@ export const ArenaItems: React.FC<Props> = ({
             handleNextArena();
           }}
         >
-          Confirm
+          {t("Confirm")}
         </Button>
       </div>
     );
@@ -213,12 +213,9 @@ export const ArenaItems: React.FC<Props> = ({
         </div>
       </OuterPanel>
       <OuterPanel className="flex-1 w-2/3 ">
-        <div className="flex flex-col justify-center items-center p-2 relative overflow-scroll-y h-full">
-          <span className="text-shadow text-center">{t("My weapons")}</span>
-          <div
-            style={{ maxHeight: "400px" }}
-            className="w-100 relative overflow-scroll h-100 "
-          >
+      <div className="flex flex-col justify-center items-center p-2 relative">
+          <span className=" text-shadow text-center">{t("My weapons")}</span>
+          <div style={{ height: "220px", overflowY: "scroll",paddingRight: "20px" }}>
             {bagWeapon?.map((item) => (
               <Box
                 key={item.goodsName}

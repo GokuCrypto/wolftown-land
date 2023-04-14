@@ -32,10 +32,10 @@ export const Crafting: React.FC<Props> = ({ onClose }) => {
             <span className="text-sm text-shadow">{t("exchange")}</span>
           </Tab>
           <Tab isActive={tab === "record"} onClick={() => setTab("record")}>
-            <span className="text-sm text-shadow">{t(" record")}</span>
+            <span className="text-sm text-shadow">{t("record")}</span>
           </Tab>
           <Tab isActive={tab === "repair"} onClick={() => setTab("repair")}>
-            <span className="text-sm text-shadow">{t(" repair")}</span>
+            <span className="text-sm text-shadow">{t("repair")}</span>
           </Tab>
         </div>
         <img

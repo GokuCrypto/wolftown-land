@@ -172,7 +172,7 @@ export const BagItemsTabContent = ({
             }
           }}
         >
-          sell out
+          {t("sell out")}
         </Button>
         <span className="text-xs text-base"> {message} </span>
       </div>
@@ -223,12 +223,12 @@ export const BagItemsTabContent = ({
                   {"------------"}
                 </span>
                 <span className="text-shadow text-center mt-2 sm:text-sm">
-                  {"Skill points: "}
-                  {selected?.pow ? selected?.pow : selected.pow}
+                  {t("Skill points: ")}
+                  {selected?.pow ? selected?.pow :selected.pow}
                 </span>
                 <span className="text-shadow text-center mt-2 sm:text-sm">
-                  {"level/power: "}{" "}
-                  {selected?.level ? selected?.level : levelUP()}
+
+                {t("level/power: ")} {selected?.level ? selected?.level :levelUP()}
                 </span>
               </>
             )}
@@ -239,7 +239,7 @@ export const BagItemsTabContent = ({
                   {"------------"}
                 </span>
                 <span className="text-shadow text-center mt-2 sm:text-sm">
-                  {"Selling price"}
+                  {t("Selling price")}
                 </span>
                 <span className="flex items-center mt-2">
                   <input
@@ -252,7 +252,7 @@ export const BagItemsTabContent = ({
                   {"------------"}
                 </span>
                 <span className="text-shadow text-center mt-2 sm:text-sm">
-                  {"Coin Type of sale"}
+                  {t("Coin Type of sale")}
                 </span>
                 <span className="text-shadow text-center mt-2 sm:text-sm">
                   <select
@@ -260,9 +260,9 @@ export const BagItemsTabContent = ({
                     defaultValue={coinType}
                     onChange={onSelecttChange}
                   >
-                    <option value={"WTWOOL"}>WTWOOL</option>
+                    <option value={"WTWOOL"}>{t("WTWOOL")}</option>
                     <option value={"BUSD"}>BUSD</option>
-                    <option value={"WTMILK"}>WTMILK</option>
+                    <option value={"WTMILK"}>{t("WTMILK")}</option>
                   </select>
                 </span>
 

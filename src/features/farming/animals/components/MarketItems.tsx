@@ -148,7 +148,7 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
             }
           }}
         >
-          Buy
+          {t("Buy")}
         </Button>
         <span className="text-xs text-base"> {message} </span>
       </div>
@@ -176,16 +176,16 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
             }
           }}
         >
-          Prev
+          {t("Prev")}
         </div>
         <input style={{ textAlign: "center", color: "#000" }} value={pageNo} />
         <div
           style={{ cursor: "pointer", marginLeft: "10px" }}
           onClick={() => setPageNo(Number(pageNo) + 1 + "")}
         >
-          Next
+          {t("NEXT")}
         </div>
-        <div style={{ marginLeft: "10px" }}>Total:{total}</div>
+        <div style={{ marginLeft: "10px" }}>{t("Total")}{total}</div>
       </div>
     );
   };
@@ -198,10 +198,10 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
           defaultValue={goodsType}
           onChange={onSelecttChange}
         >
-          <option value={""}>ALL</option>
-          <option value={"Meterial"}>Meterial</option>
+          <option value={""}>{t("ALL")}</option>
+          <option value={"Meterial"}>{t("Meterial")}</option>
 
-          <option value={"Weapon"}>Weapon</option>
+          <option value={"Weapon"}>{t("weapon")}</option>
         </select>
 
         <select
@@ -209,7 +209,7 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
           defaultValue={goodsName}
           onChange={onSelecttChangeLevel}
         >
-          <option value={""}>ALL</option>
+          <option value={""}>{t("ALL")}</option>
           <option value={"artillery"}>{t("artillery")}</option>
           <option value={"bartizan"}>{t("bartizan")}</option>
           <option value={"Catapult"}>{t("Catapult")}</option>
@@ -233,7 +233,7 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
           defaultValue={coin}
           onChange={onSelecttChangeCoin}
         >
-          <option value={""}>ALL</option>
+          <option value={""}>{t("ALL")}</option>
           <option value={"BUSD"}>{t("BUSD")}</option>
           <option value={"WTWOOL"}>{t("WTWOOL")}</option>
           <option value={"WTMILK"}>{t("WTMILK")}</option>
@@ -244,7 +244,7 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
           defaultValue={desc}
           onChange={onSelecttChangeDesc}
         >
-          <option value={""}>ALL</option>
+          <option value={""}>{t("ALL")}</option>
           <option value={"price_desc"}>{t("price ⇓")}</option>
           <option value={"price_asc"}>{t("price ⇑")}</option>
           <option value={"create_time_desc"}>{t("time ⇓")}</option>
@@ -271,9 +271,9 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
                 image={item?.goodsUrl}
               />
               <div className="w-2/3 ml-2">
-                <div className="w-full">name:{item.goodsName}</div>
-                <div className="w-full">price:{item.price}</div>
-                <div className="w-full">Coin:{item.currency}</div>
+                <div className="w-full">{t("name")}{item.goodsName}</div>
+                <div className="w-full">{t("price")}{item.price}</div>
+                <div className="w-full">{t("Coin")}{item.currency}</div>
               </div>
             </div>
           ))}
@@ -306,7 +306,7 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
           <span className="text-shadow text-center mt-2 sm:text-sm">
             {selected?.biddingEndTime != null && (
               <>
-                My Price:
+                {t("My Price:")}
                 <input
                   defaultValue={selected?.price + 10}
                   className="text-shadow shadow-inner shadow-black bg-brown-200 w-32 p-2 text-center"

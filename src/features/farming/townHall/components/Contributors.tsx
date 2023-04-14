@@ -91,8 +91,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
       <div className="flex flex-wrap justify-center items-center">
         <img src={logo} className="w-2/3" />
         <p className="text-xs text-center pt-2">
-          The construction of Wolf Town is in full swing. Now you need to donate
-          corresponding materials, and you will get corresponding rewards.
+          {t("The construction of Wolf Town is in full swing. Now you need to donate corresponding materials, and you will get corresponding rewards")}
         </p>
         <p style={{ color: "red" }}>{msg}</p>
       </div>

@@ -16,6 +16,7 @@ import { CraftableItem } from "features/game/types/craftables";
 import { InventoryItemName } from "features/game/types/game";
 import { Stock } from "components/ui/Stock";
 import { getContractHandler } from "hooks/ethereum";
+import { useTranslation } from "react-i18next";
 import {
   reward,
   synthesis,
@@ -46,7 +47,7 @@ export const Repair: React.FC<Props> = ({ items, onClose, isBulk = false }) => {
   const [showCaptcha, setShowCaptcha] = useState(false);
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const { t } = useTranslation();
   const [
     {
       context: { state },
@@ -99,7 +100,7 @@ export const Repair: React.FC<Props> = ({ items, onClose, isBulk = false }) => {
     <div className="flex">
       <div className="w-full flex flex-wrap h-fit">
         <span className="text-shadow text-center">
-          Use glue to repair siege equipment
+          {t("Use glue to repair siege equipment")}
         </span>
       </div>
     </div>

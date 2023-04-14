@@ -13,6 +13,7 @@ import { Context } from "features/game/GameProvider";
 import { ITEM_DETAILS } from "features/game/types/images";
 import { CraftableItem } from "features/game/types/craftables";
 import { InventoryItemName } from "features/game/types/game";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   items: Partial<Record<InventoryItemName, CraftableItem>>;
@@ -24,6 +25,7 @@ export const CraftingItems: React.FC<Props> = ({ items }) => {
   );
   const { setToast } = useContext(ToastContext);
   const { gameService, shortcutItem } = useContext(Context);
+  const { t } = useTranslation();
   const [
     {
       context: { state },
@@ -129,7 +131,7 @@ export const CraftingItems: React.FC<Props> = ({ items }) => {
             {hasSelectedFood ? "Already crafted" : "Craft"}
           </Button>
         </div> */}
-        Coming soon
+        {t("Coming soon")}
       </OuterPanel>
     </div>
   );

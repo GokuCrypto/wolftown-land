@@ -145,7 +145,7 @@ export const WolfTownStoreItems: React.FC<Props> = ({
             }
           }}
         >
-          Buy
+          {t("Buy")}
         </Button>
         <span className="text-xs text-base"> {message} </span>
       </div>
@@ -173,16 +173,16 @@ export const WolfTownStoreItems: React.FC<Props> = ({
             }
           }}
         >
-          Prev
+          {t("Prev")}
         </div>
         <input style={{ textAlign: "center", color: "#000" }} value={pageNo} />
         <div
           style={{ cursor: "pointer", marginLeft: "10px" }}
           onClick={() => setPageNo(Number(pageNo) + 1 + "")}
         >
-          Next
+          {t("NEXT")}
         </div>
-        <div style={{ marginLeft: "10px" }}>Total:{total}</div>
+        <div style={{ marginLeft: "10px" }}>{t("Total")}{total}</div>
       </div>
     );
   };
@@ -203,9 +203,9 @@ export const WolfTownStoreItems: React.FC<Props> = ({
                 image={item?.goodsUrl}
               />
               <div className="w-2/3 ml-2">
-                <div className="w-full">name:{item.goodsName}</div>
-                <div className="w-full">price:{item.price}</div>
-                <div className="w-full">Coin:{item.coin}</div>
+                <div className="w-full">{t("name")}{item.goodsName}</div>
+                <div className="w-full">{t("price")}{item.price}</div>
+                <div className="w-full">{t("Coin")}{item.coin}</div>
               </div>
             </div>
           ))}
@@ -238,7 +238,7 @@ export const WolfTownStoreItems: React.FC<Props> = ({
           <span className="text-shadow text-center mt-2 sm:text-sm">
             {selected?.biddingEndTime != null && (
               <>
-                My Price:
+               {t("My Price:")}
                 <input
                   defaultValue={selected?.price + 10}
                   className="text-shadow shadow-inner shadow-black bg-brown-200 w-32 p-2 text-center"

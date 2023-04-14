@@ -20,7 +20,7 @@ import { Button } from "components/ui/Button";
 import ReCAPTCHA from "react-google-recaptcha";
 import { OuterPanel } from "components/ui/Panel";
 import Decimal from "decimal.js-light";
-
+import { useTranslation } from "react-i18next";
 import token from "assets/icons/token.gif";
 import timer from "assets/icons/timer.png";
 import busyGoblin from "assets/npcs/goblin_doing.gif";
@@ -91,7 +91,7 @@ export const Rare: React.FC<Props> = ({ onClose, type, canCraft = true }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [supply, setSupply] = useState<ItemSupply>();
   const [showCaptcha, setShowCaptcha] = useState(false);
-
+  const { t } = useTranslation();
   useEffect(() => {
     const load = async () => {
       const supply = API_URL
@@ -198,7 +198,7 @@ export const Rare: React.FC<Props> = ({ onClose, type, canCraft = true }) => {
     if (hasItemOnFarm)
       return (
         <div className="flex flex-col text-center mt-2 border-y border-white w-full">
-          <p className="text-[10px] sm:text-sm my-2">Already minted!</p>
+          <p className="text-[10px] sm:text-sm my-2">{t("Already minted!")}</p>
           <p className="text-[8px] sm:text-[10px] mb-2">
             You can only have one of each rare item on your farm at a time.
           </p>
@@ -206,7 +206,7 @@ export const Rare: React.FC<Props> = ({ onClose, type, canCraft = true }) => {
       );
 
     if (selected.disabled) {
-      return <span className="text-xs mt-2">Coming soon</span>;
+      return <span className="text-xs mt-2">{t("Coming soon")}</span>;
     }
 
     if (!canCraft) return;

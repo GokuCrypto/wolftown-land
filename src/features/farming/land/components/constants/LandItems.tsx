@@ -193,7 +193,7 @@ export const LandItems: React.FC<Props> = ({
             });
           }}
         >
-          Clear
+          {t("Clear")}
         </Button>
         {landData.landId ? (
           <>
@@ -203,7 +203,7 @@ export const LandItems: React.FC<Props> = ({
                 handleNextReaping();
               }}
             >
-              Reaping
+             {t("Reaping")}
             </Button>
           </>
         ) : (
@@ -214,7 +214,7 @@ export const LandItems: React.FC<Props> = ({
                 handleNextLand();
               }}
             >
-              Confirm
+              {t("Confirm")}
             </Button>
           </>
         )}

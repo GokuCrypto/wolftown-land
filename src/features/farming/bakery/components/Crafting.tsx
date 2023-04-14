@@ -8,14 +8,14 @@ import { Tab } from "components/ui/Tab";
 import { FOODS } from "features/game/types/craftables";
 
 import { CraftingItems } from "./CraftingItems";
-
+import { useTranslation } from "react-i18next";
 interface Props {
   onClose: () => void;
 }
 
 export const Crafting: React.FC<Props> = ({ onClose }) => {
   const [tab, setTab] = useState<"foods">("foods");
-
+  const { t } = useTranslation();
   return (
     <Panel className="pt-5 relative">
       <div className="flex justify-between absolute top-1.5 left-0.5 right-0 items-center">
@@ -38,7 +38,7 @@ export const Crafting: React.FC<Props> = ({ onClose }) => {
       >
         {tab === "foods" && <CraftingItems items={FOODS()} />}
       </div> */}
-      Coming soon
+      {t("Coming soon")}
     </Panel>
   );
 };

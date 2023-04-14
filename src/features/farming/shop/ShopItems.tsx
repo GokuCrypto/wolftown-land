@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import seeds from "assets/icons/seeds.png";
 import sunflowerPlant from "assets/crops/sunflower/crop.png";
 import close from "assets/icons/close.png";
-
+import { useTranslation } from "react-i18next";
 import { Panel } from "components/ui/Panel";
 import { Tab } from "components/ui/Tab";
 
@@ -16,7 +16,7 @@ interface Props {
 
 export const ShopItems: React.FC<Props> = ({ onClose }) => {
   const [tab, setTab] = useState<"buy" | "sell">("buy");
-
+  const { t } = useTranslation();
   const handleTabClick = (tab: "buy" | "sell") => {
     setTab(tab);
   };
@@ -43,7 +43,7 @@ export const ShopItems: React.FC<Props> = ({ onClose }) => {
 
       {tab === "buy" && <Seeds onClose={onClose} />}
       {tab === "sell" && <Plants />} */}
-      Coming soon
+      {t("Coming soon")}
     </Panel>
   );
 };

@@ -11,7 +11,7 @@ import choppedSheet from "assets/resources/tree/chopped_sheet.png";
 import stump from "assets/resources/tree/stump.png";
 import wood from "assets/resources/wood.png";
 import axe from "assets/tools/axe.png";
-
+import { useTranslation } from "react-i18next";
 import { GRID_WIDTH_PX ,GRID_HIGHT_PX} from "features/game/lib/constants";
 import { Context } from "features/game/GameProvider";
 import classNames from "classnames";
@@ -41,7 +41,7 @@ interface Props {
 export const Tree: React.FC<Props> = ({ treeIndex }) => {
   const { gameService, selectedItem } = useContext(Context);
   const [game] = useActor(gameService);
-
+  const { t } = useTranslation();
   const [showPopover, setShowPopover] = useState(true);
   const [showLabel, setShowLabel] = useState(false);
   const [popover, setPopover] = useState<JSX.Element | null>();
@@ -266,7 +266,7 @@ export const Tree: React.FC<Props> = ({ treeIndex }) => {
             <ProgressBar percentage={percentage} seconds={timeLeft} />
           </div>
           <TimeLeftPanel
-            text="Recovers in:"
+            text={t("Recovers in:")}
             timeLeft={timeLeft}
             showTimeLeft={showStumpTimeLeft}
           />

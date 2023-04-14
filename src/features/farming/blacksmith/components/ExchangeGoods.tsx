@@ -13,6 +13,7 @@ import { CraftableItem } from "features/game/types/craftables";
 import { InventoryItemName } from "features/game/types/game";
 import { ITEM_DETAILS } from "features/game/types/images";
 import { reward } from "hooks/WolfConfig";
+import { useTranslation } from 'react-i18next';
 import { getContractHandler } from "hooks/ethereum";
 import { GoodsForNft } from "components/ui/GoodsForNft";
 interface Props {
@@ -42,7 +43,7 @@ export const ExchangeGoods: React.FC<Props> = ({
   );
 
   const [selectedResult, setSelectedResult] = useState<WolfUserGoodsToChain>();
-
+  const { t } = useTranslation();
   const { setToast } = useContext(ToastContext);
   const { gameService, shortcutItem } = useContext(Context);
   const [showCaptcha, setShowCaptcha] = useState(false);
@@ -135,14 +136,14 @@ export const ExchangeGoods: React.FC<Props> = ({
           className="text-xxs sm:text-xs mt-1 whitespace-nowrap"
           onClick={() => handleNextReward(selected.name)}
         >
-          Send To Chain
+          {t("Send To Chain")}
         </Button>
 
         <Button
           className="text-xxs sm:text-xs mt-1 whitespace-nowrap"
           onClick={() => mint()}
         >
-          Mint
+          {t("Mint")}
         </Button>
         <span className="text-xs mt-1 text-shadow">{message}</span>
       </>

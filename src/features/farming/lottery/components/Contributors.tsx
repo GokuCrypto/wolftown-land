@@ -9,7 +9,7 @@ import goblin from "assets/npcs/goblin.gif";
 import man from "assets/npcs/idle.gif";
 import { Modal } from "react-bootstrap";
 import { Panel } from "components/ui/Panel";
-
+import { useTranslation } from "react-i18next";
 import {
   Contributor,
   ContributorRole,
@@ -53,7 +53,6 @@ export const ContributorsInit: React.FC<PropsInit> = ({ onClose, times }) => {
   const [lotteryAmount, setLotteryAmount] = useState([""]);
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("Lottery, please wait.");
-
   console.log("timestimestimes", times);
 
   useEffect(() => {
@@ -131,7 +130,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
   const [lotteryUrl, setLotteryUrl] = useState([""]);
   const [lotteryAmount, setLotteryAmount] = useState([""]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const {t} = useTranslation();
   useEffect(() => {
     setIsLoading(true);
     const load = async () => {
@@ -166,9 +165,10 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
   return (
     <>
       <div className="flex flex-wrap justify-center items-center">
-        <h1 className="text-xl  text-center pt-1"> Lottery</h1>
+        <h1 className="text-xl  text-center pt-1">
+          {t("Lottery")}</h1>
         <p className="text-xs text-center pt-2">
-          Welcome to the lottery center .
+          {t("Welcome to the lottery center")}
         </p>
       </div>
 
@@ -195,7 +195,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
           }}
           className="overflow-hidden mb-2"
         >
-          A lottery ticket
+          {t("A lottery ticket")}
         </Button>
         <Button
           style={{ width: "100%" }}
@@ -205,7 +205,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
           }}
           className="overflow-hidden mb-2"
         >
-          Five lottery tickets
+          {t("Five lottery tickets")}
         </Button>
         <Button
           style={{ width: "100%" }}
@@ -215,10 +215,10 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
           }}
           className="overflow-hidden mb-2"
         >
-          Ten lottery tickets
+          {t("Ten lottery tickets")}
         </Button>
         <h1 style={{ width: "100%" }} className="text-xs text-center pt-2">
-          Prize list
+          {t("Prize list")}
         </h1>
         <div className="flex flex-wrap items-center h-fit">
           {lotteryName.length > 1 ? (

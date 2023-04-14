@@ -121,7 +121,7 @@ export const CraftingItems: React.FC<Props> = ({
             }
           }}
         >
-          Sync
+          {t("Sync")}
         </Button>
         <span className="text-xs text-base"> {message} </span>
       </div>

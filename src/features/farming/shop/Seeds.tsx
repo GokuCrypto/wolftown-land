@@ -12,7 +12,7 @@ import { OuterPanel } from "components/ui/Panel";
 import { Button } from "components/ui/Button";
 
 import { secondsToMidString } from "lib/utils/time";
-
+import { useTranslation } from "react-i18next";
 import { Context } from "features/game/GameProvider";
 import { CraftableItem } from "features/game/types/craftables";
 import { CropName, CROPS, SEEDS } from "features/game/types/crops";
@@ -43,7 +43,7 @@ export const Seeds: React.FC<Props> = ({ onClose }) => {
   ] = useActor(gameService);
   const [isTimeBoosted, setIsTimeBoosted] = useState(false);
   const [showCaptcha, setShowCaptcha] = useState(false);
-
+  const { t } = useTranslation();
   const inventory = state.inventory;
 
   const price = getBuyPrice(selected, inventory);
@@ -112,13 +112,13 @@ export const Seeds: React.FC<Props> = ({ onClose }) => {
       return (
         <div>
           <p className="text-xxs no-wrap text-center my-1 underline">
-            Sold out
+            {t("Sold out")}
           </p>
           <p className="text-xxs text-center">
             Sync your farm to the Blockchain to restock
           </p>
           <Button className="text-xs mt-1" onClick={restock}>
-            Sync
+            {t("Sync")}
           </Button>
         </div>
       );

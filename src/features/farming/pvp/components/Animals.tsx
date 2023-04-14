@@ -154,7 +154,7 @@ const [selectedGoodsNames, setSelectedGoodsNames] = useState<string[]>([]);
         </Button>
         {showClearButton && (
         <Button
-        className="text-xs mt-3" 
+        className="text-xs mt-3"
         onClick={() => {
           // 清除冷却时间的代码...
         handleClearCoolingTime(selectedGoodsNames).then(result => {
@@ -169,7 +169,7 @@ const [selectedGoodsNames, setSelectedGoodsNames] = useState<string[]>([]);
         });
  ;
           }}>
-            
+
             {t("Clear Cooling Time") + "\n" + "500WTWOOL/animal"}
         </Button>
         )}
@@ -250,7 +250,7 @@ const [selectedGoodsNames, setSelectedGoodsNames] = useState<string[]>([]);
               <span className="mt-2 ml-2 text-shadow">{t("No item")}</span>
             )
             }
-            
+
           </div>
         </div>
         <OuterPanel className="flex-1 w-1/3">
@@ -266,7 +266,7 @@ const [selectedGoodsNames, setSelectedGoodsNames] = useState<string[]>([]);
               {"------------"}
             </span>
             <span className="text-shadow text-center mt-2 sm:text-sm">
-              {"Select the combat mode"}
+              {t("Select the combat mode")}
             </span>
             <span className="text-shadow text-center mt-2 sm:text-sm">
               <select

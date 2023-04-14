@@ -27,7 +27,7 @@ import { ITEM_DETAILS } from "features/game/types/images";
 import { InventoryItemName } from "features/game/types/game";
 import { skillUpgradeToast } from "features/game/toast/lib/skillUpgradeToast";
 import { ToastContext } from "features/game/toast/ToastQueueProvider";
-
+import { useTranslation } from "react-i18next";
 import { SkillUpgrade } from "./components/SkillUpgrade";
 import { SkillTree } from "./components/SkillTree";
 import { homeDoorAudio } from "lib/utils/sfx";
@@ -42,7 +42,7 @@ export const House: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [isSkillTreeOpen, setIsSkillTreeOpen] = React.useState(false);
   const [isUpgradeAvailable, setIsUpgradeAvailable] = React.useState(false);
-
+  const { t } = useTranslation();
   React.useEffect(() => {
     const upgrades = upgradeAvailable(state);
     setIsUpgradeAvailable(upgrades);
@@ -191,7 +191,7 @@ export const House: React.FC = () => {
               View all skills
             </Button>
           </div> */}
-          Coming soon
+          {t("Coming soon")}
         </div>
 
         <InnerPanel className="flex w-1/2 sm:w-1/3 mt-2">

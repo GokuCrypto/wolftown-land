@@ -4,7 +4,7 @@ import { useActor } from "@xstate/react";
 import Decimal from "decimal.js-light";
 import { ITEM_DETAILS } from "features/game/types/images";
 import { CraftableItem, Ingredient } from "features/game/types/craftables";
-
+import { useTranslation } from "react-i18next";
 import { Context } from "features/game/GameProvider";
 import { queryBagByName, queryBagByType } from "hooks/WolfConfig";
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 export const Goods: React.FC<Props> = ({ item }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [bagNumber, setBagNumber] = useState<number>(0);
-
+  const { t } = useTranslation();
   const loadBagByName = async () => {
     setIsLoading(true);
 

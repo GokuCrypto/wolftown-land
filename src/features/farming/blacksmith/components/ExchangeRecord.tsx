@@ -16,6 +16,7 @@ import { CraftableItem } from "features/game/types/craftables";
 import { InventoryItemName } from "features/game/types/game";
 import { Stock } from "components/ui/Stock";
 import { getContractHandler } from "hooks/ethereum";
+import { useTranslation } from "react-i18next";
 import {
   reward,
   synthesis,
@@ -51,7 +52,7 @@ export const ExchangeRecord: React.FC<Props> = ({
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [allItems, setAllItems] = useState<WolfUserGoodsToChain[]>([]);
-
+  const { t } = useTranslation();
   const [
     {
       context: { state },
@@ -146,16 +147,15 @@ export const ExchangeRecord: React.FC<Props> = ({
             )
           }
         >
-          Send To Chain
+          {t("Send To Chain")}
         </Button>
 
         <Button
           className="text-xxs sm:text-xs mt-1 whitespace-nowrap"
           onClick={() => mint(selected?.owner)}
         >
-          Mint
+          {t("Mint")}
         </Button>
-
         <span className="text-xs mt-1 text-shadow">{message}</span>
       </>
     );
@@ -166,7 +166,7 @@ export const ExchangeRecord: React.FC<Props> = ({
       <div className="w-3/5 flex flex-wrap h-fit">
         <span className="text-shadow text-center">
           {" "}
-          If the "Exchage" operation is interrupted, you can continue here
+          {t("If the Exchage operation is interrupted, you can continue here")}
         </span>
 
         {Object.values(allItems).map((item) => (

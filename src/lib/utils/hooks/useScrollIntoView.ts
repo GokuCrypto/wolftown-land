@@ -7,6 +7,7 @@ export enum Section {
   Craft = "Craft",
   Build = "Build",
   Landbuild = "Landbuild",
+  LandMaxbuild = "LandMaxbuild",
   Pvp = "Pvp",
   Arena = "Arena",
   Market = "Market",

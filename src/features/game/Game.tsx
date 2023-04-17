@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import { useActor } from "@xstate/react";
-
+import { useState } from "react";
 import { Hud } from "features/farming/hud/Hud";
 import { Crops } from "features/farming/crops/Crops";
 import { Water } from "features/farming/water/Water";
@@ -9,6 +9,7 @@ import { Wolf } from "features/farming/wolf/Wolf";
 import { Lottery } from "features/farming/lottery/Lottery";
 import { TV } from "features/farming/other/TV";
 import { Landbuild } from "features/farming/land/Landbuild";
+import { LandMaxbuild } from "features/farming/land/LandMaxbuild"
 import { Pvp } from "features/farming/pvp/Pvp";
 
 import { Arena } from "features/farming/arena/Arena";
@@ -42,6 +43,7 @@ import { ClockIssue } from "./components/ClockIssue";
 import { screenTracker } from "lib/utils/screen";
 import { Resetting } from "features/auth/components/Resetting";
 import { GoblinShovel } from "features/farming/crops/components/GoblinShovel";
+import { useTranslation } from "react-i18next";
 
 const AUTO_SAVE_INTERVAL = 1000 * 30; // autosave every 30 seconds
 const SHOW_MODAL: Record<StateValues, boolean> = {
@@ -60,7 +62,11 @@ export const Game: React.FC = () => {
   const { authService } = useContext(AuthProvider.Context);
   const { gameService } = useContext(Context);
   const [gameState, send] = useActor(gameService);
-
+  const { t } = useTranslation();
+  const [showLandMaxBuild, setShowLandMaxBuild] = useState(false);
+  const handleClickArrow = () => {
+    setShowLandMaxBuild(!showLandMaxBuild);
+  };
   useInterval(() => send("SAVE"), AUTO_SAVE_INTERVAL);
 
   useEffect(() => {
@@ -118,7 +124,54 @@ export const Game: React.FC = () => {
       {/*<TeamDonation />*/}
       <Lottery />
       <TV />
-      <Landbuild />
+      {showLandMaxBuild ? (
+  <>
+  <div style={{ display: "flex", alignItems: "center" }}>
+  <LandMaxbuild />
+  <img
+    src="/images/lands/left-arrow1.png"
+    alt="arrow-left"
+    onClick={handleClickArrow}
+    style={{  position: "absolute",
+    zIndex: 1000,
+    right: "50px",
+    float: "left",
+    top: "27.5%",
+    transform: "translateY(-50%)",
+    cursor: "pointer",
+    marginLeft: "10px" }}
+    title={t("Return to the land")}
+  />
+</div>
+  </>
+) : (
+  <>
+    <div style={{ display: "flex", alignItems: "center" }}>
+      
+  <Landbuild />
+  <img
+    src="/images/lands/right-arrow1.png"
+    alt="arrow-right"
+    onClick={handleClickArrow}
+    style={{  position: "absolute",
+    zIndex: 1000,
+    right: "40px",
+    float: "right",
+    top: "27.5%",
+    transform: "translateY(-50%)",
+    cursor: "pointer" }}
+    title={t("Click to expand the land")}
+  />
+  {/* <img
+    src="/images/lands/arrow-right.png"
+    alt="arrow-right"
+    onClick={handleClickArrow}
+    style={{ marginLeft: "10px", cursor: "pointer",    height: "500px", width: "500px"  ,zIndex: 1,
+    position: "relative", marginTop: "600px" }}
+  /> */}
+</div>
+  </>
+)}
       <Pvp />
       <Arena />
       <Crops />

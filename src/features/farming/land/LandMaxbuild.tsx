@@ -10,8 +10,14 @@ import uuu from "assets/lottery/uuu.gif";
 import ReactPlayer from "react-player";
 import { LandTime } from "./components/LandTime";
 import land1 from "assets/landbuild/land1.png";
-import { Contributors } from "./components/Contributors";
-import { getLandGameList, APP_WOLF_API } from "hooks/WolfConfig";
+import farm_lock from "public/images/lands/farm_lock.png";
+import {EXContributors } from "./components/EXContributors";
+import {Contributors } from "./components/Contributors";
+import { getLandGameList, APP_WOLF_API,getExpandNumber } from "hooks/WolfConfig";
+import { unlockLand } from "hooks/WHashConfig";
+import { useTranslation } from "react-i18next";
+
+
 import { size } from "lodash";
 
 export class LandInfo {
@@ -21,13 +27,18 @@ export class LandInfo {
   public cdate?: Date;
   public id?: string;
   public shit?: string;
+  public isUnlocked?: boolean;
 }
 
-export const Landbuild: React.FC = () => {
+export const LandMaxbuild: React.FC = () => {
   const [bgcolor, setBgcolor] = useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen2, setIsOpen2] = React.useState(false);
   const [landId, setLandId] = React.useState("");
   const [clickNumber, setClickNumber] = React.useState(0);
+  const { t } = useTranslation();
+
+  // const [isLocked, setIsLocked] = useState(true);
   const [land, setLand] = useState(() => [
     new LandInfo(),
     new LandInfo(),
@@ -36,26 +47,40 @@ export const Landbuild: React.FC = () => {
     new LandInfo(),
     new LandInfo(),
   ]);
+
   const [isLoading, setIsLoading] = useState(false);
 
   const loadLandGameList = async () => {
     setIsLoading(true);
+    const expandNumber = await getExpandNumber();
+
+ 
     try {
       console.log("loadLandGameList Animal???");
-      const result = await getLandGameList(0,6);
-      const firstSixLands = result.slice(0, 6); // 只获取前六个土地数据
-      if (firstSixLands && firstSixLands.length > 0) {
-        const lands = [
-          new LandInfo(),
-          new LandInfo(),
-          new LandInfo(),
-          new LandInfo(),
-          new LandInfo(),
-          new LandInfo(),
-        ];
+      const result = await getLandGameList(6,12);
+      const EXSixLands = result.slice(6, 12);
+      const lands = [
+        new LandInfo(),
+        new LandInfo(),
+        new LandInfo(),
+        new LandInfo(),
+        new LandInfo(),
+        new LandInfo(),
+      ]; // 只获取后六个土地数据
+
+      for (var i = 0; i < expandNumber&&i<6; i++) {
+        console.log("loadLandGameList Animal???");
+        lands[i].isUnlocked = true; 
+        console.log("loadLandGame isUnlocked",lands[i].isUnlocked );
+      }
+
+      
+      if (EXSixLands && EXSixLands.length > 0) {
+    
+        let count = 0;
        
-        for (var i = 0; i < firstSixLands.length; i++) {
-          const animals = firstSixLands[i].animalIds;
+        for (var i = 0; i < EXSixLands.length; i++) {
+          const animals = EXSixLands[i].animalIds;
           let animalsData = [];
           if (animals) {
             //获取狼的信息
@@ -75,28 +100,35 @@ export const Landbuild: React.FC = () => {
           }
 
           lands[i] = {
-            landId: firstSixLands[i].landId,
-            url: firstSixLands[i].landUrl,
+            landId: EXSixLands[i].landId,
+            url: EXSixLands[i].landUrl,
             animals: animalsData,
-            id: firstSixLands[i].id,
-            cdate: firstSixLands[i].createTime,
-            shit: firstSixLands[i].shit,
+            id: EXSixLands[i].id,
+            cdate: EXSixLands[i].createTime,
+            shit: EXSixLands[i].shit, 
+            isUnlocked : true
           };
+            count++;
         }
-        setLand(lands);
+      
       }
+      setLand(lands);
       console.log("bagAnimal", result);
 
       setIsLoading(false);
     } catch (e: any) {
       setIsLoading(false);
     }
+    
   };
 
   useEffect(() => {
     loadLandGameList();
   }, []);
-  console.log("执行了一次");
+  // const handleUnlock = () => {
+  //   setIsLocked(false);
+  // };
+  console.log("执行了一次",land);
   return (
     // Container
     <div
@@ -112,7 +144,7 @@ export const Landbuild: React.FC = () => {
       <div className="h-full w-full relative">
         {/* Navigation Center Point */}
         <span
-          id={Section.Landbuild}
+          id={Section.LandMaxbuild}
           className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
         />
 
@@ -122,15 +154,81 @@ export const Landbuild: React.FC = () => {
           className="absolute right-16 w-10 bottom-36 animate-float"
         /> */}
         <div className="h-full w-full relative">
-        {/* <div className="absolute left-0 top-1/3 flex items-center">
-      <img
-      src="/images/lands/arrow-left.png"
-      alt="arrow-left"
-      className="h-6 w-6 mr-2"
-      />
-      <span>Previous</span>
-  </div> */}
-          {land.map((obj, ind) => (
+        {/* {isLocked && (
+          <button onClick={handleUnlock} className="absolute top-2 right-2">
+            Unlock
+          </button>
+        )} */}
+        {land.map((obj, ind) => (
+          
+  <div
+    style={{ overflow: "hidden", height: "120px" }}
+    key={"img_i_max" + ind}
+    className="relative w-1/3 float-left  ml-4 mt-2 mb-1 hover:img-highlight"
+  >
+
+    {/* 已经解锁，且有放置土地 */}
+ 
+    {/* 已经解锁，没有放置土地 */}
+ {obj.isUnlocked && <>
+        <img
+            onClick={() => {
+                setIsOpen(true);
+                setClickNumber(ind);
+            }}
+          src={obj.url ? obj.url : land1}
+          alt={"img-land" + ind}
+          key={"img-land" + ind}
+          className="relative w-100 cursor-pointer "
+        />
+        <div
+          key={"img_i" + ind}
+          style={{ top: "-88px" }}
+          className="relative w-100 cursor-pointer"
+        >
+          {obj.animals?.map((obj2, ind2) => (
+            <img
+              src={obj2.url}
+              key={"img-land_wolf" + ind + ind2}
+              className="relative w-1/5 float-left  ml-4  hover:img-highlight cursor-pointer animate-float"
+            />
+          ))}
+        </div>
+        <div
+          style={{ bottom: "20px", fontSize: "8px", color: "#fff" }}
+          className="relative w-full"
+        >
+          <LandTime cdate={obj.cdate} />
+        </div>
+      </> }
+    {/* 未解锁 */}
+      {!obj.isUnlocked &&
+      <>
+      <img src={farm_lock} alt={"img-land" + ind} key={"img-land" + ind} className="relative w-100 cursor-pointer" 
+              onClick={() => {
+                setIsOpen2(true);
+              }}
+              title={t("Unlock requires 50000WTWOOL")}
+      /> 
+      <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
+      <button
+        onClick={() => {
+          setIsOpen2(true);
+        }}
+        title={t("Unlock requires 50000WTWOOL")}
+      >
+        {t("UNLOCK")}
+      
+      </button>
+    </div>
+
+
+      </> }
+
+   
+  </div>
+))}
+          {/* {land.map((obj, ind) => (
             <div
               style={{ overflow: "hidden", height: "120px" }}
               key={"img_i_max" + ind}
@@ -171,6 +269,7 @@ export const Landbuild: React.FC = () => {
             </div>
           ))}
           
+           */}
         </div>
 
         <Modal centered show={isOpen} onHide={() => setIsOpen(false)}>
@@ -187,8 +286,26 @@ export const Landbuild: React.FC = () => {
             landData={land[clickNumber]}
             animalIds={land[clickNumber].animals}
             shitData={land[clickNumber].shit}
+            // showOnlyThirdLevel={true}
           />
         </Modal>
+        <Modal centered show={isOpen2} onHide={() => setIsOpen2(false)}>
+          <img
+            src={close}
+            className="h-6 top-4 right-4 absolute cursor-pointer"
+            onClick={() => setIsOpen2(false)}
+          />
+          <EXContributors
+            onClose={() => {
+              setIsOpen2(false);
+              loadLandGameList();
+            }}
+            landData={land[clickNumber]}
+            animalIds={land[clickNumber].animals}
+            shitData={land[clickNumber].shit}
+          />
+        </Modal>
+        
       </div>
     </div>
   );

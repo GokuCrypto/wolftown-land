@@ -215,15 +215,16 @@ export const isLoggedIn = function () {
 
 
 
-export const HASH_GAME_API = "https://mainapi.wolftown.games/jeecg-boot";
+// export const HASH_GAME_API = "https://api.wolftown.games/jeecg-boot";
 
+export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/";
+/* test */
+//  export const HASH_GAME_API = "https://devapi.wolftown.games/jeecg-boot";
 /* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
 /* test */
-/* export const HASH_GAME_API = "https://devapi.wolftown.games/jeecg-boot";
- *//* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
-/* test */
 
-export const APP_WOLF_API = "https://app.wolftown.games/images/wtanimalsSmall/";
+// export const APP_WOLF_API = "https://app.wolftown.games/images/wtanimalsSmall/";
+export const APP_WOLF_API = "http://wolfadmin.wolftown.games/isystem/user";
 
 /* 配置数据 */
 export const API_CONFIG = {
@@ -272,8 +273,12 @@ export const API_CONFIG = {
 
   /*土地列表信息*/
   getLandGameList: `${HASH_GAME_API}/wolftown/getLandGameList`,
+  /*获取土地扩充数量*/
+  getExpandNumber:`${HASH_GAME_API}/wolftown/getExpandNumber`,
   /*解除pvp冷却时间*/
   handleClearCoolingTime: `${HASH_GAME_API}/wolftown/handleClearCoolingTime`,
+  /*解锁土地 */
+  unlockLand:`${HASH_GAME_API}/wolftown/unlockLand`,
   /*放置战斗动物*/
   putArena: `${HASH_GAME_API}/wolftown/putArena`,
 
@@ -865,7 +870,7 @@ export const reapingLand = async (landId: string) => {
 
 
 /* 获取用户土地放置记录 */
-export const getLandGameList = async () => {
+export const getLandGameList = async (startIndex = 0, endIndex = 6) => {
 
   const XAccessToken = localStorage.getItem('XAccessToken');
   /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
@@ -893,6 +898,31 @@ export const getLandGameList = async () => {
   }
 
 }
+/* 获取用户扩充土地的数量*/
+export const getExpandNumber = async () => {
+  const XAccessToken = localStorage.getItem('XAccessToken');
+
+  if ((XAccessToken)) {
+    const response = await fetch(`${API_CONFIG.getExpandNumber}`, {
+      method: 'GET',
+      headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json;charset=UTF-8',
+      }
+    });
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+        console.log("response-getExpandNumber", result);
+        return result?.result || 0;
+      }
+    } else if (response.status === 401) {
+      await loginOut();
+      throw new Error(ERRORS.SESSION_EXPIRED);
+    }
+  }
+};
 
 
 

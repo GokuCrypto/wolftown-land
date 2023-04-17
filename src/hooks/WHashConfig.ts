@@ -471,3 +471,29 @@ export const handleClearCoolingTime = async (selectedGoodsNames:string[] ) => {
   }
 }
 }
+/*解锁土地*/
+export const unlockLand = async ( ) => {
+  const XAccessToken = localStorage.getItem('XAccessToken');
+
+  if ((XAccessToken)) {
+  const response = await fetch(API_CONFIG.unlockLand, {
+    method: 'POST',
+    headers: {
+      'X-Access-Token': XAccessToken,
+      'token': XAccessToken,
+      'Content-Type': 'application/json;charset=UTF-8',
+    },
+    body:JSON.stringify({})
+  });
+  if (response.status === 200) {
+    const result = await response.json();
+    if (result.success) {
+      console.log("response-unlockLand", result);
+      return result.result;
+    }
+  } else if (response.status === 401) {
+    await loginOut()
+    throw new Error(ERRORS.SESSION_EXPIRED)
+  }
+}
+}

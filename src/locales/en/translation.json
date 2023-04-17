@@ -172,5 +172,10 @@
   "A nice and cozy tent":"A nice and cozy tent",
   "Sunflower Tombstone":"Sunflower Tombstone",
   "In memory of Sunflower Farmers":"In memory of Sunflower Farmers",
-  "UNLOCK":"UNLOCK"
+  "UNLOCK":"UNLOCK",
+  "Unlock requires 50000WTWOOL":"Unlock requires 50k WOOL",
+  "Click to expand the land":"Click to expand the land",
+  "Return to the land":"Return to the land",
+  "Cancel":"Cancel"
+  
 }

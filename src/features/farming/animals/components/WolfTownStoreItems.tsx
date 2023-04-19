@@ -206,6 +206,7 @@ export const WolfTownStoreItems: React.FC<Props> = ({
                 <div className="w-full">{t("name")}{item.goodsName}</div>
                 <div className="w-full">{t("price")}{item.price}</div>
                 <div className="w-full">{t("Coin")}{item.coin}</div>
+                <div className="w-full">{t("inventory")}{item.inventory}</div>
               </div>
             </div>
           ))}

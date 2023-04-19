@@ -34,5 +34,8 @@ export class WolfTownStore {
 
   public goodsType!: String;
 
+  /**库存量*/
+
+  public inventory!: number;
 
 }

@@ -108,7 +108,7 @@
   "My Price:":"我的价格 ：",
   "Buy":"购买",
   "Sold out":"售罄",
-  "Send To Chain":"交换区块链",
+  "Send To Chain":"兑换到链上",
   "Mint":"制造",
   "Remove":"移除",
   "name":"商品名称：",
@@ -202,7 +202,8 @@
   "Unlock requires 50000WTWOOL":"解锁需要50000 WOOL",
   "Click to expand the land":"点击前往扩充土地",
   "Return to the land":"返回土地列表",
-  "Cancel":"取消"
+  "Cancel":"取消",
+  "inventory":"库存:"
 
 
 

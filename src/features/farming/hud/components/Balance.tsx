@@ -16,12 +16,13 @@ import { getUserAddress } from "hooks/WHashConfig";
 import { DepositTabContent } from "./DepositTabContent";
 import { WithdrawTabContent } from "./WithdrawTabContent";
 import { WalletFlow } from "./WalletFlow";
+import { WalletBuyBack } from "./WalletBuyBack";
 
 import { WalletBalances } from "./WalletBalances";
 import { Balances, EMPTY_BALANCES } from "../lib/types";
 import { useInterval } from "lib/utils/hooks/useInterval";
 
-type Tab = "deposit" | "withdraw" | "balance" | "Capital flow";
+type Tab = "deposit" | "withdraw" | "balance" | "Capital flow" | "Buyback";
 
 export const Balance: React.FC = () => {
   const { t } = useTranslation();
@@ -130,6 +131,15 @@ export const Balance: React.FC = () => {
                   {t("Capital flow")}
                 </span>
               </Tab>
+              <Tab
+                className="flex items-center"
+                isActive={currentTab === "Buyback"}
+                onClick={() => handleTabClick("Buyback")}
+              >
+                <span className="text-xs sm:text-sm overflow-hidden text-ellipsis">
+                  {t("Buyback")}
+                </span>
+              </Tab>
             </div>
             <img
               src={close}
@@ -147,6 +157,7 @@ export const Balance: React.FC = () => {
           )}
 
           {currentTab === "Capital flow" && <WalletFlow />}
+          {currentTab === "Buyback" && <WalletBuyBack balances={balances} />}
         </Panel>
       </Modal>
     </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box } from "components/ui/Box";
 import { OuterPanel, InnerPanel } from "components/ui/Panel";
 import { Button } from "components/ui/Button";
-
+import { Panel } from "components/ui/Panel";
 import { ITEM_DETAILS } from "features/game/types/images";
 import { InventoryItemName } from "features/game/types/game";
 
@@ -24,7 +24,7 @@ import { WithdrawTokens } from "./WithdrawTokens";
 import { getAccountInfo } from "hooks/WolfConfig";
 import { Balances, EMPTY_BALANCES } from "../lib/types";
 import { airDrop } from "hooks/WolfConfig";
-
+import { Tab } from "components/ui/Tab";
 interface Props {
   balances: Balances;
 }
@@ -85,10 +85,12 @@ export const WalletBalances: React.FC<Props> = ({ balances }) => {
               {t("Redeem Points")}
             </Button>
           </div>
+
           <div>-------------- --------------</div>
           <div>{message}</div>
         </div>
       </div>
+      {/* 回购 */}
     </div>
   );
 };

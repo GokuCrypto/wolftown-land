@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { ERRORS } from "lib/errors";
 import { WolfMarket } from './modules/WolfMarket';
 import { Build } from './modules/Build';
+import { BuybackOrder } from './modules/BuybackOrder';
 
 
 
@@ -322,6 +323,11 @@ export const API_CONFIG = {
   nftWithdraw: `${HASH_GAME_API}/wolftown/nftWithdraw`,
   /*bft上链记录查询 */
   getNftToChainList: `${HASH_GAME_API}/wolftown/getNftToChainList`,
+
+  /*buyback 回购 */
+  buyback: `${HASH_GAME_API}/wolftown/buyback`,
+  /*buybackConfig */
+  buybackConfig: `${HASH_GAME_API}/wolftown/buybackConfig`,
 
 }
 
@@ -1244,6 +1250,81 @@ export const nftWithdraw = async (goodsId: string) => {
   return { status: 500, message: "NO Login!" }
 
 }
+/*buybackConfig回购配置查询 */
+export const buybackConfig = async () => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  const uid = localStorage.getItem('userInfo_userid');
+
+  // eslint-disable-next-line eqeqeq
+  if (XAccessToken && (XAccessToken != "") && uid != "") {
+    // 组装数据对象
+
+    const response = await fetch(API_CONFIG.buybackConfig, {
+      method: 'get', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      return result;
+    }
+
+    if (response.status === 401) {
+      // 登录超时处理办法
+      loginOut();
+      return { status: 500, message: " Token is invalid, please login again !" }
+    }
+
+    return { status: 500, message: "NO Connect!" }
+  }
+  return { status: 500, message: "NO Login!" }
+
+}
+
+
+
+
+/* 回购 */
+export const buyback = async (buybackOrder: BuybackOrder) => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  const uid = localStorage.getItem('userInfo_userid');
+
+  // eslint-disable-next-line eqeqeq
+  if (XAccessToken && (XAccessToken != "") && uid != "") {
+    // 组装数据对象
+
+    const response = await fetch(API_CONFIG.buyback, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify(buybackOrder),
+    })
+
+
+    if (response.status === 200) {
+      const result = await response.json();
+      return result;
+    }
+
+    if (response.status === 401) {
+      // 登录超时处理办法
+      loginOut();
+      return { status: 500, message: " Token is invalid, please login again !" }
+    }
+
+    return { status: 500, message: "NO Connect!" }
+  }
+  return { status: 500, message: "NO Login!" }
+
+}
+
+
+
 
 
 

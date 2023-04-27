@@ -85,8 +85,8 @@ export const BagItemsTabContent = ({
   const [selected, setSelected] = useState<BagItem | undefined>(
     selectedItem || tabItems[0]
   );
-
   const [price, setPrice] = useState("0");
+  const [amount,setAmount] = useState("0");
   const [coinType, setCoinType] = useState("BUSD");
   const [type, setType] = useState("Price");
   const [dateValue, setDateValue] = useState<any>(new Date());
@@ -101,6 +101,17 @@ export const BagItemsTabContent = ({
       } else return calculatedLevel;
     }
   };
+  //背包显示等级
+  const getLevel = (pow:number) => {
+    if (pow <= 100) {
+      return 1;
+    } else {
+      let calculatedLevel = Math.ceil((pow || 0 - 100) / 200) + 1;
+      if (calculatedLevel >= 100) {
+        return 100;
+      } else return calculatedLevel;
+    }
+  };
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === "") {
       setPrice("0");
@@ -108,7 +119,13 @@ export const BagItemsTabContent = ({
       setPrice(e.target.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, "$1$2.$3"));
     }
   };
-
+  const onInputChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === "") {
+      setAmount("0");
+    } else {
+      setAmount(e.target.value.replace(/^(\-)*(\d+).*$/, "$1$2"));
+    }
+  };
   const onSelecttChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value === "") {
       setCoinType("BUSD");
@@ -142,6 +159,10 @@ export const BagItemsTabContent = ({
         setMessage("Please fill in the selling price!");
         return;
       }
+      if (Number(amount) == 0) {
+        setMessage("Please fill in the selling amount!");
+        return;
+      }
       wolfMarket.price = Number(price);
       wolfMarket.currency = coinType;
       if (type == "Price") {
@@ -154,7 +175,8 @@ export const BagItemsTabContent = ({
         );
       }
       console.log("wolfMarket", wolfMarket);
-      const result = await marketAdd(wolfMarket);
+      console.log("ammmmmmmmmount",amount);
+      const result = await marketAdd(wolfMarket,Number(amount));
       if (result?.message) {
         setMessage(result.message);
       } else {
@@ -168,7 +190,7 @@ export const BagItemsTabContent = ({
           className="text-xs mt-3"
           onClick={() => {
             if (selected) {
-              handleNextSong(selected);
+                handleNextSong(selected);           
             }
           }}
         >
@@ -190,7 +212,7 @@ export const BagItemsTabContent = ({
                 key={item.name}
                 onClick={() => setSelected(item)}
                 image={item.image}
-                count={new Decimal(item.amount)}
+                count={typeof item === 'object' &&  item.type==="Animal" ?new Decimal(getLevel(item.pow)):new Decimal(item.amount)}
               />
             ))
           ) : (
@@ -249,7 +271,16 @@ export const BagItemsTabContent = ({
                   />
                 </span>
                 <span className="text-shadow text-center mt-2 sm:text-sm">
-                  {"------------"}
+                  <span className="text-shadow text-center mt-2 sm:text-sm">
+                  {t("Sell in bulk")}
+                </span>
+                <span className="flex items-center mt-2">
+                  <input
+                    onChange={onInputChangeAmount}
+                    value={amount.toString()}
+                    className="ml-20 shadow-inner shadow-black bg-brown-200 p-2 w-50"
+                  />
+                  </span>
                 </span>
                 <span className="text-shadow text-center mt-2 sm:text-sm">
                   {t("Coin Type of sale")}

@@ -3,9 +3,10 @@ import { useActor } from "@xstate/react";
 import classNames from "classnames";
 import Decimal from "decimal.js-light";
 import ReCAPTCHA from "react-google-recaptcha";
+import close from "assets/icons/close.png";
 
 import token from "assets/wt/balance.png";
-
+import { Modal } from "react-bootstrap";
 import { Box } from "components/ui/Box";
 import { OuterPanel } from "components/ui/Panel";
 import { Button } from "components/ui/Button";
@@ -15,7 +16,7 @@ import { ITEM_DETAILS } from "features/game/types/images";
 import { CraftableItem, Ingredient } from "features/game/types/craftables";
 import { InventoryItemName } from "features/game/types/game";
 import { Goods } from "components/ui/Goods";
-
+import {PrimePop} from "../PrimePop"
 import { WolfUserGoods } from "hooks/modules/WolfUserGoods";
 import { useTranslation } from 'react-i18next'; 
 import { queryBagByType, putLand, reapingLand } from "hooks/WolfConfig";
@@ -30,6 +31,7 @@ interface Props {
   isBulk?: boolean;
   onClose: () => void;
   shitData?: any;
+  showOnlyThirdLevel?:boolean; 
    
 }
 /*操作台 */
@@ -40,6 +42,7 @@ export const LandItems: React.FC<Props> = ({
   isBulk = false,
   landData,
   shitData,
+
 }) => {
   const [selected, setSelected] = useState<any>(Object.values(items)[0]);
   const [selectedNum, setSelectedNum] = useState(0);
@@ -70,6 +73,7 @@ export const LandItems: React.FC<Props> = ({
   const [showCaptcha, setShowCaptcha] = useState(false);
 
   const [landBuilditems, setLandBuilditems] = useState(Object.values(items));
+  const [landMaxBuilditems,SetlandMaxBuilditems] = useState(Object.values(items));
   const { t } = useTranslation();
   const [message, setMessage] = useState("");
   const [
@@ -77,12 +81,13 @@ export const LandItems: React.FC<Props> = ({
       context: { state },
     },
   ] = useActor(gameService);
-
+  const [harvestedItems, setHarvestedItems] = useState([]);
+  const [harvestedAmounts,setHarvestedAmounts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [bagAnimal, setBagAnimal] = useState<WolfUserGoods[]>();
   const [bagLand, setBagLand] = useState<WolfUserGoods[]>();
   const [bagShit, setBagShit] = useState<WolfUserGoods[]>();
-
+  const [isOpen,setIsOpen] = React.useState(false);
   const loadBagByType = async () => {
     setIsLoading(true);
     try {
@@ -162,6 +167,16 @@ export const LandItems: React.FC<Props> = ({
     setMessage(result.message);    
     } else {
       setMessage("Land succeeded!");
+      //若成功则弹窗
+      setIsOpen(true);
+      //显示收割物品数据
+      setHarvestedItems(
+        result.result.wolfLandGoodsResultList
+      )
+      //显示收割物品数量
+      setHarvestedAmounts(
+        JSON.parse(result.result.amounts)
+      )
     }
   };
     
@@ -273,6 +288,42 @@ export const LandItems: React.FC<Props> = ({
             <div className="flex justify-center items-end"></div>
           </div>
         </div>
+        {/* <div className="flex flex-col justify-center items-center p-2 relative">
+  <span className=" text-shadow text-center">{t("My Land")}</span>
+  <div style={{ height: "220px", overflowY: "scroll", paddingRight: "20px" }}>
+    {showOnlyThirdLevel
+      ? bagLand
+          ?.filter((item) => item.goodsName.charAt(6) === "3")
+          ?.map((item) => (
+            <Box
+              key={item.goodsName}
+              image={item.goodsUrl}
+              onClick={() => {
+                setLandinfo({
+                  goodsName: item.goodsName,
+                  goodsUrl: item.goodsUrl,
+                });
+              }}
+            />
+          ))
+      : bagLand?.map((item) => (
+          <Box
+            key={item.goodsName}
+            image={item.goodsUrl}
+            onClick={() => {
+              setLandinfo({
+                goodsName: item.goodsName,
+                goodsUrl: item.goodsUrl,
+              });
+            }}
+          />
+        ))}
+  </div>
+
+  <div className="border-t border-white w-full mt-2 pt-1">
+    <div className="flex justify-center items-end"></div>
+  </div>
+</div> */}
         <div className="flex flex-col justify-center items-center p-2 relative">
           <span className=" text-shadow text-center">{t("Animal feces")}</span>
 
@@ -332,6 +383,21 @@ export const LandItems: React.FC<Props> = ({
           <span className="text-xs text-base"> {message} </span>
         </div>
       </OuterPanel>
+         <Modal centered show={isOpen} onHide={() => setIsOpen(false)}>
+          <img
+            src={close}
+            className="h-6 top-4 right-4 absolute cursor-pointer"
+            onClick={() => setIsOpen(false)}
+          />
+          <PrimePop
+            onClose={() => {
+              setIsOpen(false)
+            }}
+            harvestedItems={harvestedItems}
+            harvestedAmounts={harvestedAmounts}
+          />
+        </Modal>
+        
     </div>
   );
 };

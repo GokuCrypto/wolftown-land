@@ -67,9 +67,10 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
         wolfMarket.currency = coin;
       }
 
-      console.log("wolfMarket.status ", wolfMarket.status);
-      const result = await marketList(wolfMarket, pageNo, pageSize);
 
+      console.log("wolfMarket.status ", wolfMarket.status);
+      const result = await marketList(wolfMarket, pageNo, pageSize,desc);
+      
       if (result?.result?.records) {
         setItems(result?.result?.records);
         setTotal(result?.result?.total);
@@ -178,7 +179,8 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
         >
           {t("Prev")}
         </div>
-        <input style={{ textAlign: "center", color: "#000" }} value={pageNo} />
+        <input style={{ textAlign: "center", color: "#000" }} value={pageNo} 
+        onChange={(e) => setPageNo(e.target.value)}/>
         <div
           style={{ cursor: "pointer", marginLeft: "10px" }}
           onClick={() => setPageNo(Number(pageNo) + 1 + "")}
@@ -215,7 +217,9 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
           <option value={"Catapult"}>{t("Catapult")}</option>
           <option value={"Cyclone wheel car"}>{t("Cyclone wheel car")}</option>
           <option value={"Rush Car"}>{t("Rush Car")}</option>
-
+          <option value={"Sheep Fragment"}>{t("Sheep Fragment")}</option>
+          <option value={"Wool Fragment"}>{t("Wool Fragment")}</option>
+          <option value={"Land Fragment"}>{t("Land Fragment")}</option>
           <option value={"Black sunken"}>{t("Black sunken")}</option>
           <option value={"Chinese paraso"}>{t("Chinese paraso")}</option>
           <option value={"Corundum"}>{t("Corundum")}</option>

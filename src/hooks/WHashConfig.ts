@@ -242,12 +242,12 @@ export const submitWithdraw = async (withdraw: WithdrawForm) => {
 
 
 /* 上架商品 */
-export const marketAdd = async (wolfMarket: WolfMarket) => {
+export const marketAdd = async (wolfMarket: WolfMarket,amount: number) => {
 
 
   const XAccessToken = localStorage.getItem('XAccessToken');
   const uid = localStorage.getItem('userInfo_userid');
-
+  const data = { wolfMarket, amount };
   // eslint-disable-next-line eqeqeq
   if (XAccessToken && (XAccessToken != "") && uid != "") {
     // 组装数据对象
@@ -256,7 +256,10 @@ export const marketAdd = async (wolfMarket: WolfMarket) => {
         'X-Access-Token': XAccessToken,
         'token': XAccessToken,
         'Content-Type': 'application/json',
-      }, body: JSON.stringify(wolfMarket),
+      }, body: JSON.stringify({
+        wolfMarket: wolfMarket,
+        amount: amount,
+      }),
     })
 
     if (response.status === 200) {

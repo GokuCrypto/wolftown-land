@@ -179,7 +179,9 @@ export const MyListItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
         >
           {t("Prev")}
         </div>
-        <input style={{ textAlign: "center", color: "#000" }} value={pageNo} />
+        <input style={{ textAlign: "center", color: "#000" }} value={pageNo} 
+        onChange={(e) => setPageNo(e.target.value)}
+        />
         <div
           style={{ cursor: "pointer", marginLeft: "10px" }}
           onClick={() => setPageNo(Number(pageNo) + 1 + "")}

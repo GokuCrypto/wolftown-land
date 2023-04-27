@@ -110,6 +110,7 @@ export const WolfTownStoreItems: React.FC<Props> = ({
     setDesc(e.target.value);
   };
 
+  
   const handleNextSong = async (selected: any) => {
     const wolfTownStore = new WolfTownStore();
     wolfTownStore.id = selected.id;
@@ -175,7 +176,8 @@ export const WolfTownStoreItems: React.FC<Props> = ({
         >
           {t("Prev")}
         </div>
-        <input style={{ textAlign: "center", color: "#000" }} value={pageNo} />
+        <input style={{ textAlign: "center", color: "#000" }} value={pageNo} 
+                onChange={(e) => setPageNo(e.target.value)}/>
         <div
           style={{ cursor: "pointer", marginLeft: "10px" }}
           onClick={() => setPageNo(Number(pageNo) + 1 + "")}
@@ -189,10 +191,10 @@ export const WolfTownStoreItems: React.FC<Props> = ({
 
   return (
     <div className="flex">
-      <div className="w-3/5 flex flex-wrap h-fit  ">
+      <div className="w-3/5 flex flex-wrap h-fit">
         {items != null &&
           items?.map((item) => (
-            <div style={{ fontSize: "10px" }} className="w-1/2 flex mt-2">
+            <div style={{ fontSize: "10px", flexBasis: "50%" }} className="w-1/2 flex mt-2">
               <Box
                 isSelected={selected?.id === item?.id}
                 key={item?.id}
@@ -202,7 +204,7 @@ export const WolfTownStoreItems: React.FC<Props> = ({
                 }}
                 image={item?.goodsUrl}
               />
-              <div className="w-2/3 ml-2">
+              <div className="w-4/5 ml-2">
                 <div className="w-full">{t("name")}{item.goodsName}</div>
                 <div className="w-full">{t("price")}{item.price}</div>
                 <div className="w-full">{t("Coin")}{item.coin}</div>

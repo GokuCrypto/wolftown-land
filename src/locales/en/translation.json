@@ -63,7 +63,7 @@
   "The construction of Wolf Town is in full swing. Now you need to donate corresponding materials, and you will get corresponding rewards":"The construction of Wolf Town is in full swing. Now you need to donate corresponding materials, and you will get corresponding rewards",
   "Details":"Details",
   "Coming soon":"Coming soon",
-  "If the Exchage operation is interrupted, you can continue here":"If the ¡°Exchage¡± operation is interrupted, you can continue here",
+  "If the Exchage operation is interrupted, you can continue here":"If the ï¿½ï¿½Exchageï¿½ï¿½ operation is interrupted, you can continue here",
   "Use glue to repair siege equipment":"Use glue to repair siege equipment",
   "Animal feces":"Animal feces",
   "Animal manure is a very good fertilizer":"Animal manure is a very good fertilizer",
@@ -178,6 +178,10 @@
   "Click to expand the land":"Click to expand the land",
   "Return to the land":"Return to the land",
   "Cancel":"Cancel",
-  "inventory":"inventory:"
+  "inventory":"inventory:",
+  "Harvest succeeded, these are the items you received.":"Harvest succeeded, these are the items you received.",
+  "amount":"amount",
+  "Sell in bulk":"Sell in bulk"
+
   
 }

@@ -306,7 +306,8 @@ export const API_CONFIG = {
   buildList: `${HASH_GAME_API}/wolftown/buildList`,
   /*build游戏*/
   build: `${HASH_GAME_API}/wolftown/build`,
-
+   /*build任务*/
+  buildItemList:`${HASH_GAME_API}/wolftown/buildItemList`,
   transactionFlowList: `${HASH_GAME_API}/wolftown/transactionFlowList`,
 
   /*市场-个人挂售表*/
@@ -856,11 +857,13 @@ export const reapingLand = async (landId: string) => {
         "landId": landId,
       }),
     })
+
     if (response.status === 200) {
+
       const result = await response.json();
       if (result.success) {
         // 放置结果数据
-        console.log("response-wolfUserGoodsResult", result);
+        console.log("response-wolfUserGoodsResult", result.result.wolfLandGoodsResultList);
         return result;
       } else {
         return result;
@@ -999,7 +1002,8 @@ export const getWolfArenaGameList = async () => {
 
 
 /* 获取市场列表 */
-export const marketList = async (params: any, pageNo: string, pageSize: string) => {
+export const marketList = async (params: any, pageNo: string, pageSize: string,desc: string) => {
+
   const XAccessToken = localStorage.getItem('XAccessToken');
   /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
   if ((XAccessToken)) {
@@ -1019,6 +1023,7 @@ export const marketList = async (params: any, pageNo: string, pageSize: string) 
 
     url += '&pageNo=' + pageNo
     url += '&pageSize=' + pageSize
+    url += '&desc=' + encodeURIComponent(desc);
     const response = await fetch(url, {
       method: 'get', headers: {
         'X-Access-Token': XAccessToken,
@@ -1174,8 +1179,8 @@ export const buildList = async (params: any, pageNo: string, pageSize: string) =
 
 
 
-/* 购买商品 */
-export const build = async (build: Build) => {
+/* 股权建设 */
+export const build = async (build: BuildItem) => {
 
   const XAccessToken = localStorage.getItem('XAccessToken');
   const uid = localStorage.getItem('userInfo_userid');
@@ -1210,6 +1215,48 @@ export const build = async (build: Build) => {
 
 }
 
+/* 获取股权建设任务列表 */
+export const buildItemList = async (params: any, goodsType: string,pageNo: string, pageSize: string) => {
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+  if ((XAccessToken)) {
+
+    let url = API_CONFIG.buildItemList;
+    if (params) {
+      let paramsArray: any[] = [];
+      //拼接参数
+
+      Object.keys(params).forEach(key => paramsArray.push(key + '=' + (typeof params[key] == 'undefined' ? "" : params[key])))
+      if (url.search(/\?/) === -1) {
+        url += '?' + paramsArray.join('&')
+      } else {
+        url += '&' + paramsArray.join('&')
+      }
+    }
+
+    url += '&pageNo=' + pageNo
+    url += '&pageSize=' + pageSize
+    const response = await fetch(url, {
+      method: 'get', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+
+        console.log("response-buildItem", result);
+        return result;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
 
 
 
@@ -1509,6 +1556,7 @@ export const myList = async (params: any, pageNo: string, pageSize: string) => {
 import wTCheckWebFreeAbi from "assets/abi/WTCheckWebFree.json";
 import WTAnimalAbi from "assets/abi/wtAnimal.json";
 import VaultAbi from "assets/abi/Vault.json";
+import { BuildItem } from './modules/BuildItem';
 
 export const Constants = {
   ArenaHistoryBlock: (24 * 60 * 60 * 30) / 3,

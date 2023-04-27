@@ -822,6 +822,10 @@ export const ITEM_DETAILS: Items = {
   "Level_1 drawing": { description: "Level_1 drawing", image: "https://img.wolftown.games/blueprint/lv1.png", },
   "Level_2 drawing": { description: "Level_2 drawing", image: "https://img.wolftown.games/blueprint/lv2.png", },
   "Level_3 drawing": { description: "Level_3 drawing", image: "https://img.wolftown.games/blueprint/lv3.png", },
+  "Level_4 drawing": { description: "Level_4 drawing", image: "https://img.wolftown.games/blueprint/lv4.png", },
+  "Level_5 drawing": { description: "Level_5 drawing", image: "https://img.wolftown.games/blueprint/lv5.png", },
+  
+  
   "Land-L1|M1": { description: "Randomly generate special land/mountains", image: "https://img.wolftown.games/land/land1.png", },
 
 

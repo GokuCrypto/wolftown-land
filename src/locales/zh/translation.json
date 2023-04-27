@@ -204,7 +204,10 @@
   "Click to expand the land":"点击前往扩充土地",
   "Return to the land":"返回土地列表",
   "Cancel":"取消",
-  "inventory":"库存:"
+  "inventory":"库存:",
+  "Harvest succeeded, these are the items you received.":"收获成功，这是您得到的物品",
+  "amount":"数量",
+  "Sell in bulk":"设置出售数量"
 
 
 

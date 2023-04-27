@@ -81,7 +81,7 @@ export const Animals = ({ tabName, tabItems }: Props) => {
   //   useShowScrollbar(TAB_CONTENT_HEIGHT);
   // const [scrollIntoView] = useScrollIntoView();
   const [selecteds, setSelecteds] = useState<WolfUserGoods[]>([]);
-
+  
   const [price, setPrice] = useState(new Decimal(0));
   const [showClearButton, setShowClearButton] = useState(false);
   const [type, setType] = useState("1");
@@ -95,7 +95,17 @@ const [selectedGoodsNames, setSelectedGoodsNames] = useState<string[]>([]);
       setPrice(new Decimal(Number(e.target.value)));
     }
   };
-
+//队列显示等级
+const getLevel = (pow:number) => {
+  if (pow <= 100) {
+    return 1;
+  } else {
+    let calculatedLevel = Math.ceil((pow || 0 - 100) / 200) + 1;
+    if (calculatedLevel >= 100) {
+      return 100;
+    } else return calculatedLevel;
+  }
+};
   const onSelecttChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value === "") {
       setType("BUSD");
@@ -191,7 +201,7 @@ const [selectedGoodsNames, setSelectedGoodsNames] = useState<string[]>([]);
       <div className="flex" style={{ minHeight: TAB_CONTENT_HEIGHT }}>
         <div className="w-3/5  ">
           <div
-            style={{ height: "200px" }}
+            style={{ height: "220px", overflowY: "scroll",paddingRight: "20px" }}
             className="w-3/5 flex flex-wrap h-fit "
           >
             {tabItemss?.length > 0 ? (
@@ -213,15 +223,18 @@ const [selectedGoodsNames, setSelectedGoodsNames] = useState<string[]>([]);
                     }
                   }}
                   image={item.goodsUrl}
-                  count={new Decimal(item.amount)}
+                  count={new Decimal(getLevel(item.pow))}
+                  
                 />
               ))
             ) : (
               <span className="mt-2 ml-2 text-shadow">{t("No item")}</span>
             )}
+            
           </div>
           <div className="w-3/5 flex flex-wrap h-fit">{t("Cooling item")}</div>
-          <div className="w-3/5 flex flex-wrap h-fit">
+          <div className="w-3/5 flex flex-wrap h-fit"
+          style={{ height: "220px", overflowY: "scroll",paddingRight: "20px" }}>
             {tabItemsItems?.length > 0 ? (
               tabItemsItems?.map((item) => (
                 <Box
@@ -243,7 +256,7 @@ const [selectedGoodsNames, setSelectedGoodsNames] = useState<string[]>([]);
                     setShowClearButton(true);
                    }}
                   image={item.goodsUrl}
-                  count={new Decimal(item.amount)}
+                  count={new Decimal(getLevel(item.pow))}
                 />
               ))
             ) : (

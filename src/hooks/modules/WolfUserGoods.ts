@@ -26,5 +26,7 @@ export class WolfUserGoods {
 
   /**landLock*/
   public pvpTime!: Date;
+  /**pow */
+  public pow!: number;
 }
 

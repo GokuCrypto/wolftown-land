@@ -6,7 +6,7 @@ import logo from "assets/brand/wolflogo.png";
 import bumpkin from "assets/npcs/bumpkin.png";
 import goblin from "assets/npcs/goblin.gif";
 import man from "assets/npcs/idle.gif";
-import { buildList, build } from "hooks/WolfConfig";
+import { buildList, build,buildItemList } from "hooks/WolfConfig";
 import { Build } from "hooks/modules/Build";
 import { BuildItem } from "hooks/modules/BuildItem";
 
@@ -54,15 +54,15 @@ export const ContributorsBuild: React.FC<Props> = ({ onClose, goodsType }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [msg, setMsg] = useState("");
 
-  const [buildItem, setBuildItem] = useState<Build[]>([]);
+  const [buildItem, setBuildItem] = useState<BuildItem[]>([]);
   const { t } = useTranslation();
 
   const loadBagByType = async () => {
     setIsLoading(true);
     try {
-      const buildIt = new Build();
-
-      const result = await buildList(buildIt, "1", "1000");
+      const buildIt= new BuildItem();
+      buildIt.goodsType=goodsType;
+      const result = await buildItemList(buildIt,goodsType, "1", "1000");
 
       if (result?.result?.records) {
         console.log("result?.result?.records", result?.result?.records);
@@ -78,7 +78,7 @@ export const ContributorsBuild: React.FC<Props> = ({ onClose, goodsType }) => {
   const buildInit = async (ids: string) => {
     setIsLoading(true);
     try {
-      const buildIt = new Build();
+      const buildIt = new BuildItem();
       buildIt.id = ids;
       buildIt.goodsType = goodsType;
       const result = await build(buildIt);

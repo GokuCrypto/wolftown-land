@@ -7,7 +7,7 @@ import { marketRate } from "../lib/halvening";
 import { KNOWN_IDS, KNOWN_ITEMS, LimitedItemType } from ".";
 import { OnChainLimitedItems } from "../lib/goblinMachine";
 import { isArray } from "lodash";
-
+import { useTranslation } from "react-i18next";
 export { FLAGS };
 
 export type CraftAction = {
@@ -129,7 +129,7 @@ export type Wood =
 
 
 export type Stone =
-  "copper" | "copper2" | "copper3" | "gold" | "gold2" | "gold3" | "iron" | "iron2" | "iron3" | "Red gold" | "Red gold2" | "Red gold3" | "titanium" | "titanium2" | "titanium3" | "Level_1 drawing" | "Level_2 drawing" | "Level_3 drawing";
+  "copper" | "copper2" | "copper3" | "gold" | "gold2" | "gold3" | "iron" | "iron2" | "iron3" | "Red gold" | "Red gold2" | "Red gold3" | "titanium" | "titanium2" | "titanium3" | "Level_1 drawing" | "Level_2 drawing" | "Level_3 drawing" | "Level_4 drawing" | "Level_5 drawing";
 
 
 export type Animal = "Chicken" | "Cow" | "Pig" | "Sheep";
@@ -290,7 +290,7 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
 
 
   "Wool Coupons": {
-    name: "Wool Coupons",
+    name:"Wool Coupons",
     description: "Used to collect Animal Coupons",
 
     tokenAmount: new Decimal(100),
@@ -393,16 +393,17 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
 
   "Rush Car": {
     name: "Rush Car", description: "Rush Car", tokenAmount: new Decimal(400), ingredients: [
-      { item: "bartizan", amount: new Decimal(1), synthesis: "@bartizan@Catapult@artillery@titanium@Corundum@amount@1@1@1@5@5@" },
+      { item: "bartizan", amount: new Decimal(1), synthesis: "@bartizan@Catapult@artillery@titanium@Corundum@Level_5 drawing@amount@1@1@1@5@5@1@" },
       { item: "Catapult", amount: new Decimal(1), },
       { item: "artillery", amount: new Decimal(1), },
       { item: "titanium", amount: new Decimal(5), },
       { item: "Corundum", amount: new Decimal(5), },
+      { item: "Level_5 drawing", amount: new Decimal(1), },
     ],
   },
   "Cyclone wheel car": {
     name: "Cyclone wheel car", description: "Cyclone wheel car", tokenAmount: new Decimal(500), ingredients: [
-      { item: "bartizan", amount: new Decimal(1), synthesis: "@bartizan@Catapult@artillery@Rush Car@titanium@Corundum@Black sunken@Red gold@amount@1@1@1@1@5@5@1@1@" },
+      { item: "bartizan", amount: new Decimal(1), synthesis: "@bartizan@Catapult@artillery@Rush Car@titanium@Corundum@Black sunken@Red gold@Level_4 drawing@amount@1@1@1@1@5@5@1@1@1@" },
       { item: "Catapult", amount: new Decimal(1), },
       { item: "artillery", amount: new Decimal(1), },
       { item: "Rush Car", amount: new Decimal(1), },
@@ -410,6 +411,7 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
       { item: "Corundum", amount: new Decimal(5), },
       { item: "Black sunken", amount: new Decimal(1), },
       { item: "Red gold", amount: new Decimal(1), },
+      { item: "Level_4 drawing", amount: new Decimal(1), },
     ],
   },
 
@@ -422,12 +424,12 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
     ],
   },
   "Land-L3": {
-    name: "Land-L3", description: "Land-L3", tokenAmount: new Decimal(2000), ingredients: [
+    name: "Land-L3", description: "Land-L3", tokenAmount: new Decimal(5000), ingredients: [
       { item: "Land-L2", amount: new Decimal(2), },
     ],
   },
   "Land-M2": {
-    name: "Land-M2", description: "Land-M2", tokenAmount: new Decimal(5000), ingredients: [
+    name: "Land-M2", description: "Land-M2", tokenAmount: new Decimal(2000), ingredients: [
       { item: "Land-M1", amount: new Decimal(2), },
     ],
   },
@@ -443,12 +445,12 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
     ],
   },
   "MaxLand-L3": {
-    name: "MaxLand-L3", description: "Special Land-L3", tokenAmount: new Decimal(2000), ingredients: [
+    name: "MaxLand-L3", description: "Special Land-L3", tokenAmount: new Decimal(5000), ingredients: [
       { item: "MaxLand-L2", amount: new Decimal(2), },
     ],
   },
   "MaxLand-M2": {
-    name: "MaxLand-M2", description: "Special Land-M2", tokenAmount: new Decimal(5000), ingredients: [
+    name: "MaxLand-M2", description: "Special Land-M2", tokenAmount: new Decimal(2000), ingredients: [
       { item: "MaxLand-M1", amount: new Decimal(2), },
     ],
   },
@@ -712,7 +714,7 @@ export const makeLimitedItemsByName = (
     const id = KNOWN_IDS[name];
     // Get onchain item based on id
     const onChainItem = onChainItems[id];
-
+    
     if (onChainItem) {
       const {
         tokenAmount,

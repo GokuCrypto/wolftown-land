@@ -69,8 +69,8 @@ export const MyListItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
       }
 
       console.log("wolfMarket.status ", wolfMarket.status);
-      const result = await myList(wolfMarket, pageNo, pageSize);
 
+      const result = await myList(wolfMarket, pageNo, pageSize);
       if (result?.result?.records) {
         setItems(result?.result?.records);
         setTotal(result?.result?.total);
@@ -210,6 +210,8 @@ export const MyListItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
                   setAmount(new Decimal(item?.price + 10));
                 }}
                 image={item?.goodsUrl}
+                count={item?.listingAmounts ? new Decimal(item.listingAmounts) : new Decimal(1)}
+                
               />
               <div className="w-2/3 ml-2">
                 <div className="w-full">{t("name")}{item.goodsName}</div>

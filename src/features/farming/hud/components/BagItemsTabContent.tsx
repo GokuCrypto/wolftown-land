@@ -113,19 +113,25 @@ export const BagItemsTabContent = ({
     }
   };
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === "") {
+    if (e.target.value === ""&& parseFloat(e.target.value) <= 0) {
       setPrice("0");
     } else {
       setPrice(e.target.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, "$1$2.$3"));
     }
   };
   const onInputChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === "") {
-      setAmount("0");
-    } else {
-      setAmount(e.target.value.replace(/^(\-)*(\d+).*$/, "$1$2"));
-    }
-  };
+  let inputValue = e.target.value.replace(/^(\-)*(\d+).*$/, "$1$2"); // 过滤非数字输入
+  if (inputValue === "") {
+    // 输入为空，设置为0
+    setAmount("0");
+  } else if (parseFloat(inputValue) > (selected?.amount || 0)) {
+    // 输入数量大于背包数量，设置为背包数量
+    setAmount((selected?.amount || 0).toString());
+  } else {
+    setAmount(inputValue);
+  }
+}
+  ;
   const onSelecttChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value === "") {
       setCoinType("BUSD");
@@ -155,11 +161,11 @@ export const BagItemsTabContent = ({
       const wolfMarket = new WolfMarket();
       wolfMarket.goodsName = goods.name.replace("\\n", "");
 
-      if (Number(price) == 0) {
+      if (Number(price) <= 0) {
         setMessage("Please fill in the selling price!");
         return;
       }
-      if (Number(amount) == 0) {
+      if (Number(amount) <= 0) {
         setMessage("Please fill in the selling amount!");
         return;
       }
@@ -265,7 +271,7 @@ export const BagItemsTabContent = ({
                 </span>
                 <span className="flex items-center mt-2">
                   <input
-                    onChange={onInputChange}
+                     onChange={onInputChange}
                     value={price.toString()}
                     className="ml-20 shadow-inner shadow-black bg-brown-200 p-2 w-50"
                   />

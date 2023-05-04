@@ -56,6 +56,8 @@ export class WolfMarket {
 
   public numberOfBids!: number;
 
+  /*上架数量*/
+  public listingAmounts!: number;
   /*价格升降 */
 
   /*时间升降 */

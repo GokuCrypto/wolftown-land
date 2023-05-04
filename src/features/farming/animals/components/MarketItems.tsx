@@ -114,6 +114,7 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
 
   const handleNextSong = async (selected: any) => {
     const wolfMarket = new WolfMarket();
+    wolfMarket.listingAmounts = selected.listingAmounts;
     wolfMarket.id = selected.id;
     if (selected.type == "1") {
       console.log(
@@ -273,6 +274,7 @@ export const MarketItems: React.FC<Props> = ({ onClose, isBulk = false }) => {
                   setAmount(new Decimal(item?.price + 10));
                 }}
                 image={item?.goodsUrl}
+                count={item?.listingAmounts ? new Decimal(item.listingAmounts) : new Decimal(1)}
               />
               <div className="w-2/3 ml-2">
                 <div className="w-full">{t("name")}{item.goodsName}</div>

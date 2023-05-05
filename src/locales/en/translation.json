@@ -181,7 +181,8 @@
   "inventory":"inventory:",
   "Harvest succeeded, these are the items you received.":"Harvest succeeded, these are the items you received.",
   "amount":"amount",
-  "Sell in bulk":"Sell in bulk"
+  "Sell in bulk":"Sell in bulk",
+  "Dividends":"Dividends"
 
   
 }

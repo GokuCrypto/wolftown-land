@@ -28,7 +28,7 @@ import {
 } from "../constants/contributors";
 import { ITEM_DETAILS } from "features/game/types/images";
 import { ContributorsBuild } from "./ContributorsBuild";
-
+import {dividends} from "hooks/WolfConfig";
 import { useShowScrollbar } from "lib/utils/hooks/useShowScrollbar";
 import classNames from "classnames";
 
@@ -59,7 +59,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
   const [msg, setMsg] = useState("");
 
   const [buildItem, setBuildItem] = useState<Build[]>([]);
-
+  const [message, setMessage] = useState("");
   const [goodsType, setGoodsType] = useState("");
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = React.useState(false);
@@ -84,7 +84,14 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
   useEffect(() => {
     loadBagByType();
   }, []);
-
+  const buildDividends = async () => {
+      const result = await dividends();
+      if (result.success) {
+        setMsg("Dividends Success");
+      } else {
+        setMsg(result?.message);
+      }
+  };
   return (
     <>
       {/* 建筑股权 */}
@@ -105,6 +112,13 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
           scrollable: showScrollbar,
         })}
       >
+       <div> 
+        <Button
+          className="w-15px bg-brown-200 active:bg-brown-200 "
+          onClick={buildDividends}
+          >
+          {t("Dividends")}
+         </Button></div>
         <div
           style={{ fontSize: "10px" }}
           className="flex flex-wrap items-center h-fit"
@@ -165,9 +179,12 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
                   {item.status == 1 ? t("Details") : t("Coming soon")}
                 </Button>
               </div>
+
             </div>
+            
           ))}
         </div>
+
       </div>
 
       <Modal centered show={isOpen} onHide={() => setIsOpen(false)}>

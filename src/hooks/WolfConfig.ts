@@ -308,6 +308,8 @@ export const API_CONFIG = {
   build: `${HASH_GAME_API}/wolftown/build`,
    /*build任务*/
   buildItemList:`${HASH_GAME_API}/wolftown/buildItemList`,
+  /**股权分红 */
+  dividends: `${HASH_GAME_API}/wolftown/dividends`,
   transactionFlowList: `${HASH_GAME_API}/wolftown/transactionFlowList`,
 
   /*市场-个人挂售表*/
@@ -1258,7 +1260,36 @@ export const buildItemList = async (params: any, goodsType: string,pageNo: strin
 
 }
 
+/* 股权分红 */
+export const dividends = async () => {
 
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+
+  if ((XAccessToken)) {
+    const response = await fetch(API_CONFIG.dividends, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+        // 放置结果数据
+        console.log("response-dividends", result);
+        return result;
+      } else {
+        return result;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
 
 /* NFT查询 */
 export const nftWithdraw = async (goodsId: string) => {

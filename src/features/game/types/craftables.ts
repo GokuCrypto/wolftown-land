@@ -290,7 +290,7 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
 
 
   "Wool Coupons": {
-    name:"Wool Coupons",
+    name: "Wool Coupons",
     description: "Used to collect Animal Coupons",
 
     tokenAmount: new Decimal(100),
@@ -398,7 +398,8 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
       { item: "artillery", amount: new Decimal(1), },
       { item: "titanium", amount: new Decimal(5), },
       { item: "Corundum", amount: new Decimal(5), },
-      { item: "Level_5 drawing", amount: new Decimal(1), },
+      { item: "Level_4 drawing", amount: new Decimal(1), },
+
     ],
   },
   "Cyclone wheel car": {
@@ -411,7 +412,7 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
       { item: "Corundum", amount: new Decimal(5), },
       { item: "Black sunken", amount: new Decimal(1), },
       { item: "Red gold", amount: new Decimal(1), },
-      { item: "Level_4 drawing", amount: new Decimal(1), },
+      { item: "Level_5 drawing", amount: new Decimal(1), },
     ],
   },
 
@@ -714,7 +715,7 @@ export const makeLimitedItemsByName = (
     const id = KNOWN_IDS[name];
     // Get onchain item based on id
     const onChainItem = onChainItems[id];
-    
+
     if (onChainItem) {
       const {
         tokenAmount,

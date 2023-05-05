@@ -28,7 +28,7 @@ import {
 } from "../constants/contributors";
 import { ITEM_DETAILS } from "features/game/types/images";
 import { ContributorsBuild } from "./ContributorsBuild";
-import {dividends} from "hooks/WolfConfig";
+import { dividends } from "hooks/WolfConfig";
 import { useShowScrollbar } from "lib/utils/hooks/useShowScrollbar";
 import classNames from "classnames";
 
@@ -85,12 +85,12 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
     loadBagByType();
   }, []);
   const buildDividends = async () => {
-      const result = await dividends();
-      if (result.success) {
-        setMsg("Dividends Success");
-      } else {
-        setMsg(result?.message);
-      }
+    const result = await dividends();
+    if (result.success) {
+      setMsg("Dividends Success");
+    } else {
+      setMsg(result?.message);
+    }
   };
   return (
     <>
@@ -114,15 +114,16 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
           scrollable: showScrollbar,
         })}
       >
-       <div> 
-        <Button
-          className="w-15px bg-brown-200 active:bg-brown-200 "
-          onClick={buildDividends}
+        <div>
+          <Button
+            className="w-15 bg-brown-200 active:bg-brown-200 "
+            onClick={buildDividends}
           >
-          {t("Dividends")}
-         </Button></div>
+            {t("Dividends")}
+          </Button>
+        </div>
         <div
-          style={{ fontSize: "10px" }}
+          style={{ fontSize: "10px", marginTop: "20px" }}
           className="flex flex-wrap items-center h-fit"
         >
           {buildItem.map((item) => (
@@ -148,7 +149,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
 
               <div className="w-30 ml-8 flex justify-center">
                 <Button
-                  className="w-30 bg-brown-200 active:bg-brown-200 "
+                  className="w-40 bg-brown-200 active:bg-brown-200 "
                   onClick={() => {
                     if (item.status == 1) {
                       setGoodsType(item.goodsType);
@@ -159,12 +160,9 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
                   {item.status == 1 ? t("Details") : t("Coming soon")}
                 </Button>
               </div>
-
             </div>
-            
           ))}
         </div>
-
       </div>
 
       <Modal centered show={isOpen} onHide={() => setIsOpen(false)}>

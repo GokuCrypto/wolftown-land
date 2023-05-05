@@ -86,7 +86,7 @@ export const BagItemsTabContent = ({
     selectedItem || tabItems[0]
   );
   const [price, setPrice] = useState("0");
-  const [amount, setAmount] = useState("0");
+  const [amount, setAmount] = useState("1");
   const [coinType, setCoinType] = useState("BUSD");
   const [type, setType] = useState("Price");
   const [dateValue, setDateValue] = useState<any>(new Date());
@@ -113,25 +113,24 @@ export const BagItemsTabContent = ({
     }
   };
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === ""&& parseFloat(e.target.value) <= 0) {
+    if (e.target.value === "" && parseFloat(e.target.value) <= 0) {
       setPrice("0");
     } else {
       setPrice(e.target.value.replace(/^(\-)*(\d+)\.(\d\d).*$/, "$1$2.$3"));
     }
   };
   const onInputChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
-  let inputValue = e.target.value.replace(/^(\-)*(\d+).*$/, "$1$2"); // 过滤非数字输入
-  if (inputValue === "") {
-    // 输入为空，设置为0
-    setAmount("0");
-  } else if (parseFloat(inputValue) > (selected?.amount || 0)) {
-    // 输入数量大于背包数量，设置为背包数量
-    setAmount((selected?.amount || 0).toString());
-  } else {
-    setAmount(inputValue);
-  }
-}
-  ;
+    let inputValue = e.target.value.replace(/^(\-)*(\d+).*$/, "$1$2"); // 过滤非数字输入
+    if (inputValue === "") {
+      // 输入为空，设置为0
+      setAmount("0");
+    } else if (parseFloat(inputValue) > (selected?.amount || 0)) {
+      // 输入数量大于背包数量，设置为背包数量
+      setAmount((selected?.amount || 0).toString());
+    } else {
+      setAmount(inputValue);
+    }
+  };
   const onSelecttChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value === "") {
       setCoinType("BUSD");
@@ -165,12 +164,12 @@ export const BagItemsTabContent = ({
         setMessage("Please fill in the selling price!");
         return;
       }
-       
+
       if (Number(amount) <= 0) {
         setMessage("Please fill in the selling amount!");
         return;
       }
- 
+
       wolfMarket.price = Number(price);
       wolfMarket.currency = coinType;
       if (type == "Price") {
@@ -277,12 +276,12 @@ export const BagItemsTabContent = ({
                 </span>
                 <span className="flex items-center mt-2">
                   <input
-                     onChange={onInputChange}
+                    onChange={onInputChange}
                     value={price.toString()}
                     className="ml-20 shadow-inner shadow-black bg-brown-200 p-2 w-50"
                   />
                 </span>
-                {/*  <span className="text-shadow text-center mt-2 sm:text-sm">
+                <span className="text-shadow text-center mt-2 sm:text-sm">
                   <span className="text-shadow text-center mt-2 sm:text-sm">
                     {t("Sell Amount")}
                   </span>
@@ -293,7 +292,7 @@ export const BagItemsTabContent = ({
                       className="ml-20 shadow-inner shadow-black bg-brown-200 p-2 w-50"
                     />
                   </span>
-                </span> */}
+                </span>
                 <span className="text-shadow text-center mt-2 sm:text-sm">
                   {t("Coin Type of sale")}
                 </span>

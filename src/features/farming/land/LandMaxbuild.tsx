@@ -11,12 +11,15 @@ import ReactPlayer from "react-player";
 import { LandTime } from "./components/LandTime";
 import land1 from "assets/landbuild/land1.png";
 import farm_lock from "public/images/lands/farm_lock.png";
-import {EXContributors } from "./components/EXContributors";
-import {Contributors } from "./components/Contributors";
-import { getLandGameList, APP_WOLF_API,getExpandNumber } from "hooks/WolfConfig";
+import { EXContributors } from "./components/EXContributors";
+import { Contributors } from "./components/Contributors";
+import {
+  getLandGameList,
+  APP_WOLF_API,
+  getExpandNumber,
+} from "hooks/WolfConfig";
 import { unlockLand } from "hooks/WHashConfig";
 import { useTranslation } from "react-i18next";
-
 
 import { size } from "lodash";
 
@@ -54,10 +57,9 @@ export const LandMaxbuild: React.FC = () => {
     setIsLoading(true);
     const expandNumber = await getExpandNumber();
 
- 
     try {
       console.log("loadLandGameList Animal???");
-      const result = await getLandGameList(6,12);
+      const result = await getLandGameList(6, 12);
       const EXSixLands = result.slice(6, 12);
       const lands = [
         new LandInfo(),
@@ -68,17 +70,15 @@ export const LandMaxbuild: React.FC = () => {
         new LandInfo(),
       ]; // 只获取后六个土地数据
 
-      for (var i = 0; i < expandNumber&&i<6; i++) {
+      for (var i = 0; i < expandNumber && i < 6; i++) {
         console.log("loadLandGameList Animal???");
-        lands[i].isUnlocked = true; 
-        console.log("loadLandGame isUnlocked",lands[i].isUnlocked );
+        lands[i].isUnlocked = true;
+        console.log("loadLandGame isUnlocked", lands[i].isUnlocked);
       }
 
-      
       if (EXSixLands && EXSixLands.length > 0) {
-    
         let count = 0;
-       
+
         for (var i = 0; i < EXSixLands.length; i++) {
           const animals = EXSixLands[i].animalIds;
           let animalsData = [];
@@ -105,12 +105,11 @@ export const LandMaxbuild: React.FC = () => {
             animals: animalsData,
             id: EXSixLands[i].id,
             cdate: EXSixLands[i].createTime,
-            shit: EXSixLands[i].shit, 
-            isUnlocked : true
+            shit: EXSixLands[i].shit,
+            isUnlocked: true,
           };
-            count++;
+          count++;
         }
-      
       }
       setLand(lands);
       console.log("bagAnimal", result);
@@ -119,7 +118,6 @@ export const LandMaxbuild: React.FC = () => {
     } catch (e: any) {
       setIsLoading(false);
     }
-    
   };
 
   useEffect(() => {
@@ -128,7 +126,7 @@ export const LandMaxbuild: React.FC = () => {
   // const handleUnlock = () => {
   //   setIsLocked(false);
   // };
-  console.log("执行了一次",land);
+  console.log("执行了一次", land);
   return (
     // Container
     <div
@@ -154,80 +152,87 @@ export const LandMaxbuild: React.FC = () => {
           className="absolute right-16 w-10 bottom-36 animate-float"
         /> */}
         <div className="h-full w-full relative">
-        {/* {isLocked && (
+          {/* {isLocked && (
           <button onClick={handleUnlock} className="absolute top-2 right-2">
             Unlock
           </button>
         )} */}
-        {land.map((obj, ind) => (
-          
-  <div
-    style={{ overflow: "hidden", height: "120px" }}
-    key={"img_i_max" + ind}
-    className="relative w-1/3 float-left  ml-4 mt-2 mb-1 hover:img-highlight"
-  >
+          {land.map((obj, ind) => (
+            <div
+              style={{ overflow: "hidden", height: "120px" }}
+              key={"img_i_max" + ind}
+              className="relative w-1/3 float-left  ml-4 mt-2 mb-1 hover:img-highlight"
+            >
+              {/* 已经解锁，且有放置土地 */}
 
-    {/* 已经解锁，且有放置土地 */}
- 
-    {/* 已经解锁，没有放置土地 */}
- {obj.isUnlocked && <>
-        <img
-            onClick={() => {
-                setIsOpen(true);
-                setClickNumber(ind);
-            }}
-          src={obj.url ? obj.url : land1}
-          alt={"img-land" + ind}
-          key={"img-land" + ind}
-          className="relative w-100 cursor-pointer "
-        />
-        <div
-          key={"img_i" + ind}
-          style={{ top: "-88px" }}
-          className="relative w-100 cursor-pointer"
-        >
-          {obj.animals?.map((obj2, ind2) => (
-            <img
-              src={obj2.url}
-              key={"img-land_wolf" + ind + ind2}
-              className="relative w-1/5 float-left  ml-4  hover:img-highlight cursor-pointer animate-float"
-            />
+              {/* 已经解锁，没有放置土地 */}
+              {obj.isUnlocked && (
+                <>
+                  <img
+                    onClick={() => {
+                      setIsOpen(true);
+                      setClickNumber(ind);
+                    }}
+                    src={obj.url ? obj.url : land1}
+                    alt={"img-land" + ind}
+                    key={"img-land" + ind}
+                    className="relative w-100 cursor-pointer "
+                  />
+                  <div
+                    key={"img_i" + ind}
+                    style={{ top: "-88px" }}
+                    className="relative w-100 cursor-pointer"
+                  >
+                    {obj.animals?.map((obj2, ind2) => (
+                      <img
+                        src={obj2.url}
+                        key={"img-land_wolf" + ind + ind2}
+                        className="relative w-1/5 float-left  ml-4  hover:img-highlight cursor-pointer animate-float"
+                      />
+                    ))}
+                  </div>
+                  <div
+                    style={{ bottom: "20px", fontSize: "8px", color: "#fff" }}
+                    className="relative w-full"
+                  >
+                    <LandTime cdate={obj.cdate} />
+                  </div>
+                </>
+              )}
+              {/* 未解锁 */}
+              {!obj.isUnlocked && (
+                <>
+                  <img
+                    src={farm_lock}
+                    alt={"img-land" + ind}
+                    key={"img-land" + ind}
+                    className="relative w-100 cursor-pointer"
+                    onClick={() => {
+                      setIsOpen2(true);
+                    }}
+                    title={t("Unlock requires 10000WTWOOL")}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                    }}
+                  >
+                    <button
+                      onClick={() => {
+                        setIsOpen2(true);
+                      }}
+                      title={t("Unlock requires 10000WTWOOL")}
+                    >
+                      {t("UNLOCK")}
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
           ))}
-        </div>
-        <div
-          style={{ bottom: "20px", fontSize: "8px", color: "#fff" }}
-          className="relative w-full"
-        >
-          <LandTime cdate={obj.cdate} />
-        </div>
-      </> }
-    {/* 未解锁 */}
-      {!obj.isUnlocked &&
-      <>
-      <img src={farm_lock} alt={"img-land" + ind} key={"img-land" + ind} className="relative w-100 cursor-pointer" 
-              onClick={() => {
-                setIsOpen2(true);
-              }}
-              title={t("Unlock requires 50000WTWOOL")}
-      /> 
-      <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
-      <button
-        onClick={() => {
-          setIsOpen2(true);
-        }}
-        title={t("Unlock requires 50000WTWOOL")}
-      >
-        {t("UNLOCK")}
-      
-      </button>
-    </div>
-
-
-      </> }
-
-   
-  </div>
-))}
           {/* {land.map((obj, ind) => (
             <div
               style={{ overflow: "hidden", height: "120px" }}
@@ -305,7 +310,6 @@ export const LandMaxbuild: React.FC = () => {
             shitData={land[clickNumber].shit}
           />
         </Modal>
-        
       </div>
     </div>
   );

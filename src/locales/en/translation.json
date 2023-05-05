@@ -174,14 +174,14 @@
   "Sunflower Tombstone":"Sunflower Tombstone",
   "In memory of Sunflower Farmers":"In memory of Sunflower Farmers",
   "UNLOCK":"UNLOCK",
-  "Unlock requires 50000WTWOOL":"Unlock requires 50k WOOL",
+  "Unlock requires 10000WTWOOL":"Unlock requires 10k WOOL",
   "Click to expand the land":"Click to expand the land",
   "Return to the land":"Return to the land",
   "Cancel":"Cancel",
   "inventory":"inventory:",
   "Harvest succeeded, these are the items you received.":"Harvest succeeded, these are the items you received.",
   "amount":"amount",
-  "Sell in bulk":"Sell in bulk",
+  "Sell Amount":"Sell Amount"
   "Dividends":"Dividends"
 
   

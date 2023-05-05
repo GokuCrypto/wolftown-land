@@ -17,7 +17,7 @@ import { InventoryItemName } from "features/game/types/game";
 import { Goods } from "components/ui/Goods";
 
 import { WolfUserGoods } from "hooks/modules/WolfUserGoods";
-import { useTranslation } from 'react-i18next'; 
+import { useTranslation } from "react-i18next";
 import { queryBagByType, putLand, reapingLand } from "hooks/WolfConfig";
 import {
   reward,
@@ -31,8 +31,6 @@ interface Props {
   isBulk?: boolean;
   onClose: () => void;
   shitData?: any;
-
-   
 }
 /*操作台 */
 
@@ -60,8 +58,10 @@ export const ExLandItems: React.FC<Props> = ({
   const { gameService, shortcutItem } = useContext(Context);
   const [showCaptcha, setShowCaptcha] = useState(false);
 
-//   const [landBuilditems, setLandBuilditems] = useState(Object.values(items));
-  const [landMaxBuilditems,setLandMaxBuilditems] = useState(Object.values(items));
+  //   const [landBuilditems, setLandBuilditems] = useState(Object.values(items));
+  const [landMaxBuilditems, setLandMaxBuilditems] = useState(
+    Object.values(items)
+  );
   const { t } = useTranslation();
   const [message, setMessage] = useState("");
   const [
@@ -70,34 +70,31 @@ export const ExLandItems: React.FC<Props> = ({
     },
   ] = useActor(gameService);
 
-
-
-
   console.log("buildAnimal", landMaxBuilditems);
 
-      
   /**收割土地 */
-      
 
   const Action = () => {
     return (
       <div>
-        <Button 
+        <Button
           className="text-xs mt-1"
           onClick={() => {
-          unlockLand().then(result => {
-            if (result?.message) {
-              setMessage(result.message);
-            } else {
-              setMessage(" unlockland Successful ");
-            }
-          console.log(result);
-          }).catch(error => {
-          console.error(error);
-          });
-   ;
-            }}>
-       {t("Confirm")}
+            unlockLand()
+              .then((result) => {
+                if (result?.message) {
+                  setMessage(result.message);
+                } else {
+                  setMessage(" unlockland Successful ");
+                }
+                console.log(result);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+          }}
+        >
+          {t("Confirm")}
         </Button>
       </div>
     );
@@ -105,15 +102,15 @@ export const ExLandItems: React.FC<Props> = ({
   return (
     <div className="flex-1 ">
       <OuterPanel className="flex-1 w-full ">
-        <div className="flex flex-col justify-center items-center p-2 relative" 
-        >
-          <span className="text-shadow text-center">{t("Unlock requires 50000WTWOOL")}</span>
+        <div className="flex flex-col justify-center items-center p-2 relative">
+          <span className="text-shadow text-center">
+            {t("Unlock requires 10000WTWOOL")}
+          </span>
           <div className="border-t border-white w-full mt-2 pt-1">
             <div className="flex justify-center items-end"></div>
           </div>
           {Action()}
-          <span className="text-xs text-base"> {message} 
-        </span>  
+          <span className="text-xs text-base"> {message}</span>
         </div>
       </OuterPanel>
     </div>

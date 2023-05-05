@@ -86,7 +86,7 @@ export const BagItemsTabContent = ({
     selectedItem || tabItems[0]
   );
   const [price, setPrice] = useState("0");
-  const [amount,setAmount] = useState("0");
+  const [amount, setAmount] = useState("0");
   const [coinType, setCoinType] = useState("BUSD");
   const [type, setType] = useState("Price");
   const [dateValue, setDateValue] = useState<any>(new Date());
@@ -102,7 +102,7 @@ export const BagItemsTabContent = ({
     }
   };
   //背包显示等级
-  const getLevel = (pow:number) => {
+  const getLevel = (pow: number) => {
     if (pow <= 100) {
       return 1;
     } else {
@@ -165,10 +165,12 @@ export const BagItemsTabContent = ({
         setMessage("Please fill in the selling price!");
         return;
       }
+       
       if (Number(amount) <= 0) {
         setMessage("Please fill in the selling amount!");
         return;
       }
+ 
       wolfMarket.price = Number(price);
       wolfMarket.currency = coinType;
       if (type == "Price") {
@@ -181,8 +183,8 @@ export const BagItemsTabContent = ({
         );
       }
       console.log("wolfMarket", wolfMarket);
-      console.log("ammmmmmmmmount",amount);
-      const result = await marketAdd(wolfMarket,Number(amount));
+      console.log("ammmmmmmmmount", amount);
+      const result = await marketAdd(wolfMarket, Number(amount));
       if (result?.message) {
         setMessage(result.message);
       } else {
@@ -196,7 +198,7 @@ export const BagItemsTabContent = ({
           className="text-xs mt-3"
           onClick={() => {
             if (selected) {
-                handleNextSong(selected);           
+              handleNextSong(selected);
             }
           }}
         >
@@ -218,7 +220,11 @@ export const BagItemsTabContent = ({
                 key={item.name}
                 onClick={() => setSelected(item)}
                 image={item.image}
-                count={typeof item === 'object' &&  item.type==="Animal" ?new Decimal(getLevel(item.pow)):new Decimal(item.amount)}
+                count={
+                  typeof item === "object" && item.type === "Animal"
+                    ? new Decimal(getLevel(item.pow))
+                    : new Decimal(item.amount)
+                }
               />
             ))
           ) : (
@@ -252,11 +258,11 @@ export const BagItemsTabContent = ({
                 </span>
                 <span className="text-shadow text-center mt-2 sm:text-sm">
                   {t("Skill points: ")}
-                  {selected?.pow ? selected?.pow :selected.pow}
+                  {selected?.pow ? selected?.pow : selected.pow}
                 </span>
                 <span className="text-shadow text-center mt-2 sm:text-sm">
-
-                {t("level/power: ")} {selected?.level ? selected?.level :levelUP()}
+                  {t("level/power: ")}{" "}
+                  {selected?.level ? selected?.level : levelUP()}
                 </span>
               </>
             )}
@@ -276,18 +282,18 @@ export const BagItemsTabContent = ({
                     className="ml-20 shadow-inner shadow-black bg-brown-200 p-2 w-50"
                   />
                 </span>
-                <span className="text-shadow text-center mt-2 sm:text-sm">
+                {/*  <span className="text-shadow text-center mt-2 sm:text-sm">
                   <span className="text-shadow text-center mt-2 sm:text-sm">
-                  {t("Sell in bulk")}
-                </span>
-                <span className="flex items-center mt-2">
-                  <input
-                    onChange={onInputChangeAmount}
-                    value={amount.toString()}
-                    className="ml-20 shadow-inner shadow-black bg-brown-200 p-2 w-50"
-                  />
+                    {t("Sell Amount")}
                   </span>
-                </span>
+                  <span className="flex items-center mt-2">
+                    <input
+                      onChange={onInputChangeAmount}
+                      value={amount.toString()}
+                      className="ml-20 shadow-inner shadow-black bg-brown-200 p-2 w-50"
+                    />
+                  </span>
+                </span> */}
                 <span className="text-shadow text-center mt-2 sm:text-sm">
                   {t("Coin Type of sale")}
                 </span>
@@ -299,7 +305,7 @@ export const BagItemsTabContent = ({
                   >
                     <option value={"WTWOOL"}>{t("WTWOOL")}</option>
                     <option value={"BUSD"}>BUSD</option>
-                    <option value={"WTMILK"}>{t("WTMILK")}</option>
+                    {/*   <option value={"WTMILK"}>{t("WTMILK")}</option> */}
                   </select>
                 </span>
 

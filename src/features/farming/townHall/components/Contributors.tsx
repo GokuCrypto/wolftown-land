@@ -98,7 +98,9 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
       <div className="flex flex-wrap justify-center items-center">
         <img src={logo} className="w-2/3" />
         <p className="text-xs text-center pt-2">
-          {t("The construction of Wolf Town is in full swing. Now you need to donate corresponding materials, and you will get corresponding rewards")}
+          {t(
+            "The construction of Wolf Town is in full swing. Now you need to donate corresponding materials, and you will get corresponding rewards"
+          )}
         </p>
         <p style={{ color: "red" }}>{msg}</p>
       </div>
@@ -132,26 +134,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
               <div className="w-60 ml-4 flex justify-center">
                 {t(item.goodsType)}
               </div>
-              {/*  <div className="w-10 ml-4 flex justify-center">
-                LV.{item.level}
-              </div>
 
-              <div className="w-20 ml-4 flex justify-center">
-                <img
-                  src={
-                    item.level == 1
-                      ? level1
-                      : item.level == 2
-                      ? level2
-                      : item.level == 3
-                      ? level3
-                      : item.level == 4
-                      ? level4
-                      : ""
-                  }
-                  className="h-8"
-                />
-              </div> */}
               <div className="w-30 ml-4 flex justify-center">
                 {"Amount(" + `${item.totalGu ? item.totalGu : 0}` + ")"}
               </div>
@@ -162,9 +145,6 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
               <div className="w-10 ml-4 flex justify-center">
                 {item.personAmount}
               </div>
-              {/*   <div className="w-10 ml-4 flex justify-center">
-                x{item.amount}
-              </div> */}
 
               <div className="w-30 ml-8 flex justify-center">
                 <Button

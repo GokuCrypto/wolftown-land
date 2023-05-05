@@ -216,9 +216,9 @@ export const isLoggedIn = function () {
 
 
 
-// export const HASH_GAME_API = "https://api.wolftown.games/jeecg-boot";
+export const HASH_GAME_API = "https://mainapi.wolftown.games/jeecg-boot";
 
-export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/";
+/* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
 /* test */
 //  export const HASH_GAME_API = "https://devapi.wolftown.games/jeecg-boot";
 /* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
@@ -275,11 +275,11 @@ export const API_CONFIG = {
   /*土地列表信息*/
   getLandGameList: `${HASH_GAME_API}/wolftown/getLandGameList`,
   /*获取土地扩充数量*/
-  getExpandNumber:`${HASH_GAME_API}/wolftown/getExpandNumber`,
+  getExpandNumber: `${HASH_GAME_API}/wolftown/getExpandNumber`,
   /*解除pvp冷却时间*/
   handleClearCoolingTime: `${HASH_GAME_API}/wolftown/handleClearCoolingTime`,
   /*解锁土地 */
-  unlockLand:`${HASH_GAME_API}/wolftown/unlockLand`,
+  unlockLand: `${HASH_GAME_API}/wolftown/unlockLand`,
   /*放置战斗动物*/
   putArena: `${HASH_GAME_API}/wolftown/putArena`,
 
@@ -306,8 +306,8 @@ export const API_CONFIG = {
   buildList: `${HASH_GAME_API}/wolftown/buildList`,
   /*build游戏*/
   build: `${HASH_GAME_API}/wolftown/build`,
-   /*build任务*/
-  buildItemList:`${HASH_GAME_API}/wolftown/buildItemList`,
+  /*build任务*/
+  buildItemList: `${HASH_GAME_API}/wolftown/buildItemList`,
   /**股权分红 */
   dividends: `${HASH_GAME_API}/wolftown/dividends`,
   transactionFlowList: `${HASH_GAME_API}/wolftown/transactionFlowList`,
@@ -1004,7 +1004,7 @@ export const getWolfArenaGameList = async () => {
 
 
 /* 获取市场列表 */
-export const marketList = async (params: any, pageNo: string, pageSize: string,desc: string) => {
+export const marketList = async (params: any, pageNo: string, pageSize: string, desc: string) => {
 
   const XAccessToken = localStorage.getItem('XAccessToken');
   /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
@@ -1218,7 +1218,7 @@ export const build = async (build: BuildItem) => {
 }
 
 /* 获取股权建设任务列表 */
-export const buildItemList = async (params: any, goodsType: string,pageNo: string, pageSize: string) => {
+export const buildItemList = async (params: any, goodsType: string, pageNo: string, pageSize: string) => {
   const XAccessToken = localStorage.getItem('XAccessToken');
   /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
   if ((XAccessToken)) {

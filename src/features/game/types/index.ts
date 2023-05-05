@@ -228,8 +228,9 @@ export const KNOWN_IDS: Record<InventoryItemName, number> = {
   "Level_1 drawing": 980,
   "Level_2 drawing": 981,
   "Level_3 drawing": 982,
-  "Land-L1|M1": 983
-
+  "Land-L1|M1": 983,
+  "Level_4 drawing": 983,
+  "Level_5 drawing": 984,
 };
 
 // The reverse of above

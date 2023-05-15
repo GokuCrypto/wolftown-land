@@ -393,7 +393,7 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
 
   "Rush Car": {
     name: "Rush Car", description: "Rush Car", tokenAmount: new Decimal(400), ingredients: [
-      { item: "bartizan", amount: new Decimal(1), synthesis: "@bartizan@Catapult@artillery@titanium@Corundum@Level_5 drawing@amount@1@1@1@5@5@1@" },
+      { item: "bartizan", amount: new Decimal(1), synthesis: "@bartizan@Catapult@artillery@titanium@Corundum@Level_4 drawing@amount@1@1@1@5@5@1@" },
       { item: "Catapult", amount: new Decimal(1), },
       { item: "artillery", amount: new Decimal(1), },
       { item: "titanium", amount: new Decimal(5), },
@@ -404,7 +404,7 @@ export const SynthesisGoods: Record<Synthesis, CraftableItem> = {
   },
   "Cyclone wheel car": {
     name: "Cyclone wheel car", description: "Cyclone wheel car", tokenAmount: new Decimal(500), ingredients: [
-      { item: "bartizan", amount: new Decimal(1), synthesis: "@bartizan@Catapult@artillery@Rush Car@titanium@Corundum@Black sunken@Red gold@Level_4 drawing@amount@1@1@1@1@5@5@1@1@1@" },
+      { item: "bartizan", amount: new Decimal(1), synthesis: "@bartizan@Catapult@artillery@Rush Car@titanium@Corundum@Black sunken@Red gold@Level_5 drawing@amount@1@1@1@1@5@5@1@1@1@" },
       { item: "Catapult", amount: new Decimal(1), },
       { item: "artillery", amount: new Decimal(1), },
       { item: "Rush Car", amount: new Decimal(1), },

@@ -71,7 +71,7 @@
   "Build":"建设狼镇",
   "Wolf Town Market":"自由市集",
   "My List":"个人挂售",
- 
+
   "Wolf Town Store":"商店",
   "synthesis":"合成",
   "exchange":"交换",
@@ -208,8 +208,20 @@
   "Harvest succeeded, these are the items you received.":"收获成功，这是您得到的物品",
   "amount":"数量",
   "Sell Amount":"设置出售数量",
-  "Dividends":"股权分红"
-
+  "Dividends":"股权分红",
+  "batchBuild":"批量建设",
+  "Please enter the quantity of items":"请输入物品数量",
+  "times":"的倍数",
+  "AutoputLand":"自动种植土地",
+  "Please check the checkbox.":"请勾选复选框",
+  "Land succeeded!":"土地放置成功",
+  "Land Please select land!":"请先选择土地",
+  "Cancel AutoputLand":"取消自动放置",
+  "cancelLand succeeded!":"取消自动放置成功",
+  "The land location is not set to automatic.":"已经取消放置了",
+  "The Arena location is not set to automatic.":"攻城自动已经取消",
+  "AutoArena":"自动攻城",
+  "CancelAutoArena":"取消自动攻城"
 
 
 

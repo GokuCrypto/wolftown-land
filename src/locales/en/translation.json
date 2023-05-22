@@ -54,7 +54,7 @@
   "Build":"Build",
   "Wolf Town Market":"Wolf Town Market",
   "My List":"My List",
- 
+
   "Wolf Town Store":"Store",
   "synthesis":"synthesis",
   "exchange":"exchange",
@@ -182,7 +182,19 @@
   "Harvest succeeded, these are the items you received.":"Harvest succeeded, these are the items you received.",
   "amount":"amount",
   "Sell Amount":"Sell Amount",
-  "Dividends":"Dividends"
+  "Dividends":"Dividends",
+  "batchBuild":"batchBuild",
+  "Please enter the quantity of items":"Please enter the quantity of items",
+  "times":"times",
+  "AutoputLand":"AutoputLand",
+  "Please check the checkbox.":"Please check the checkbox.",
+  "Land succeeded!":"Land succeeded!",
+  "Land Please select land!": "Land Please select land!",
+  "Cancel AutoputLand":"Cancel AutoputLand",
+  "cancelLand succeeded!":"cancelLand succeeded!",
+  "The land location is not set to automatic.":"The land location is not set to automatic.",
+  "AutoArena":"AutoArena",
+  "CancelAutoArena":"CancelAutoArena"
 
-  
+
 }

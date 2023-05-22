@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CONFIG } from "lib/config";
+import close from "assets/icons/close.png";
 
 import logo from "assets/brand/wolflogo.png";
 import bumpkin from "assets/npcs/bumpkin.png";
@@ -25,6 +26,8 @@ import { ITEM_DETAILS } from "features/game/types/images";
 
 import { useShowScrollbar } from "lib/utils/hooks/useShowScrollbar";
 import classNames from "classnames";
+import { Buildpop } from "./Buildpop";
+import { Modal } from "react-bootstrap";
 
 const TAB_CONTENT_HEIGHT = 340;
 
@@ -53,10 +56,14 @@ export const ContributorsBuild: React.FC<Props> = ({ onClose, goodsType }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [msg, setMsg] = useState("");
-
+  const [buildGoods,setBuildGoods] = useState("");
+  const [buildGoodsType,setBuildGoodsType] = useState("");
   const [buildItem, setBuildItem] = useState<BuildItem[]>([]);
   const { t } = useTranslation();
-
+  const [isOpen,setIsOpen] = React.useState(false);
+  
+  const [buildGoodsItem, setBuildGoodsItem] = useState<BuildItem>({} as BuildItem);
+  const [buildGoodsURL,setBuildGoodsURL] = useState("");
   const loadBagByType = async () => {
     setIsLoading(true);
     try {
@@ -175,11 +182,43 @@ export const ContributorsBuild: React.FC<Props> = ({ onClose, goodsType }) => {
                 >
                   {t("Build")}
                 </Button>
+                <Button
+                  className="w-30 bg-brown-200 active:bg-brown-200 "
+                  onClick={() => {
+                    // setBuildGoods(item.id);
+                    // setBuildGoodsType(item.goodsType)
+                    // setBuildGoodsURL(item.goodsUrl)
+                    setBuildGoodsItem(item)
+                    setIsOpen(true);
+                  }}
+                >
+                  {t("batchBuild")}
+                </Button>
               </div>
             </div>
           ))}
         </div>
+        
       </div>
+      <Modal centered show={isOpen} onHide={() => setIsOpen(false)}>
+          <img
+            src={close}
+            className="h-6 top-4 right-4 absolute cursor-pointer"
+            onClick={() => setIsOpen(false)}
+          />
+          <Buildpop
+            onClose={() => {
+              setIsOpen(false)
+            }}
+            // harvestedItems={harvestedItems}
+            // harvestedAmounts={harvestedAmounts}
+            // buildGoods = {buildGoods}
+            // buildGoodsType = {buildGoodsType}
+            // buildGoodsURL = {buildGoodsURL}
+            buildGoodsItem = {buildGoodsItem}
+          />
+        </Modal>
     </>
+    
   );
 };

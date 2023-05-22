@@ -30,6 +30,7 @@ import goblin from "assets/npcs/goblin_head.png";
 import { useIsNewFarm } from "../lib/onboarding";
 import { GoblinVillageModal } from "features/farming/town/components/GoblinVillageModal";
 import { useTranslation } from "react-i18next";
+import { MonthlyCard } from "./MonthlyCard";
 /**
  * TODO:
  * create menu level parent mapping if more than 2 levels.
@@ -54,6 +55,7 @@ export const Menu = () => {
 
   const [showShareModal, setShowShareModal] = useState(false);
   const [showLogoutModal, setShowSettings] = useState(false);
+  const [showCard, setShowCard] = useState(false);
   const [showGoblinModal, setShowGoblinModal] = useState(false);
   const [showHowToPlay, setShowHowToPlay] = useState(useIsNewFarm());
   const [showCaptcha, setShowCaptcha] = useState(false);
@@ -84,6 +86,10 @@ export const Menu = () => {
 
   const handleSettingsClick = () => {
     setShowSettings(true);
+    setMenuOpen(false);
+  };
+  const handleCardClick = () => {
+    setShowCard(true);
     setMenuOpen(false);
   };
 
@@ -225,6 +231,14 @@ export const Menu = () => {
                   <Button
                     className="flex justify-between"
                     onClick={handleSettingsClick}
+                  >
+                    <span className="sm:text-sm flex-1">{t("Settings")}</span>
+                  </Button>
+                </li>
+                <li className="p-1">
+                  <Button
+                    className="flex justify-between"
+                    onClick={handleCardClick}
                   >
                     <span className="sm:text-sm flex-1">{t("Settings")}</span>
                   </Button>
@@ -380,7 +394,10 @@ export const Menu = () => {
         isOpen={showLogoutModal}
         onClose={() => setShowSettings(false)}
       />
-
+      <MonthlyCard
+       isOpen={showCard}
+       onClose={() => setShowCard(false)}
+      />
       {showCaptcha && (
         <Modal show={showCaptcha} onHide={() => setShowCaptcha(false)} centered>
           <Panel>

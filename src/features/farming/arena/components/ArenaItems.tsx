@@ -18,7 +18,7 @@ import { Goods } from "components/ui/Goods";
 
 import { WolfUserGoods } from "hooks/modules/WolfUserGoods";
 
-import { queryBagByType, putArena } from "hooks/WolfConfig";
+import { queryBagByType, putArena ,autoArena,cancelAutoArena} from "hooks/WolfConfig";
 
 import { t } from "i18next";
 import { BigNumber } from "ethers";
@@ -64,7 +64,7 @@ export const ArenaItems: React.FC<Props> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [bagWeapon, setWeapon] = useState<WolfUserGoods[]>();
   const [bagAnimal, setBagAnimal] = useState<WolfUserGoods[]>();
-
+  const [isChecked, setIsChecked] = useState(false);
   const loadBagByType = async () => {
     setIsLoading(true);
     try {
@@ -115,6 +115,42 @@ export const ArenaItems: React.FC<Props> = ({
       setMessage("Arena succeeded!");
     }
   };
+  const useAutoArena = async () => {
+    //提交数据
+
+    let weapons = "";
+
+    if (arenaInfo.goodsName == "Field 1") {
+      setMessage("Land Please select land!");
+      return false;
+    }
+
+    for (var i = 0; i < landBuilditems.length; i++) {
+      if (landBuilditems[i].goodsName.indexOf("Field") == -1) {
+        weapons = weapons + landBuilditems[i].goodsName + "@";
+      }
+    }
+
+    const result = await autoArena(arenaInfo.goodsName, weapons, position);
+
+    if (!result.success) {
+      setMessage(result.message);
+    } else {
+      setMessage("Arena succeeded!");
+    }
+  };
+
+  const useCancelAutoArena = async () => {
+    const result = await cancelAutoArena(position);
+    if (!result.success) {
+      setMessage(result.message);
+    } else {
+      setMessage("Arena succeeded!");
+    }
+  };
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
 
   const Action = () => {
     return (
@@ -156,15 +192,56 @@ export const ArenaItems: React.FC<Props> = ({
         >
           {t("Clear")}
         </Button>
+        {position ? (
+          <>
+          <Button
+            className="text-xs mt-1"
+            onClick={() => {
+              handleNextArena();
+            }}
+          >
+            {t("Confirm")}
+          </Button>
+          <Button
+            className="text-xs mt-1"
+            onClick={() => {
+              useAutoArena();
+            }}
+          >
+            {t("AutoArena")}
+          </Button>
+          <label>
+      <input
+        type="checkbox"
+        checked={isChecked}
+        onChange={handleCheckboxChange}
+      />
+      {t("AutoArena")}
+    </label>
+        </>
+ 
+) : (
+  <>
+  <Button
+  className="text-xs mt-1"
+  onClick={() => {
+    useCancelAutoArena();
+  }}
+>
+  {t("CancelAutoArena")}
+</Button>
+<label>
+      <input
+        type="checkbox"
+        checked={isChecked}
+        onChange={handleCheckboxChange}
+      />
+      {t("CancelAutoArena")}
+    </label>
+</>
+  
 
-        <Button
-          className="text-xs mt-1"
-          onClick={() => {
-            handleNextArena();
-          }}
-        >
-          {t("Confirm")}
-        </Button>
+)}
       </div>
     );
   };

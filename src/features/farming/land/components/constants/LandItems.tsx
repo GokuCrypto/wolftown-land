@@ -19,7 +19,7 @@ import { Goods } from "components/ui/Goods";
 import {PrimePop} from "../PrimePop"
 import { WolfUserGoods } from "hooks/modules/WolfUserGoods";
 import { useTranslation } from 'react-i18next'; 
-import { queryBagByType, putLand, reapingLand } from "hooks/WolfConfig";
+import { queryBagByType, putLand, reapingLand, autoPutLand ,cancelAutoPutLand} from "hooks/WolfConfig";
 import {
   reward,
   synthesis,
@@ -87,6 +87,7 @@ export const LandItems: React.FC<Props> = ({
   const [bagAnimal, setBagAnimal] = useState<WolfUserGoods[]>();
   const [bagLand, setBagLand] = useState<WolfUserGoods[]>();
   const [bagShit, setBagShit] = useState<WolfUserGoods[]>();
+  const [isChecked, setIsChecked] = useState(false);
   const [isOpen,setIsOpen] = React.useState(false);
   const loadBagByType = async () => {
     setIsLoading(true);
@@ -143,13 +144,51 @@ export const LandItems: React.FC<Props> = ({
     }
 
     const result = await putLand(landInfo.goodsName, animals, shit);
-
+    
+    
     if (!result.success) {
    setMessage(result.message);  
     } else {
       setMessage("Land succeeded!");
     }
   };
+  const autoHandleNextLand = async () => {
+    //提交数据
+    let animals = "";
+
+    if (landInfo.goodsName == "Field Land 1") {
+      setMessage(t("Land Please select land!"));
+      return false;
+    }
+
+    for (var i = 0; i < landBuilditems.length; i++) {
+      if (landBuilditems[i].goodsName.indexOf("Field") == -1) {
+        animals = animals + landBuilditems[i].goodsName + "@";
+      }
+    }
+
+    let shit = "";
+    if (shitName.goodsName != "Field Shit 1") {
+      shit = shitName.goodsName;
+    }
+    const result1 = await autoPutLand(landInfo.goodsName, animals, shit);
+    if (!result1.success) {
+      setMessage(t(result1.message));  
+       } else {
+         setMessage(t("Land succeeded!"));
+       }
+     ;
+  };
+  /**取消自动放置 */
+  const cancelAutoHandleNextLand = async () => {
+    const result1 = await cancelAutoPutLand(landInfo.goodsName);
+    if (!result1.success) {
+      setMessage(t(result1.message));  
+       } else {
+         setMessage(t("cancelLand succeeded!"));
+       }
+     ;
+  }
   /**收割土地 */
   const handleNextReaping = async () => {
     //提交数据
@@ -179,7 +218,9 @@ export const LandItems: React.FC<Props> = ({
       )
     }
   };
-    
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
     
 
   const Action = () => {
@@ -220,7 +261,28 @@ export const LandItems: React.FC<Props> = ({
             >
              {t("Reaping")}
             </Button>
+            <Button
+              className="text-xs mt-1"
+              onClick={() => {
+                if (isChecked) {
+                  cancelAutoHandleNextLand();
+                } else {
+                  alert(t("Please check the checkbox."));
+                }
+              }}
+            >
+             {t("Cancel AutoputLand")}
+            </Button>
+            <label>
+      <input
+        type="checkbox"
+        checked={isChecked}
+        onChange={handleCheckboxChange}
+      />
+      {t("Cancel AutoputLand")}
+    </label>
           </>
+          
         ) : (
           <>
             <Button
@@ -231,6 +293,26 @@ export const LandItems: React.FC<Props> = ({
             >
               {t("Confirm")}
             </Button>
+            <Button
+              className="text-xs mt-1"
+              onClick={() => {
+                if (isChecked) {
+                  autoHandleNextLand();
+                } else {
+                  alert(t("Please check the checkbox."));
+                }
+              }}
+            >
+              {t("AutoputLand")}
+            </Button>
+            <label>
+      <input
+        type="checkbox"
+        checked={isChecked}
+        onChange={handleCheckboxChange}
+      />
+      {t("AutoputLand")}
+    </label>
           </>
         )}
       </div>

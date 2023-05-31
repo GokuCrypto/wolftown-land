@@ -12,13 +12,7 @@ import { useTranslation } from "react-i18next";
 import { BagItem } from "src/features/farming/hud/lib/types";
 import { BuildItem } from "hooks/modules/BuildItem";
 import { Button } from "components/ui/Button";
-import {
-  buildList,
-  build,
-  buildItemList,
-  buildBatch,
-  getMonthlyCard,
-} from "hooks/WolfConfig";
+import { buildList, build, buildItemList, buildBatch } from "hooks/WolfConfig";
 const TAB_CONTENT_HEIGHT = 340;
 
 //月卡

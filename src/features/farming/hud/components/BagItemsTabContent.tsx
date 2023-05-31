@@ -10,7 +10,7 @@ import Datetime from "react-datetime";
 import { reward } from "hooks/WolfConfig";
 import { BagItem } from "../lib/types";
 
-import { marketAdd } from "hooks/WHashConfig";
+import { marketAdd, useGroundhog } from "hooks/WHashConfig";
 import { WolfUserGoods } from "hooks/modules/WolfUserGoods";
 
 const ITEM_CARD_MIN_HEIGHT = "148px";
@@ -208,6 +208,35 @@ export const BagItemsTabContent = ({
     );
   };
 
+  const Action2 = () => {
+    const handleNextSong = async (goods: BagItem) => {
+      const wolfUserGoods = new WolfUserGoods();
+      wolfUserGoods.goodsName = goods.name;
+      const result = await useGroundhog(wolfUserGoods);
+      if (result?.message) {
+        setMessage(result.message);
+      } else {
+        setMessage("Successful Activate " + goods.name);
+      }
+    };
+
+    return (
+      <div>
+        <Button
+          className="text-xs mt-3"
+          onClick={() => {
+            if (selected) {
+              handleNextSong(selected);
+            }
+          }}
+        >
+          {t("Activate Card")}
+        </Button>
+        <span className="text-xs text-base"> {message} </span>
+      </div>
+    );
+  };
+
   return (
     <>
       <div className="flex" style={{ minHeight: TAB_CONTENT_HEIGHT }}>
@@ -265,6 +294,9 @@ export const BagItemsTabContent = ({
                 </span>
               </>
             )}
+
+            {(selected?.name === "Monthly Groundhog" ||
+              selected?.name === "Weekly Groundhog") && <>{Action2()}</>}
 
             {(selected?.type === "Meterial" || selected?.type === "Weapon") && (
               <>

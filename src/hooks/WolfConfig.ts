@@ -269,27 +269,27 @@ export const API_CONFIG = {
   getWolfUserGoodsToChainList: `${HASH_GAME_API}/wolftown/getWolfUserGoodsToChainList`,
   /*放置土地*/
   putLand: `${HASH_GAME_API}/wolftown/putLand`,
-   /*自动放置土地*/
-    autoPutLand: `${HASH_GAME_API}/wolftown/autoPutLand`,
-   /*取消自动放置土地*/
-    cancelAutoPutLand:`${HASH_GAME_API}/wolftown/cancelAutoPutLand`,
+  /*自动放置土地*/
+  autoPutLand: `${HASH_GAME_API}/wolftown/autoPutLand`,
+  /*取消自动放置土地*/
+  cancelAutoPutLand: `${HASH_GAME_API}/wolftown/cancelAutoPutLand`,
   /*释放土地*/
-   reapingLand: `${HASH_GAME_API}/wolftown/reapingLand`,
+  reapingLand: `${HASH_GAME_API}/wolftown/reapingLand`,
 
   /*土地列表信息*/
   getLandGameList: `${HASH_GAME_API}/wolftown/getLandGameList`,
   /*获取土地扩充数量*/
-  getExpandNumber:`${HASH_GAME_API}/wolftown/getExpandNumber`,
+  getExpandNumber: `${HASH_GAME_API}/wolftown/getExpandNumber`,
   /*解除pvp冷却时间*/
   handleClearCoolingTime: `${HASH_GAME_API}/wolftown/handleClearCoolingTime`,
   /*解锁土地 */
-  unlockLand:`${HASH_GAME_API}/wolftown/unlockLand`,
+  unlockLand: `${HASH_GAME_API}/wolftown/unlockLand`,
   /*放置战斗动物*/
   putArena: `${HASH_GAME_API}/wolftown/putArena`,
   /*自动攻城*/
   autoArena: `${HASH_GAME_API}/wolftown/autoArena`,
   /*取消自动攻城*/
-  cancelAutoArena:`${HASH_GAME_API}/wolftown/cancelAutoArena`,
+  cancelAutoArena: `${HASH_GAME_API}/wolftown/cancelAutoArena`,
   /*查询战斗物品信息*/
   getWolfArenaGameList: `${HASH_GAME_API}/wolftown/getWolfArenaGameList`,
 
@@ -301,15 +301,14 @@ export const API_CONFIG = {
 
   /*市场-上架*/
   marketAdd: `${HASH_GAME_API}/wolftown/marketAdd`,
-  /*背包-月卡*/
-  monthlyCard: `${HASH_GAME_API}/wolftown/monthlyCard`,
-   /*月卡剩余*/
-  getMonthlyCard: `${HASH_GAME_API}/wolftown/monthlyCard`,
+  /*使用月/周卡*/
+  useGroundhog: `${HASH_GAME_API}/wolftown/useGroundhog`,
+
   /*市场-出价*/
   marketBuy: `${HASH_GAME_API}/wolftown/marketBuy`,
   /*PVP战斗*/
   pvp: `${HASH_GAME_API}/wolftown/pvp`,
-   /*拯救动物*/
+  /*拯救动物*/
   saveAnimals: `${HASH_GAME_API}/wolftown/saveAnimals`,
   /*战斗记录-分页列表查询*/
   pvpList: `${HASH_GAME_API}/wolftown/pvpList`,
@@ -320,8 +319,8 @@ export const API_CONFIG = {
   build: `${HASH_GAME_API}/wolftown/build`,
   /*批量股权任务*/
   buildBatch: `${HASH_GAME_API}/wolftown/buildBatch`,
-   /*build任务*/
-  buildItemList:`${HASH_GAME_API}/wolftown/buildItemList`,
+  /*build任务*/
+  buildItemList: `${HASH_GAME_API}/wolftown/buildItemList`,
   /**股权分红 */
   dividends: `${HASH_GAME_API}/wolftown/dividends`,
   transactionFlowList: `${HASH_GAME_API}/wolftown/transactionFlowList`,
@@ -345,6 +344,15 @@ export const API_CONFIG = {
   buyback: `${HASH_GAME_API}/wolftown/buyback`,
   /*buybackConfig */
   buybackConfig: `${HASH_GAME_API}/wolftown/buybackConfig`,
+  /*土拨鼠功能 */
+
+  saveGroundhog: `${HASH_GAME_API}/wolftown/saveGroundhog`,
+  queryGroundhog: `${HASH_GAME_API}/wolftown/queryGroundhog`,
+  queryGroundhogLog: `${HASH_GAME_API}/wolftown/queryGroundhogLog`,
+  queryInviteLink: `${HASH_GAME_API}/wolftown/queryInviteLink`,
+  checkWolfInvite: `${HASH_GAME_API}/wolftown/checkWolfInvite`,
+
+
 
 }
 
@@ -449,7 +457,8 @@ export const getAccountInfo = async () => {
     WTWOOL: '0',
     WTMILK: '0',
     integral: '0',
-    Build: '0'
+    Build: '0',
+    Invite: "0"
   }
 
   const XAccessToken = localStorage.getItem('XAccessToken');
@@ -491,6 +500,10 @@ export const getAccountInfo = async () => {
             if (account.coin != null && account.coin === "Build") {
               acountInfo.Build = account.normalBalance.toString();
             }
+            if (account.coin != null && account.coin === "Invite") {
+              acountInfo.Invite = account.normalBalance.toString();
+            }
+
           }
         }
       }
@@ -824,7 +837,7 @@ export const putLand = async (landName: string, animals: string, shit: string) =
 
   const XAccessToken = localStorage.getItem('XAccessToken');
   /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
-  
+
   if ((XAccessToken)) {
     const response = await fetch(API_CONFIG.putLand, {
       method: 'post', headers: {
@@ -853,7 +866,7 @@ export const putLand = async (landName: string, animals: string, shit: string) =
 }
 
 /* 自动放置土地 */
-export const autoPutLand = async (landName: string, animals: string, shit: string ) => {
+export const autoPutLand = async (landName: string, animals: string, shit: string) => {
 
   const XAccessToken = localStorage.getItem('XAccessToken');
   /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
@@ -865,13 +878,13 @@ export const autoPutLand = async (landName: string, animals: string, shit: strin
         'X-Access-Token': XAccessToken,
         'token': XAccessToken,
         'Content-Type': 'application/json',
-      }, 
+      },
       body: JSON.stringify({
         "landName": landName,
         "animals": animals,
         "shit": shit,
       }),
-      
+
     })
     if (response.status === 200) {
       const result = await response.json();
@@ -902,11 +915,11 @@ export const cancelAutoPutLand = async (landName: string) => {
         'X-Access-Token': XAccessToken,
         'token': XAccessToken,
         'Content-Type': 'application/json',
-      }, 
+      },
       body: JSON.stringify({
         "landName": landName,
       }),
-      
+
     })
     if (response.status === 200) {
       const result = await response.json();
@@ -1098,11 +1111,11 @@ export const cancelAutoArena = async (position: string) => {
         'X-Access-Token': XAccessToken,
         'token': XAccessToken,
         'Content-Type': 'application/json',
-      }, 
+      },
       body: JSON.stringify({
         "position": position,
       }),
-      
+
     })
     if (response.status === 200) {
       const result = await response.json();
@@ -1149,7 +1162,7 @@ export const getWolfArenaGameList = async () => {
 
 
 /* 获取市场列表 */
-export const marketList = async (params: any, pageNo: string, pageSize: string,desc: string) => {
+export const marketList = async (params: any, pageNo: string, pageSize: string, desc: string) => {
 
   const XAccessToken = localStorage.getItem('XAccessToken');
   /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
@@ -1362,7 +1375,7 @@ export const build = async (build: BuildItem) => {
 
 }
 /* 股权批量建设 */
-export const buildBatch = async (buildBatch: BuildItem,amounts:number) => {
+export const buildBatch = async (buildBatch: BuildItem, amounts: number) => {
 
   const XAccessToken = localStorage.getItem('XAccessToken');
   const uid = localStorage.getItem('userInfo_userid');
@@ -1374,7 +1387,7 @@ export const buildBatch = async (buildBatch: BuildItem,amounts:number) => {
         'X-Access-Token': XAccessToken,
         'token': XAccessToken,
         'Content-Type': 'application/json',
-      }, body: JSON.stringify({wolfBuildItem:buildBatch,amounts:amounts}),
+      }, body: JSON.stringify({ wolfBuildItem: buildBatch, amounts: amounts }),
     })
 
     if (response.status === 200) {
@@ -1395,7 +1408,7 @@ export const buildBatch = async (buildBatch: BuildItem,amounts:number) => {
 }
 
 /* 获取股权建设任务列表 */
-export const buildItemList = async (params: any, goodsType: string,pageNo: string, pageSize: string) => {
+export const buildItemList = async (params: any, goodsType: string, pageNo: string, pageSize: string) => {
   const XAccessToken = localStorage.getItem('XAccessToken');
   /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
   if ((XAccessToken)) {
@@ -1467,65 +1480,9 @@ export const dividends = async () => {
   }
 
 }
-//
-/* 使用月卡 */
-export const monthlyCard = async (card:string) => {
-
-  const XAccessToken = localStorage.getItem('XAccessToken');
-  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
-
-  if ((XAccessToken)) {
-    const response = await fetch(API_CONFIG.monthlyCard, {
-      method: 'post', headers: {
-        'X-Access-Token': XAccessToken,
-        'token': XAccessToken,
-        'Content-Type': 'application/json',
-      },body:card,
-    })
-    if (response.status === 200) {
-      const result = await response.json();
-      if (result.success) {
-        // 放置结果数据
-        console.log("response-dividends", result);
-        return result;
-      } else {
-        return result;
-      }
-    } else if (response.status === 401) {
-      await loginOut()
-      throw new Error(ERRORS.SESSION_EXPIRED)
-    }
-  }
-
-}
-/* 获取用户月卡剩余时间*/
-export const getMonthlyCard = async () => {
-  const XAccessToken = localStorage.getItem('XAccessToken');
-  console.log("197839071238047uy8012378");
-  if ((XAccessToken)) {
-    const response = await fetch(`${API_CONFIG.getMonthlyCard}`, {
-      method: 'GET',
-      headers: {
-        'X-Access-Token': XAccessToken,
-        'token': XAccessToken,
-        'Content-Type': 'application/json;charset=UTF-8',
-      }
-    });
-    if (response.status === 200) {
-      const result = await response.json();
-      if (result.success) {
-        console.log("response-ggggggggggggggggggggggggggggggggggggggggg", result);
-        return result?.result || 0;
-      }
-    } else if (response.status === 401) {
-      await loginOut();
-      throw new Error(ERRORS.SESSION_EXPIRED);
-    }
-  }
-};
 
 /* 拯救动物 */
-export const saveAnimals = async (pvpAnimals:any[]) => {
+export const saveAnimals = async (pvpAnimals: any[]) => {
 
   const XAccessToken = localStorage.getItem('XAccessToken');
   /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
@@ -1536,7 +1493,7 @@ export const saveAnimals = async (pvpAnimals:any[]) => {
         'X-Access-Token': XAccessToken,
         'token': XAccessToken,
         'Content-Type': 'application/json',
-      },body: JSON.stringify(pvpAnimals),
+      }, body: JSON.stringify(pvpAnimals),
     })
     if (response.status === 200) {
       const result = await response.json();
@@ -1845,6 +1802,122 @@ export const myList = async (params: any, pageNo: string, pageSize: string) => {
 
 
 
+/* 获取个人土拨鼠配置 */
+export const queryGroundhog = async () => {
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+  if ((XAccessToken)) {
+
+    let url = API_CONFIG.queryGroundhog;
+
+
+
+    const response = await fetch(url, {
+      method: 'get', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+
+        console.log("response-queryGroundhog", result);
+        return result;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+
+
+
+
+/* 获取个人邀请链接 */
+export const queryInviteLink = async () => {
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+  if ((XAccessToken)) {
+
+    let url = API_CONFIG.queryInviteLink;
+
+    const response = await fetch(url, {
+      method: 'get', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+
+        console.log("response-queryInviteLink", result);
+        return result;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+
+
+
+/* 获取个人土拨鼠运行记录 */
+export const queryGroundhogLog = async (params: any, pageNo: string, pageSize: string) => {
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+  if ((XAccessToken)) {
+
+    let url = API_CONFIG.queryGroundhogLog;
+
+    if (params) {
+      let paramsArray: any[] = [];
+      //拼接参数
+
+      Object.keys(params).forEach(key => paramsArray.push(key + '=' + (typeof params[key] == 'undefined' ? "" : params[key])))
+      if (url.search(/\?/) === -1) {
+        url += '?' + paramsArray.join('&')
+      } else {
+        url += '&' + paramsArray.join('&')
+      }
+    }
+
+    url += '&pageNo=' + pageNo
+    url += '&pageSize=' + pageSize
+
+    const response = await fetch(url, {
+      method: 'get', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+
+        console.log("response-queryGroundhogLog", result);
+        return result;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+
+
+
+
+
 
 /* 配置数据 end */
 
@@ -1909,5 +1982,95 @@ if (!IsDevelopment) {
   console.log = () => null;
   console.error = () => null;
   console.info = () => null;
+}
+
+
+
+
+export const base36_to_num = (value: any) => {
+  var str_to_num = {
+    f: '0',
+    m: '1',
+    r: '2',
+    c: '3',
+    x: '4',
+    e: '5',
+    t: '6',
+    j: '7',
+    p: '8',
+    a: '9',
+    z: '10',
+    h: '11',
+    v: '12',
+    l: '13',
+    s: '14',
+    d: '15',
+    n: '16',
+    w: '17',
+    g: '18',
+    y: '19',
+    k: '20',
+    b: '21',
+    u: '22',
+    o: '23',
+    q: '0',
+    i: '0',
+  }
+
+  var l = value.length
+
+  var v = value.toString().toLowerCase()
+  var ret = 0
+  for (var i = l - 1; i >= 0; i--) {
+    ret = Number(ret) * 24 + Number(str_to_num[v.slice(i, i + 1)])
+  }
+  return ret
+}
+export const num_to_base36 = (value: any) => {
+  var num_to_str = {
+    0: 'F',
+    1: 'M',
+    2: 'R',
+    3: 'C',
+    4: 'X',
+    5: 'E',
+    6: 'T',
+    7: 'J',
+    8: 'P',
+    9: 'A',
+    10: 'Z',
+    11: 'H',
+    12: 'V',
+    13: 'L',
+    14: 'S',
+    15: 'D',
+    16: 'N',
+    17: 'W',
+    18: 'G',
+    19: 'Y',
+    20: 'K',
+    21: 'B',
+    22: 'U',
+    23: 'O',
+    /*    0: 'Q',
+       0: 'I', */
+  }
+  if (value == 0) return '$$'
+  var ret = ''
+  var v = value
+  while (v > 0) {
+    ret = ret + num_to_str[v % 24]
+    v = Math.floor(v / 24)
+  }
+  v = 0
+  while (ret.length < 4) {
+    if (v === 0) ret = ret + 'F'
+    else if (v === 1) ret = ret + 'Q'
+    else if (v === 2) ret = ret + 'I'
+    else if (v === 3) ret = ret + 'F'
+    v++
+  }
+
+  return ret
 }
 

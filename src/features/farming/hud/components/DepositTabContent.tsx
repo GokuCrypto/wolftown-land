@@ -3,13 +3,17 @@ import Decimal from "decimal.js-light";
 import { Box } from "components/ui/Box";
 import { useTranslation } from "react-i18next";
 import { CopyField } from "components/ui/CopyField";
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import ToggleButton from 'react-bootstrap/ToggleButton';
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import ToggleButton from "react-bootstrap/ToggleButton";
 import { Button } from "components/ui/Button";
 
-import { Balances, EMPTY_BALANCES, Allowances, EMPTY_ALLOWANCES } from '../lib/types'
-import { metamask } from "lib/blockchain/metamask"
-
+import {
+  Balances,
+  EMPTY_BALANCES,
+  Allowances,
+  EMPTY_ALLOWANCES,
+} from "../lib/types";
+import { metamask } from "lib/blockchain/metamask";
 
 // import { ITEM_DETAILS } from "features/game/types/images";
 // import { InventoryItemName } from "features/game/types/game";
@@ -36,36 +40,36 @@ interface Props {
 const TAB_CONTENT_HEIGHT = 380;
 
 export const DepositTabContent = ({ address }: Props) => {
-  const { t } = useTranslation()
-  const [tokenType, setTokenType] = useState<keyof Balances>("BUSD")
+  const { t } = useTranslation();
+  const [tokenType, setTokenType] = useState<keyof Balances>("BUSD");
   const [amount, setAmount] = useState<Decimal>(new Decimal(0));
   const [isLoading, setIsLoading] = useState(true);
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState("");
   const displayTokenName = () => {
-    if(tokenType === "WTWOOL") return "WOOL"
-    if(tokenType === "WTMILK") return "MILK"
-    return tokenType
-  }
-  const [ balances, setBalances ] = useState<Balances>(EMPTY_BALANCES)
-  const [ allowances, setAllowances] = useState<Allowances>(EMPTY_ALLOWANCES)
-  const [ approved, setApproved] = useState(false)
-  const [ pendingTx, setPendingTx] = useState(false)
+    if (tokenType === "WTWOOL") return "WOOL";
+    if (tokenType === "WTMILK") return "MILK";
+    return tokenType;
+  };
+  const [balances, setBalances] = useState<Balances>(EMPTY_BALANCES);
+  const [allowances, setAllowances] = useState<Allowances>(EMPTY_ALLOWANCES);
+  const [approved, setApproved] = useState(false);
+  const [pendingTx, setPendingTx] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
     const load = async () => {
-      await metamask.initialise()
-      const balances = await metamask.getBalances()
+      await metamask.initialise();
+      const balances = await metamask.getBalances();
       setBalances(balances);
-      const allowances = await metamask.getAllowances()
-      setAllowances(allowances)
+      const allowances = await metamask.getAllowances();
+      setAllowances(allowances);
       setIsLoading(false);
     };
-    load()
+    load();
   }, [approved]);
 
-  const balance = new Decimal(balances[tokenType])
-  const allowance = new Decimal(allowances[tokenType])
+  const balance = new Decimal(balances[tokenType]);
+  const allowance = new Decimal(allowances[tokenType]);
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === "") {
@@ -79,51 +83,50 @@ export const DepositTabContent = ({ address }: Props) => {
   };
 
   const deposit = async () => {
-    setMessage('')
-    await metamask.initialise()
-    setPendingTx(true)
-    if(new Decimal(amount).gt(allowance) || allowance.eq(0)) {
-      const receipt: any = await metamask.approve(tokenType)
-      if(receipt?.status){
-        setApproved(true)
-        setMessage("Approved Successfully")
+    setMessage("");
+    await metamask.initialise();
+    setPendingTx(true);
+    if (new Decimal(amount).gt(allowance) || allowance.eq(0)) {
+      const receipt: any = await metamask.approve(tokenType);
+      if (receipt?.status) {
+        setApproved(true);
+        setMessage("Approved Successfully");
       } else {
-        setPendingTx(false)
-        return
+        setPendingTx(false);
+        return;
       }
     }
 
     try {
-      const receipt: any = await metamask.deposit(tokenType, amount.toString())
-      if(receipt?.status){
-        setMessage("Deposit Successfully")
-        setPendingTx(false)
+      const receipt: any = await metamask.deposit(tokenType, amount.toString());
+      if (receipt?.status) {
+        setMessage("Deposit Successfully");
+        setPendingTx(false);
       }
-    } catch(error: any) {
+    } catch (error: any) {
       // console.log("error===", error.message)
-      if(error?.message) {
-        setMessage(error?.message)  
+      if (error?.message) {
+        setMessage(error?.message);
       } else {
-        setMessage(error.toString())
+        setMessage(error.toString());
       }
-      setPendingTx(false) 
+      setPendingTx(false);
     }
-  }
+  };
 
   if (isLoading) {
     return (
       <div className="flex flex-col" style={{ minHeight: TAB_CONTENT_HEIGHT }}>
-      <div className="mt-2">
-        <span className="text-shadow loading mt-2">Loading</span>
+        <div className="mt-2">
+          <span className="text-shadow loading mt-2">Loading</span>
+        </div>
       </div>
-      </div>
-    )   
+    );
   }
 
   return (
     <div className="flex flex-col" style={{ minHeight: TAB_CONTENT_HEIGHT }}>
       <div className="mt-2">
-        
         <div className="flex flex-wrap">
           <ButtonGroup className="mb-2">
             <ToggleButton
@@ -133,9 +136,11 @@ export const DepositTabContent = ({ address }: Props) => {
               variant="warning"
               name="radio"
               value="BUSD"
-              checked={tokenType === 'BUSD'}
+              checked={tokenType === "BUSD"}
               onClick={() => setTokenType("BUSD")}
-              className={ tokenType === 'BUSD' ? 'text-white': 'text-white bg-yellow-600'}
+              className={
+                tokenType === "BUSD" ? "text-white" : "text-white bg-yellow-600"
+              }
             >
               BUSD
             </ToggleButton>
@@ -146,9 +151,13 @@ export const DepositTabContent = ({ address }: Props) => {
               variant="warning"
               name="radio"
               value="WTWOOL"
-              checked={tokenType === 'WTWOOL'}
+              checked={tokenType === "WTWOOL"}
               onClick={(e) => setTokenType("WTWOOL")}
-              className={ tokenType === 'WTWOOL' ? 'text-white': 'text-white bg-yellow-600'}
+              className={
+                tokenType === "WTWOOL"
+                  ? "text-white"
+                  : "text-white bg-yellow-600"
+              }
             >
               WOOL
             </ToggleButton>
@@ -159,20 +168,26 @@ export const DepositTabContent = ({ address }: Props) => {
               variant="warning"
               name="radio"
               value="WTMILK"
-              checked={tokenType === 'WTMILK'}
+              checked={tokenType === "WTMILK"}
               onClick={(e) => setTokenType("WTMILK")}
-              className={ tokenType === 'WTMILK' ? 'text-white': 'text-white bg-yellow-600'}
+              className={
+                tokenType === "WTMILK"
+                  ? "text-white"
+                  : "text-white bg-yellow-600"
+              }
             >
               MILK
             </ToggleButton>
           </ButtonGroup>
         </div>
         <div>
-          <span className="mb-3 text-base">{ t('Input amount to deposit') }</span>
+          <span className="mb-3 text-base">{t("Input amount to deposit")}</span>
         </div>
         <span className="text-sm">
-          {balance.toDecimalPlaces(2, Decimal.ROUND_DOWN).toString()} { displayTokenName() } { t('is available') }
+          {balance.toDecimalPlaces(2, Decimal.ROUND_DOWN).toString()}{" "}
+          {displayTokenName()} {t("is available")}
         </span>
+
         {/*<div className="flex items-center mt-2">
           <div className="relative">
             <input
@@ -213,12 +228,12 @@ export const DepositTabContent = ({ address }: Props) => {
               />*/}
             </div>
             <Button className="w-24 ml-6" onClick={setMax}>
-              { t('Max') }
+              {t("Max")}
             </Button>
           </div>
         </div>
-        <Button onClick={deposit} disabled={pendingTx} >
-          { t("Deposit") }
+        <Button onClick={deposit} disabled={pendingTx}>
+          {t("Deposit")}
         </Button>
 
         <span className="text-xs">

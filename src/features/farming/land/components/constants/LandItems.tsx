@@ -16,10 +16,16 @@ import { ITEM_DETAILS } from "features/game/types/images";
 import { CraftableItem, Ingredient } from "features/game/types/craftables";
 import { InventoryItemName } from "features/game/types/game";
 import { Goods } from "components/ui/Goods";
-import {PrimePop} from "../PrimePop"
+import { PrimePop } from "../PrimePop";
 import { WolfUserGoods } from "hooks/modules/WolfUserGoods";
-import { useTranslation } from 'react-i18next'; 
-import { queryBagByType, putLand, reapingLand, autoPutLand ,cancelAutoPutLand} from "hooks/WolfConfig";
+import { useTranslation } from "react-i18next";
+import {
+  queryBagByType,
+  putLand,
+  reapingLand,
+  autoPutLand,
+  cancelAutoPutLand,
+} from "hooks/WolfConfig";
 import {
   reward,
   synthesis,
@@ -31,8 +37,7 @@ interface Props {
   isBulk?: boolean;
   onClose: () => void;
   shitData?: any;
-  showOnlyThirdLevel?:boolean; 
-   
+  showOnlyThirdLevel?: boolean;
 }
 /*操作台 */
 
@@ -42,7 +47,6 @@ export const LandItems: React.FC<Props> = ({
   isBulk = false,
   landData,
   shitData,
-
 }) => {
   const [selected, setSelected] = useState<any>(Object.values(items)[0]);
   const [selectedNum, setSelectedNum] = useState(0);
@@ -73,7 +77,9 @@ export const LandItems: React.FC<Props> = ({
   const [showCaptcha, setShowCaptcha] = useState(false);
 
   const [landBuilditems, setLandBuilditems] = useState(Object.values(items));
-  const [landMaxBuilditems,SetlandMaxBuilditems] = useState(Object.values(items));
+  const [landMaxBuilditems, SetlandMaxBuilditems] = useState(
+    Object.values(items)
+  );
   const { t } = useTranslation();
   const [message, setMessage] = useState("");
   const [
@@ -82,13 +88,13 @@ export const LandItems: React.FC<Props> = ({
     },
   ] = useActor(gameService);
   const [harvestedItems, setHarvestedItems] = useState([]);
-  const [harvestedAmounts,setHarvestedAmounts] = useState([]);
+  const [harvestedAmounts, setHarvestedAmounts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [bagAnimal, setBagAnimal] = useState<WolfUserGoods[]>();
   const [bagLand, setBagLand] = useState<WolfUserGoods[]>();
   const [bagShit, setBagShit] = useState<WolfUserGoods[]>();
   const [isChecked, setIsChecked] = useState(false);
-  const [isOpen,setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
   const loadBagByType = async () => {
     setIsLoading(true);
     try {
@@ -144,10 +150,9 @@ export const LandItems: React.FC<Props> = ({
     }
 
     const result = await putLand(landInfo.goodsName, animals, shit);
-    
-    
+
     if (!result.success) {
-   setMessage(result.message);  
+      setMessage(result.message);
     } else {
       setMessage("Land succeeded!");
     }
@@ -173,22 +178,12 @@ export const LandItems: React.FC<Props> = ({
     }
     const result1 = await autoPutLand(landInfo.goodsName, animals, shit);
     if (!result1.success) {
-      setMessage(t(result1.message));  
-       } else {
-         setMessage(t("Land succeeded!"));
-       }
-     ;
+      setMessage(t(result1.message));
+    } else {
+      setMessage(t("Land succeeded!"));
+    }
   };
-  /**取消自动放置 */
-  const cancelAutoHandleNextLand = async () => {
-    const result1 = await cancelAutoPutLand(landInfo.goodsName);
-    if (!result1.success) {
-      setMessage(t(result1.message));  
-       } else {
-         setMessage(t("cancelLand succeeded!"));
-       }
-     ;
-  }
+
   /**收割土地 */
   const handleNextReaping = async () => {
     //提交数据
@@ -203,29 +198,32 @@ export const LandItems: React.FC<Props> = ({
     const result = await reapingLand(landInfo.id);
 
     if (!result.success) {
-    setMessage(result.message);    
+      setMessage(result.message);
     } else {
       setMessage("Land succeeded!");
       //若成功则弹窗
       setIsOpen(true);
       //显示收割物品数据
-      setHarvestedItems(
-        result.result.wolfLandGoodsResultList
-      )
+      setHarvestedItems(result.result.wolfLandGoodsResultList);
       //显示收割物品数量
-      setHarvestedAmounts(
-        JSON.parse(result.result.amounts)
-      )
+      setHarvestedAmounts(JSON.parse(result.result.amounts));
     }
   };
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
-    
 
   const Action = () => {
     return (
       <div>
+        {/*   <label>
+          <input
+            type="checkbox"
+            checked={isChecked}
+            onChange={handleCheckboxChange}
+          />
+          {t("Auto")}
+        </label> */}
         <Button
           className="text-xs mt-1"
           onClick={() => {
@@ -259,30 +257,9 @@ export const LandItems: React.FC<Props> = ({
                 handleNextReaping();
               }}
             >
-             {t("Reaping")}
+              {t("Reaping")}
             </Button>
-            <Button
-              className="text-xs mt-1"
-              onClick={() => {
-                if (isChecked) {
-                  cancelAutoHandleNextLand();
-                } else {
-                  alert(t("Please check the checkbox."));
-                }
-              }}
-            >
-             {t("Cancel AutoputLand")}
-            </Button>
-            <label>
-      <input
-        type="checkbox"
-        checked={isChecked}
-        onChange={handleCheckboxChange}
-      />
-      {t("Cancel AutoputLand")}
-    </label>
           </>
-          
         ) : (
           <>
             <Button
@@ -293,26 +270,6 @@ export const LandItems: React.FC<Props> = ({
             >
               {t("Confirm")}
             </Button>
-            <Button
-              className="text-xs mt-1"
-              onClick={() => {
-                if (isChecked) {
-                  autoHandleNextLand();
-                } else {
-                  alert(t("Please check the checkbox."));
-                }
-              }}
-            >
-              {t("AutoputLand")}
-            </Button>
-            <label>
-      <input
-        type="checkbox"
-        checked={isChecked}
-        onChange={handleCheckboxChange}
-      />
-      {t("AutoputLand")}
-    </label>
           </>
         )}
       </div>
@@ -351,61 +308,32 @@ export const LandItems: React.FC<Props> = ({
       <OuterPanel className="flex-1 w-2/3">
         <div className="flex flex-col justify-center items-center p-2 relative">
           <span className=" text-shadow text-center">{t("My Land")}</span>
-          <div style={{ height: "220px", overflowY: "scroll",paddingRight: "20px" }}>
+          <div
+            style={{
+              height: "220px",
+              overflowY: "scroll",
+              paddingRight: "20px",
+            }}
+          >
             {bagLand?.map((item) => (
-            <Box
-              key={item.goodsName}
-              image={item.goodsUrl}
-              onClick={() => {
-                setLandinfo({
-                  goodsName: item.goodsName,
-                  goodsUrl: item.goodsUrl,
-                });
-              }}
-            />
-          ))}</div>
-          
+              <Box
+                key={item.goodsName}
+                image={item.goodsUrl}
+                onClick={() => {
+                  setLandinfo({
+                    goodsName: item.goodsName,
+                    goodsUrl: item.goodsUrl,
+                  });
+                }}
+              />
+            ))}
+          </div>
 
           <div className="border-t border-white w-full mt-2 pt-1">
             <div className="flex justify-center items-end"></div>
           </div>
         </div>
-        {/* <div className="flex flex-col justify-center items-center p-2 relative">
-  <span className=" text-shadow text-center">{t("My Land")}</span>
-  <div style={{ height: "220px", overflowY: "scroll", paddingRight: "20px" }}>
-    {showOnlyThirdLevel
-      ? bagLand
-          ?.filter((item) => item.goodsName.charAt(6) === "3")
-          ?.map((item) => (
-            <Box
-              key={item.goodsName}
-              image={item.goodsUrl}
-              onClick={() => {
-                setLandinfo({
-                  goodsName: item.goodsName,
-                  goodsUrl: item.goodsUrl,
-                });
-              }}
-            />
-          ))
-      : bagLand?.map((item) => (
-          <Box
-            key={item.goodsName}
-            image={item.goodsUrl}
-            onClick={() => {
-              setLandinfo({
-                goodsName: item.goodsName,
-                goodsUrl: item.goodsUrl,
-              });
-            }}
-          />
-        ))}
-  </div>
 
-  <div className="border-t border-white w-full mt-2 pt-1">
-    <div className="flex justify-center items-end"></div>
-  </div>
-</div> */}
         <div className="flex flex-col justify-center items-center p-2 relative">
           <span className=" text-shadow text-center">{t("Animal feces")}</span>
 
@@ -427,36 +355,41 @@ export const LandItems: React.FC<Props> = ({
           </div>
         </div>
       </OuterPanel>
-      <OuterPanel className="flex-1 w-2/3" >
-        <div className="flex flex-col justify-center items-center p-2 relative" 
-        >
+      <OuterPanel className="flex-1 w-2/3">
+        <div className="flex flex-col justify-center items-center p-2 relative">
           <span className="text-shadow text-center">{t("My animals")}</span>
-          <div style={{ height: "220px", overflowY: "scroll",paddingRight: "20px" }}>          
+          <div
+            style={{
+              height: "220px",
+              overflowY: "scroll",
+              paddingRight: "20px",
+            }}
+          >
             {bagAnimal?.map((item) => (
-            <Box
-              key={item.goodsName}
-              image={item.goodsUrl}
-              onClick={() => {
-                let landBuilditems2 = landBuilditems;
+              <Box
+                key={item.goodsName}
+                image={item.goodsUrl}
+                onClick={() => {
+                  let landBuilditems2 = landBuilditems;
 
-                if (
-                  JSON.stringify(landBuilditems).indexOf(item.goodsName) == -1
-                ) {
-                  landBuilditems2[selectedNum] = {
-                    goodsName: item.goodsName,
-                    goodsUrl: item.goodsUrl,
-                  };
-                  setLandBuilditems(landBuilditems2);
+                  if (
+                    JSON.stringify(landBuilditems).indexOf(item.goodsName) == -1
+                  ) {
+                    landBuilditems2[selectedNum] = {
+                      goodsName: item.goodsName,
+                      goodsUrl: item.goodsUrl,
+                    };
+                    setLandBuilditems(landBuilditems2);
 
-                  setSelected({
-                    goodsName: item.goodsName,
-                    goodsUrl: item.goodsUrl,
-                  });
-                }
-              }}
-            />
-          ))}</div>
-
+                    setSelected({
+                      goodsName: item.goodsName,
+                      goodsUrl: item.goodsUrl,
+                    });
+                  }
+                }}
+              />
+            ))}
+          </div>
 
           <div className="border-t border-white w-full mt-2 pt-1">
             <div className="flex justify-center items-end"></div>
@@ -465,21 +398,20 @@ export const LandItems: React.FC<Props> = ({
           <span className="text-xs text-base"> {message} </span>
         </div>
       </OuterPanel>
-         <Modal centered show={isOpen} onHide={() => setIsOpen(false)}>
-          <img
-            src={close}
-            className="h-6 top-4 right-4 absolute cursor-pointer"
-            onClick={() => setIsOpen(false)}
-          />
-          <PrimePop
-            onClose={() => {
-              setIsOpen(false)
-            }}
-            harvestedItems={harvestedItems}
-            harvestedAmounts={harvestedAmounts}
-          />
-        </Modal>
-        
+      <Modal centered show={isOpen} onHide={() => setIsOpen(false)}>
+        <img
+          src={close}
+          className="h-6 top-4 right-4 absolute cursor-pointer"
+          onClick={() => setIsOpen(false)}
+        />
+        <PrimePop
+          onClose={() => {
+            setIsOpen(false);
+          }}
+          harvestedItems={harvestedItems}
+          harvestedAmounts={harvestedAmounts}
+        />
+      </Modal>
     </div>
   );
 };

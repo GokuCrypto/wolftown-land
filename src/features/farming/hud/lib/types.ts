@@ -5,6 +5,7 @@ export interface Balances {
   WTMILK: string;
   integral: string;
   Build: string;
+  Invite: string;
 }
 
 export interface Allowances {
@@ -24,7 +25,8 @@ export const EMPTY_BALANCES: Balances = {
   WTWOOL: '0',
   WTMILK: '0',
   integral: '0',
-  Build: '0'
+  Build: '0',
+  Invite: "0"
 }
 
 export interface BagItem {

@@ -194,7 +194,33 @@
   "cancelLand succeeded!":"cancelLand succeeded!",
   "The land location is not set to automatic.":"The land location is not set to automatic.",
   "AutoArena":"AutoArena",
-  "CancelAutoArena":"CancelAutoArena"
+  "CancelAutoArena":"CancelAutoArena", 
+
+  "Groundhog":"Groundhog",
+  "History":"History",
+  "Groundhog end time":"Groundhog end time",
+  "Enable flag":"Enable flag",
+  "Auto land":"Auto land",
+  "Auto Arena":"Auto Arena",
+  "Auto Arena Config":"Auto Arena Config",
+  "Blacksmith shop":"Blacksmith shop",
+
+  "Auto building":"Auto building",
+
+  "Auto building Config":"Auto building Config",
+ 
+  "Auto Synthesis":"Auto Synthesis",
+  "Auto Synthesis config":"Auto Synthesis config",
+  "Auto use of fecal balls":"Auto use of fecal balls",
+  "Status":"Status" ,
+  "Type":"Type" ,
+  "Remark":"Remark" ,
+  "Date":"Date" ,
+  "Synthesis":"Synthesis" ,
+  "white paper":"white paper",
+  "Partial Success":"Partial Success",
+  "View Invited":"View Invited",
+  "Load invitation data into the game":"Load invitation data into the game"
 
 
 }

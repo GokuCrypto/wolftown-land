@@ -289,7 +289,8 @@ export class Metamask {
       WTWOOL: fromWei(balanceOfWOOL),
       WTMILK: fromWei(balanceOfMILK),
       integral: "0",
-      Build: "0"
+      Build: "0",
+      Invite: "0"
     }
   }
 

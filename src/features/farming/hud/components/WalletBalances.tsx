@@ -66,8 +66,36 @@ export const WalletBalances: React.FC<Props> = ({ balances }) => {
       <div className="mt-2 ml-2">
         <div>
           <div>BUSD: {freshBalances.BUSD}</div>
-          <div>WOOL: {freshBalances.WTWOOL}</div>
-          <div>MILK: {freshBalances.WTMILK}</div>
+          <div>
+            WOOL: {freshBalances.WTWOOL}{" "}
+            <span
+              className="ml-10 text-sm cursor-pointer"
+              style={{ color: "#9a6aff" }}
+              onClick={() => {
+                window.open(
+                  "https://pancakeswap.finance/swap?outputCurrency=0xAA15535fd352F60B937B4e59D8a2D52110A419dD",
+                  "_blank"
+                );
+              }}
+            >
+              {t("Buy WOOL")}
+            </span>
+          </div>
+          <div>
+            MILK: {freshBalances.WTMILK}{" "}
+            <span
+              className="ml-10 text-sm cursor-pointer"
+              style={{ color: "#9a6aff" }}
+              onClick={() => {
+                window.open(
+                  "https://pancakeswap.finance/swap?outputCurrency=0x60Ca032Ba8057FedB98F6A5D9ba0242AD2182177",
+                  "_blank"
+                );
+              }}
+            >
+              {t("Buy MILK")}
+            </span>
+          </div>
           <div>
             --------------
             <img
@@ -77,7 +105,7 @@ export const WalletBalances: React.FC<Props> = ({ balances }) => {
             --------------
           </div>
           <div>My integral: {freshBalances.integral}</div>
-          <div>My Build integral: {freshBalances.Build}</div>
+          <div>My Invite: {freshBalances.Invite}</div>
           <div>-------------- --------------</div>
           <div>
             {" "}

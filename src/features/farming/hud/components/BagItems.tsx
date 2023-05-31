@@ -37,6 +37,7 @@ import { queryBaglist } from "hooks/WolfConfig";
 import { ERRORS } from "lib/errors";
 import { BagItem } from "../lib/types";
 import { BagItemsTabContent } from "./BagItemsTabContent";
+import { BagItemsGroundhog } from "./BagItemsGroundhog";
 
 type Tab = "Meterial" | "Equip" | "Weapon" | "Animal";
 const TABS = ["Meterial", "Equip", "Weapon", "Animal"];
@@ -140,12 +141,14 @@ export const BagItems: React.FC<Props> = ({ onClose }) => {
           </div>
         </div>
       ) : (
-        <BagItemsTabContent
-          tabName={currentTab}
-          tabItems={items}
-          selectedItem={items[0]}
-          onClose={onClose}
-        />
+        <>
+          <BagItemsTabContent
+            tabName={currentTab}
+            tabItems={items}
+            selectedItem={items[0]}
+            onClose={onClose}
+          />
+        </>
       )}
     </Panel>
   );

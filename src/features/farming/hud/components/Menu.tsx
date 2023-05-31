@@ -15,6 +15,9 @@ import { Share } from "./Share";
 import { HowToPlay } from "./howToPlay/HowToPlay";
 import { Settings } from "./Settings";
 
+import { BagItemsGroundhog } from "./BagItemsGroundhog";
+import { InviteCard } from "./InviteCard";
+
 import mobileMenu from "assets/icons/hamburger_menu.png";
 import questionMark from "assets/icons/expression_confused.png";
 import radish from "assets/icons/market.png";
@@ -30,7 +33,7 @@ import goblin from "assets/npcs/goblin_head.png";
 import { useIsNewFarm } from "../lib/onboarding";
 import { GoblinVillageModal } from "features/farming/town/components/GoblinVillageModal";
 import { useTranslation } from "react-i18next";
-import { MonthlyCard } from "./MonthlyCard";
+
 /**
  * TODO:
  * create menu level parent mapping if more than 2 levels.
@@ -56,6 +59,8 @@ export const Menu = () => {
   const [showShareModal, setShowShareModal] = useState(false);
   const [showLogoutModal, setShowSettings] = useState(false);
   const [showCard, setShowCard] = useState(false);
+  const [inviteCard, setInviteCard] = useState(false);
+
   const [showGoblinModal, setShowGoblinModal] = useState(false);
   const [showHowToPlay, setShowHowToPlay] = useState(useIsNewFarm());
   const [showCaptcha, setShowCaptcha] = useState(false);
@@ -227,18 +232,47 @@ export const Menu = () => {
                     <span className="sm:text-sm flex-1">{t("Community")}</span>
                   </Button>
                 </li>*/}
-                <li className="p-1">
-                  <Button
-                    className="flex justify-between"
-                    onClick={handleSettingsClick}
-                  >
-                    <span className="sm:text-sm flex-1">{t("Settings")}</span>
-                  </Button>
-                </li>
+
                 <li className="p-1">
                   <Button
                     className="flex justify-between"
                     onClick={handleCardClick}
+                  >
+                    <span className="sm:text-sm flex-1">{t("Groundhog")}</span>
+                  </Button>
+                </li>
+
+                <li className="p-1">
+                  <Button
+                    className="flex justify-between"
+                    onClick={() => {
+                      window.open(
+                        "https://gamefi-zhen-tan-she.gitbook.io/wolftowm/",
+                        "_blank"
+                      );
+                    }}
+                  >
+                    <span className="sm:text-sm flex-1">
+                      {t("white paper")}
+                    </span>
+                  </Button>
+                </li>
+
+                <li className="p-1">
+                  <Button
+                    className="flex justify-between"
+                    onClick={() => {
+                      setInviteCard(true);
+                    }}
+                  >
+                    <span className="sm:text-sm flex-1">{t("Share")}</span>
+                  </Button>
+                </li>
+
+                <li className="p-1">
+                  <Button
+                    className="flex justify-between"
+                    onClick={handleSettingsClick}
                   >
                     <span className="sm:text-sm flex-1">{t("Settings")}</span>
                   </Button>
@@ -394,10 +428,10 @@ export const Menu = () => {
         isOpen={showLogoutModal}
         onClose={() => setShowSettings(false)}
       />
-      <MonthlyCard
-       isOpen={showCard}
-       onClose={() => setShowCard(false)}
-      />
+
+      <BagItemsGroundhog isOpen={showCard} onClose={() => setShowCard(false)} />
+
+      <InviteCard isOpen={inviteCard} onClose={() => setInviteCard(false)} />
       {showCaptcha && (
         <Modal show={showCaptcha} onHide={() => setShowCaptcha(false)} centered>
           <Panel>

@@ -221,8 +221,32 @@
   "The land location is not set to automatic.":"已经取消放置了",
   "The Arena location is not set to automatic.":"攻城自动已经取消",
   "AutoArena":"自动攻城",
-  "CancelAutoArena":"取消自动攻城"
+  "CancelAutoArena":"取消自动攻城",
 
+  "Groundhog":"土拨鼠",
+  "History":"历史记录",
+  "Groundhog end time":"土拨鼠有效期",
+  "Enable flag":"总开关",
+  "Auto land":"土地自动化开关",
+  "Auto Arena":"攻城战自动化开关",
+  "Auto Arena Config":"攻城战自动化配置",
+  "Blacksmith shop":"铁匠铺",
+
+  "Auto building":"建筑捐赠开关",
+
+  "Auto building Config":"建筑捐赠配置",
+  "Auto Synthesis":"自动合成",
+  "Auto Synthesis config":"自动合成配置",
+  "Auto use of fecal balls":"自动消耗粪球",
+  "Status":"状态" ,
+  "Type":"类型" ,
+  "Remark":"备注" ,
+  "Date":"日期" ,
+  "Synthesis":"合成" ,
+  "white paper":"白皮书",
+  "Partial Success":"部分成功",
+  "View Invited":"查看邀请数据",
+  "Load invitation data into the game":"加载邀请数据到游戏"
 
 
 

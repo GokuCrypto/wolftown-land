@@ -4,10 +4,12 @@ import { BetOrder } from './modules/BetOrder';
 import { Withdraw, WithdrawForm } from './modules/Withdraw';
 import { ERRORS } from "lib/errors";
 import { WolfMarket } from './modules/WolfMarket';
+import { WolfGroundhog } from './modules/WolfGroundhog';
 
 import { PvpData } from './modules/PvpData';
 import { Animal } from 'features/farming/pvp/components/Animal';
 import { WolfTownStore } from './modules/WolfTownStore';
+import { WolfUserGoods } from './modules/WolfUserGoods';
 /* 获取地址信息 */
 export const getUserAddress = async (): Promise<string> => {
 
@@ -242,7 +244,7 @@ export const submitWithdraw = async (withdraw: WithdrawForm) => {
 
 
 /* 上架商品 */
-export const marketAdd = async (wolfMarket: WolfMarket,amount: number) => {
+export const marketAdd = async (wolfMarket: WolfMarket, amount: number) => {
 
 
   const XAccessToken = localStorage.getItem('XAccessToken');
@@ -283,6 +285,137 @@ export const marketAdd = async (wolfMarket: WolfMarket,amount: number) => {
 
 
 }
+
+
+
+/* 使用土拨鼠 */
+export const useGroundhog = async (wolfUserGoods: WolfUserGoods) => {
+
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  const uid = localStorage.getItem('userInfo_userid');
+
+  // eslint-disable-next-line eqeqeq
+  if (XAccessToken && (XAccessToken != "") && uid != "") {
+    // 组装数据对象
+    const response = await fetch(API_CONFIG.useGroundhog, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify(wolfUserGoods),
+    })
+
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+        return { status: 200 }
+      }
+      return { status: 500, message: result.message.replace("操作失败，") }
+    }
+
+    if (response.status === 401) {
+      // 登录超时处理办法
+      loginOut();
+      return { status: 500, message: " Token is invalid, please login again !" }
+    }
+    return { status: 500, message: "NO Connect!" }
+  }
+  return { status: 500, message: "NO Login!" }
+
+
+
+
+}
+
+
+
+
+
+/* 保存土拨鼠配置 */
+export const saveGroundhog = async (wolfGroundhog: WolfGroundhog) => {
+
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  const uid = localStorage.getItem('userInfo_userid');
+
+  // eslint-disable-next-line eqeqeq
+  if (XAccessToken && (XAccessToken != "") && uid != "") {
+    // 组装数据对象
+    const response = await fetch(API_CONFIG.saveGroundhog, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify(
+        wolfGroundhog
+      ),
+    })
+
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+        return { status: 200 }
+      }
+      return { status: 500, message: result.message.replace("操作失败，") }
+    }
+
+    if (response.status === 401) {
+      // 登录超时处理办法
+      loginOut();
+      return { status: 500, message: " Token is invalid, please login again !" }
+    }
+    return { status: 500, message: "NO Connect!" }
+  }
+  return { status: 500, message: "NO Login!" }
+
+
+
+
+}
+
+
+
+/* 保存土拨鼠配置 */
+export const checkWolfInvite = async () => {
+
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  const uid = localStorage.getItem('userInfo_userid');
+
+  // eslint-disable-next-line eqeqeq
+  if (XAccessToken && (XAccessToken != "") && uid != "") {
+    // 组装数据对象
+    const response = await fetch(API_CONFIG.checkWolfInvite, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }
+    })
+
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+        return { status: 200 }
+      }
+      return { status: 500, message: result.message.replace("操作失败，") }
+    }
+
+    if (response.status === 401) {
+      // 登录超时处理办法
+      loginOut();
+      return { status: 500, message: " Token is invalid, please login again !" }
+    }
+    return { status: 500, message: "NO Connect!" }
+  }
+  return { status: 500, message: "NO Login!" }
+
+
+
+
+}
+
 
 
 

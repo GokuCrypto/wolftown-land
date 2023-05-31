@@ -100,7 +100,7 @@ export const Buildpop: React.FC<Props> = ({
       </div>
 
       <div style={{ minHeight: "200px" }}>
-        <span>{`${t("Please enter the quantity of items")} (${buildGoodsItem.amount} ${t("times")})`}</span>
+        <span>{`${t("Please enter the number of donations")}`}</span>
         <div className="w-20 ml-4 flex justify-center">
                 <img src={buildGoodsItem.goodsUrl} className="h-8" />x{buildGoodsItem.amount}
               </div>

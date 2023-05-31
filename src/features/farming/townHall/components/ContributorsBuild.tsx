@@ -184,7 +184,7 @@ export const ContributorsBuild: React.FC<Props> = ({ onClose, goodsType }) => {
                 >
                   {t("Build")}
                 </Button>
-                {/*   <Button
+                  <Button
                   className="w-30 bg-brown-200 active:bg-brown-200 "
                   onClick={() => {
                     setBuildGoodsItem(item);
@@ -192,7 +192,7 @@ export const ContributorsBuild: React.FC<Props> = ({ onClose, goodsType }) => {
                   }}
                 >
                   {t("batchBuild")}
-                </Button> */}
+                </Button>
               </div>
             </div>
           ))}

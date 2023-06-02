@@ -267,6 +267,10 @@ export const API_CONFIG = {
   reward: `${HASH_GAME_API}/wolftown/reward`,
   /*上链记录查询 */
   getWolfUserGoodsToChainList: `${HASH_GAME_API}/wolftown/getWolfUserGoodsToChainList`,
+  /*需要修复武器查询 */
+  getFiveLevelWeapons: `${HASH_GAME_API}/wolftown/getFiveLevelWeapons`,
+  /*修复五级武器 */
+  repairWeapons:`${HASH_GAME_API}/wolftown/repairWeapons`,
   /*放置土地*/
   putLand: `${HASH_GAME_API}/wolftown/putLand`,
   /*自动放置土地*/
@@ -686,6 +690,35 @@ export const getWolfUserGoodsToChainList = async () => {
   }
 
 }
+/* 获取用户需要修复五级武器件数 */
+export const getFiveLevelWeapons = async () => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+
+  if ((XAccessToken)) {
+    const response = await fetch(API_CONFIG.getFiveLevelWeapons, {
+      method: 'get', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      },
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+
+        const wolfUserGoodsToChainList = result.result;
+        console.log("response-getFiveLevelWeaponsgetFiveLevelWeaponsgetFiveLevelWeaponsgetFiveLevelWeapons", result);
+        return result;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
 
 
 
@@ -765,6 +798,39 @@ export const synthesis = async (goodsName: string) => {
 
   if ((XAccessToken)) {
     const response = await fetch(API_CONFIG.synthesis, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify({
+        "goodsName": goodsName,
+      }),
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+        // 抽奖结果数据
+        const wolfUserGoodsResult = result.result.wolfUserGoodsResult;
+        console.log("response-wolfUserGoodsResult", result);
+        return result;
+      } else {
+        return result;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+/* 合成物品 */
+export const repairWeapons = async (goodsName: string) => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+
+  if ((XAccessToken)) {
+    const response = await fetch(API_CONFIG.repairWeapons, {
       method: 'post', headers: {
         'X-Access-Token': XAccessToken,
         'token': XAccessToken,

@@ -220,7 +220,10 @@
   "white paper":"white paper",
   "Partial Success":"Partial Success",
   "View Invited":"View Invited",
-  "Load invitation data into the game":"Load invitation data into the game"
+  "Load invitation data into the game":"Load invitation data into the game",
+  "There are no items to repair":"There are no items to repair",
+  "There are currently":"There are currently",
+  "items that need to be repaired":"items that need to be repaired"
 
 
 }

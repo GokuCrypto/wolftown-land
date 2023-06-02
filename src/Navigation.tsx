@@ -9,6 +9,8 @@ import { Auth } from "features/auth/Auth";
 import { Humans } from "features/game/Humans";
 import { Goblins } from "features/game/Goblins";
 import { WolfTown } from "features/game/WolfTown";
+import { WolfTownWorld } from "features/game/WolfTownWorld";
+
 import { Forbidden } from "features/auth/components/Forbidden";
 
 /**
@@ -19,6 +21,8 @@ export const Navigation: React.FC = () => {
   const { authService } = useContext(AuthProvider.Context);
   const [authState, send] = useActor(authService);
   const [showGame, setShowGame] = useState(false);
+  //世界地图开关
+  const [showWorld, setShowWorld] = useState(false);
 
   /**
    * Listen to web3 account/chain changes
@@ -51,29 +55,42 @@ export const Navigation: React.FC = () => {
     <>
       <Auth />
       {showGame ? (
-        <HashRouter>
-          <Routes>
-            <Route path="/" element={<Humans />} />
-            {/* Forbid entry to Goblin Village when in Visiting State, show Forbidden screen */}
-            {!authState.matches("visiting") ? (
-              <Route path="/goblins" element={<Goblins />} />
-            ) : (
-              <Route
-                path="/goblins"
-                element={
-                  <Splash>
-                    <Forbidden />
-                  </Splash>
-                }
-              />
-            )}
-            <Route path="/farm/:id" element={<Humans key="farm" />} />
-            <Route path="/visit/:id" element={<Humans key="visit" />} />
-            <Route path="/game" element={<WolfTown />} />
-            {/* Fallback */}
-            <Route element={<Humans />} />
-          </Routes>
-        </HashRouter>
+        <>
+          {!showWorld && (
+            <HashRouter>
+              <Routes>
+                <Route path="/" element={<Humans />} />
+                {/* Forbid entry to Goblin Village when in Visiting State, show Forbidden screen */}
+                {!authState.matches("visiting") ? (
+                  <Route path="/goblins" element={<Goblins />} />
+                ) : (
+                  <Route
+                    path="/goblins"
+                    element={
+                      <Splash>
+                        <Forbidden />
+                      </Splash>
+                    }
+                  />
+                )}
+                <Route path="/farm/:id" element={<Humans key="farm" />} />
+                <Route path="/visit/:id" element={<Humans key="visit" />} />
+                <Route path="/game" element={<WolfTown />} />
+                {/* Fallback */}
+                <Route element={<Humans />} />
+              </Routes>
+            </HashRouter>
+          )}
+
+          {showWorld && (
+            <HashRouter>
+              <Routes>
+                <Route path="/game" element={<WolfTownWorld />} />
+                {/* Fallback */}
+              </Routes>
+            </HashRouter>
+          )}
+        </>
       ) : (
         <Splash />
       )}

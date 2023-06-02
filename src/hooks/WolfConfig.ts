@@ -216,12 +216,14 @@ export const isLoggedIn = function () {
 
 
 
-export const HASH_GAME_API = "https://mainapi.wolftown.games/jeecg-boot";
+/* export const HASH_GAME_API = "https://mainapi.wolftown.games/jeecg-boot"; */
 
-/* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
+export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/";
 /* test */
 //  export const HASH_GAME_API = "https://devapi.wolftown.games/jeecg-boot";
 /* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
+export const SOCKT_API = "ws://localhost:8080/jeecg-boot/";
+
 /* test */
 
 export const APP_WOLF_API = "https://app.wolftown.games/images/wtanimalsSmall/";
@@ -356,7 +358,9 @@ export const API_CONFIG = {
   queryInviteLink: `${HASH_GAME_API}/wolftown/queryInviteLink`,
   checkWolfInvite: `${HASH_GAME_API}/wolftown/checkWolfInvite`,
 
+  //socketTest 
 
+  socketTest: `${HASH_GAME_API}/wolftown/test`,
 
 }
 
@@ -1668,6 +1672,45 @@ export const buyback = async (buybackOrder: BuybackOrder) => {
         'token': XAccessToken,
         'Content-Type': 'application/json',
       }, body: JSON.stringify(buybackOrder),
+    })
+
+
+    if (response.status === 200) {
+      const result = await response.json();
+      return result;
+    }
+
+    if (response.status === 401) {
+      // 登录超时处理办法
+      loginOut();
+      return { status: 500, message: " Token is invalid, please login again !" }
+    }
+
+    return { status: 500, message: "NO Connect!" }
+  }
+  return { status: 500, message: "NO Login!" }
+
+}
+
+
+
+
+/* socketTest */
+export const socketTest = async () => {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  const uid = localStorage.getItem('userInfo_userid');
+
+  // eslint-disable-next-line eqeqeq
+  if (XAccessToken && (XAccessToken != "") && uid != "") {
+    // 组装数据对象
+
+    const response = await fetch(API_CONFIG.socketTest, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify({ userId: uid, message: "测试练级" })
     })
 
 

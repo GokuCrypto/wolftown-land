@@ -61,21 +61,21 @@ type SyncEvent = {
 
 export type BlockchainEvent =
   | {
-      type: "SAVE";
-    }
+    type: "SAVE";
+  }
   | SyncEvent
   | {
-      type: "REFRESH";
-    }
+    type: "REFRESH";
+  }
   | {
-      type: "EXPIRED";
-    }
+    type: "EXPIRED";
+  }
   | {
-      type: "CONTINUE";
-    }
+    type: "CONTINUE";
+  }
   | {
-      type: "RESET";
-    }
+    type: "RESET";
+  }
   | WithdrawEvent
   | GameEvent
   | MintEvent
@@ -108,15 +108,15 @@ const GAME_EVENT_HANDLERS: TransitionsConfig<Context, BlockchainEvent> =
 
 export type BlockchainState = {
   value:
-    | "loading"
-    | "playing"
-    | "readonly"
-    | "autosaving"
-    | "syncing"
-    | "synced"
-    | "levelling"
-    | "error"
-    | "resetting";
+  | "loading"
+  | "playing"
+  | "readonly"
+  | "autosaving"
+  | "syncing"
+  | "synced"
+  | "levelling"
+  | "error"
+  | "resetting";
   context: Context;
 };
 
@@ -245,7 +245,7 @@ export function startGame(authContext: Options) {
              */
             src: (context) => (cb) => {
 
-              console.log("game playing")
+              console.log("game playing", context)
               // const interval = setInterval(async () => {
               //   const sessionID = await metamask
               //     .getSessionManager()

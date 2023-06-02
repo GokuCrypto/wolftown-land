@@ -10,7 +10,7 @@ import uuu from "assets/lottery/uuu.gif";
 import ReactPlayer from "react-player";
 import { LandTime } from "./components/LandTime";
 import land1 from "assets/landbuild/land1.png";
-import farm_lock from "public/images/lands/farm_lock.png";
+
 import { EXContributors } from "./components/EXContributors";
 import { Contributors } from "./components/Contributors";
 import {
@@ -203,7 +203,7 @@ export const LandMaxbuild: React.FC = () => {
               {!obj.isUnlocked && (
                 <>
                   <img
-                    src={farm_lock}
+                    src={"/images/lands/farm_lock.png"}
                     alt={"img-land" + ind}
                     key={"img-land" + ind}
                     className="relative w-100 cursor-pointer"

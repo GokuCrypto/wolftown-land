@@ -76,13 +76,7 @@ export const TV: React.FC = () => {
             overflow: "hidden",
           }}
         >
-          {isOpen ? (
-            <>
-              <LiveBroadcast />
-            </>
-          ) : (
-            <></>
-          )}
+          {isOpen ? <>{/* <LiveBroadcast /> */}</> : <></>}
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from "react";
-import ScrollContainer from "react-indiana-drag-scroll";
+import React, { useEffect, useRef, useState } from "react";
+import ScrollContainer, { ScrollEvent } from "react-indiana-drag-scroll";
 
-import background from "assets/land/world.png";
+import background from "assets/land/world02.jpeg";
 
 import { Section, useScrollIntoView } from "lib/utils/hooks/useScrollIntoView";
 import { GameProvider } from "./GameProvider";
@@ -18,7 +18,7 @@ export const WolfTownWorld: React.FC = () => {
 
   useEffect(() => {
     //加载socket
-    scrollIntoView(Section.Lottery, "auto");
+    scrollIntoView(Section.MyTown, "auto");
     websock();
     heartCheckFun();
   }, [scrollIntoView]);
@@ -34,12 +34,14 @@ export const WolfTownWorld: React.FC = () => {
   return (
     <GameProvider key="WolfTownWorld">
       <ToastProvider>
+        {/* overflow-scroll  */}
         <ScrollContainer
           className="bg-green-background overflow-scroll relative w-full h-full"
           innerRef={container}
+          ignoreElements=".ignore-scroll"
         >
           <div
-            className="relative h-gameboard w-gameboard"
+            className="relative h-gameboardWorld w-gameboardWorld "
             // TODO dynamic game board size based on tile dimensions
           >
             <img src={background} className="absolute inset-0 w-full  " />

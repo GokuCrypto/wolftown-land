@@ -216,9 +216,9 @@ export const isLoggedIn = function () {
 
 
 
-/* export const HASH_GAME_API = "https://mainapi.wolftown.games/jeecg-boot"; */
+export const HASH_GAME_API = "https://mainapi.wolftown.games/jeecg-boot";
 
-export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/";
+/* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
 /* test */
 //  export const HASH_GAME_API = "https://devapi.wolftown.games/jeecg-boot";
 /* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */
@@ -272,7 +272,7 @@ export const API_CONFIG = {
   /*需要修复武器查询 */
   getFiveLevelWeapons: `${HASH_GAME_API}/wolftown/getFiveLevelWeapons`,
   /*修复五级武器 */
-  repairWeapons:`${HASH_GAME_API}/wolftown/repairWeapons`,
+  repairWeapons: `${HASH_GAME_API}/wolftown/repairWeapons`,
   /*放置土地*/
   putLand: `${HASH_GAME_API}/wolftown/putLand`,
   /*自动放置土地*/

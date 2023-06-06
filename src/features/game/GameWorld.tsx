@@ -16,6 +16,8 @@ import { HudWorld } from "features/farming/hud/HudWorld";
 import { Resetting } from "features/auth/components/Resetting";
 import { ErrorMessage } from "features/auth/ErrorMessage";
 import { Player } from "features/farming/crops/components/Player";
+import { MyTown } from "features/farming/crops/components/MyTown";
+import { Wood } from "features/farming/crops/components/Wood";
 
 import { SocketTest } from "features/farming/crops/components/SocketTest";
 
@@ -103,6 +105,8 @@ export const GameWorld: React.FC = () => {
       <Player />
 
       <SocketTest />
+      <Wood />
+      <MyTown />
     </>
   );
 };

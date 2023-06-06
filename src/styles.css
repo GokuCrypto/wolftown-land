@@ -17,8 +17,7 @@
     }
 
     .img-highlight {
-      filter: drop-shadow(1px 1px 0px white) drop-shadow(-1px 0px 0px white)
-        drop-shadow(0px -1px 0px white);
+      filter: drop-shadow(1px 1px 0px white) drop-shadow(-1px 0px 0px white) drop-shadow(0px -1px 0px white);
     }
   }
 }
@@ -57,7 +56,7 @@ button:disabled {
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
-  margin: 0;
+  margin: 0.2;
 }
 
 input[type="number"] {
@@ -108,9 +107,11 @@ img {
   from {
     transform: translate(0, 0px);
   }
+
   65% {
     transform: translate(0, 10px);
   }
+
   to {
     transform: translate(0, -0px);
   }
@@ -120,6 +121,7 @@ img {
   from {
     transform: translateX(100%);
   }
+
   to {
     transform: translateX(-100%);
   }
@@ -135,9 +137,11 @@ img {
   0% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.5);
   }
+
   100% {
     transform: scale(1);
   }
@@ -176,7 +180,7 @@ img {
   border-radius: 50%;
   background: #32323273;
   position: absolute;
-  z-index: 0;
+  z-index: 0.2;
   bottom: -43px;
   left: 7px;
 }
@@ -219,6 +223,7 @@ img {
     transform: translateX(200px) scaleX(1);
     animation-timing-function: linear;
   }
+
   50% {
     transform: translateX(200px) scaleX(-1);
     animation-timing-function: linear;
@@ -256,9 +261,10 @@ img {
   box-shadow: 0px 0px 6px;
   background-color: rgb(237, 227, 209);
   margin-left: auto;
-  z-index: 1000;
+  z-index: 1000.2;
   border-radius: 5px;
 }
+
 .language-button-select {
   background-color: rgb(237, 227, 209);
   font-weight: bold;
@@ -266,21 +272,77 @@ img {
   border: none;
   outline: none;
 }
+
 .language-button-globe {
   width: 25px;
   margin-left: 5px;
 }
+
 .lang {
   right: 16.5rem;
 }
+
 .wallet {
   right: 7rem;
 }
+
 .bigbox {
   height: 5rem;
   width: 5rem;
 }
+
 .bigbox-selected {
   height: 5.5rem;
   width: 5.5rem;
+}
+
+
+.castle.blink {
+  animation: blink 5s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  10% {
+    opacity: 0.2;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  30% {
+    opacity: 0.2;
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.2;
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 0.2;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

@@ -369,8 +369,12 @@ export const BagItemsGroundhog = ({ isOpen, onClose }: Props) => {
                             onChange={(e) => {
                               if (wolfGroundhog) {
                                 if (e.target.checked) {
-                                  wolfGroundhog.arenaDetails =
-                                    wolfGroundhog.arenaDetails + val + "@";
+                                  if (wolfGroundhog.arenaDetails) {
+                                    wolfGroundhog.arenaDetails =
+                                      wolfGroundhog.arenaDetails + val + "@";
+                                  } else {
+                                    wolfGroundhog.arenaDetails = val + "@";
+                                  }
                                 } else {
                                   wolfGroundhog.arenaDetails =
                                     wolfGroundhog.arenaDetails.replace(
@@ -438,8 +442,12 @@ export const BagItemsGroundhog = ({ isOpen, onClose }: Props) => {
                             onChange={(e) => {
                               if (wolfGroundhog) {
                                 if (e.target.checked) {
-                                  wolfGroundhog.inviteDetail =
-                                    wolfGroundhog?.inviteDetail + val + "@";
+                                  if (wolfGroundhog.inviteDetail) {
+                                    wolfGroundhog.inviteDetail =
+                                      wolfGroundhog?.inviteDetail + val + "@";
+                                  } else {
+                                    wolfGroundhog.inviteDetail = val + "@";
+                                  }
                                 } else {
                                   wolfGroundhog.inviteDetail =
                                     wolfGroundhog.inviteDetail.replace(
@@ -509,8 +517,14 @@ export const BagItemsGroundhog = ({ isOpen, onClose }: Props) => {
                             onChange={(e) => {
                               if (wolfGroundhog) {
                                 if (e.target.checked) {
-                                  wolfGroundhog.synthesisDetail =
-                                    wolfGroundhog?.synthesisDetail + val + "@";
+                                  if (wolfGroundhog?.synthesisDetail) {
+                                    wolfGroundhog.synthesisDetail =
+                                      wolfGroundhog?.synthesisDetail +
+                                      val +
+                                      "@";
+                                  } else {
+                                    wolfGroundhog.synthesisDetail = val + "@";
+                                  }
                                 } else {
                                   wolfGroundhog.synthesisDetail =
                                     wolfGroundhog.synthesisDetail.replace(

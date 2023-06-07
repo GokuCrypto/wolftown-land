@@ -107,6 +107,8 @@ export const GameWorld: React.FC = () => {
       <SocketTest />
       <Wood />
       <MyTown />
+      {/* todo-world 做一个自适应的头部*/}
+      {/* todo-world 做一个自适应的底部*/}
     </>
   );
 };

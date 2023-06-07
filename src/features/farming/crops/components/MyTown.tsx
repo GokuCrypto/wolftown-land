@@ -63,9 +63,9 @@ const TownTopCard02 = styled.div`
 export const MyTown: React.FC = () => {
   const [position, setPosition] = useState<any>({ x: 0, y: 0 });
   //是否禁止移动
-  const [def, setDef] = useState<boolean>(true);
+  const [def, setDef] = useState<boolean>(false);
 
-  const [viewCard, setViewCard] = useState<boolean>(true);
+  const [viewCard, setViewCard] = useState<boolean>(false);
 
   const handleDrag = (e: any, draggableData: any) => {
     const { x, y } = draggableData;
@@ -84,14 +84,12 @@ export const MyTown: React.FC = () => {
 
   //当点击时，而且def = true  展现城堡的问题
   const handleClick = (e: any) => {
-    if (def) {
-      setViewCard(true);
-      const castle = e.target;
-      castle.classList.add("blink");
-      setTimeout(() => {
-        castle.classList.remove("blink");
-      }, 5000);
-    }
+    setViewCard(!viewCard);
+    const castle = e.target;
+    castle.classList.add("blink");
+    setTimeout(() => {
+      castle.classList.remove("blink");
+    }, 5000);
   };
 
   //woldtown-todo : 展示个人城堡，要求点击城堡时有相关提示
@@ -103,7 +101,7 @@ export const MyTown: React.FC = () => {
         onStart={handleStartDrag}
         grid={[16, 16]}
         disabled={def}
-        defaultPosition={{ x: 100, y: 300 }}
+        defaultPosition={{ x: 300, y: 300 }}
       >
         <div
           id={Section.MyTown}
@@ -117,11 +115,16 @@ export const MyTown: React.FC = () => {
             zIndex: "20",
           }}
         >
-          <TownTopCard> </TownTopCard>
-          <SettingTopCard02>
-            <img src={setting} className={"w-full flex justify-between"} />
-          </SettingTopCard02>
-          <TownTopCard02> </TownTopCard02>
+          {viewCard && (
+            <>
+              <TownTopCard> </TownTopCard>
+              <SettingTopCard02>
+                <img src={setting} className={"w-full flex justify-between"} />
+              </SettingTopCard02>
+              <TownTopCard02> </TownTopCard02>
+            </>
+          )}
+
           <img src={sheep6} className={"w-full flex justify-between castle"} />
           <div>
             <TownTextCard lf={20}>8</TownTextCard>
@@ -134,7 +137,7 @@ export const MyTown: React.FC = () => {
           </div>
         </div>
       </Draggable>
-      <div className="absolute">
+      <div className="fixed">
         Position: {position.x}, {position.y}
       </div>
     </>

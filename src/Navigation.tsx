@@ -22,7 +22,7 @@ export const Navigation: React.FC = () => {
   const [authState, send] = useActor(authService);
   const [showGame, setShowGame] = useState(false);
   //世界地图开关
-  const [showWorld, setShowWorld] = useState(false);
+  const [showWorld, setShowWorld] = useState(true);
 
   /**
    * Listen to web3 account/chain changes

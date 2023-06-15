@@ -361,6 +361,13 @@ export const API_CONFIG = {
   //socketTest 
 
   socketTest: `${HASH_GAME_API}/wolftown/test`,
+/*设置冒险队伍*/
+  adventureTeam:`${HASH_GAME_API}/wolftown/adventureTeam`,
+  /*建造城堡*/
+  buildCastle:`${HASH_GAME_API}/wolftown/buildCastle`
+
+
+
 
 }
 
@@ -2025,6 +2032,67 @@ export const queryGroundhogLog = async (params: any, pageNo: string, pageSize: s
 
 
 
+/* 设置探险队伍 */
+export const adventureTeam = async (animals: string )=> {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+
+  if ((XAccessToken)) {
+    const response = await fetch(API_CONFIG.adventureTeam, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify({
+        "animals": animals
+      }),
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+        return result;
+      } else {
+        return result;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
+/* 建造城堡 */
+export const buildCastle = async (x:number,y:number )=> {
+
+  const XAccessToken = localStorage.getItem('XAccessToken');
+  /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
+
+  if ((XAccessToken)) {
+    const response = await fetch(API_CONFIG.buildCastle, {
+      method: 'post', headers: {
+        'X-Access-Token': XAccessToken,
+        'token': XAccessToken,
+        'Content-Type': 'application/json',
+      }, body: JSON.stringify({
+        "x": x,
+        "y": y
+      }),
+    })
+    if (response.status === 200) {
+      const result = await response.json();
+      if (result.success) {
+        return result;
+      } else {
+        return result;
+      }
+    } else if (response.status === 401) {
+      await loginOut()
+      throw new Error(ERRORS.SESSION_EXPIRED)
+    }
+  }
+
+}
 
 
 

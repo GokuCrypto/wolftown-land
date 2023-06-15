@@ -194,7 +194,7 @@
   "cancelLand succeeded!":"cancelLand succeeded!",
   "The land location is not set to automatic.":"The land location is not set to automatic.",
   "AutoArena":"AutoArena",
-  "CancelAutoArena":"CancelAutoArena", 
+  "CancelAutoArena":"CancelAutoArena",
 
   "Groundhog":"Groundhog",
   "History":"History",
@@ -208,7 +208,7 @@
   "Auto building":"Auto building",
 
   "Auto building Config":"Auto building Config",
- 
+
   "Auto Synthesis":"Auto Synthesis",
   "Auto Synthesis config":"Auto Synthesis config",
   "Auto use of fecal balls":"Auto use of fecal balls",
@@ -223,7 +223,9 @@
   "Load invitation data into the game":"Load invitation data into the game",
   "There are no items to repair":"There are no items to repair",
   "There are currently":"There are currently",
-  "items that need to be repaired":"items that need to be repaired"
+  "items that need to be repaired":"items that need to be repaired",
+  "castle":"castle",
+  "WorldMap":"WorldMap"
 
 
 }

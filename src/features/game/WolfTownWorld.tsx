@@ -2,20 +2,57 @@ import React, { useEffect, useRef, useState } from "react";
 import ScrollContainer, { ScrollEvent } from "react-indiana-drag-scroll";
 
 import background from "assets/land/world02.jpeg";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 
+import { useTranslation } from "react-i18next";
 import { Section, useScrollIntoView } from "lib/utils/hooks/useScrollIntoView";
 import { GameProvider } from "./GameProvider";
 import { GameWorld } from "./GameWorld";
 import mapMovement from "./lib/mapMovement";
 import { ToastProvider } from "./toast/ToastQueueProvider";
 import { websock, heartCheckFun } from "hooks/Websocket";
+import backgroundImages from "public/images/world_top.png"
+import logoImage from "public/images/avatar_frame2.png"
+import avatarImage from "public/images/Weekly Groundhog.png"
+import bottom from "public/images/frame.png"
+import bag from "assets/wt/backpack.png";
+import { Label } from "components/ui/Label";
+import { backgroundSize } from "html2canvas/dist/types/css/property-descriptors/background-size";
+import { useIsMobile } from "lib/utils/hooks/useIsMobile";
+import { TopGround } from "./TopGround";
+import { ButtomGround } from "./BottomGround";
+import { MyCastle } from "./MyCastle";
 
 export const WolfTownWorld: React.FC = () => {
   // catching and passing scroll container to keyboard listeners
   const container = useRef(null);
   // const { id } = useParams();
   const [scrollIntoView] = useScrollIntoView();
+  const battlePower = 67437788; // 从后端获取的战斗力数据
+  const { t } = useTranslation();
+  const battlePowerString = battlePower.toString(); // 将战斗力数据转换为字符串
+  const [isMobile] = useIsMobile();
 
+  const numberImages = {
+    "1": "public/images/power_1.png",
+    "2": "public/images/power_2.png",
+    "3": "public/images/power_3.png",
+    "4": "public/images/power_4.png",
+    "5": "public/images/power_5.png",
+    "6": "public/images/power_6.png",
+    "7": "public/images/power_7.png",
+    "8": "public/images/power_8.png",
+    "9": "public/images/power_9.png",
+    "0": "public/images/power_0.png",
+  };
+  
+  //显示特效字
+  const replacedDigits = battlePowerString
+    .split("") // 将字符串拆分为单个数字
+    .map((digit, index) => (
+      <img src={numberImages[digit]} alt={`Digit ${digit}`} key={index} />
+    ));
   useEffect(() => {
     //加载socket
     scrollIntoView(Section.MyTown, "auto");
@@ -33,7 +70,11 @@ export const WolfTownWorld: React.FC = () => {
   // Load data
   return (
     <GameProvider key="WolfTownWorld">
+
       <ToastProvider>
+     <TopGround/>
+     <ButtomGround/>
+     <MyCastle/>
         {/* overflow-scroll  */}
         <ScrollContainer
           className="bg-green-background overflow-scroll relative w-full h-full"
@@ -42,14 +83,20 @@ export const WolfTownWorld: React.FC = () => {
         >
           <div
             className="relative h-gameboardWorld w-gameboardWorld "
+            style={{  position: "relative"}}
             // TODO dynamic game board size based on tile dimensions
           >
             <img src={background} className="absolute inset-0 w-full  " />
             {/*<ExpansionInfo />*/}
             <GameWorld />
           </div>
+          {/* <div className="bottom-bar" style={{ backgroundImage:  `url(${bottom})`, width: "100%", height: "50px", margin: 0, padding: 0 }}>
+          {/* 底部内容 
+        </div> */}
         </ScrollContainer>
+        
       </ToastProvider>
     </GameProvider>
+    
   );
 };

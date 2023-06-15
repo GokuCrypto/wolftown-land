@@ -173,7 +173,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
           }}
           className="relative h-gameboard w-gameboard"
         >
-          <img src={arenabg} className="absolute inset-3 w-1/3   " />
+          <img src={arenabg}  className="absolute inset-3 w-1/3   " />
           <img
             src={boo}
             style={{

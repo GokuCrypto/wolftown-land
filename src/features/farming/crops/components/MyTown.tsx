@@ -12,6 +12,7 @@ import nameplate from "assets/land/nameplate/one.png";
 import icon from "assets/land/other/i001.png";
 import icon02 from "assets/land/other/i002.png";
 import setting from "assets/land/other/setting.gif";
+import { buildCastle } from "hooks/WolfConfig";
 
 import { t } from "i18next";
 
@@ -64,9 +65,21 @@ export const MyTown: React.FC = () => {
   const [position, setPosition] = useState<any>({ x: 0, y: 0 });
   //是否禁止移动
   const [def, setDef] = useState<boolean>(false);
-
+  const [isBuilding, setIsBuilding] = useState(false);
   const [viewCard, setViewCard] = useState<boolean>(false);
+  const [message, setMessage] = useState("");
 
+//建造城堡
+  const handleBuildClick = async () => {
+    const result = await buildCastle(position.x,position.y)
+    if (!result?.success) {
+      setMessage(result.message);
+    } else {
+      setMessage("build succeeded!");
+      setDef(true);
+    }
+    setIsBuilding(true);
+  };
   const handleDrag = (e: any, draggableData: any) => {
     const { x, y } = draggableData;
 
@@ -121,7 +134,10 @@ export const MyTown: React.FC = () => {
               <SettingTopCard02>
                 <img src={setting} className={"w-full flex justify-between"} />
               </SettingTopCard02>
-              <TownTopCard02> </TownTopCard02>
+              <TownTopCard02 onClick={handleBuildClick}>
+                      {/* 根据建造状态显示不同内容 */}
+                      {isBuilding ? '建造中...' : '点击建造'} 
+              </TownTopCard02>
             </>
           )}
 

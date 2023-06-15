@@ -249,7 +249,9 @@
   "Load invitation data into the game":"加载邀请数据到游戏",
   "There are no items to repair":"没有需要修复的物品",
   "There are currently":"当前有",
-  "items that need to be repaired":"件武器需要修复"
+  "items that need to be repaired":"件武器需要修复",
+  "castle":"城堡",
+  "WorldMap":"世界地图"
 
 
 

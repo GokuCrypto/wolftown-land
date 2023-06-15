@@ -118,7 +118,7 @@ export const Game: React.FC = () => {
           {gameState.matches("syncing") && <Syncing />}
         </Panel>
       </Modal>
-
+      
       {/*<ClockIssue show={gameState.context.offset > 0} />*/}
       <Hud />
       {/*<TeamDonation />*/}

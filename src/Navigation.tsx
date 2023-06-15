@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useActor } from "@xstate/react";
 import { Routes, Route, HashRouter } from "react-router-dom";
-
+import bag from "assets/wt/backpack.png";
 import * as AuthProvider from "features/auth/lib/Provider";
-
+import { useTranslation } from "react-i18next";
 import { Splash } from "features/auth/components/Splash";
 import { Auth } from "features/auth/Auth";
 import { Humans } from "features/game/Humans";
 import { Goblins } from "features/game/Goblins";
 import { WolfTown } from "features/game/WolfTown";
 import { WolfTownWorld } from "features/game/WolfTownWorld";
-
+import { Label } from "components/ui/Label";
 import { Forbidden } from "features/auth/components/Forbidden";
 
 /**
@@ -23,11 +23,13 @@ export const Navigation: React.FC = () => {
   const [showGame, setShowGame] = useState(false);
   //世界地图开关
   const [showWorld, setShowWorld] = useState(true);
+  const { t } = useTranslation();
 
   /**
    * Listen to web3 account/chain changes
    * TODO: move into a hook
    */
+
   useEffect(() => {
     if (window.ethereum) {
       window.ethereum.on("chainChanged", () => {
@@ -46,13 +48,20 @@ export const Navigation: React.FC = () => {
       authState.matches("visiting");
 
     // TODO: look into this further
-    // This is to prevent a modal clash when the authmachine switches
-    // to the game machine.
+    // This is to prevent a modal clash when the authmachine switches   // to the game machine.
     setTimeout(() => setShowGame(_showGame), 20);
   }, [authState, authState.value]);
 
   return (
     <>
+      <div
+        // className="w-12 h-12 sm:mx-8 mt-2 relative flex justify-center items-center shadow rounded-full cursor-pointer"
+        onClick={() => setShowWorld(true)}
+      >
+        <img src={bag} className="absolute w-full h-full -z-20" alt="Bag" />
+        {/* <img src={bag} className="w-8 mb-1" alt="inventory" /> */}
+        <Label className="hidden sm:block absolute -bottom-7">{t("Bag")}</Label>
+      </div>
       <Auth />
       {showGame ? (
         <>

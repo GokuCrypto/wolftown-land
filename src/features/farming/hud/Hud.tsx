@@ -10,7 +10,9 @@ import { Menu } from "./components/Menu";
 import { AudioPlayer } from "components/ui/AudioPlayer";
 import { VisitBanner } from "./components/VisitBanner";
 import { NftWallet } from "./components/NftWallet";
-
+import { WolfTownWorld } from "features/game/WolfTownWorld";
+import { Navigation } from "src/Navigation";
+import { WorldMap } from "features/game/WorldMap";
 /**
  * Heads up display - a concept used in games for the small overlayed display of information.
  * Balances, Inventory, actions etc.
@@ -23,6 +25,8 @@ export const Hud: React.FC = () => {
       <Balance />
       <NftWallet />
       <Bag />
+      <WorldMap />
+      {/* <Navigation/>  */}
       {/* <Invite /> */}
       {/*<AudioPlayer isFarming />*/}
       <VisitBanner />

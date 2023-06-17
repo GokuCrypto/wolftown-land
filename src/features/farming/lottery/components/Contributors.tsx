@@ -130,12 +130,14 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
   const [lotteryUrl, setLotteryUrl] = useState([""]);
   const [lotteryAmount, setLotteryAmount] = useState([""]);
   const [isLoading, setIsLoading] = useState(true);
-  const {t} = useTranslation();
+  const [lucky, setLucky] = useState<any>();
+
+  const { t } = useTranslation();
   useEffect(() => {
     setIsLoading(true);
     const load = async () => {
       queryWolfLotteryGoodsList().then((obj) => {
-        const wolfLotteryGoodsResultList = obj;
+        const wolfLotteryGoodsResultList = obj.result.wolfLotteryGoodsList;
         if (
           wolfLotteryGoodsResultList != null &&
           wolfLotteryGoodsResultList.length > 0
@@ -151,6 +153,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
           setLotteryName(lotteryNameInit);
           setLotteryUrl(lotteryUrlInit);
           setLotteryAmount(lotteryAmountInit);
+          setLucky(obj.result.wolfLucky);
         }
       });
     };
@@ -160,13 +163,12 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
   const { ref: itemContainerRef, showScrollbar } =
     useShowScrollbar(TAB_CONTENT_HEIGHT);
   const navigate = useNavigate();
-  console.log("timesstimess", timess);
+  console.log("timesstimess", lotteryUrl);
 
   return (
     <>
       <div className="flex flex-wrap justify-center items-center">
-        <h1 className="text-xl  text-center pt-1">
-          {t("Lottery")}</h1>
+        <h1 className="text-xl  text-center pt-1">{t("Lottery")}</h1>
         <p className="text-xs text-center pt-2">
           {t("Welcome to the lottery center")}
         </p>
@@ -187,6 +189,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
         style={{ marginTop: "20px" }}
         className="flex flex-wrap justify-center items-center"
       >
+        <span>{lucky?.number && "X" + lucky?.number / 100}</span>
         <Button
           style={{ width: "100%" }}
           onClick={() => {
@@ -197,7 +200,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
         >
           {t("A lottery ticket")}
         </Button>
-        <Button
+        {/*  <Button
           style={{ width: "100%" }}
           onClick={() => {
             setTimess(5);
@@ -216,12 +219,12 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
           className="overflow-hidden mb-2"
         >
           {t("Ten lottery tickets")}
-        </Button>
+        </Button> */}
         <h1 style={{ width: "100%" }} className="text-xs text-center pt-2">
           {t("Prize list")}
         </h1>
         <div className="flex flex-wrap items-center h-fit">
-          {lotteryName.length > 1 ? (
+          {lotteryName.length > 0 ? (
             lotteryName.map((obj, idx) => (
               <div style={{ width: "10%", margin: "10px" }}>
                 <img

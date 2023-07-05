@@ -1,28 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
-import ScrollContainer, { ScrollEvent } from "react-indiana-drag-scroll";
+import React, { useEffect, useRef } from "react";
+import ScrollContainer from "react-indiana-drag-scroll";
 
 import background from "assets/land/world02.jpeg";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
-import { useTranslation } from "react-i18next";
+import { heartCheckFun, websock } from "hooks/Websocket";
+import { useIsMobile } from "lib/utils/hooks/useIsMobile";
 import { Section, useScrollIntoView } from "lib/utils/hooks/useScrollIntoView";
+import { useTranslation } from "react-i18next";
 import { GameProvider } from "./GameProvider";
 import { GameWorld } from "./GameWorld";
 import mapMovement from "./lib/mapMovement";
-import { ToastProvider } from "./toast/ToastQueueProvider";
-import { websock, heartCheckFun } from "hooks/Websocket";
-import backgroundImages from "public/images/world_top.png"
-import logoImage from "public/images/avatar_frame2.png"
-import avatarImage from "public/images/Weekly Groundhog.png"
-import bottom from "public/images/frame.png"
-import bag from "assets/wt/backpack.png";
-import { Label } from "components/ui/Label";
-import { backgroundSize } from "html2canvas/dist/types/css/property-descriptors/background-size";
-import { useIsMobile } from "lib/utils/hooks/useIsMobile";
-import { TopGround } from "./TopGround";
-import { ButtomGround } from "./BottomGround";
 import { MyCastle } from "./MyCastle";
+import { ToastProvider } from "./toast/ToastQueueProvider";
+import { ButtomGround } from "./world/BottomGround";
+import { TopGround } from "./world/TopGround";
 
 export const WolfTownWorld: React.FC = () => {
   // catching and passing scroll container to keyboard listeners
@@ -46,7 +38,7 @@ export const WolfTownWorld: React.FC = () => {
     "9": "public/images/power_9.png",
     "0": "public/images/power_0.png",
   };
-  
+
   //显示特效字
   const replacedDigits = battlePowerString
     .split("") // 将字符串拆分为单个数字
@@ -70,11 +62,10 @@ export const WolfTownWorld: React.FC = () => {
   // Load data
   return (
     <GameProvider key="WolfTownWorld">
-
       <ToastProvider>
-     <TopGround/>
-     <ButtomGround/>
-     <MyCastle/>
+        <TopGround />
+        <ButtomGround />
+        <MyCastle />
         {/* overflow-scroll  */}
         <ScrollContainer
           className="bg-green-background overflow-scroll relative w-full h-full"
@@ -83,7 +74,7 @@ export const WolfTownWorld: React.FC = () => {
         >
           <div
             className="relative h-gameboardWorld w-gameboardWorld "
-            style={{  position: "relative"}}
+            style={{ position: "relative" }}
             // TODO dynamic game board size based on tile dimensions
           >
             <img src={background} className="absolute inset-0 w-full  " />
@@ -94,9 +85,7 @@ export const WolfTownWorld: React.FC = () => {
           {/* 底部内容 
         </div> */}
         </ScrollContainer>
-        
       </ToastProvider>
     </GameProvider>
-    
   );
 };

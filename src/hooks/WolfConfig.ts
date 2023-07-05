@@ -361,10 +361,10 @@ export const API_CONFIG = {
   //socketTest 
 
   socketTest: `${HASH_GAME_API}/wolftown/test`,
-/*设置冒险队伍*/
-  adventureTeam:`${HASH_GAME_API}/wolftown/adventureTeam`,
+  /*设置冒险队伍*/
+  adventureTeam: `${HASH_GAME_API}/wolftown/adventureTeam`,
   /*建造城堡*/
-  buildCastle:`${HASH_GAME_API}/wolftown/buildCastle`
+  buildCastle: `${HASH_GAME_API}/wolftown/buildCastle`
 
 
 
@@ -2033,7 +2033,7 @@ export const queryGroundhogLog = async (params: any, pageNo: string, pageSize: s
 
 
 /* 设置探险队伍 */
-export const adventureTeam = async (animals: string )=> {
+export const adventureTeam = async (animals: string) => {
 
   const XAccessToken = localStorage.getItem('XAccessToken');
   /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */
@@ -2063,7 +2063,7 @@ export const adventureTeam = async (animals: string )=> {
 
 }
 /* 建造城堡 */
-export const buildCastle = async (x:number,y:number )=> {
+export const buildCastle = async (x: number, y: number) => {
 
   const XAccessToken = localStorage.getItem('XAccessToken');
   /*   console.log("XAccessTokenuiduid", XAccessToken, "uid", uid); */

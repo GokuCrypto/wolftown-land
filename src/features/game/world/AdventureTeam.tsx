@@ -17,12 +17,9 @@ import { CraftableItem, Ingredient } from "features/game/types/craftables";
 import { InventoryItemName } from "features/game/types/game";
 import { Goods } from "components/ui/Goods";
 import { WolfUserGoods } from "hooks/modules/WolfUserGoods";
-import backgroundImages from "public/images/farme1.png"
+import backgroundImages from "public/images/farme1.png";
 import { useTranslation } from "react-i18next";
-import {
-  queryBagByType,
-  adventureTeam
-} from "hooks/WolfConfig";
+import { queryBagByType, adventureTeam } from "hooks/WolfConfig";
 import {
   reward,
   synthesis,
@@ -34,12 +31,8 @@ interface Props {
 }
 /*操作台 */
 
-export const AdventureTeam: React.FC<Props> = ({
-
-  onClose,
-  isBulk = false,
-}) => {
-   const [items,setItem] = useState<Partial<Record<any, any>>>({});
+export const AdventureTeam: React.FC<Props> = ({ onClose, isBulk = false }) => {
+  const [items, setItem] = useState<Partial<Record<any, any>>>({});
   const [selected, setSelected] = useState<any>(Object.values(items)[0]);
   const [selectedNum, setSelectedNum] = useState(0);
 
@@ -78,7 +71,7 @@ export const AdventureTeam: React.FC<Props> = ({
         setBagAnimal(result?.filter((val: any) => val.landLock != 1));
       }
       console.log("bagAnimal", result);
-    
+
       setIsLoading(false);
     } catch (e: any) {
       setIsLoading(false);
@@ -96,14 +89,13 @@ export const AdventureTeam: React.FC<Props> = ({
 
     let animals = "";
 
-
     for (var i = 0; i < landBuilditems.length; i++) {
       if (landBuilditems[i].goodsName.indexOf("Field") == -1) {
         animals = animals + landBuilditems[i].goodsName + "@";
       }
     }
 
-    const result = await adventureTeam( animals);
+    const result = await adventureTeam(animals);
 
     if (!result.success) {
       setMessage(result.message);
@@ -112,7 +104,6 @@ export const AdventureTeam: React.FC<Props> = ({
     }
   };
 
-
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
@@ -120,14 +111,6 @@ export const AdventureTeam: React.FC<Props> = ({
   const Action = () => {
     return (
       <div>
-        {/*   <label>
-          <input
-            type="checkbox"
-            checked={isChecked}
-            onChange={handleCheckboxChange}
-          />
-          {t("Auto")}
-        </label> */}
         <Button
           className="text-xs mt-1"
           onClick={() => {
@@ -158,36 +141,29 @@ export const AdventureTeam: React.FC<Props> = ({
   };
 
   return (
-    
     <div className="flex">
-
-
-      <OuterPanel className="flex-1 w-2/3" style={{backgroundImage:`url(${backgroundImages})`} as {[key: string]: React.CSSProperties}}>
-      <div className="w-3/5 flex flex-wrap h-fit">
-        <span className="w-100 text-shadow text-center">{t("Animal")}</span>
-        {Object.values(landBuilditems).map((item, idx) => (
-          <Box
-            isSelected={selected.goodsName === item.goodsName}
-            key={item.goodsName}
-            onClick={() => {
-              setSelected(item);
-              setSelectedNum(idx);
-            }}
-            image={item.goodsUrl}
-          />
-        ))}
-         {/* {Array.from({ length: 20 }).map((_, idx) => (
-      <Box
-        isSelected={selected.goodsName === landBuilditems[idx]?.goodsName}
-        key={idx}
-        onClick={() => {
-          setSelected(landBuilditems[idx]);
-          setSelectedNum(idx);
-        }}
-        image={landBuilditems[idx]?.goodsUrl}
-      />
-    ))} */}
-      </div>
+      <OuterPanel
+        className="flex-1 w-2/3"
+        style={
+          { backgroundImage: `url(${backgroundImages})` } as {
+            [key: string]: React.CSSProperties;
+          }
+        }
+      >
+        <div className="w-3/5 flex flex-wrap h-fit">
+          <span className="w-100 text-shadow text-center">{t("Animal")}</span>
+          {Object.values(landBuilditems).map((item, idx) => (
+            <Box
+              isSelected={selected.goodsName === item.goodsName}
+              key={item.goodsName}
+              onClick={() => {
+                setSelected(item);
+                setSelectedNum(idx);
+              }}
+              image={item.goodsUrl}
+            />
+          ))}
+        </div>
       </OuterPanel>
       <OuterPanel className="flex-1 w-2/3">
         <div className="flex flex-col justify-center items-center p-2 relative">

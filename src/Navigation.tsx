@@ -18,11 +18,14 @@ import { Forbidden } from "features/auth/components/Forbidden";
  * Controls flow of authorised and unauthorised games
  */
 export const Navigation: React.FC = () => {
-  const { authService } = useContext(AuthProvider.Context);
+  const { authService, worldMapView, setWorldMapView } = useContext(
+    AuthProvider.Context
+  );
+
   const [authState, send] = useActor(authService);
   const [showGame, setShowGame] = useState(false);
   //世界地图开关
-  const [showWorld, setShowWorld] = useState(true);
+
   const { t } = useTranslation();
 
   /**
@@ -54,18 +57,10 @@ export const Navigation: React.FC = () => {
 
   return (
     <>
-      <div
-        // className="w-12 h-12 sm:mx-8 mt-2 relative flex justify-center items-center shadow rounded-full cursor-pointer"
-        onClick={() => setShowWorld(true)}
-      >
-        <img src={bag} className="absolute w-full h-full -z-20" alt="Bag" />
-        {/* <img src={bag} className="w-8 mb-1" alt="inventory" /> */}
-        <Label className="hidden sm:block absolute -bottom-7">{t("Bag")}</Label>
-      </div>
       <Auth />
       {showGame ? (
         <>
-          {!showWorld && (
+          {!worldMapView && (
             <HashRouter>
               <Routes>
                 <Route path="/" element={<Humans />} />
@@ -91,7 +86,7 @@ export const Navigation: React.FC = () => {
             </HashRouter>
           )}
 
-          {showWorld && (
+          {worldMapView && (
             <HashRouter>
               <Routes>
                 <Route path="/game" element={<WolfTownWorld />} />

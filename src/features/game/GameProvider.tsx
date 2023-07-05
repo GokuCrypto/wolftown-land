@@ -59,7 +59,13 @@ export const GameProvider: React.FC = ({ children }) => {
   const selectedItem = shortcuts.length > 0 ? shortcuts[0] : undefined;
 
   return (
-    <Context.Provider value={{ shortcutItem, selectedItem, gameService }}>
+    <Context.Provider
+      value={{
+        shortcutItem,
+        selectedItem,
+        gameService,
+      }}
+    >
       {children}
     </Context.Provider>
   );

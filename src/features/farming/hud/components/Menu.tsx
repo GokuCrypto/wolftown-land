@@ -43,6 +43,7 @@ import { useTranslation } from "react-i18next";
 enum MENU_LEVELS {
   ROOT = "root",
   MAP = "map",
+  Military = "military",
   VIEW = "view",
 }
 
@@ -222,6 +223,15 @@ export const Menu = () => {
                     onClick={() => setMenuLevel(MENU_LEVELS.MAP)}
                   >
                     <span className="sm:text-sm flex-1">{t("Map")}</span>
+                  </Button>
+                </li>
+
+                <li className="p-1">
+                  <Button
+                    className="flex justify-between"
+                    onClick={() => setMenuLevel(MENU_LEVELS.Military)}
+                  >
+                    <span className="sm:text-sm flex-1">{t("Military")}</span>
                   </Button>
                 </li>
                 {/*<li className="p-1">

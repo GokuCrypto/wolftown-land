@@ -1,36 +1,23 @@
-import React, { useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { CONFIG } from "lib/config";
-import { Modal } from "react-bootstrap";
-import close from "assets/icons/close.png";
 import logo from "assets/brand/wolflogo.png";
+import close from "assets/icons/close.png";
 import bumpkin from "assets/npcs/bumpkin.png";
 import goblin from "assets/npcs/goblin.gif";
 import man from "assets/npcs/idle.gif";
-import {
-  buildList,
-  build,
-  totalContribute,
-  transactionFlowList,
-} from "hooks/WolfConfig";
-import { Build } from "hooks/modules/Build";
-import { Panel } from "components/ui/Panel";
-import level1 from "assets/brand/1.png";
-import level2 from "assets/brand/2.png";
-import level3 from "assets/brand/3.png";
-import level4 from "assets/brand/4.png";
-import { useTranslation } from "react-i18next";
-import { Button } from "components/ui/Button";
-import {
-  Contributor,
-  ContributorRole,
-  CONTRIBUTORS,
-} from "../constants/contributors";
-import { ITEM_DETAILS } from "features/game/types/images";
-import { ContributorsBuild } from "./ContributorsBuild";
-import { dividends } from "hooks/WolfConfig";
-import { useShowScrollbar } from "lib/utils/hooks/useShowScrollbar";
 import classNames from "classnames";
+import { Button } from "components/ui/Button";
+import { Panel } from "components/ui/Panel";
+import { ITEM_DETAILS } from "features/game/types/images";
+import { Build } from "hooks/modules/Build";
+import { buildList, dividends } from "hooks/WolfConfig";
+import { formatNumber } from "hooks/WolfUtils";
+
+import { useShowScrollbar } from "lib/utils/hooks/useShowScrollbar";
+import React, { useEffect, useState } from "react";
+import { Modal } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { Contributor, ContributorRole } from "../constants/contributors";
+import { ContributorsBuild } from "./ContributorsBuild";
 
 const TAB_CONTENT_HEIGHT = 340;
 
@@ -124,7 +111,7 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
         </div>
         <div
           style={{ fontSize: "10px", marginTop: "20px" }}
-          className="flex flex-wrap items-center h-fit"
+          className="flex flex-wrap items-center h-fit font"
         >
           {buildItem.map((item) => (
             <div
@@ -132,22 +119,42 @@ export const Contributors: React.FC<Props> = ({ onClose }) => {
               className="flex w-full mb-6 ml-3"
               id={item.goodsName}
             >
-              <div className="w-60 ml-4 flex justify-center">
+              <div
+                style={{ minWidth: "120px" }}
+                className="w-60 ml-4 flex justify-left"
+              >
                 {t(item.goodsType)}
               </div>
 
-              <div className="w-30 ml-4 flex justify-center">
-                {"Amount(" + `${item.totalGu ? item.totalGu : 0}` + ")"}
+              <div
+                style={{ minWidth: "160px" }}
+                className="w-30 ml-4 flex justify-left"
+              >
+                {"Amount(" +
+                  `${formatNumber(item.totalGu ? item.totalGu : 0)}` +
+                  ")"}
               </div>
 
-              <div className="w-30 ml-4 flex justify-center">
-                {item.totalAmount + "(" + `${item.totalGuAmount}` + ")"}
+              <div
+                style={{ minWidth: "160px" }}
+                className="w-30 ml-4 flex justify-left"
+              >
+                {item.totalAmount +
+                  "(" +
+                  `${formatNumber(item.totalGuAmount)}` +
+                  ")"}
               </div>
-              <div className="w-10 ml-4 flex justify-center">
-                {item.personAmount}
+              <div
+                style={{ minWidth: "120px" }}
+                className="w-10 ml-4 flex justify-left"
+              >
+                {formatNumber(item.personAmount)}
               </div>
 
-              <div className="w-30 ml-8 flex justify-center">
+              <div
+                style={{ minWidth: "80px" }}
+                className="w-30 ml-8 flex justify-center"
+              >
                 <Button
                   className="w-40 bg-brown-200 active:bg-brown-200 "
                   onClick={() => {

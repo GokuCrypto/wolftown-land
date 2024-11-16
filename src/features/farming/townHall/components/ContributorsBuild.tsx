@@ -113,7 +113,7 @@ export const ContributorsBuild: React.FC<Props> = ({ onClose, goodsType }) => {
       {/* 建筑股权 */}
       <div className="flex flex-wrap justify-center items-center">
         <p
-          style={{ color: "#af1d18", fontSize: "30px" }}
+          style={{ color: "#af1d18", fontSize: "20px" }}
           className="text-xs text-center pt-2"
         >
           {goodsType}
@@ -139,15 +139,22 @@ export const ContributorsBuild: React.FC<Props> = ({ onClose, goodsType }) => {
         >
           {buildItem.map((item) => (
             <div
+              style={{ minWidth: "80px" }}
               key={item.goodsName}
               className="flex w-full mb-6 ml-3"
               id={item.goodsName}
             >
-              <div className="w-20 ml-4 flex justify-center">
+              <div
+                style={{ minWidth: "80px" }}
+                className="w-20 ml-4 flex justify-center"
+              >
                 {item.goodsName}
               </div>
 
-              <div className="w-10 ml-4 flex justify-center">
+              <div
+                style={{ minWidth: "80px" }}
+                className="w-10 ml-4 flex justify-center"
+              >
                 LV.{item.level}
               </div>
 
@@ -167,15 +174,24 @@ export const ContributorsBuild: React.FC<Props> = ({ onClose, goodsType }) => {
                   className="h-8"
                 />
               </div> */}
-              <div className="w-20 ml-4 flex justify-center">
+              <div
+                style={{ minWidth: "80px" }}
+                className="w-20 ml-4 flex justify-center"
+              >
                 <img src={item.goodsUrl} className="h-8" />
               </div>
 
-              <div className="w-10 ml-4 flex justify-center">
+              <div
+                style={{ minWidth: "80px" }}
+                className="w-10 ml-4 flex justify-center"
+              >
                 x{item.amount}
               </div>
 
-              <div className="w-30 ml-8 flex justify-center">
+              <div
+                style={{ minWidth: "160px" }}
+                className="w-30 ml-8 flex justify-center"
+              >
                 <Button
                   className="w-30 bg-brown-200 active:bg-brown-200 "
                   onClick={() => {
@@ -184,7 +200,7 @@ export const ContributorsBuild: React.FC<Props> = ({ onClose, goodsType }) => {
                 >
                   {t("Build")}
                 </Button>
-                  <Button
+                <Button
                   className="w-30 bg-brown-200 active:bg-brown-200 "
                   onClick={() => {
                     setBuildGoodsItem(item);

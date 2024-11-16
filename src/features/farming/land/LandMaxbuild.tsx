@@ -195,7 +195,7 @@ export const LandMaxbuild: React.FC = () => {
                     style={{ bottom: "20px", fontSize: "8px", color: "#fff" }}
                     className="relative w-full"
                   >
-                    <LandTime cdate={obj.cdate} />
+                    <LandTime key={obj.id} cdate={obj.cdate} />
                   </div>
                 </>
               )}

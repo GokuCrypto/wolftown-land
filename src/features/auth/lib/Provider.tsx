@@ -14,7 +14,7 @@ export const Context = React.createContext<AuthContext>({} as AuthContext);
 export const Provider: React.FC = ({ children }) => {
   const authService = useInterpret(authMachine) as MachineInterpreter;
 
-  const [worldMapView, setWorldMapView] = useState(true);
+  const [worldMapView, setWorldMapView] = useState(false);
 
   return (
     <Context.Provider value={{ authService, worldMapView, setWorldMapView }}>

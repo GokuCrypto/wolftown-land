@@ -215,7 +215,6 @@ export const isLoggedIn = function () {
 
 
 
-
 export const HASH_GAME_API = "https://mainapi.wolftown.games/jeecg-boot";
 
 /* export const HASH_GAME_API = "http://localhost:8080/jeecg-boot/"; */

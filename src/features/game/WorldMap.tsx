@@ -33,7 +33,7 @@ export const WorldMap: React.FC = () => {
         <div className="w-12 h-12 sm:mx-8 mt-2 relative flex justify-center items-center shadow rounded-full cursor-pointer">
           <img
             onClick={() => {
-              setWorldMapView(true);
+              //设置  setWorldMapView(true);
             }}
             src={"/images/world_map.png"}
             className="w-12 h-12 mr-2 relative shadow rounded-full cursor-pointer"
